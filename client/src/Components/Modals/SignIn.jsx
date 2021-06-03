@@ -71,6 +71,20 @@ const OauthContainer = styled.div`
     justify-content: center;
     align-items: center;
 `
+
+const TermsContainer = styled.div`
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+`
+
+const Terms = styled.p`
+    font-size: 12px;
+    font-weight: 400;
+    width: 70%;
+`
 const IconButton = styled.a`
     margin: 10px;
     svg {
@@ -157,6 +171,9 @@ const SignIn = ({ visible, setVisible }) => {
                             <FcGoogle height={24} />
                         </IconButton>
                     </OauthContainer>
+                    <TermsContainer>
+                        <Terms>By logging in or creating an account, you agree to langi's Terms of Service and Privacy Policy.</Terms>
+                    </TermsContainer>
                 </Form>
             </TabContent>
         </AuthModal>
