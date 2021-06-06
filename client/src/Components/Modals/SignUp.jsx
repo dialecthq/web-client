@@ -5,10 +5,12 @@ import { IoAdd } from 'react-icons/io5'
 import { AiOutlineEye } from 'react-icons/ai'
 import { FaFacebook } from 'react-icons/fa'
 import { FcGoogle } from 'react-icons/fc'
+import axios from 'axios'
 
 
 import LanguageOptions from '../../Data/LanguageOptions.js'
 import CountryOptions from '../../Data/CountryOptions.js'
+import TimezoneOptions from '../../Data/TimezoneOptions'
 
 const TabContent = styled.div`
   display: flex;
@@ -19,9 +21,7 @@ const TabContent = styled.div`
 `
 
 const AuthModal = styled(Modal)`
-  width: ${p => p.page === 0 ? '400px' : '600px'} !important;
-  transition: 0.2s all ease-in-out;
-
+  width: 375px !important;
 
   @media screen and (max-width: 768px) {
     width: 100% !important;
@@ -105,6 +105,7 @@ const FormColumn = styled.div`
     justify-content: center;
     align-items: flex-start;
     width: 100%;
+    margin-bottom: 15px;
 `
 
 const Label = styled.p`
@@ -121,22 +122,6 @@ const AddLanguageContainer = styled.div`
         cursor: pointer;
     }
 `
-const AddLanguageButton = styled.div`
-    padding: 5px;
-    border-radius: 50px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border: 0.5px solid #8465FF;
-    margin-right: 10px;
-`
-
-const AddLanguageText = styled.p`
-    font-size: 14px;
-    font-weight: 400;
-    color: #8465ff;
-    margin: 0px;
-`
 
 const FormRow = styled.div`
     display: flex;
@@ -147,20 +132,37 @@ const FormRow = styled.div`
 
 const SignUp = ({ visible, setVisible }) => {
     const [page, setPage] = useState(0)
-    const [name, setName] = useState('')
-    const [email, setEmail] = useState('')
-    const [password, setPassword] = useState('')
-    const [targets, setTargets] = useState([])
-    const [knowns, setKnowns] = useState([])
-    const [timezone, setTimezone] = useState([])
-    const [country, setCountry] = useState([])
+    const [user, setUser] = useState({})
 
-    const onFinish = (values) => {
-        setName(values.name)
-        setEmail(values.email)
-        setPassword(values.password)
+    const onFinishPage1 = (values) => {
+        setUser({
+            name: values.name,
+            email: values.email,
+            password: values.password
+        })
         setPage(1)
     };
+
+    const onFinishPage2 = (values) => {
+        let tempUser = {
+            ...user,
+            target: [parseInt(values.target)],
+            native: [parseInt(values.native)],
+            country: parseInt(values.country),
+            timezone: parseInt(values.timezone),
+        }
+
+        axios.post('http://localhost:9000/user/register', tempUser)
+            .then((data) => {
+                if(data.data.user) {
+                    console.log('success!')
+                } else {
+                    console.log(data.data.message)
+                }
+            }).catch((error) => {
+                console.log(error)
+            })
+    }
 
     const onFinishFailed = (errorInfo) => {
         console.log('Failed:', errorInfo);
@@ -172,23 +174,22 @@ const SignUp = ({ visible, setVisible }) => {
             onCancel={() => { setVisible(false) }}
             title={"Register"}
             footer={null}
-            page={page}
         >
             <Steps size="small" current={page} style={{ padding: 20 }}>
-                <Steps.Step title="Login" />
+                <Steps.Step title="Login Info" />
                 <Steps.Step title="More Info" />
             </Steps>
             {page === 0 && (
                 <TabContent>
                     <Form
                         name="login-info"
-                        onFinish={onFinish}
+                        onFinish={onFinishPage1}
                         onFinishFailed={onFinishFailed}
                         style={{ width: '100%' }}
                     >
                         <Form.Item
                             name="name"
-                            rules={[{ required: true, message: 'Please input your email.' }]}
+                            rules={[{ required: true, message: 'Please input your name.' }]}
                         >
                             <Input
                                 placeholder="Name"
@@ -225,9 +226,6 @@ const SignUp = ({ visible, setVisible }) => {
                                 block
                                 htmlType="submit"
                                 style={{ height: 40 }}
-                                onClick={() => {
-                                    setPage(1)
-                                }}
                             >
                                 <ButtonText>Continue</ButtonText>
                             </Button>
@@ -252,88 +250,74 @@ const SignUp = ({ visible, setVisible }) => {
                 <TabContent>
                     <Form
                         name="login-info"
-                        onFinish={onFinish}
+                        onFinish={onFinishPage2}
                         onFinishFailed={onFinishFailed}
                         style={{ width: '100%' }}
                     >
-                        <Form.Item
-                            name="target-language"
-                            rules={[{ required: true, message: 'Please input your password.' }]}>
-                            <FormColumn>
-                                <Label>Target Language</Label>
-                                <Select
-                                    placeholder="Known Language"
-                                    style={{ width: '100%', height: 40 }}
-                                >
-                                    {LanguageOptions.map((language) => {
-                                        return <Select.Option value={language.key}>{language.value}</Select.Option>
-                                    })}
-                                
-                                </Select>
-                                <AddLanguageContainer>
-                                    <AddLanguageButton>
-                                        <IoAdd size={16} color="#8465ff" />
-                                    </AddLanguageButton>
-                                    <AddLanguageText>Add another language</AddLanguageText>
-                                </AddLanguageContainer>
 
-                            </FormColumn>
-                        </Form.Item>
+                        <Label>Target Language</Label>
+
                         <Form.Item
-                            name="known-language"
-                            rules={[{ required: true, message: 'Please input your password.' }]}>
-                            <FormColumn>
-                                <Label>Known Language</Label>
-                                <Select
-                                    placeholder="Known Language"
-                                    style={{ width: '100%', height: 40 }}
-                                >
-                                    {LanguageOptions.map((language) => {
-                                        return <Select.Option value={language.key}>{language.value}</Select.Option>
-                                    })}
-                                
-                                </Select>
-                                <AddLanguageContainer>
-                                    <AddLanguageButton>
-                                        <IoAdd size={16} color="#8465ff" />
-                                    </AddLanguageButton>
-                                    <AddLanguageText>Add another language</AddLanguageText>
-                                </AddLanguageContainer>
-                            </FormColumn>
+                            name="target"
+                            rules={[{ required: true, message: 'Please input your target language.' }]}
+                        >
+                            <Select
+                                placeholder="Target Language"
+                                style={{ width: '100%' }}
+                            >
+                                {LanguageOptions.map((language) => {
+                                    return <Select.Option value={language.key}>{language.value}</Select.Option>
+                                })}
+
+                            </Select>
                         </Form.Item>
+
+                        <Label>Native Language</Label>
+                        <Form.Item
+                            name="native"
+                            rules={[{ required: true, message: 'Please input your native language.' }]}>
+                            <Select
+                                placeholder="Native Language"
+                                style={{ width: '100%' }}
+                            >
+                                {LanguageOptions.map((language) => {
+                                    return <Select.Option value={language.key}>{language.value}</Select.Option>
+                                })}
+
+                            </Select>
+                        </Form.Item>
+
+                        <Label>Country / Region</Label>
                         <Form.Item
                             name="country"
                             rules={[{ required: true, message: 'Please input your country / region.' }]}>
-                            <FormColumn>
-                                <Label>Country / Region</Label>
-                                <Select
-                                    placeholder="Country / Region"
-                                    style={{ width: '100%', height: 40 }}
-                                >
-                                    {CountryOptions.map((country) => {
-                                        return <Select.Option value={country.key}>{country.value}</Select.Option>
-                                    })}
-                                </Select>
-                            </FormColumn>
+                            <Select
+                                placeholder="Country / Region"
+                                style={{ width: '100%' }}
+                            >
+                                {CountryOptions.map((country) => {
+                                    return <Select.Option value={country.key}>{country.value}</Select.Option>
+                                })}
+                            </Select>
                         </Form.Item>
+                        <Label>Timezone</Label>
                         <Form.Item
                             name="timezone"
                             rules={[{ required: true, message: 'Please input your timezone.' }]}>
-                            <FormColumn>
-                                <Label>Timezone</Label>
-                                <Select
-                                    placeholder="Timezone"
-                                    style={{ width: '100%', height: 40 }}
-                                >
-                                    <Select.Option value="English">English</Select.Option>
-                                </Select>
-                            </FormColumn>
+                            <Select
+                                placeholder="Timezone"
+                                style={{ width: '100%' }}
+                            >
+                                {TimezoneOptions.map((timezone) => {
+                                    return <Select.Option value={timezone.key}>{`${timezone.value} - ${timezone.text}`}</Select.Option>
+                                })}
+                            </Select>
                         </Form.Item>
                         <FormRow>
-                            <Form.Item style={{ marginBottom: 20, width: '100%', paddingRight: 5}}>
+                            <Form.Item style={{ marginBottom: 20, width: '100%', paddingRight: 5 }}>
                                 <Button
                                     block
-                                    style={{ height: 40}}
+                                    style={{ height: 40 }}
                                     onClick={() => {
                                         setPage(0)
                                     }}
