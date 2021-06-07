@@ -1,28 +1,36 @@
 var express = require('express');
 var router = express.Router();
 var {fire} =  require('../fire');
+var {languageOptions} = require('../data/languageOptions')
+var {countryOptions}= require('../data/countryOptions')
+var {timezoneOptions} = require('../data/timezoneOptions')
 
 /* GET users listing. */
 router.post('/register', function(req, res, next) {
   console.log(req.get('Accept-Language'))
   fire.auth().createUserWithEmailAndPassword(req.body.email, req.body.password)
   .then((userCredential) => {
+    const target = [languageOptions.filter((e) => e.value === req.body.target)[0].key]
+    const native = languageOptions.filter((e) => e.value === req.body.native)[0].key
+    const country = countryOptions.filter((e) => e.value === req.body.country)[0].key
+    const timezone = timezoneOptions.filter((e) => e.value === req.body.timezone)[0].key
+
     fire.firestore().collection('users').doc(userCredential.user.uid).set({
       name: req.body.name,
       email: req.body.email,
-      target: req.body.target,
-      native: req.body.native,
-      country: req.body.country,
-      timezone: req.body.timezone,
+      target: target,
+      native: native,
+      country: country,
+      timezone: timezone,
       username: req.body.username
     }).then((data) => {
       res.json({status: 200, message: 'successfully registered user', user: {
         name: req.body.name,
         email: req.body.email,
-        target: req.body.target,
-        native: req.body.native,
-        country: req.body.country,
-        timezone: req.body.timezone,
+        target: target,
+        native: native,
+        country: country,
+        timezone: timezone,
         username: req.body.username,
       }});
     }).catch((error) => {

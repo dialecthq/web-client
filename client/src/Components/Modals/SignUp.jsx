@@ -155,10 +155,10 @@ const SignUp = ({ visible, setVisible, setSignInVisible }) => {
     const onFinishPage2 = (values) => {
         let newTempUser = {
             ...tempUser,
-            target: [parseInt(values.target)],
-            native: [parseInt(values.native)],
-            country: parseInt(values.country),
-            timezone: parseInt(values.timezone),
+            target: values.target,
+            native: values.native,
+            country: values.country,
+            timezone: values.timezone,
         }
         setLoading(true)
         axios.post('http://localhost:9000/user/register', newTempUser)

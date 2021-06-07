@@ -13,17 +13,20 @@ const App = () => {
   return (
     <>
       <button onClick={() => {
-        setSignInVisible(true)
-      }}>sign in</button>
-      <button onClick={() => {
+        if(user.user){
+          user.signOut()
+        } else {
+          setSignInVisible(true)
+        }
+      }}>{user.user ? 'sign out' : 'sign in'}</button>
+      {!user.user &&(<button onClick={() => {
         setSignUpVisible(true)
-      }}>register</button>
-      <button onClick={() => {
-        user.signOut()
-      }}>sign out</button>
+      }}>register</button>)}
+
+
       <SignIn visible={signInVisible} setVisible={setSignInVisible} setSignUpVisible={setSignUpVisible}/>
       <SignUp visible={signUpVisible} setVisible={setSignUpVisible} setSignInVisible={setSignInVisible}/>
-      {user?.user?.username || 'not signed in'}
+      {user.user ? `@${user?.user?.username}` :  'not signed in'}
     </>
 
 
