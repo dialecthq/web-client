@@ -16,6 +16,9 @@ import timezoneOptions from '../../Data/timezoneOptions'
 import emailValidator from '../../Validators/emailValidator'
 import usernameValidator from '../../Validators/usernameValidator'
 
+// Containers 
+import User from '../../Containers/userContainer'
+
 const TabContent = styled.div`
   display: flex;
   flex-direction: column;
@@ -135,10 +138,12 @@ const FormRow = styled.div`
 
 const SignUp = ({ visible, setVisible, setSignInVisible }) => {
     const [page, setPage] = useState(0)
-    const [user, setUser] = useState({})
+    const [tempUser, setTempUser] = useState(null)
+    const [loading, setLoading] = useState(false)
+    let user = User.useContainer()
 
     const onFinishPage1 = (values) => {
-        setUser({
+        setTempUser({
             name: values.name,
             email: values.email,
             password: values.password,
@@ -148,27 +153,25 @@ const SignUp = ({ visible, setVisible, setSignInVisible }) => {
     };
 
     const onFinishPage2 = (values) => {
-        let tempUser = {
-            ...user,
+        let newTempUser = {
+            ...tempUser,
             target: [parseInt(values.target)],
             native: [parseInt(values.native)],
             country: parseInt(values.country),
             timezone: parseInt(values.timezone),
         }
-
-        axios.post('http://localhost:9000/user/register', tempUser)
+        setLoading(true)
+        axios.post('http://localhost:9000/user/register', newTempUser)
             .then((data) => {
-                console.log(data)
+                setLoading(false)
                 if (data.data.user) {
+                    user.signIn(data.data.user)
                     setVisible(false)
                     setPage(0)
-                    setUser(null)
-                    console.log('success!')
-                } else {
-                    console.log(data.data.message)
+                    setTempUser(null)
                 }
             }).catch((error) => {
-                console.log(error)
+                setLoading(false)
             })
     }
 
@@ -367,6 +370,7 @@ const SignUp = ({ visible, setVisible, setSignInVisible }) => {
                                     block
                                     htmlType="submit"
                                     style={{ height: 40 }}
+                                    loading={loading}
                                     onClick={() => {
                                         setPage(1)
                                     }}

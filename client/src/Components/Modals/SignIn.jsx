@@ -1,10 +1,13 @@
-import React from 'react'
+import React, {useState} from 'react'
 import styled from 'styled-components'
+import axios from 'axios'
 import { Modal, Button, Tabs, Input, Tooltip, Divider, Select, Form } from 'antd'
 import { AiOutlineEye } from 'react-icons/ai'
 import { FaFacebook } from 'react-icons/fa'
 import { FcGoogle } from 'react-icons/fc'
 import { IoAdd, IoAt, IoLockClosedOutline, IoMailOutline, IoPersonOutline } from 'react-icons/io5'
+import User from '../../Containers/userContainer'
+
 
 const TabContent = styled.div`
   display: flex;
@@ -99,9 +102,23 @@ const IconButton = styled.a`
     }
 `
 const SignIn = ({ visible, setVisible, setSignUpVisible }) => {
+    const [loading, setLoading] = useState(false)
+    let user = User.useContainer()
 
     const onFinish = (values) => {
-        console.log('Success:', values);
+        setLoading(true)
+        axios.get('http://localhost:9000/user/login', {
+            params: {
+                email: values.email,
+                password: values.password
+            }
+        }).then((data) => {
+            user.signIn(data.data.user)
+            setVisible(false)
+            setLoading(false)
+        }).catch((error) => {
+            setLoading(false)
+        })
     };
 
     const onFinishFailed = (errorInfo) => {
@@ -160,6 +177,7 @@ const SignIn = ({ visible, setVisible, setSignUpVisible }) => {
                             type="primary"
                             block
                             htmlType="submit"
+                            loading={loading}
                             style={{ height: 40 }}
                         >
                             <ButtonText>LOG IN</ButtonText>

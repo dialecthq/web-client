@@ -34,6 +34,22 @@ router.post('/register', function(req, res, next) {
   });
 });
 
+router.get('/login', function(req, res, nex) {
+  fire.auth().signInWithEmailAndPassword(req.query.email, req.query.password)
+  .then((userCredential) => {
+    fire.firestore().collection('users').doc(userCredential.user.uid).get().then((doc) => {
+      res.json({status: 200, message: 'successfully logged user in', user: doc.data()})
+    }).catch((error) => {
+      console.log(error)
+      res.json({status: 400, message: 'could not get user object', user: null})
+    })
+  })
+  .catch((error) => {
+    console.log(error)
+    res.json({status: 400, message: 'could not get user object', user: null})
+  });
+})
+
 router.get('/check/username', function(req, res, next) {
   fire.firestore().collection('users').where("username", "==", req.query.username).get().then((querySnapshot) => {
     if (querySnapshot.docs.length > 0) {
@@ -59,5 +75,7 @@ router.get('/check/email', function(req, res, next) {
     res.json({status: 400, message: 'could not check if username is available.'})
   })
 })
+
+
 
 module.exports = router;
