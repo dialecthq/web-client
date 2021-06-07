@@ -1,4 +1,4 @@
-const TimezoneOptions = [
+const timezoneOptions = [
     {
       "value": "Dateline Standard Time",
       "abbr": "DST",
@@ -849,4 +849,4 @@ const TimezoneOptions = [
     }
   ]
 
-  export default TimezoneOptions
+  export default timezoneOptions

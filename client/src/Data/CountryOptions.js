@@ -1,4 +1,4 @@
-const CountryOptions = [
+const countryOptions = [
     {
       "value": "Afghanistan",
       "key": 1
@@ -917,4 +917,4 @@ const CountryOptions = [
     }
   ]
 
-  export default CountryOptions
+  export default countryOptions

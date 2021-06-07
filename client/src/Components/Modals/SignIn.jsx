@@ -4,13 +4,13 @@ import { Modal, Button, Tabs, Input, Tooltip, Divider, Select, Form } from 'antd
 import { AiOutlineEye } from 'react-icons/ai'
 import { FaFacebook } from 'react-icons/fa'
 import { FcGoogle } from 'react-icons/fc'
+import { IoAdd, IoAt, IoLockClosedOutline, IoMailOutline, IoPersonOutline } from 'react-icons/io5'
 
 const TabContent = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 20px;
 `
 
 const AuthModal = styled(Modal)`
@@ -98,7 +98,7 @@ const IconButton = styled.a`
         }
     }
 `
-const SignIn = ({ visible, setVisible }) => {
+const SignIn = ({ visible, setVisible, setSignUpVisible }) => {
 
     const onFinish = (values) => {
         console.log('Success:', values);
@@ -125,21 +125,25 @@ const SignIn = ({ visible, setVisible }) => {
                 >
                     <Form.Item
                         name="email"
+                        validateTrigger="onBlur"
                         rules={[{ required: true, message: 'Please input your email.' }, { type: 'email', message: 'Please input a valid email.' }]}
                     >
                         <Input
                             placeholder="Email"
                             style={{ height: 40 }}
+                            prefix={<IoMailOutline />}
                         />
                     </Form.Item>
                     <Form.Item
-                        name="username"
+                        name="password"
+                        validateTrigger="onBlur"
                         rules={[{ required: true, message: 'Please input your password.' }]}
                     >
                         <Input
                             placeholder="Password"
                             type="password"
                             style={{ height: 40 }}
+                            prefix={<IoLockClosedOutline />}
                             suffix={
                                 <Tooltip title="Extra information">
                                     <AiOutlineEye />
@@ -161,7 +165,10 @@ const SignIn = ({ visible, setVisible }) => {
                             <ButtonText>LOG IN</ButtonText>
                         </Button>
                     </Form.Item>
-                    <Text style={{ marginBottom: 10 }}>No account yet? <AuthLink>Sign up</AuthLink></Text>
+                    <Text style={{ marginBottom: 10 }}>No account yet? <AuthLink onClick={() => {
+                        setVisible(false)
+                        setSignUpVisible(true)
+                    }}>Sign up</AuthLink></Text>
                     <Divider style={{ marginBottom: 10 }}><SmallText>or</SmallText></Divider>
                     <OauthContainer>
                         <IconButton>

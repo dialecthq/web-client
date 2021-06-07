@@ -1,23 +1,26 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
 import { Modal, Button, Tabs, Input, Tooltip, Divider, Select, Form, Steps } from 'antd'
-import { IoAdd } from 'react-icons/io5'
+import { IoAdd, IoAt, IoLockClosedOutline, IoMailOutline, IoPersonOutline } from 'react-icons/io5'
 import { AiOutlineEye } from 'react-icons/ai'
 import { FaFacebook } from 'react-icons/fa'
 import { FcGoogle } from 'react-icons/fc'
 import axios from 'axios'
 
+// Data objects
+import languageOptions from '../../Data/languageOptions.js'
+import countryOptions from '../../Data/countryOptions.js'
+import timezoneOptions from '../../Data/timezoneOptions'
 
-import LanguageOptions from '../../Data/LanguageOptions.js'
-import CountryOptions from '../../Data/CountryOptions.js'
-import TimezoneOptions from '../../Data/TimezoneOptions'
+// Validators
+import emailValidator from '../../Validators/emailValidator'
+import usernameValidator from '../../Validators/usernameValidator'
 
 const TabContent = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 20px;
 `
 
 const AuthModal = styled(Modal)`
@@ -130,7 +133,7 @@ const FormRow = styled.div`
     width: 100%;
 `
 
-const SignUp = ({ visible, setVisible }) => {
+const SignUp = ({ visible, setVisible, setSignInVisible }) => {
     const [page, setPage] = useState(0)
     const [user, setUser] = useState({})
 
@@ -138,7 +141,8 @@ const SignUp = ({ visible, setVisible }) => {
         setUser({
             name: values.name,
             email: values.email,
-            password: values.password
+            password: values.password,
+            username: values.username
         })
         setPage(1)
     };
@@ -154,7 +158,11 @@ const SignUp = ({ visible, setVisible }) => {
 
         axios.post('http://localhost:9000/user/register', tempUser)
             .then((data) => {
-                if(data.data.user) {
+                console.log(data)
+                if (data.data.user) {
+                    setVisible(false)
+                    setPage(0)
+                    setUser(null)
                     console.log('success!')
                 } else {
                     console.log(data.data.message)
@@ -175,7 +183,7 @@ const SignUp = ({ visible, setVisible }) => {
             title={"Register"}
             footer={null}
         >
-            <Steps size="small" current={page} style={{ padding: 20 }}>
+            <Steps size="small" current={page} style={{ marginBottom: 25 }}>
                 <Steps.Step title="Login Info" />
                 <Steps.Step title="More Info" />
             </Steps>
@@ -189,30 +197,51 @@ const SignUp = ({ visible, setVisible }) => {
                     >
                         <Form.Item
                             name="name"
+                            validateTrigger="onBlur"
                             rules={[{ required: true, message: 'Please input your name.' }]}
+                            style={{ marginBottom: 25 }}
                         >
                             <Input
                                 placeholder="Name"
                                 style={{ height: 40 }}
+                                prefix={<IoPersonOutline />}
                             />
                         </Form.Item>
                         <Form.Item
                             name="email"
-                            rules={[{ required: true, message: 'Please input your email.' }, { type: 'email', message: 'Please input a valid email.' }]}
+                            validateTrigger="onBlur"
+                            rules={[{ required: true, message: 'Please input your email.' }, { type: 'email', message: 'Please input a valid email.' }, { validator: emailValidator, message: 'email is already in use.' }]}
+                            style={{ marginBottom: 25 }}
                         >
                             <Input
                                 placeholder="Email"
                                 style={{ height: 40 }}
+                                prefix={<IoMailOutline />}
+                            />
+                        </Form.Item>
+                        <Form.Item
+                            name="username"
+                            validateTrigger="onBlur"
+                            rules={[{ required: true, message: 'Please input your username.' }, { validator: usernameValidator, message: 'username is already in use.' }]}
+                            style={{ marginBottom: 25 }}
+                        >
+                            <Input
+                                placeholder="Username"
+                                style={{ height: 40 }}
+                                prefix={<IoAt />}
                             />
                         </Form.Item>
                         <Form.Item
                             name="password"
+                            validateTrigger="onBlur"
                             rules={[{ required: true, message: 'Please input your password.' }]}
+                            style={{ marginBottom: 25 }}
                         >
                             <Input
                                 placeholder="Password"
                                 type="password"
                                 style={{ height: 40 }}
+                                prefix={<IoLockClosedOutline />}
                                 suffix={
                                     <Tooltip title="Extra information">
                                         <AiOutlineEye />
@@ -230,7 +259,10 @@ const SignUp = ({ visible, setVisible }) => {
                                 <ButtonText>Continue</ButtonText>
                             </Button>
                         </Form.Item>
-                        <Text style={{ marginBottom: 10 }}>Already have an account? <AuthLink>Sign in</AuthLink></Text>
+                        <Text style={{ marginBottom: 10 }}>Already have an account? <AuthLink onClick={() => {
+                            setVisible(false)
+                            setSignInVisible(true)
+                        }}>Sign in</AuthLink></Text>
                         <Divider style={{ marginBottom: 10 }}><SmallText>or</SmallText></Divider>
                         <OauthContainer>
                             <IconButton>
@@ -263,10 +295,11 @@ const SignUp = ({ visible, setVisible }) => {
                         >
                             <Select
                                 placeholder="Target Language"
+                                showSearch
                                 style={{ width: '100%' }}
                             >
-                                {LanguageOptions.map((language) => {
-                                    return <Select.Option value={language.key}>{language.value}</Select.Option>
+                                {languageOptions.map((language) => {
+                                    return <Select.Option value={language.value}>{language.value}</Select.Option>
                                 })}
 
                             </Select>
@@ -278,10 +311,11 @@ const SignUp = ({ visible, setVisible }) => {
                             rules={[{ required: true, message: 'Please input your native language.' }]}>
                             <Select
                                 placeholder="Native Language"
+                                showSearch
                                 style={{ width: '100%' }}
                             >
-                                {LanguageOptions.map((language) => {
-                                    return <Select.Option value={language.key}>{language.value}</Select.Option>
+                                {languageOptions.map((language) => {
+                                    return <Select.Option value={language.value}>{language.value}</Select.Option>
                                 })}
 
                             </Select>
@@ -293,10 +327,11 @@ const SignUp = ({ visible, setVisible }) => {
                             rules={[{ required: true, message: 'Please input your country / region.' }]}>
                             <Select
                                 placeholder="Country / Region"
+                                showSearch
                                 style={{ width: '100%' }}
                             >
-                                {CountryOptions.map((country) => {
-                                    return <Select.Option value={country.key}>{country.value}</Select.Option>
+                                {countryOptions.map((country) => {
+                                    return <Select.Option value={country.value}>{country.value}</Select.Option>
                                 })}
                             </Select>
                         </Form.Item>
@@ -306,10 +341,11 @@ const SignUp = ({ visible, setVisible }) => {
                             rules={[{ required: true, message: 'Please input your timezone.' }]}>
                             <Select
                                 placeholder="Timezone"
+                                showSearch
                                 style={{ width: '100%' }}
                             >
-                                {TimezoneOptions.map((timezone) => {
-                                    return <Select.Option value={timezone.key}>{`${timezone.value} - ${timezone.text}`}</Select.Option>
+                                {timezoneOptions.map((timezone) => {
+                                    return <Select.Option value={timezone.value}>{`${timezone.value} - ${timezone.text}`}</Select.Option>
                                 })}
                             </Select>
                         </Form.Item>

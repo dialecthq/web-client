@@ -1,4 +1,4 @@
-const LanguageOptions =
+const languageOptions =
     [
         {
             "value": "English",
@@ -527,10 +527,6 @@ const LanguageOptions =
         {
             "value": "Gikuyu",
             "key": 133
-        },
-        {
-            "value": "Greenlandic",
-            "key": 134
         },
         {
             "value": "Guambiano",
@@ -1350,4 +1346,4 @@ const LanguageOptions =
         }
     ]
 
-export default LanguageOptions
+export default languageOptions
