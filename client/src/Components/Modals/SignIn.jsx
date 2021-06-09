@@ -7,6 +7,8 @@ import { FaFacebook } from 'react-icons/fa'
 import { FcGoogle } from 'react-icons/fc'
 import { IoAdd, IoAt, IoLockClosedOutline, IoMailOutline, IoPersonOutline } from 'react-icons/io5'
 import User from '../../Containers/userContainer'
+import { useHistory } from 'react-router-dom'
+
 
 
 const TabContent = styled.div`
@@ -104,6 +106,7 @@ const IconButton = styled.a`
 const SignIn = ({ visible, setVisible, setSignUpVisible }) => {
     const [loading, setLoading] = useState(false)
     let user = User.useContainer()
+    const history = useHistory()
 
     const onFinish = (values) => {
         setLoading(true)
@@ -116,6 +119,7 @@ const SignIn = ({ visible, setVisible, setSignUpVisible }) => {
             user.signIn(data.data.user)
             setVisible(false)
             setLoading(false)
+            history.push('/dashboard')
         }).catch((error) => {
             setLoading(false)
         })

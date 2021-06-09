@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
+import './App.less';
 import reportWebVitals from './reportWebVitals';
 
 import User from './Containers/userContainer'

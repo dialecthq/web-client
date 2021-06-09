@@ -6,6 +6,7 @@ import { AiOutlineEye } from 'react-icons/ai'
 import { FaFacebook } from 'react-icons/fa'
 import { FcGoogle } from 'react-icons/fc'
 import axios from 'axios'
+import {useHistory} from 'react-router-dom'
 
 // Data objects
 import languageOptions from '../../Data/languageOptions.js'
@@ -141,6 +142,7 @@ const SignUp = ({ visible, setVisible, setSignInVisible }) => {
     const [tempUser, setTempUser] = useState(null)
     const [loading, setLoading] = useState(false)
     let user = User.useContainer()
+    const history = useHistory()
 
     const onFinishPage1 = (values) => {
         setTempUser({
@@ -169,6 +171,7 @@ const SignUp = ({ visible, setVisible, setSignInVisible }) => {
                     setVisible(false)
                     setPage(0)
                     setTempUser(null)
+                    history.push('/dashboard')
                 }
             }).catch((error) => {
                 setLoading(false)
@@ -371,9 +374,6 @@ const SignUp = ({ visible, setVisible, setSignInVisible }) => {
                                     htmlType="submit"
                                     style={{ height: 40 }}
                                     loading={loading}
-                                    onClick={() => {
-                                        setPage(1)
-                                    }}
                                 >
                                     <ButtonText>Continue</ButtonText>
                                 </Button>

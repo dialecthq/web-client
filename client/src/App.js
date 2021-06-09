@@ -1,35 +1,30 @@
 import React, { useState } from 'react';
-import SignIn from './Components/Modals/SignIn'
-import SignUp from './Components/Modals/SignUp'
+import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
+
+import Home from './Pages/Home'
+import Dashboard from './Pages/Dashboard'
+
 import User from './Containers/userContainer'
-import './App.less';
 
 const App = () => {
-  const [signInVisible, setSignInVisible] = useState(false)
-  const [signUpVisible, setSignUpVisible] = useState(false)
-  let user = User.useContainer()
-  console.log(user.user)
-
+  const user = User.useContainer()
   return (
-    <>
-      <button onClick={() => {
-        if(user.user){
-          user.signOut()
-        } else {
-          setSignInVisible(true)
-        }
-      }}>{user.user ? 'sign out' : 'sign in'}</button>
-      {!user.user &&(<button onClick={() => {
-        setSignUpVisible(true)
-      }}>register</button>)}
-
-
-      <SignIn visible={signInVisible} setVisible={setSignInVisible} setSignUpVisible={setSignUpVisible}/>
-      <SignUp visible={signUpVisible} setVisible={setSignUpVisible} setSignInVisible={setSignInVisible}/>
-      {user.user ? `@${user?.user?.username}` :  'not signed in'}
-    </>
-
-
+    <BrowserRouter>
+        <Switch>
+          <Route
+            path="/"
+            exact
+          >
+            <Home />
+          </Route>
+          <Route
+          path="/dashboard"
+          exact
+          >
+            {!user.user ? <Redirect to="/" /> : <Dashboard />}
+          </Route>
+        </Switch>
+      </BrowserRouter>
   )
 }
 
