@@ -4,14 +4,7 @@ import { createContainer } from "unstated-next"
 function useUser() {
   let [user, setUser] = useState(null)
 
-  let signIn = (newUser) => {
-    setUser(newUser)
-  }
-  let signOut = () => {
-    setUser(null)
-    }
-
-  return { user, signIn, signOut }
+  return { user, setUser }
 }
 
 let User = createContainer(useUser)

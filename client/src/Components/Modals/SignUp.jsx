@@ -6,7 +6,7 @@ import { AiOutlineEye } from 'react-icons/ai'
 import { FaFacebook } from 'react-icons/fa'
 import { FcGoogle } from 'react-icons/fc'
 import axios from 'axios'
-import {useHistory} from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 
 // Data objects
 import languageOptions from '../../Data/languageOptions.js'
@@ -28,7 +28,7 @@ const TabContent = styled.div`
 `
 
 const AuthModal = styled(Modal)`
-  width: 375px !important;
+  width: 425px !important;
 
   @media screen and (max-width: 768px) {
     width: 100% !important;
@@ -89,7 +89,7 @@ const TermsContainer = styled.div`
 const Terms = styled.p`
     font-size: 12px;
     font-weight: 400;
-    width: 70%;
+    width: 100%;
 `
 
 const IconButton = styled.a`
@@ -120,27 +120,42 @@ const Label = styled.p`
     font-weight: 400;
 `
 
-const AddLanguageContainer = styled.div`
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    margin-top: 10px;
-    :hover {
-        cursor: pointer;
-    }
-`
-
 const FormRow = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
     width: 100%;
+    margin-bottom: 25px;
+`
+
+const FluencyButton = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    border: ${p => p.active ? '1px solid #9c77ff' : '1px solid #d4d4d4'};
+    color: ${p => p.active ? '#9C77FF' : '#898989'};
+    transition: 0.2s all ease-in-out;
+    border-radius: 20px;
+    :hover {
+        cursor: pointer;
+        border: 1px solid #9c77ff;
+        color: #9c77ff;
+    }
+`
+
+const FluencyButtonText = styled.p`
+    margin-bottom: 0px;
+    font-size: 12px;
+    font-weight: 600;
 `
 
 const SignUp = ({ visible, setVisible, setSignInVisible }) => {
     const [page, setPage] = useState(0)
     const [tempUser, setTempUser] = useState(null)
     const [loading, setLoading] = useState(false)
+    const [level, setLevel] = useState(1)
+
     let user = User.useContainer()
     const history = useHistory()
 
@@ -157,23 +172,24 @@ const SignUp = ({ visible, setVisible, setSignInVisible }) => {
     const onFinishPage2 = (values) => {
         let newTempUser = {
             ...tempUser,
-            target: values.target,
-            native: values.native,
-            country: values.country,
-            timezone: values.timezone,
+            target: [{key: languageOptions.filter((e) => e.value === values.target)[0].key, level: level}],
+            native: [{key: languageOptions.filter((e) => e.value === values.native)[0].key, level: 7}],
+            country: countryOptions.filter((e) => e.value === values.country)[0].key,
+            timezone: timezoneOptions.filter((e) => e.value === values.timezone)[0].key,
         }
         setLoading(true)
         axios.post('http://localhost:9000/user/register', newTempUser)
             .then((data) => {
                 setLoading(false)
                 if (data.data.user) {
-                    user.signIn(data.data.user)
+                    user.setUser(data.data.user)
                     setVisible(false)
                     setPage(0)
                     setTempUser(null)
                     history.push('/dashboard')
                 }
             }).catch((error) => {
+                console.log(error)
                 setLoading(false)
             })
     }
@@ -310,6 +326,37 @@ const SignUp = ({ visible, setVisible, setSignInVisible }) => {
 
                             </Select>
                         </Form.Item>
+                        <FormRow style={{justifyContent: 'space-between'}}>
+                            <FluencyButton active={level === 1} onClick={() => {
+                                setLevel(1)
+                            }}>
+                                <FluencyButtonText>
+                                    Beginner
+                                </FluencyButtonText>
+                            </FluencyButton>
+                            <FluencyButton active={level === 2} onClick={() => {
+                                setLevel(2)
+                            }}>
+                                <FluencyButtonText>
+                                    Elementary
+                                </FluencyButtonText>
+                            </FluencyButton>
+                            <FluencyButton active={level === 3} onClick={() => {
+                                setLevel(3)
+                            }}>
+                                <FluencyButtonText>
+                                    Intermediate
+                                </FluencyButtonText>
+                            </FluencyButton>
+                            <FluencyButton active={level === 5} onClick={() => {
+                                setLevel(5)
+                            }}>
+                                <FluencyButtonText>
+                                    Advanced
+                                </FluencyButtonText>
+                            </FluencyButton>
+
+                        </FormRow>
 
                         <Label>Native Language</Label>
                         <Form.Item
@@ -355,7 +402,7 @@ const SignUp = ({ visible, setVisible, setSignInVisible }) => {
                                 })}
                             </Select>
                         </Form.Item>
-                        <FormRow>
+                        <FormRow style={{marginTop: 50}}>
                             <Form.Item style={{ marginBottom: 20, width: '100%', paddingRight: 5 }}>
                                 <Button
                                     block
@@ -379,6 +426,9 @@ const SignUp = ({ visible, setVisible, setSignInVisible }) => {
                                 </Button>
                             </Form.Item>
                         </FormRow>
+                        <TermsContainer>
+                            <Terms>By logging in or creating an account, you agree to langi's Terms of Service and Privacy Policy.</Terms>
+                        </TermsContainer>
                     </Form>
                 </TabContent>
             )

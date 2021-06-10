@@ -13,7 +13,7 @@ const App = () => {
     <>
       <button onClick={() => {
         if(user.user){
-          user.signOut()
+          user.setUser(null)
         } else {
           setSignInVisible(true)
         }

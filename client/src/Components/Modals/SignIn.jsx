@@ -10,7 +10,6 @@ import User from '../../Containers/userContainer'
 import { useHistory } from 'react-router-dom'
 
 
-
 const TabContent = styled.div`
   display: flex;
   flex-direction: column;
@@ -19,7 +18,7 @@ const TabContent = styled.div`
 `
 
 const AuthModal = styled(Modal)`
-  width: 375px !important;
+  width: 425px !important;
 
   @media screen and (max-width: 768px) {
     width: 100% !important;
@@ -116,7 +115,7 @@ const SignIn = ({ visible, setVisible, setSignUpVisible }) => {
                 password: values.password
             }
         }).then((data) => {
-            user.signIn(data.data.user)
+            user.setUser(data.data.user)
             setVisible(false)
             setLoading(false)
             history.push('/dashboard')
