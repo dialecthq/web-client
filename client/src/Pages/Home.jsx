@@ -7,7 +7,6 @@ const App = () => {
   const [signInVisible, setSignInVisible] = useState(false)
   const [signUpVisible, setSignUpVisible] = useState(false)
   let user = User.useContainer()
-  console.log(user.user)
 
   return (
     <>
