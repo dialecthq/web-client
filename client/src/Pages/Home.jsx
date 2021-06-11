@@ -1,4 +1,5 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
+import axios from 'axios'
 import SignIn from '../Components/Modals/SignIn'
 import SignUp from '../Components/Modals/SignUp'
 import User from '../Containers/userContainer'
@@ -8,11 +9,26 @@ const App = () => {
   const [signUpVisible, setSignUpVisible] = useState(false)
   let user = User.useContainer()
 
+  useEffect(() => {
+    if(!user.user) {
+      axios.get('http://localhost:9000/user').then((data) => {
+          if(data.data.user) {
+              user.setUser(data.data.user)
+          } 
+      })
+    }
+  }, [user])
+
   return (
     <>
       <button onClick={() => {
         if(user.user){
-          user.setUser(null)
+          axios.get('http://localhost:9000/user/signout').then((data) => {
+            console.log(data)
+            user.setUser(null)
+          }).catch((error) => {
+            console.log(error)
+          })
         } else {
           setSignInVisible(true)
         }
