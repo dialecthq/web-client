@@ -8,6 +8,10 @@ const ProfileContainer = styled.div`
     position: absolute;
     top: 100px;
     left: 38px;
+
+    @media screen and (max-width: 959px) {
+        left: 18px;
+    }
 `
 
 const ProfileWrapper = styled.div`
@@ -16,6 +20,10 @@ const ProfileWrapper = styled.div`
     justify-content: center;
     align-items: flex-start;
     position: fixed;
+
+    @media screen and (max-width: 959px) {
+        align-items: center;
+    }
 `
 
 const Name = styled.p`
@@ -24,6 +32,10 @@ const Name = styled.p`
     color: #454545;
     font-size: 1.3em;
     font-weight: 500;
+
+    @media screen and (max-width: 959px) {
+        display: none;
+    }
 `   
 
 const Username = styled.p`
@@ -31,6 +43,10 @@ const Username = styled.p`
     color: #6e6e6e;
     font-weight: 400;
     margin-bottom: 20px;
+
+    @media screen and (max-width: 959px) {
+        display: none;
+    }
 `
 
 const ProfileLink = styled.div`
@@ -39,11 +55,19 @@ const ProfileLink = styled.div`
     align-items: center;
     margin-bottom: 5px;
     color: #454545;
-    transition: 0.2s all ease-in-out;
+    transition: 0.2s color ease-in-out;
 
     :hover {
         cursor: pointer; 
         color: #bda1ff;
+    }
+
+    @media screen and (max-width: 959px) {
+        margin-bottom: 15px;
+        svg {
+            height: 18px;
+            width: 18px;
+        }
     }
 `
 
@@ -54,10 +78,21 @@ const Avatar = styled.div`
     padding: 5px;
     background-color: #a8a8a8;
     border-radius: 100px;
+
+    @media screen and (max-width:  959px) {
+        margin-bottom: 20px;
+    }
 `
 
 const AvatarImg = styled.img`
     filter: grayscale(100%);
+    height: 72px;
+    width: 72px;
+
+    @media screen and (max-width: 959px) {
+        height: 24px;
+        width: 24px;
+    }
 `
 
 const ProfileLinkText = styled.p`
@@ -65,6 +100,10 @@ const ProfileLinkText = styled.p`
     font-weight: 600;
     margin-left: 10px;
     margin-bottom: 0px;
+
+    @media screen and (max-width: 959px) {
+        display: none;
+    }
 `
 
 const ProfileNav  = () => {
@@ -74,7 +113,7 @@ const ProfileNav  = () => {
         <ProfileContainer>
             <ProfileWrapper>
             <Avatar>
-                <AvatarImg src={Logo} style={{height: 72, width: 72}}/>
+                <AvatarImg src={Logo}/>
             </Avatar>
             <Name>{user.user.name}</Name>
             <Username>@{user.user.username}</Username>

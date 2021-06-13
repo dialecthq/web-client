@@ -82,23 +82,23 @@ const MenuIcon = styled(FaBars)`
 const Header = () => {
     return (
         <NavContainer>
-                <NavWrapper>
-                    <NavContent>
-                        <MenuIcon />
-                        <img src={Logo} style={{height: 36, width:36}} alt="logo"/>
-                        <Title>Langi</Title>
-                        <Link>Exchange</Link>
-                        <Link>Tutors</Link>
-                        <Link>Community</Link>
-                        <Link>Vocab</Link>
-                    </NavContent>
-                    <NavContent>
-                        <Avatar>
-                            <AvatarImg src={Logo} style={{height: 22, width: 22}} />
-                        </Avatar>
-                    </NavContent>
-                </NavWrapper>
-            </NavContainer>
+            <NavWrapper>
+                <NavContent>
+                    <MenuIcon />
+                    <img src={Logo} style={{height: 36, width:36}} alt="logo"/>
+                    <Title>Langi</Title>
+                    <Link>Exchange</Link>
+                    <Link>Tutors</Link>
+                    <Link>Community</Link>
+                    <Link>Vocab</Link>
+                </NavContent>
+                <NavContent>
+                    <Avatar>
+                        <AvatarImg src={Logo} style={{height: 22, width: 22}} />
+                    </Avatar>
+                </NavContent>
+            </NavWrapper>
+        </NavContainer>
     )
 }
 

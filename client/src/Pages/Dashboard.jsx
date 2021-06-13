@@ -6,8 +6,7 @@ import { useHistory } from 'react-router-dom'
 
 // Components
 import Header from '../Components/Dashboard/Header'
-import Footer from '../Components/Dashboard/Footer'
-import ProfileNav from '../Components/Dashboard/ProfileNav'
+import Page from '../Components/Dashboard/Page'
 import Loading from './Loading'
 
 const DashboardContainer = styled.div`
@@ -15,26 +14,6 @@ const DashboardContainer = styled.div`
     background-color: #fff;
     flex-direction: column;
     overflow: scroll;
-`
-
-const PageContainer = styled.div`
-    display: flex;
-    overflow: scroll;
-    justify-content: center;
-    align-items: center;
-    margin-top: 55px;
-`
-
-const PageWrapper = styled.div`
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 10000px;
-    max-width: 1200px;
-    padding: 18px;
-    width: 100%;
-    position: relative;
 `
 
 const Dashboard = () => {
@@ -63,12 +42,9 @@ const Dashboard = () => {
         : (
         <DashboardContainer>
             <Header />
-            <PageContainer>
-                <PageWrapper>
-                    <ProfileNav/>
-                    <Footer />
-                </PageWrapper>
-            </PageContainer>
+            <Page>
+                <h1>hello</h1>
+            </Page>
         </DashboardContainer>)
     )
 }
