@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
-import { Modal, Button, Tabs, Input, Tooltip, Divider, Select, Form, Steps } from 'antd'
-import { IoAdd, IoAt, IoLockClosedOutline, IoMailOutline, IoPersonOutline } from 'react-icons/io5'
+import { Modal, Button, Input, Tooltip, Divider, Select, Form, Steps } from 'antd'
+import { IoAt, IoLockClosedOutline, IoMailOutline, IoPersonOutline } from 'react-icons/io5'
 import { AiOutlineEye } from 'react-icons/ai'
 import { FaFacebook } from 'react-icons/fa'
 import { FcGoogle } from 'react-icons/fc'
@@ -104,15 +104,6 @@ const IconButton = styled.a`
             border: 0.5px solid black;
         }
     }
-`
-
-const FormColumn = styled.div`
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: flex-start;
-    width: 100%;
-    margin-bottom: 15px;
 `
 
 const Label = styled.p`

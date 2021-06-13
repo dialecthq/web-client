@@ -1,11 +1,11 @@
 import React, {useState} from 'react'
 import styled from 'styled-components'
 import axios from 'axios'
-import { Modal, Button, Tabs, Input, Tooltip, Divider, Select, Form } from 'antd'
+import { Modal, Button, Input, Tooltip, Divider, Select, Form } from 'antd'
 import { AiOutlineEye } from 'react-icons/ai'
 import { FaFacebook } from 'react-icons/fa'
 import { FcGoogle } from 'react-icons/fc'
-import { IoAdd, IoAt, IoLockClosedOutline, IoMailOutline, IoPersonOutline } from 'react-icons/io5'
+import { IoAdd, IoAt, IoLockClosedOutline, IoMailOutline } from 'react-icons/io5'
 import User from '../../Containers/userContainer'
 import { useHistory } from 'react-router-dom'
 
