@@ -9,6 +9,9 @@ import Header from '../Components/Dashboard/Header'
 import Page from '../Components/Dashboard/Page'
 import Loading from './Loading'
 
+// Pages
+import Profile from '../Screens/Dashboard/Profile'
+
 const DashboardContainer = styled.div`
     display: flex;
     background-color: #fff;
@@ -43,7 +46,7 @@ const Dashboard = () => {
         <DashboardContainer>
             <Header />
             <Page>
-                <h1>hello</h1>
+                <Profile />
             </Page>
         </DashboardContainer>)
     )

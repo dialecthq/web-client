@@ -6,7 +6,7 @@ import {FaHome, FaUser, FaCog, FaCalendarAlt, FaChalkboardTeacher} from 'react-i
 
 const ProfileContainer = styled.div`
     position: absolute;
-    top: 100px;
+    top: 0px;
     left: 38px;
 
     @media screen and (max-width: 959px) {

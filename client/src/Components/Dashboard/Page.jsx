@@ -10,19 +10,33 @@ const PageContainer = styled.div`
     overflow: scroll;
     justify-content: center;
     align-items: center;
-    margin-top: 55px;
+    padding-top: 100px;
 `
 
 const PageWrapper = styled.div`
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
-    min-height: 100vh;
+    justify-content: center;
     align-items: center;
     max-width: 1200px;
     padding: 18px;
+    padding-top: 0px;
     width: 100%;
     position: relative;
+`
+
+const PageContent = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    padding-left: 250px;
+    min-height: 100vh;
+    width: 100%;
+
+    @media screen and (max-width: 959px) {
+        padding-left: 70px;
+    }
 `
 
 const Page = ({children}) => {
@@ -30,7 +44,9 @@ const Page = ({children}) => {
         <PageContainer>
             <PageWrapper>
                 <ProfileNav/>
-                {children}
+                <PageContent>
+                    {children}
+                </PageContent>
                 <Footer />
             </PageWrapper>
         </PageContainer>
