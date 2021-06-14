@@ -2,6 +2,9 @@ import React from 'react'
 import styled from 'styled-components'
 import Logo from '../../Img/logo.svg'
 import {FaBars} from 'react-icons/fa'
+import { Popover, Divider, Menu } from 'antd'
+import User from '../../Containers/userContainer'
+import axios from 'axios'
 
 const NavContainer = styled.div`
     display: flex;
@@ -79,7 +82,44 @@ const MenuIcon = styled(FaBars)`
 
 `
 
+const ProfilePopoverContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+`
+
+const Username = styled.p`
+    font-size: 0.7em;
+    margin-bottom: 0px;
+`
+
 const Header = () => {
+    const user = User.useContainer()
+
+    const profilePopover = (
+        <ProfilePopoverContainer>
+            <Username>{`signed in as ${user.user.username}`}</Username>
+            <Divider />
+            <Menu>
+                <Menu.Item>Settings</Menu.Item>
+                <Menu.Item>Help</Menu.Item>
+                <Menu.Item
+                    onClick={() => {
+                        axios.get('http://localhost:9000/user/signout').then((data) => {
+                            user.setUser(null)
+                        }).catch((error) => {
+                            console.log(error)
+                        })
+                    }}
+                >
+                    Sign out
+                </Menu.Item>
+            </Menu>
+
+        </ProfilePopoverContainer>
+    )
+
     return (
         <NavContainer>
             <NavWrapper>
@@ -93,9 +133,11 @@ const Header = () => {
                     <Link>Vocab</Link>
                 </NavContent>
                 <NavContent>
-                    <Avatar>
-                        <AvatarImg src={Logo} style={{height: 22, width: 22}} />
-                    </Avatar>
+                    <Popover content={profilePopover} placement="bottomLeft">
+                        <Avatar>
+                            <AvatarImg src={Logo} style={{height: 22, width: 22}} />
+                        </Avatar>
+                    </Popover>
                 </NavContent>
             </NavWrapper>
         </NavContainer>

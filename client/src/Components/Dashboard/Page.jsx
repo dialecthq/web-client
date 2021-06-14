@@ -33,6 +33,7 @@ const PageContent = styled.div`
     padding-left: 250px;
     min-height: 100vh;
     width: 100%;
+    margin-bottom: 60px;
 
     @media screen and (max-width: 959px) {
         padding-left: 70px;

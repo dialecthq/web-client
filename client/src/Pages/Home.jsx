@@ -24,7 +24,6 @@ const App = () => {
       <button onClick={() => {
         if(user.user){
           axios.get('http://localhost:9000/user/signout').then((data) => {
-            console.log(data)
             user.setUser(null)
           }).catch((error) => {
             console.log(error)
