@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import Logo from '../../Img/logo.svg'
-import {FaBars} from 'react-icons/fa'
+import {FaBars, FaCog, FaQuestion, FaSignOutAlt} from 'react-icons/fa'
 import { Popover, Divider, Menu } from 'antd'
 import User from '../../Containers/userContainer'
 import axios from 'axios'
@@ -64,7 +64,13 @@ const Avatar = styled.div`
     align-items: center;
     padding: 5px;
     background-color: #a8a8a8;
+    border: 0.5px solid #fff;
     border-radius: 100px;
+
+    :hover {
+        border: 0.5px solid #6e6e6e;
+        cursor: pointer;
+    }
 `
 
 const AvatarImg = styled.img`
@@ -85,26 +91,40 @@ const MenuIcon = styled(FaBars)`
 const ProfilePopoverContainer = styled.div`
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
     justify-content: center;
+    padding: 12px 0px;
 `
 
 const Username = styled.p`
-    font-size: 0.7em;
+    font-size: 0.9em;
     margin-bottom: 0px;
+    margin: 0px 12px;
+    color: #454545;
+    opacity: 0.6;
+`
+
+const MenuItem = styled(Menu.Item)`
+    display: flex;
+    align-items: center;
+    color: #454545;
+    :hover {
+        background: #efefef;
+    }
 `
 
 const Header = () => {
     const user = User.useContainer()
 
     const profilePopover = (
-        <ProfilePopoverContainer>
-            <Username>{`signed in as ${user.user.username}`}</Username>
-            <Divider />
-            <Menu>
-                <Menu.Item>Settings</Menu.Item>
-                <Menu.Item>Help</Menu.Item>
-                <Menu.Item
+        <ProfilePopoverContainer style={{minWidth: 200}}>
+            <Username>signed in as <span style={{color: '#000'}}>{user.user.username}</span></Username>
+            <Divider style={{margin: '12px 0px'}} />
+            <Menu style={{width: '100%'}}>
+                <MenuItem icon={<FaCog />}>Settings</MenuItem>
+                <MenuItem icon={<FaQuestion />}>Help</MenuItem>
+                <MenuItem
+                    icon={<FaSignOutAlt />}
                     onClick={() => {
                         axios.get('http://localhost:9000/user/signout').then((data) => {
                             user.setUser(null)
@@ -114,7 +134,7 @@ const Header = () => {
                     }}
                 >
                     Sign out
-                </Menu.Item>
+                </MenuItem>
             </Menu>
 
         </ProfilePopoverContainer>
@@ -126,14 +146,14 @@ const Header = () => {
                 <NavContent>
                     <MenuIcon />
                     <img src={Logo} style={{height: 36, width:36}} alt="logo"/>
-                    <Title>Langi</Title>
+                    <Title>Dialect</Title>
                     <Link>Exchange</Link>
                     <Link>Tutors</Link>
                     <Link>Community</Link>
                     <Link>Vocab</Link>
                 </NavContent>
                 <NavContent>
-                    <Popover content={profilePopover} placement="bottomLeft">
+                    <Popover content={profilePopover} placement="bottomLeft" trigger="click">
                         <Avatar>
                             <AvatarImg src={Logo} style={{height: 22, width: 22}} />
                         </Avatar>

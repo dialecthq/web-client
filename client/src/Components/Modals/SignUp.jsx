@@ -286,7 +286,7 @@ const SignUp = ({ visible, setVisible, setSignInVisible }) => {
                             </IconButton>
                         </OauthContainer>
                         <TermsContainer>
-                            <Terms>By logging in or creating an account, you agree to langi's Terms of Service and Privacy Policy.</Terms>
+                            <Terms>By logging in or creating an account, you agree to Dialect's Terms of Service and Privacy Policy.</Terms>
                         </TermsContainer>
                     </Form>
                 </TabContent>
@@ -418,7 +418,7 @@ const SignUp = ({ visible, setVisible, setSignInVisible }) => {
                             </Form.Item>
                         </FormRow>
                         <TermsContainer>
-                            <Terms>By logging in or creating an account, you agree to langi's Terms of Service and Privacy Policy.</Terms>
+                            <Terms>By logging in or creating an account, you agree to Dialect's Terms of Service and Privacy Policy.</Terms>
                         </TermsContainer>
                     </Form>
                 </TabContent>
