@@ -55,6 +55,12 @@ const ItemRow = styled.div`
     display: flex;
     justify-content: flex-start;
     align-items: center;
+
+    @media screen and (max-width: 768px) {
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
+    }
 `
 
 const Title = styled.p`
