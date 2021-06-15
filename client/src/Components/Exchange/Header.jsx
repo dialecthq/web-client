@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import Logo from '../../Img/logo.svg'
-import {FaBars, FaCog, FaQuestion, FaSignOutAlt} from 'react-icons/fa'
+import {FaBars, FaCog, FaQuestion, FaSignOutAlt, FaHome, FaUser, FaCalendarAlt, FaChalkboardTeacher} from 'react-icons/fa'
 import { Popover, Divider, Menu } from 'antd'
 import User from '../../Containers/userContainer'
 import axios from 'axios'
@@ -52,10 +52,6 @@ const Title = styled.p`
     margin-right: 20px;
     margin-top: 0px;
     margin-bottom: 0px;
-
-    @media screen and (max-width: 959px) {
-        display: none;
-    }
 `
 
 const Avatar = styled.div`
@@ -82,7 +78,10 @@ const MenuIcon = styled(FaBars)`
     width: 24px;
     color: #454545;
     margin-right: 10px;
-    @media screen and (min-width: 769px) {
+    :hover {
+        cursor: pointer;
+    }
+    @media screen and (min-width: 960px) {
         display: none;
     }
 
@@ -118,10 +117,9 @@ const Header = () => {
 
     const profilePopover = (
         <ProfilePopoverContainer style={{minWidth: 200}}>
-            <Username>signed in as <span style={{color: '#000'}}>{user.user.username}</span></Username>
+            <Username>signed in as <span style={{color: '#000'}}>@{user.user.username}</span></Username>
             <Divider style={{margin: '12px 0px'}} />
             <Menu style={{width: '100%'}}>
-                <MenuItem icon={<FaCog />}>Settings</MenuItem>
                 <MenuItem icon={<FaQuestion />}>Help</MenuItem>
                 <MenuItem
                     icon={<FaSignOutAlt />}
@@ -140,17 +138,26 @@ const Header = () => {
         </ProfilePopoverContainer>
     )
 
+    const navigationPopover = (
+        <ProfilePopoverContainer style={{minWidth: 200}}>
+            <Menu style={{width: '100%'}}>
+                <MenuItem icon={<FaHome />}>Home</MenuItem>
+                <MenuItem icon={<FaUser />}>Profile</MenuItem>
+                <MenuItem icon={<FaCalendarAlt />}>Schedule</MenuItem>
+                <MenuItem icon={<FaChalkboardTeacher />}>Find</MenuItem>
+            </Menu>
+        </ProfilePopoverContainer>
+    )
+
     return (
         <NavContainer>
             <NavWrapper>
                 <NavContent>
-                    <MenuIcon />
+                    <Popover content={navigationPopover} placement="bottomRight" trigger="click">
+                        <MenuIcon />
+                    </Popover>
                     <img src={Logo} style={{height: 36, width:36}} alt="logo"/>
-                    <Title>Dialect</Title>
-                    <Link>Exchange</Link>
-                    <Link>Tutors</Link>
-                    <Link>Community</Link>
-                    <Link>Vocab</Link>
+                    <Title>dialect</Title>
                 </NavContent>
                 <NavContent>
                     <Popover content={profilePopover} placement="bottomLeft" trigger="click">

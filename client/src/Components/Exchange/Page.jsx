@@ -36,7 +36,7 @@ const PageContent = styled.div`
     margin-bottom: 60px;
 
     @media screen and (max-width: 959px) {
-        padding-left: 70px;
+        padding-left: 0px;
     }
 `
 

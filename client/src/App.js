@@ -2,26 +2,30 @@ import React from 'react';
 import { BrowserRouter, Switch, Route} from 'react-router-dom';
 
 import Home from './Pages/Home'
-import Dashboard from './Pages/Dashboard'
+import Exchange from './Pages/Exchange'
+
+import ExchangeState from './Containers/exchangeContainer'
 
 const App = () => {
   return (
-    <BrowserRouter>
-        <Switch>
-          <Route
-            path="/"
+    <ExchangeState.Provider>
+      <BrowserRouter>
+          <Switch>
+            <Route
+              path="/"
+              exact
+            >
+              <Home />
+            </Route>
+            <Route
+            path="/exchange"
             exact
-          >
-            <Home />
-          </Route>
-          <Route
-          path="/dashboard"
-          exact
-          >
-            <Dashboard />
-          </Route>
-        </Switch>
-      </BrowserRouter>
+            >
+              <Exchange />
+            </Route>
+          </Switch>
+        </BrowserRouter>
+    </ExchangeState.Provider>
   )
 }
 

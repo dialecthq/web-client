@@ -3,14 +3,16 @@ import User from '../Containers/userContainer'
 import styled from 'styled-components'
 import axios from 'axios'
 import { useHistory } from 'react-router-dom'
+import ExchangeState from '../Containers/exchangeContainer'
 
 // Components
-import Header from '../Components/Dashboard/Header'
-import Page from '../Components/Dashboard/Page'
+import Header from '../Components/Exchange/Header'
+import Page from '../Components/Exchange/Page'
 import Loading from './Loading'
 
 // Pages
-import Profile from '../Screens/Dashboard/Profile'
+import Profile from '../Screens/Exchange/Profile'
+import Home from '../Screens/Exchange/Home'
 
 const DashboardContainer = styled.div`
     display: flex;
@@ -19,8 +21,9 @@ const DashboardContainer = styled.div`
     overflow: scroll;
 `
 
-const Dashboard = () => {
+const Exchange = () => {
     const user = User.useContainer()
+    const exchangeState = ExchangeState.useContainer()
     const history = useHistory()
 
     useEffect(() => {
@@ -43,13 +46,17 @@ const Dashboard = () => {
         !user.user 
         ? (<Loading />)
         : (
-        <DashboardContainer>
-            <Header />
-            <Page>
-                <Profile />
-            </Page>
-        </DashboardContainer>)
+                <DashboardContainer>
+                    <Header />
+                    <Page>
+                        {exchangeState.page === 'profile' && <Profile />}
+                        {exchangeState.page === 'home' && <Home />}
+                        {exchangeState.page === 'find' && <p>find</p>}
+                        {exchangeState.page === 'schedule' && <p>schedule</p>}
+                    </Page>
+                </DashboardContainer>
+        )
     )
 }
 
-export default Dashboard
+export default Exchange

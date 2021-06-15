@@ -177,7 +177,7 @@ const SignUp = ({ visible, setVisible, setSignInVisible }) => {
                     setVisible(false)
                     setPage(0)
                     setTempUser(null)
-                    history.push('/dashboard')
+                    history.push('/exchange')
                 }
             }).catch((error) => {
                 console.log(error)

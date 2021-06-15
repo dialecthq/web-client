@@ -2,7 +2,8 @@ import React from 'react'
 import styled from 'styled-components'
 import Logo from '../../Img/logo.svg'
 import User from '../../Containers/userContainer'
-import {FaHome, FaUser, FaCog, FaCalendarAlt, FaChalkboardTeacher} from 'react-icons/fa'
+import {FaHome, FaUser, FaCalendarAlt, FaChalkboardTeacher} from 'react-icons/fa'
+import ExchangeState from '../../Containers/exchangeContainer'
 
 const ProfileContainer = styled.div`
     position: absolute;
@@ -11,6 +12,7 @@ const ProfileContainer = styled.div`
 
     @media screen and (max-width: 959px) {
         left: 18px;
+        display: none;
     }
 `
 
@@ -54,7 +56,7 @@ const ProfileLink = styled.div`
     justify-content: center;
     align-items: center;
     margin-bottom: 5px;
-    color: #454545;
+    color: ${p=> p.active ? '#bda1ff' : '#454545'};
     transition: 0.2s color ease-in-out;
 
     :hover {
@@ -108,6 +110,7 @@ const ProfileLinkText = styled.p`
 
 const ProfileNav  = () => {
     const user = User.useContainer()
+    const exchangeState = ExchangeState.useContainer()
 
     return (
         <ProfileContainer>
@@ -117,25 +120,21 @@ const ProfileNav  = () => {
             </Avatar>
             <Name>{user.user.name}</Name>
             <Username>@{user.user.username}</Username>
-                <ProfileLink>
+                <ProfileLink active={exchangeState.page === 'home'} onClick={() => exchangeState.setPage('home')}>
                     <FaHome />
                     <ProfileLinkText>Home</ProfileLinkText>
                 </ProfileLink>
-                <ProfileLink>
-                    <FaCalendarAlt />
+                <ProfileLink active={exchangeState.page === 'schedule'} onClick={() => exchangeState.setPage('schedule')}>
+                    <FaCalendarAlt/>
                     <ProfileLinkText>Schedule</ProfileLinkText>
                 </ProfileLink>
-                <ProfileLink>
-                    <FaChalkboardTeacher />
+                <ProfileLink active={exchangeState.page === 'find'} onClick={() => exchangeState.setPage('find')}>
+                    <FaChalkboardTeacher/>
                     <ProfileLinkText>Find</ProfileLinkText>
                 </ProfileLink>
-                <ProfileLink>
+                <ProfileLink active={exchangeState.page === 'profile'} onClick={() => exchangeState.setPage('profile')}>
                     <FaUser/>
                     <ProfileLinkText>Profile</ProfileLinkText>
-                </ProfileLink>
-                <ProfileLink>
-                    <FaCog />
-                    <ProfileLinkText>Settings</ProfileLinkText>
                 </ProfileLink>
             </ProfileWrapper>
         </ProfileContainer>

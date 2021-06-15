@@ -1,1 +1,1 @@
-# langi
+# Dialect

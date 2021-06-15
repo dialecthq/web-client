@@ -118,7 +118,7 @@ const SignIn = ({ visible, setVisible, setSignUpVisible }) => {
             user.setUser(data.data.user)
             setVisible(false)
             setLoading(false)
-            history.push('/dashboard')
+            history.push('/exchange')
         }).catch((error) => {
             setLoading(false)
         })
