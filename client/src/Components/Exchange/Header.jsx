@@ -4,7 +4,10 @@ import Logo from '../../Img/logo.svg'
 import {FaBars, FaCog, FaQuestion, FaSignOutAlt, FaHome, FaUser, FaCalendarAlt, FaChalkboardTeacher} from 'react-icons/fa'
 import { Popover, Divider, Menu } from 'antd'
 import User from '../../Containers/userContainer'
+import ExchangeState from '../../Containers/exchangeContainer'
 import axios from 'axios'
+import { useState } from 'react'
+import { useHistory } from 'react-router-dom'
 
 const NavContainer = styled.div`
     display: flex;
@@ -114,6 +117,10 @@ const MenuItem = styled(Menu.Item)`
 
 const Header = () => {
     const user = User.useContainer()
+    const exchangeState = ExchangeState.useContainer()
+    const history = useHistory()
+    const [ppOpen, setPPOpen] = useState(false)
+    const [epOpen, setEPOpen] = useState(false)
 
     const profilePopover = (
         <ProfilePopoverContainer style={{minWidth: 200}}>
@@ -141,10 +148,22 @@ const Header = () => {
     const navigationPopover = (
         <ProfilePopoverContainer style={{minWidth: 200}}>
             <Menu style={{width: '100%'}}>
-                <MenuItem icon={<FaHome />}>Home</MenuItem>
-                <MenuItem icon={<FaUser />}>Profile</MenuItem>
-                <MenuItem icon={<FaCalendarAlt />}>Schedule</MenuItem>
-                <MenuItem icon={<FaChalkboardTeacher />}>Find</MenuItem>
+                <MenuItem icon={<FaHome />} onClick={() => {
+                    exchangeState.setPage('home')
+                    setEPOpen(false)
+                }}>Home</MenuItem>
+                <MenuItem icon={<FaUser />} onClick={() => {
+                    exchangeState.setPage('profile')
+                    setEPOpen(false)    
+                }}>Profile</MenuItem>
+                <MenuItem icon={<FaCalendarAlt />} onClick={() => {
+                    exchangeState.setPage('schedule')
+                    setEPOpen(false)
+                }}>Schedule</MenuItem>
+                <MenuItem icon={<FaChalkboardTeacher />} onClick={() => {
+                    exchangeState.setPage('find')
+                    setEPOpen(false)
+                }}>Find</MenuItem>
             </Menu>
         </ProfilePopoverContainer>
     )
@@ -153,14 +172,14 @@ const Header = () => {
         <NavContainer>
             <NavWrapper>
                 <NavContent>
-                    <Popover content={navigationPopover} placement="bottomRight" trigger="click">
+                    <Popover content={navigationPopover} placement="bottomRight" trigger="click" visible={epOpen} onVisibleChange={setEPOpen}>
                         <MenuIcon />
                     </Popover>
                     <img src={Logo} style={{height: 36, width:36}} alt="logo"/>
                     <Title>dialect</Title>
                 </NavContent>
                 <NavContent>
-                    <Popover content={profilePopover} placement="bottomLeft" trigger="click">
+                    <Popover content={profilePopover} placement="bottomLeft" trigger="click" visible={ppOpen} onVisibleChange={setPPOpen}>
                         <Avatar>
                             <AvatarImg src={Logo} style={{height: 22, width: 22}} />
                         </Avatar>

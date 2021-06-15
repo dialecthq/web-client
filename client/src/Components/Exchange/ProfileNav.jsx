@@ -61,7 +61,6 @@ const ProfileLink = styled.div`
 
     :hover {
         cursor: pointer; 
-        color: #bda1ff;
     }
 
     @media screen and (max-width: 959px) {
@@ -124,6 +123,10 @@ const ProfileNav  = () => {
                     <FaHome />
                     <ProfileLinkText>Home</ProfileLinkText>
                 </ProfileLink>
+                <ProfileLink active={exchangeState.page === 'profile'} onClick={() => exchangeState.setPage('profile')}>
+                    <FaUser/>
+                    <ProfileLinkText>Profile</ProfileLinkText>
+                </ProfileLink>
                 <ProfileLink active={exchangeState.page === 'schedule'} onClick={() => exchangeState.setPage('schedule')}>
                     <FaCalendarAlt/>
                     <ProfileLinkText>Schedule</ProfileLinkText>
@@ -131,10 +134,6 @@ const ProfileNav  = () => {
                 <ProfileLink active={exchangeState.page === 'find'} onClick={() => exchangeState.setPage('find')}>
                     <FaChalkboardTeacher/>
                     <ProfileLinkText>Find</ProfileLinkText>
-                </ProfileLink>
-                <ProfileLink active={exchangeState.page === 'profile'} onClick={() => exchangeState.setPage('profile')}>
-                    <FaUser/>
-                    <ProfileLinkText>Profile</ProfileLinkText>
                 </ProfileLink>
             </ProfileWrapper>
         </ProfileContainer>
