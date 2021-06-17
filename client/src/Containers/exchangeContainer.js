@@ -1,12 +1,12 @@
-import { useState } from "react"
-import { createContainer } from "unstated-next"
+import { useState } from 'react';
+import { createContainer } from 'unstated-next';
 
 function useExchange() {
-  let [page, setPage] = useState('home')
+  const [page, setPage] = useState('home');
 
-  return { page, setPage }
+  return { page, setPage };
 }
 
-let ExchangeState = createContainer(useExchange)
+const ExchangeState = createContainer(useExchange);
 
-export default ExchangeState
+export default ExchangeState;

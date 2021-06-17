@@ -1,21 +1,26 @@
-import React, {useState} from 'react'
-import styled from 'styled-components'
-import axios from 'axios'
-import { Modal, Button, Input, Tooltip, Divider, Select, Form } from 'antd'
-import { AiOutlineEye } from 'react-icons/ai'
-import { FaFacebook } from 'react-icons/fa'
-import { FcGoogle } from 'react-icons/fc'
-import { IoAdd, IoAt, IoLockClosedOutline, IoMailOutline } from 'react-icons/io5'
-import User from '../../Containers/userContainer'
-import { useHistory } from 'react-router-dom'
-
+/* eslint-disable react/prop-types */
+/* eslint-disable max-len */
+import React, { useState } from 'react';
+import styled from 'styled-components';
+import axios from 'axios';
+import {
+  Modal, Button, Input, Tooltip, Divider, Form,
+} from 'antd';
+import { AiOutlineEye } from 'react-icons/ai';
+import { FaFacebook } from 'react-icons/fa';
+import { FcGoogle } from 'react-icons/fc';
+import {
+  IoLockClosedOutline, IoMailOutline,
+} from 'react-icons/io5';
+import { useHistory } from 'react-router-dom';
+import User from '../../Containers/userContainer';
 
 const TabContent = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-`
+`;
 
 const AuthModal = styled(Modal)`
   width: 425px !important;
@@ -23,7 +28,7 @@ const AuthModal = styled(Modal)`
   @media screen and (max-width: 768px) {
     width: 100% !important;
   } 
-`
+`;
 
 const TabRow = styled.div`
   display: flex;
@@ -31,12 +36,12 @@ const TabRow = styled.div`
   align-items: center;
   width: 100%;
   margin-bottom: 10px;
-`
+`;
 
 const ButtonText = styled.span`
   font-weight: 600;
   letter-spacing: 0.5px;
-`
+`;
 
 const AuthLink = styled.a`
   font-size: 14px;
@@ -50,7 +55,7 @@ const AuthLink = styled.a`
     opacity: 0.9;
     color: #000 !important
   }
-`
+`;
 
 const Text = styled.p`
   font-weight: 500;
@@ -59,7 +64,7 @@ const Text = styled.p`
   vertical-align: middle;
   margin-bottom: 0px;
   text-align: center;
-`
+`;
 
 const SmallText = styled.p`
   font-size: 10px;
@@ -67,14 +72,14 @@ const SmallText = styled.p`
   font-weight: 600;
   vertical-align: middle;
   margin-bottom: 0px;
-`
+`;
 
 const OauthContainer = styled.div`
     padding: 20px;
     display: flex;
     justify-content: center;
     align-items: center;
-`
+`;
 
 const TermsContainer = styled.div`
     display: flex;
@@ -82,13 +87,13 @@ const TermsContainer = styled.div`
     justify-content: center;
     align-items: center;
     width: 100%;
-`
+`;
 
 const Terms = styled.p`
     font-size: 12px;
     font-weight: 400;
     width: 70%;
-`
+`;
 const IconButton = styled.a`
     margin: 10px;
     svg {
@@ -101,110 +106,115 @@ const IconButton = styled.a`
             border: 0.5px solid black;
         }
     }
-`
+`;
 const SignIn = ({ visible, setVisible, setSignUpVisible }) => {
-    const [loading, setLoading] = useState(false)
-    let user = User.useContainer()
-    const history = useHistory()
+  const [loading, setLoading] = useState(false);
+  const user = User.useContainer();
+  const history = useHistory();
 
-    const onFinish = (values) => {
-        setLoading(true)
-        axios.get('http://localhost:9000/user/login', {
-            params: {
-                email: values.email,
-                password: values.password
-            }
-        }).then((data) => {
-            user.setUser(data.data.user)
-            setVisible(false)
-            setLoading(false)
-            history.push('/exchange')
-        }).catch((error) => {
-            setLoading(false)
-        })
-    };
+  const onFinish = (values) => {
+    setLoading(true);
+    axios.get('http://localhost:9000/user/login', {
+      params: {
+        email: values.email,
+        password: values.password,
+      },
+    }).then((data) => {
+      user.setUser(data.data.user);
+      setVisible(false);
+      setLoading(false);
+      history.push('/exchange');
+    }).catch(() => {
+      setLoading(false);
+    });
+  };
 
-    const onFinishFailed = (errorInfo) => {
-        console.log('Failed:', errorInfo);
-    };
+  const onFinishFailed = (errorInfo) => {
+    console.log('Failed:', errorInfo);
+  };
 
-    return (
-        <AuthModal
-            visible={visible}
-            onCancel={() => { setVisible(false) }}
-            title={"Log In"}
-            footer={null}
-
+  return (
+    <AuthModal
+      visible={visible}
+      onCancel={() => { setVisible(false); }}
+      title="Log In"
+      footer={null}
+    >
+      <TabContent>
+        <Form
+          name="login"
+          onFinish={onFinish}
+          onFinishFailed={onFinishFailed}
+          style={{ width: '100%' }}
         >
-            <TabContent>
-                <Form
-                    name="login"
-                    onFinish={onFinish}
-                    onFinishFailed={onFinishFailed}
-                    style={{ width: '100%' }}
-                >
-                    <Form.Item
-                        name="email"
-                        validateTrigger="onBlur"
-                        rules={[{ required: true, message: 'Please input your email.' }, { type: 'email', message: 'Please input a valid email.' }]}
-                    >
-                        <Input
-                            placeholder="Email"
-                            style={{ height: 40 }}
-                            prefix={<IoMailOutline />}
-                        />
-                    </Form.Item>
-                    <Form.Item
-                        name="password"
-                        validateTrigger="onBlur"
-                        rules={[{ required: true, message: 'Please input your password.' }]}
-                    >
-                        <Input
-                            placeholder="Password"
-                            type="password"
-                            style={{ height: 40 }}
-                            prefix={<IoLockClosedOutline />}
-                            suffix={
-                                <Tooltip title="Extra information">
-                                    <AiOutlineEye />
-                                </Tooltip>
-                            }
-                        />
-                    </Form.Item>
-                    <TabRow>
-                        <Text>Keep me logged in</Text>
-                        <AuthLink>Forgot password?</AuthLink>
-                    </TabRow>
-                    <Form.Item style={{ marginBottom: 20 }}>
-                        <Button
-                            type="primary"
-                            block
-                            htmlType="submit"
-                            loading={loading}
-                            style={{ height: 40 }}
-                        >
-                            <ButtonText>LOG IN</ButtonText>
-                        </Button>
-                    </Form.Item>
-                    <Text style={{ marginBottom: 10 }}>No account yet? <AuthLink onClick={() => {
-                        setVisible(false)
-                        setSignUpVisible(true)
-                    }}>Sign up</AuthLink></Text>
-                    <Divider style={{ marginBottom: 10 }}><SmallText>or</SmallText></Divider>
-                    <OauthContainer>
-                        <IconButton>
-                            <FaFacebook height={24} />
-                        </IconButton>
-                        <IconButton>
-                            <FcGoogle height={24} />
-                        </IconButton>
-                    </OauthContainer>
-                    <TermsContainer>
-                        <Terms>By logging in or creating an account, you agree to Dialect's Terms of Service and Privacy Policy.</Terms>
-                    </TermsContainer>
-                </Form>
-            </TabContent>
-        </AuthModal>
-    )
-}
-export default SignIn
+          <Form.Item
+            name="email"
+            validateTrigger="onBlur"
+            rules={[{ required: true, message: 'Please input your email.' }, { type: 'email', message: 'Please input a valid email.' }]}
+          >
+            <Input
+              placeholder="Email"
+              style={{ height: 40 }}
+              prefix={<IoMailOutline />}
+            />
+          </Form.Item>
+          <Form.Item
+            name="password"
+            validateTrigger="onBlur"
+            rules={[{ required: true, message: 'Please input your password.' }]}
+          >
+            <Input
+              placeholder="Password"
+              type="password"
+              style={{ height: 40 }}
+              prefix={<IoLockClosedOutline />}
+              suffix={(
+                <Tooltip title="Extra information">
+                  <AiOutlineEye />
+                </Tooltip>
+                              )}
+            />
+          </Form.Item>
+          <TabRow>
+            <Text>Keep me logged in</Text>
+            <AuthLink>Forgot password?</AuthLink>
+          </TabRow>
+          <Form.Item style={{ marginBottom: 20 }}>
+            <Button
+              type="primary"
+              block
+              htmlType="submit"
+              loading={loading}
+              style={{ height: 40 }}
+            >
+              <ButtonText>LOG IN</ButtonText>
+            </Button>
+          </Form.Item>
+          <Text style={{ marginBottom: 10 }}>
+            No account yet?
+            <AuthLink onClick={() => {
+              setVisible(false);
+              setSignUpVisible(true);
+            }}
+            >
+              Sign up
+            </AuthLink>
+          </Text>
+          <Divider style={{ marginBottom: 10 }}><SmallText>or</SmallText></Divider>
+          <OauthContainer>
+            <IconButton>
+              <FaFacebook height={24} />
+            </IconButton>
+            <IconButton>
+              <FcGoogle height={24} />
+            </IconButton>
+          </OauthContainer>
+          <TermsContainer>
+            <Terms>By logging in or creating an account, you agree to Dialects Terms of Service and Privacy Policy.</Terms>
+          </TermsContainer>
+        </Form>
+      </TabContent>
+    </AuthModal>
+  );
+};
+export default SignIn;

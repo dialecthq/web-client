@@ -5,7 +5,7 @@ import App from './App';
 import './App.less';
 import reportWebVitals from './reportWebVitals';
 
-import User from './Containers/userContainer'
+import User from './Containers/userContainer';
 
 ReactDOM.render(
   <React.StrictMode>
@@ -13,7 +13,7 @@ ReactDOM.render(
       <App />
     </User.Provider>
   </React.StrictMode>,
-  document.getElementById('root')
+  document.getElementById('root'),
 );
 
 // If you want to start measuring performance in your app, pass a function

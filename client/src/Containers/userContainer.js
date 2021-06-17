@@ -1,12 +1,12 @@
-import { useState } from "react"
-import { createContainer } from "unstated-next"
+import { useState } from 'react';
+import { createContainer } from 'unstated-next';
 
 function useUser() {
-  let [user, setUser] = useState(null)
+  const [user, setUser] = useState(null);
 
-  return { user, setUser }
+  return { user, setUser };
 }
 
-let User = createContainer(useUser)
+const User = createContainer(useUser);
 
-export default User
+export default User;

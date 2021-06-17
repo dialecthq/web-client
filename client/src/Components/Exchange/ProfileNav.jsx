@@ -1,9 +1,11 @@
-import React from 'react'
-import styled from 'styled-components'
-import Logo from '../../Img/logo.svg'
-import User from '../../Containers/userContainer'
-import {FaHome, FaUser, FaCalendarAlt, FaChalkboardTeacher} from 'react-icons/fa'
-import ExchangeState from '../../Containers/exchangeContainer'
+import React from 'react';
+import styled from 'styled-components';
+import {
+  FaHome, FaUser, FaCalendarAlt, FaChalkboardTeacher,
+} from 'react-icons/fa';
+import Logo from '../../Img/logo.svg';
+import User from '../../Containers/userContainer';
+import ExchangeState from '../../Containers/exchangeContainer';
 
 const ProfileContainer = styled.div`
     position: absolute;
@@ -14,7 +16,7 @@ const ProfileContainer = styled.div`
         left: 18px;
         display: none;
     }
-`
+`;
 
 const ProfileWrapper = styled.div`
     display: flex;
@@ -26,7 +28,7 @@ const ProfileWrapper = styled.div`
     @media screen and (max-width: 959px) {
         align-items: center;
     }
-`
+`;
 
 const Name = styled.p`
     margin-top: 10px;
@@ -38,7 +40,7 @@ const Name = styled.p`
     @media screen and (max-width: 959px) {
         display: none;
     }
-`   
+`;
 
 const Username = styled.p`
     font-size: 1em;
@@ -49,14 +51,14 @@ const Username = styled.p`
     @media screen and (max-width: 959px) {
         display: none;
     }
-`
+`;
 
 const ProfileLink = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
     margin-bottom: 5px;
-    color: ${p=> p.active ? '#bda1ff' : '#454545'};
+    color: ${(p) => (p.active ? '#bda1ff' : '#454545')};
     transition: 0.2s color ease-in-out;
 
     :hover {
@@ -70,7 +72,7 @@ const ProfileLink = styled.div`
             width: 18px;
         }
     }
-`
+`;
 
 const Avatar = styled.div`
     display: flex;
@@ -83,7 +85,7 @@ const Avatar = styled.div`
     @media screen and (max-width:  959px) {
         margin-bottom: 20px;
     }
-`
+`;
 
 const AvatarImg = styled.img`
     filter: grayscale(100%);
@@ -94,7 +96,7 @@ const AvatarImg = styled.img`
         height: 24px;
         width: 24px;
     }
-`
+`;
 
 const ProfileLinkText = styled.p`
     font-size: 1.1em;
@@ -105,39 +107,42 @@ const ProfileLinkText = styled.p`
     @media screen and (max-width: 959px) {
         display: none;
     }
-`
+`;
 
-const ProfileNav  = () => {
-    const user = User.useContainer()
-    const exchangeState = ExchangeState.useContainer()
+const ProfileNav = () => {
+  const user = User.useContainer();
+  const exchangeState = ExchangeState.useContainer();
 
-    return (
-        <ProfileContainer>
-            <ProfileWrapper>
-            <Avatar>
-                <AvatarImg src={Logo}/>
-            </Avatar>
-            <Name>{user.user.name}</Name>
-            <Username>@{user.user.username}</Username>
-                <ProfileLink active={exchangeState.page === 'home'} onClick={() => exchangeState.setPage('home')}>
-                    <FaHome />
-                    <ProfileLinkText>Home</ProfileLinkText>
-                </ProfileLink>
-                <ProfileLink active={exchangeState.page === 'profile'} onClick={() => exchangeState.setPage('profile')}>
-                    <FaUser/>
-                    <ProfileLinkText>Profile</ProfileLinkText>
-                </ProfileLink>
-                <ProfileLink active={exchangeState.page === 'schedule'} onClick={() => exchangeState.setPage('schedule')}>
-                    <FaCalendarAlt/>
-                    <ProfileLinkText>Schedule</ProfileLinkText>
-                </ProfileLink>
-                <ProfileLink active={exchangeState.page === 'find'} onClick={() => exchangeState.setPage('find')}>
-                    <FaChalkboardTeacher/>
-                    <ProfileLinkText>Find</ProfileLinkText>
-                </ProfileLink>
-            </ProfileWrapper>
-        </ProfileContainer>
-    )
-}
+  return (
+    <ProfileContainer>
+      <ProfileWrapper>
+        <Avatar>
+          <AvatarImg src={Logo} />
+        </Avatar>
+        <Name>{user.user.name}</Name>
+        <Username>
+          @
+          {user.user.username}
+        </Username>
+        <ProfileLink active={exchangeState.page === 'home'} onClick={() => exchangeState.setPage('home')}>
+          <FaHome />
+          <ProfileLinkText>Home</ProfileLinkText>
+        </ProfileLink>
+        <ProfileLink active={exchangeState.page === 'profile'} onClick={() => exchangeState.setPage('profile')}>
+          <FaUser />
+          <ProfileLinkText>Profile</ProfileLinkText>
+        </ProfileLink>
+        <ProfileLink active={exchangeState.page === 'schedule'} onClick={() => exchangeState.setPage('schedule')}>
+          <FaCalendarAlt />
+          <ProfileLinkText>Schedule</ProfileLinkText>
+        </ProfileLink>
+        <ProfileLink active={exchangeState.page === 'find'} onClick={() => exchangeState.setPage('find')}>
+          <FaChalkboardTeacher />
+          <ProfileLinkText>Find</ProfileLinkText>
+        </ProfileLink>
+      </ProfileWrapper>
+    </ProfileContainer>
+  );
+};
 
-export default ProfileNav
+export default ProfileNav;

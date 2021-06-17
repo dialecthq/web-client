@@ -1,13 +1,14 @@
-import React from 'react'
-import styled from 'styled-components'
-import Logo from '../../Img/logo.svg'
-import {FaBars, FaCog, FaQuestion, FaSignOutAlt, FaHome, FaUser, FaCalendarAlt, FaChalkboardTeacher} from 'react-icons/fa'
-import { Popover, Divider, Menu } from 'antd'
-import User from '../../Containers/userContainer'
-import ExchangeState from '../../Containers/exchangeContainer'
-import axios from 'axios'
-import { useState } from 'react'
-import { useHistory } from 'react-router-dom'
+import React, { useState } from 'react';
+import styled from 'styled-components';
+import {
+  FaBars, FaQuestion, FaSignOutAlt, FaHome, FaUser, FaCalendarAlt, FaChalkboardTeacher,
+} from 'react-icons/fa';
+import { Popover, Divider, Menu } from 'antd';
+import Logo from '../../Img/logo.svg';
+import User from '../../Containers/userContainer';
+import ExchangeState from '../../Containers/exchangeContainer';
+
+import { signOut } from '../../Helpers/user';
 
 const NavContainer = styled.div`
     display: flex;
@@ -19,7 +20,7 @@ const NavContainer = styled.div`
     height: 55px;
     position: fixed;
     width: 100%;
-`
+`;
 
 const NavWrapper = styled.div`
     display: flex;
@@ -29,25 +30,13 @@ const NavWrapper = styled.div`
     max-width: 1200px;
     padding-left: 18px;
     padding-right: 18px;
-`
+`;
 
 const NavContent = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-`
-
-const Link = styled.a`
-    font-size: 1em;
-    color: #454545;
-    margin-left: 10px;
-    margin-right: 10px;
-    font-weight: 500;
-
-    @media screen and (max-width: 768px) {
-        display: none;
-    }
-`
+`;
 
 const Title = styled.p`
     font-size: 2em;
@@ -55,7 +44,7 @@ const Title = styled.p`
     margin-right: 20px;
     margin-top: 0px;
     margin-bottom: 0px;
-`
+`;
 
 const Avatar = styled.div`
     display: flex;
@@ -70,11 +59,11 @@ const Avatar = styled.div`
         border: 0.5px solid #6e6e6e;
         cursor: pointer;
     }
-`
+`;
 
 const AvatarImg = styled.img`
     filter: grayscale(100%);
-`
+`;
 
 const MenuIcon = styled(FaBars)`
     height: 24px;
@@ -88,7 +77,7 @@ const MenuIcon = styled(FaBars)`
         display: none;
     }
 
-`
+`;
 
 const ProfilePopoverContainer = styled.div`
     display: flex;
@@ -96,7 +85,7 @@ const ProfilePopoverContainer = styled.div`
     align-items: flex-start;
     justify-content: center;
     padding: 12px 0px;
-`
+`;
 
 const Username = styled.p`
     font-size: 0.9em;
@@ -104,7 +93,7 @@ const Username = styled.p`
     margin: 0px 12px;
     color: #454545;
     opacity: 0.6;
-`
+`;
 
 const MenuItem = styled(Menu.Item)`
     display: flex;
@@ -113,81 +102,103 @@ const MenuItem = styled(Menu.Item)`
     :hover {
         background: #efefef;
     }
-`
+`;
 
 const Header = () => {
-    const user = User.useContainer()
-    const exchangeState = ExchangeState.useContainer()
-    const history = useHistory()
-    const [ppOpen, setPPOpen] = useState(false)
-    const [epOpen, setEPOpen] = useState(false)
+  const user = User.useContainer();
+  const exchangeState = ExchangeState.useContainer();
+  const [ppOpen, setPPOpen] = useState(false);
+  const [epOpen, setEPOpen] = useState(false);
 
-    const profilePopover = (
-        <ProfilePopoverContainer style={{minWidth: 200}}>
-            <Username>signed in as <span style={{color: '#000'}}>@{user.user.username}</span></Username>
-            <Divider style={{margin: '12px 0px'}} />
-            <Menu style={{width: '100%'}}>
-                <MenuItem icon={<FaQuestion />}>Help</MenuItem>
-                <MenuItem
-                    icon={<FaSignOutAlt />}
-                    onClick={() => {
-                        axios.get('http://localhost:9000/user/signout').then((data) => {
-                            user.setUser(null)
-                        }).catch((error) => {
-                            console.log(error)
-                        })
-                    }}
-                >
-                    Sign out
-                </MenuItem>
-            </Menu>
+  const profilePopover = (
+    <ProfilePopoverContainer style={{ minWidth: 200 }}>
+      <Username>
+        signed in as
+        <span style={{ color: '#000' }}>
+          @
+          {user.user.username}
+        </span>
+      </Username>
+      <Divider style={{ margin: '12px 0px' }} />
+      <Menu style={{ width: '100%' }}>
+        <MenuItem icon={<FaQuestion />} key="help">Help</MenuItem>
+        <MenuItem
+          key="sign-out"
+          icon={<FaSignOutAlt />}
+          onClick={() => {
+            signOut(user);
+          }}
+        >
+          Sign out
+        </MenuItem>
+      </Menu>
 
-        </ProfilePopoverContainer>
-    )
+    </ProfilePopoverContainer>
+  );
 
-    const navigationPopover = (
-        <ProfilePopoverContainer style={{minWidth: 200}}>
-            <Menu style={{width: '100%'}}>
-                <MenuItem icon={<FaHome />} onClick={() => {
-                    exchangeState.setPage('home')
-                    setEPOpen(false)
-                }}>Home</MenuItem>
-                <MenuItem icon={<FaUser />} onClick={() => {
-                    exchangeState.setPage('profile')
-                    setEPOpen(false)    
-                }}>Profile</MenuItem>
-                <MenuItem icon={<FaCalendarAlt />} onClick={() => {
-                    exchangeState.setPage('schedule')
-                    setEPOpen(false)
-                }}>Schedule</MenuItem>
-                <MenuItem icon={<FaChalkboardTeacher />} onClick={() => {
-                    exchangeState.setPage('find')
-                    setEPOpen(false)
-                }}>Find</MenuItem>
-            </Menu>
-        </ProfilePopoverContainer>
-    )
+  const navigationPopover = (
+    <ProfilePopoverContainer style={{ minWidth: 200 }}>
+      <Menu style={{ width: '100%' }}>
+        <MenuItem
+          icon={<FaHome />}
+          onClick={() => {
+            exchangeState.setPage('home');
+            setEPOpen(false);
+          }}
+        >
+          Home
+        </MenuItem>
+        <MenuItem
+          icon={<FaUser />}
+          onClick={() => {
+            exchangeState.setPage('profile');
+            setEPOpen(false);
+          }}
+        >
+          Profile
+        </MenuItem>
+        <MenuItem
+          icon={<FaCalendarAlt />}
+          onClick={() => {
+            exchangeState.setPage('schedule');
+            setEPOpen(false);
+          }}
+        >
+          Schedule
+        </MenuItem>
+        <MenuItem
+          icon={<FaChalkboardTeacher />}
+          onClick={() => {
+            exchangeState.setPage('find');
+            setEPOpen(false);
+          }}
+        >
+          Find
+        </MenuItem>
+      </Menu>
+    </ProfilePopoverContainer>
+  );
 
-    return (
-        <NavContainer>
-            <NavWrapper>
-                <NavContent>
-                    <Popover content={navigationPopover} placement="bottomRight" trigger="click" visible={epOpen} onVisibleChange={setEPOpen}>
-                        <MenuIcon />
-                    </Popover>
-                    <img src={Logo} style={{height: 36, width:36}} alt="logo"/>
-                    <Title>dialect</Title>
-                </NavContent>
-                <NavContent>
-                    <Popover content={profilePopover} placement="bottomLeft" trigger="click" visible={ppOpen} onVisibleChange={setPPOpen}>
-                        <Avatar>
-                            <AvatarImg src={Logo} style={{height: 22, width: 22}} />
-                        </Avatar>
-                    </Popover>
-                </NavContent>
-            </NavWrapper>
-        </NavContainer>
-    )
-}
+  return (
+    <NavContainer>
+      <NavWrapper>
+        <NavContent>
+          <Popover content={navigationPopover} placement="bottomRight" trigger="click" visible={epOpen} onVisibleChange={setEPOpen}>
+            <MenuIcon />
+          </Popover>
+          <img src={Logo} style={{ height: 36, width: 36 }} alt="logo" />
+          <Title>dialect</Title>
+        </NavContent>
+        <NavContent>
+          <Popover content={profilePopover} placement="bottomLeft" trigger="click" visible={ppOpen} onVisibleChange={setPPOpen}>
+            <Avatar>
+              <AvatarImg src={Logo} style={{ height: 22, width: 22 }} />
+            </Avatar>
+          </Popover>
+        </NavContent>
+      </NavWrapper>
+    </NavContainer>
+  );
+};
 
-export default Header
+export default Header;
