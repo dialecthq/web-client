@@ -9,7 +9,7 @@ const EditingContainer = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
 
     @media screen and (max-width: 768px) {
         margin-top: 10px;
@@ -17,6 +17,14 @@ const EditingContainer = styled.div`
 `;
 
 const EditingRow = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    max-width: 200px;
+`;
+
+const InputRow = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
@@ -50,9 +58,12 @@ const Edit = ({ children, setEditing, initialValues }) => {
       initialValues={initialValues}
       onFinish={onFinish}
       onFinishFailed={onFinishFailed}
+      style={{ width: '100%' }}
     >
       <EditingContainer>
-        {children}
+        <InputRow>
+          {children}
+        </InputRow>
         <EditingRow>
           <Form.Item style={{ width: '100%', paddingRight: 5 }}>
             <Button

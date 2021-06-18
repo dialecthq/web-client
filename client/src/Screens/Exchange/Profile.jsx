@@ -1,6 +1,9 @@
+/* eslint-disable max-len */
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { Button, Input, Form } from 'antd';
+import {
+  Button, Input, Form, Select,
+} from 'antd';
 import { FaPen } from 'react-icons/fa';
 import User from '../../Containers/userContainer';
 import countryOptions from '../../Data/countryOptions';
@@ -8,6 +11,7 @@ import languageOptions from '../../Data/languageOptions';
 import timezoneOptions from '../../Data/timezoneOptions';
 import Level from '../../Components/Reusable/Level';
 import Edit from '../../Components/Reusable/Edit';
+import { years, months, getDays } from '../../Data/dateOptions';
 
 const HeaderContainer = styled.div`
     display: flex;
@@ -45,6 +49,7 @@ const ItemRow = styled.div`
     display: flex;
     justify-content: flex-start;
     align-items: flex-start;
+    width: calc(100% - 25px);
 
     @media screen and (max-width: 768px) {
         flex-direction: column;
@@ -79,6 +84,10 @@ const InfoContent = styled.p`
     font-weight: 400;
     font-size: 1.1em;
     color: #6e6e6e;
+    display: flex;
+    flex-wrap: wrap;
+    overflow: hidden;
+    padding-right: 25px;
 `;
 
 const EmptyContainer = styled.div`
@@ -98,9 +107,11 @@ const EmptyText = styled.p`
     margin-bottom: 12px;
 `;
 
+const FormItem = styled(Form.Item)`
+  width: 100%;
+`;
+
 const PenIcon = styled(FaPen)`
-    height: 14px;
-    width: 14px;
     color: #6e6e6e;
     :hover {
         cursor: pointer;
@@ -109,6 +120,8 @@ const PenIcon = styled(FaPen)`
 
 const Profile = () => {
   const [editing, setEditing] = useState('');
+  const [inputYear, setInputYear] = useState(2002);
+  const [inputMonth, setInputMonth] = useState(1);
   const user = User.useContainer();
   return (
     <>
@@ -126,13 +139,13 @@ const Profile = () => {
               ? <InfoContent>{user.user.name}</InfoContent>
               : (
                 <Edit setEditing={setEditing} initialValues={{ name: user.user.name }}>
-                  <Form.Item
+                  <FormItem
                     name="name"
                     validateTrigger="onBlur"
                     rules={[{ required: true, message: 'Please input your name.' }]}
                   >
                     <Input />
-                  </Form.Item>
+                  </FormItem>
                 </Edit>
               )}
           </ItemRow>
@@ -151,13 +164,13 @@ const Profile = () => {
               ? <InfoContent>{user.user.bio || 'No bio yet'}</InfoContent>
               : (
                 <Edit setEditing={setEditing} initialValues={{ bio: user.user.bio || '' }}>
-                  <Form.Item
+                  <FormItem
                     name="bio"
                     validateTrigger="onBlur"
                     rules={[{ required: true, message: 'Please input your bio.' }]}
                   >
                     <Input.TextArea autoSize />
-                  </Form.Item>
+                  </FormItem>
                 </Edit>
               )}
           </ItemRow>
@@ -171,9 +184,53 @@ const Profile = () => {
         </ContentRow>
         <ContentRow>
           <ItemRow>
-            <InfoTitle>Date of Birth</InfoTitle>
-            <InfoContent>{user.user.dateOfBirth || 'Not specified'}</InfoContent>
+            <InfoTitle>Date of birth</InfoTitle>
+            {editing !== 'dob'
+              ? <InfoContent>{user.user.dob || 'Not specified'}</InfoContent>
+              : (
+                <Edit setEditing={setEditing} initialValues={{ year: user.user.dob?.year || 2002, month: user.user.dob?.month || 1, day: user.user.dob?.day || 1 }}>
+                  <FormItem
+                    name="year"
+                  >
+                    <Select
+                      showSearch
+                      placeholder="Select a year"
+                      onChange={setInputYear}
+                    >
+                      {years.map((year) => <Select.Option key={year}>{year}</Select.Option>)}
+                    </Select>
+                  </FormItem>
+                  <FormItem
+                    name="month"
+                  >
+                    <Select
+                      showSearch
+                      placeholder="Select a month"
+                      onChange={setInputMonth}
+                    >
+                      {months.map((month) => <Select.Option key={month}>{month}</Select.Option>)}
+                    </Select>
+                  </FormItem>
+                  <FormItem
+                    name="day"
+                  >
+                    <Select
+                      showSearch
+                      placeholder="Select a day"
+                    >
+                      {getDays(inputYear, inputMonth).map((day) => <Select.Option key={day}>{day}</Select.Option>)}
+                    </Select>
+                  </FormItem>
+                </Edit>
+              )}
           </ItemRow>
+          {!editing && (
+          <PenIcon
+            onClick={() => {
+              setEditing('dob');
+            }}
+          />
+          )}
         </ContentRow>
         <ContentRow>
           <ItemRow>
