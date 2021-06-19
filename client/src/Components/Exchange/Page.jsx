@@ -1,10 +1,10 @@
 /* eslint-disable react/prop-types */
-import React from 'react';
-import styled from 'styled-components';
+import React from 'react'
+import styled from 'styled-components'
 
 // Components
-import Footer from './Footer';
-import ProfileNav from './ProfileNav';
+import Footer from './Footer'
+import ProfileNav from './ProfileNav'
 
 const PageContainer = styled.div`
     display: flex;
@@ -12,7 +12,7 @@ const PageContainer = styled.div`
     justify-content: center;
     align-items: center;
     padding-top: 100px;
-`;
+`
 
 const PageWrapper = styled.div`
     display: flex;
@@ -24,7 +24,7 @@ const PageWrapper = styled.div`
     padding-top: 0px;
     width: 100%;
     position: relative;
-`;
+`
 
 const PageContent = styled.div`
     display: flex;
@@ -36,10 +36,10 @@ const PageContent = styled.div`
     width: 100%;
     margin-bottom: 60px;
 
-    @media screen and (max-width: 959px) {
+    @media screen and (max-width: 768px) {
         padding-left: 0px;
     }
-`;
+`
 
 const Page = ({ children }) => (
   <PageContainer>
@@ -51,6 +51,6 @@ const Page = ({ children }) => (
       <Footer />
     </PageWrapper>
   </PageContainer>
-);
+)
 
-export default Page;
+export default Page

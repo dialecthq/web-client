@@ -1,37 +1,37 @@
 /* eslint-disable max-len */
 /* eslint-disable react/prop-types */
-import React, { useState } from 'react';
-import styled from 'styled-components';
+import React, { useState } from 'react'
+import styled from 'styled-components'
 import {
   Modal, Button, Input, Tooltip, Divider, Select, Form, Steps,
-} from 'antd';
+} from 'antd'
 import {
   IoAt, IoLockClosedOutline, IoMailOutline, IoPersonOutline,
-} from 'react-icons/io5';
-import { AiOutlineEye } from 'react-icons/ai';
-import { FaFacebook } from 'react-icons/fa';
-import { FcGoogle } from 'react-icons/fc';
-import axios from 'axios';
-import { useHistory } from 'react-router-dom';
+} from 'react-icons/io5'
+import { AiOutlineEye } from 'react-icons/ai'
+import { FaFacebook } from 'react-icons/fa'
+import { FcGoogle } from 'react-icons/fc'
+import axios from 'axios'
+import { useHistory } from 'react-router-dom'
 
 // Data objects
-import languageOptions from '../../Data/languageOptions';
-import countryOptions from '../../Data/countryOptions';
-import timezoneOptions from '../../Data/timezoneOptions';
+import languageOptions from '../../Data/languageOptions'
+import countryOptions from '../../Data/countryOptions'
+import timezoneOptions from '../../Data/timezoneOptions'
 
 // Validators
-import emailValidator from '../../Validators/emailValidator';
-import usernameValidator from '../../Validators/usernameValidator';
+import emailValidator from '../../Validators/emailValidator'
+import usernameValidator from '../../Validators/usernameValidator'
 
 // Containers
-import User from '../../Containers/userContainer';
+import User from '../../Containers/userContainer'
 
 const TabContent = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-`;
+`
 
 const AuthModal = styled(Modal)`
   width: 425px !important;
@@ -39,12 +39,12 @@ const AuthModal = styled(Modal)`
   @media screen and (max-width: 768px) {
     width: 100% !important;
   } 
-`;
+`
 
 const ButtonText = styled.span`
   font-weight: 600;
   letter-spacing: 0.5px;
-`;
+`
 
 const AuthLink = styled.a`
   font-size: 14px;
@@ -58,7 +58,7 @@ const AuthLink = styled.a`
     opacity: 0.9;
     color: #000 !important
   }
-`;
+`
 
 const Text = styled.p`
   font-weight: 500;
@@ -67,7 +67,7 @@ const Text = styled.p`
   vertical-align: middle;
   margin-bottom: 0px;
   text-align: center;
-`;
+`
 
 const SmallText = styled.p`
   font-size: 10px;
@@ -75,14 +75,14 @@ const SmallText = styled.p`
   font-weight: 600;
   vertical-align: middle;
   margin-bottom: 0px;
-`;
+`
 
 const OauthContainer = styled.div`
     padding: 20px;
     display: flex;
     justify-content: center;
     align-items: center;
-`;
+`
 
 const TermsContainer = styled.div`
     display: flex;
@@ -90,13 +90,13 @@ const TermsContainer = styled.div`
     justify-content: center;
     align-items: center;
     width: 100%;
-`;
+`
 
 const Terms = styled.p`
     font-size: 12px;
     font-weight: 400;
     width: 100%;
-`;
+`
 
 const IconButton = styled.a`
     margin: 10px;
@@ -110,12 +110,12 @@ const IconButton = styled.a`
             border: 0.5px solid black;
         }
     }
-`;
+`
 
 const Label = styled.p`
     font-size: 14px;
     font-weight: 400;
-`;
+`
 
 const FormRow = styled.div`
     display: flex;
@@ -123,7 +123,7 @@ const FormRow = styled.div`
     align-items: center;
     width: 100%;
     margin-bottom: 25px;
-`;
+`
 
 const FluencyButton = styled.div`
     display: flex;
@@ -139,22 +139,22 @@ const FluencyButton = styled.div`
         border: 1px solid #9c77ff;
         color: #9c77ff;
     }
-`;
+`
 
 const FluencyButtonText = styled.p`
     margin-bottom: 0px;
     font-size: 12px;
     font-weight: 600;
-`;
+`
 
 const SignUp = ({ visible, setVisible, setSignInVisible }) => {
-  const [page, setPage] = useState(0);
-  const [tempUser, setTempUser] = useState(null);
-  const [loading, setLoading] = useState(false);
-  const [level, setLevel] = useState(1);
+  const [page, setPage] = useState(0)
+  const [tempUser, setTempUser] = useState(null)
+  const [loading, setLoading] = useState(false)
+  const [level, setLevel] = useState(1)
 
-  const user = User.useContainer();
-  const history = useHistory();
+  const user = User.useContainer()
+  const history = useHistory()
 
   const onFinishPage1 = (values) => {
     setTempUser({
@@ -162,9 +162,9 @@ const SignUp = ({ visible, setVisible, setSignInVisible }) => {
       email: values.email,
       password: values.password,
       username: values.username,
-    });
-    setPage(1);
-  };
+    })
+    setPage(1)
+  }
 
   const onFinishPage2 = (values) => {
     const newTempUser = {
@@ -173,32 +173,32 @@ const SignUp = ({ visible, setVisible, setSignInVisible }) => {
       native: [{ key: languageOptions.filter((e) => e.value === values.native)[0].key, level: 7 }],
       country: countryOptions.filter((e) => e.value === values.country)[0].key,
       timezone: timezoneOptions.filter((e) => e.value === values.timezone)[0].key,
-    };
-    setLoading(true);
+    }
+    setLoading(true)
     axios.post('http://localhost:9000/user/register', newTempUser)
       .then((data) => {
-        setLoading(false);
+        setLoading(false)
         if (data.data.user) {
-          user.setUser(data.data.user);
-          setVisible(false);
-          setPage(0);
-          setTempUser(null);
-          history.push('/exchange');
+          user.setUser(data.data.user)
+          setVisible(false)
+          setPage(0)
+          setTempUser(null)
+          history.push('/exchange')
         }
       }).catch((error) => {
-        console.log(error);
-        setLoading(false);
-      });
-  };
+        console.log(error)
+        setLoading(false)
+      })
+  }
 
   const onFinishFailed = (errorInfo) => {
-    console.log('Failed:', errorInfo);
-  };
+    console.log('Failed:', errorInfo)
+  }
 
   return (
     <AuthModal
       visible={visible}
-      onCancel={() => { setVisible(false); }}
+      onCancel={() => { setVisible(false) }}
       title="Register"
       footer={null}
     >
@@ -281,8 +281,8 @@ const SignUp = ({ visible, setVisible, setSignInVisible }) => {
             <Text style={{ marginBottom: 10 }}>
               Already have an account?
               <AuthLink onClick={() => {
-                setVisible(false);
-                setSignInVisible(true);
+                setVisible(false)
+                setSignInVisible(true)
               }}
               >
                 Sign in
@@ -331,7 +331,7 @@ const SignUp = ({ visible, setVisible, setSignInVisible }) => {
               <FluencyButton
                 active={level === 1}
                 onClick={() => {
-                  setLevel(1);
+                  setLevel(1)
                 }}
               >
                 <FluencyButtonText>
@@ -341,7 +341,7 @@ const SignUp = ({ visible, setVisible, setSignInVisible }) => {
               <FluencyButton
                 active={level === 2}
                 onClick={() => {
-                  setLevel(2);
+                  setLevel(2)
                 }}
               >
                 <FluencyButtonText>
@@ -351,7 +351,7 @@ const SignUp = ({ visible, setVisible, setSignInVisible }) => {
               <FluencyButton
                 active={level === 3}
                 onClick={() => {
-                  setLevel(3);
+                  setLevel(3)
                 }}
               >
                 <FluencyButtonText>
@@ -361,7 +361,7 @@ const SignUp = ({ visible, setVisible, setSignInVisible }) => {
               <FluencyButton
                 active={level === 5}
                 onClick={() => {
-                  setLevel(5);
+                  setLevel(5)
                 }}
               >
                 <FluencyButtonText>
@@ -418,7 +418,7 @@ const SignUp = ({ visible, setVisible, setSignInVisible }) => {
                   block
                   style={{ height: 40 }}
                   onClick={() => {
-                    setPage(0);
+                    setPage(0)
                   }}
                 >
                   <ButtonText>Back</ButtonText>
@@ -443,6 +443,6 @@ const SignUp = ({ visible, setVisible, setSignInVisible }) => {
         </TabContent>
       )}
     </AuthModal>
-  );
-};
-export default SignUp;
+  )
+}
+export default SignUp

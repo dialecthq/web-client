@@ -1,22 +1,22 @@
-import React from 'react';
-import styled from 'styled-components';
+import React from 'react'
+import styled from 'styled-components'
 import {
   FaHome, FaUser, FaCalendarAlt, FaChalkboardTeacher,
-} from 'react-icons/fa';
-import Logo from '../../Img/logo.svg';
-import User from '../../Containers/userContainer';
-import ExchangeState from '../../Containers/exchangeContainer';
+} from 'react-icons/fa'
+import Logo from '../../Img/logo.svg'
+import User from '../../Containers/userContainer'
+import ExchangeState from '../../Containers/exchangeContainer'
 
 const ProfileContainer = styled.div`
     position: absolute;
     top: 0px;
     left: 38px;
 
-    @media screen and (max-width: 959px) {
+    @media screen and (max-width: 768px) {
         left: 18px;
         display: none;
     }
-`;
+`
 
 const ProfileWrapper = styled.div`
     display: flex;
@@ -25,10 +25,10 @@ const ProfileWrapper = styled.div`
     align-items: flex-start;
     position: fixed;
 
-    @media screen and (max-width: 959px) {
+    @media screen and (max-width: 768px) {
         align-items: center;
     }
-`;
+`
 
 const Name = styled.p`
     margin-top: 10px;
@@ -37,10 +37,10 @@ const Name = styled.p`
     font-size: 1.3em;
     font-weight: 500;
 
-    @media screen and (max-width: 959px) {
+    @media screen and (max-width: 768px) {
         display: none;
     }
-`;
+`
 
 const Username = styled.p`
     font-size: 1em;
@@ -48,10 +48,10 @@ const Username = styled.p`
     font-weight: 400;
     margin-bottom: 20px;
 
-    @media screen and (max-width: 959px) {
+    @media screen and (max-width: 768px) {
         display: none;
     }
-`;
+`
 
 const ProfileLink = styled.div`
     display: flex;
@@ -65,14 +65,14 @@ const ProfileLink = styled.div`
         cursor: pointer; 
     }
 
-    @media screen and (max-width: 959px) {
+    @media screen and (max-width: 768px) {
         margin-bottom: 15px;
         svg {
             height: 18px;
             width: 18px;
         }
     }
-`;
+`
 
 const Avatar = styled.div`
     display: flex;
@@ -82,21 +82,21 @@ const Avatar = styled.div`
     background-color: #a8a8a8;
     border-radius: 100px;
 
-    @media screen and (max-width:  959px) {
+    @media screen and (max-width:  768px) {
         margin-bottom: 20px;
     }
-`;
+`
 
 const AvatarImg = styled.img`
     filter: grayscale(100%);
     height: 72px;
     width: 72px;
 
-    @media screen and (max-width: 959px) {
+    @media screen and (max-width: 768px) {
         height: 24px;
         width: 24px;
     }
-`;
+`
 
 const ProfileLinkText = styled.p`
     font-size: 1.1em;
@@ -104,14 +104,14 @@ const ProfileLinkText = styled.p`
     margin-left: 10px;
     margin-bottom: 0px;
 
-    @media screen and (max-width: 959px) {
+    @media screen and (max-width: 768px) {
         display: none;
     }
-`;
+`
 
 const ProfileNav = () => {
-  const user = User.useContainer();
-  const exchangeState = ExchangeState.useContainer();
+  const user = User.useContainer()
+  const exchangeState = ExchangeState.useContainer()
 
   return (
     <ProfileContainer>
@@ -142,7 +142,7 @@ const ProfileNav = () => {
         </ProfileLink>
       </ProfileWrapper>
     </ProfileContainer>
-  );
-};
+  )
+}
 
-export default ProfileNav;
+export default ProfileNav

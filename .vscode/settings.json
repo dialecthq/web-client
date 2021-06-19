@@ -1,4 +1,12 @@
 {
     "editor.defaultFormatter": "rvest.vs-code-prettier-eslint",
-    "editor.formatOnSave": true
+    "editor.formatOnSave": true,
+    "launch": {
+        "configurations": [],
+        "compounds": []
+    },
+    "editor.codeActionsOnSave": {
+        // For ESLint
+        "source.fixAll": true
+      }
 }

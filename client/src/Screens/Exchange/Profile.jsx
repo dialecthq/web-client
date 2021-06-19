@@ -1,17 +1,17 @@
 /* eslint-disable max-len */
-import React, { useState } from 'react';
-import styled from 'styled-components';
+import React, { useState } from 'react'
+import styled from 'styled-components'
 import {
   Button, Input, Form, Select,
-} from 'antd';
-import { FaPen } from 'react-icons/fa';
-import User from '../../Containers/userContainer';
-import countryOptions from '../../Data/countryOptions';
-import languageOptions from '../../Data/languageOptions';
-import timezoneOptions from '../../Data/timezoneOptions';
-import Level from '../../Components/Reusable/Level';
-import Edit from '../../Components/Reusable/Edit';
-import { years, months, getDays } from '../../Data/dateOptions';
+} from 'antd'
+import { FaPen } from 'react-icons/fa'
+import User from '../../Containers/userContainer'
+import countryOptions from '../../Data/countryOptions'
+import languageOptions from '../../Data/languageOptions'
+import timezoneOptions from '../../Data/timezoneOptions'
+import Level from '../../Components/Reusable/Level'
+import Edit from '../../Components/Reusable/Edit'
+import { years, months, getDays } from '../../Data/dateOptions'
 
 const HeaderContainer = styled.div`
     display: flex;
@@ -19,13 +19,13 @@ const HeaderContainer = styled.div`
     border-bottom: 1px solid #efefef;
     margin-bottom: 30px;
     justify-content: space-between;
-`;
+`
 
 const TitleContainer = styled.div`
     display: flex;
     width: 100%;
     margin-bottom: 40px;
-`;
+`
 
 const ContentContainer = styled.div`
     display: flex;
@@ -34,7 +34,7 @@ const ContentContainer = styled.div`
     align-items: center;
     margin-bottom: 20px;
     width: 100%;
-`;
+`
 
 const ContentRow = styled.div`
     display: flex;
@@ -43,7 +43,7 @@ const ContentRow = styled.div`
     width: 100%;
     margin-bottom: 20px;
 
-`;
+`
 
 const ItemRow = styled.div`
     display: flex;
@@ -56,21 +56,21 @@ const ItemRow = styled.div`
         justify-content: center;
         align-items: flex-start;
     }
-`;
+`
 
 const Title = styled.p`
     font-size: 2.5em;
     font-weight: 600;
     color: #1c1c1c;
     margin-bottom: 0px;
-`;
+`
 
 const HeaderTitle = styled.p`
     font-size: 1.3em;
     font-weight: 600;
     color: #1c1c1c;
     margin-bottom: 0px;
-`;
+`
 
 const InfoTitle = styled.p`
     font-weight: 500;
@@ -78,7 +78,7 @@ const InfoTitle = styled.p`
     color: #1c1c1c;
     min-width: 150px;
     margin-right: 10px;
-`;
+`
 
 const InfoContent = styled.p`
     font-weight: 400;
@@ -88,7 +88,7 @@ const InfoContent = styled.p`
     flex-wrap: wrap;
     overflow: hidden;
     padding-right: 25px;
-`;
+`
 
 const EmptyContainer = styled.div`
     display: flex;
@@ -100,29 +100,30 @@ const EmptyContainer = styled.div`
     flex-direction: column;
     align-items: center;
     justify-content: center;
-`;
+`
 
 const EmptyText = styled.p`
     font-size: 1.1em;
     margin-bottom: 12px;
-`;
+`
 
 const FormItem = styled(Form.Item)`
   width: 100%;
-`;
+  margin-right: 10px;
+`
 
 const PenIcon = styled(FaPen)`
     color: #6e6e6e;
     :hover {
         cursor: pointer;
     }
-`;
+`
 
 const Profile = () => {
-  const [editing, setEditing] = useState('');
-  const [inputYear, setInputYear] = useState(2002);
-  const [inputMonth, setInputMonth] = useState(1);
-  const user = User.useContainer();
+  const [editing, setEditing] = useState('')
+  const [inputYear, setInputYear] = useState(2002)
+  const [inputMonth, setInputMonth] = useState(1)
+  const user = User.useContainer()
   return (
     <>
       <TitleContainer>
@@ -150,11 +151,11 @@ const Profile = () => {
               )}
           </ItemRow>
           {!editing && (
-          <PenIcon
-            onClick={() => {
-              setEditing('name');
-            }}
-          />
+            <PenIcon
+              onClick={() => {
+                setEditing('name')
+              }}
+            />
           )}
         </ContentRow>
         <ContentRow>
@@ -175,29 +176,28 @@ const Profile = () => {
               )}
           </ItemRow>
           {!editing && (
-          <PenIcon
-            onClick={() => {
-              setEditing('bio');
-            }}
-          />
+            <PenIcon
+              onClick={() => {
+                setEditing('bio')
+              }}
+            />
           )}
         </ContentRow>
         <ContentRow>
           <ItemRow>
             <InfoTitle>Date of birth</InfoTitle>
             {editing !== 'dob'
-              ? <InfoContent>{user.user.dob || 'Not specified'}</InfoContent>
+              ? <InfoContent>{`${user.user.dob?.day} - ${user.user.dob?.month} - ${user.user.dob?.year}` || 'Not specified'}</InfoContent>
               : (
                 <Edit setEditing={setEditing} initialValues={{ year: user.user.dob?.year || 2002, month: user.user.dob?.month || 1, day: user.user.dob?.day || 1 }}>
                   <FormItem
-                    name="year"
+                    name="day"
                   >
                     <Select
                       showSearch
-                      placeholder="Select a year"
-                      onChange={setInputYear}
+                      placeholder="Select a day"
                     >
-                      {years.map((year) => <Select.Option key={year}>{year}</Select.Option>)}
+                      {getDays(inputYear, inputMonth).map((day) => <Select.Option key={day}>{day}</Select.Option>)}
                     </Select>
                   </FormItem>
                   <FormItem
@@ -212,49 +212,140 @@ const Profile = () => {
                     </Select>
                   </FormItem>
                   <FormItem
-                    name="day"
+                    name="year"
                   >
                     <Select
                       showSearch
-                      placeholder="Select a day"
+                      placeholder="Select a year"
+                      onChange={setInputYear}
                     >
-                      {getDays(inputYear, inputMonth).map((day) => <Select.Option key={day}>{day}</Select.Option>)}
+                      {years.map((year) => <Select.Option key={year}>{year}</Select.Option>)}
                     </Select>
                   </FormItem>
                 </Edit>
               )}
           </ItemRow>
           {!editing && (
-          <PenIcon
-            onClick={() => {
-              setEditing('dob');
-            }}
-          />
+            <PenIcon
+              onClick={() => {
+                setEditing('dob')
+              }}
+            />
           )}
         </ContentRow>
         <ContentRow>
           <ItemRow>
             <InfoTitle>Gender</InfoTitle>
-            <InfoContent>{user.user.gender || 'Not specified'}</InfoContent>
+            {editing !== 'gender'
+              ? <InfoContent>{user.user.gender || 'Not specified'}</InfoContent>
+              : (
+                <Edit setEditing={setEditing} initialValues={{ gender: user.user.gender || 'Other' }}>
+                  <FormItem
+                    name="gender"
+                  >
+                    <Select
+                      showSearch
+                      placeholder="Select a gender"
+                    >
+                      <Select.Option key="Male">Male</Select.Option>
+                      <Select.Option key="Female">Female</Select.Option>
+                      <Select.Option key="Other">Other</Select.Option>
+                    </Select>
+                  </FormItem>
+                </Edit>
+              )}
           </ItemRow>
+          {!editing && (
+            <PenIcon
+              onClick={() => {
+                setEditing('gender')
+              }}
+            />
+          )}
         </ContentRow>
         <ContentRow>
           <ItemRow>
             <InfoTitle>From</InfoTitle>
-            <InfoContent>{countryOptions.filter((e) => e.key === user.user.country)[0]?.value || 'Not specified'}</InfoContent>
+            {editing !== 'country'
+              ? <InfoContent>{countryOptions.filter((e) => e.key === user.user.country)[0]?.value || 'Not specified'}</InfoContent>
+              : (
+                <Edit setEditing={setEditing} initialValues={{ country: countryOptions.filter((e) => e.key === user.user.country)[0]?.value || 'Not specified' }}>
+                  <FormItem
+                    name="country"
+                  >
+                    <Select
+                      showSearch
+                      placeholder="Select a country"
+                    >
+                      {countryOptions.map((country) => <Select.Option key={country.value}>{country.value}</Select.Option>)}
+                    </Select>
+                  </FormItem>
+                </Edit>
+              )}
           </ItemRow>
+          {!editing && (
+            <PenIcon
+              onClick={() => {
+                setEditing('country')
+              }}
+            />
+          )}
         </ContentRow>
         <ContentRow>
           <ItemRow>
             <InfoTitle>Living in</InfoTitle>
-            <InfoContent>{countryOptions.filter((e) => e.key === user.user.living)[0]?.value || 'Not specified'}</InfoContent>
+            {editing !== 'living'
+              ? <InfoContent>{countryOptions.filter((e) => e.key === user.user.living)[0]?.value || 'Not specified'}</InfoContent>
+              : (
+                <Edit setEditing={setEditing} initialValues={{ country: countryOptions.filter((e) => e.key === user.user.living)[0]?.value || 'Not specified' }}>
+                  <FormItem
+                    name="living"
+                  >
+                    <Select
+                      showSearch
+                      placeholder="Select a country"
+                    >
+                      {countryOptions.map((country) => <Select.Option key={country.value}>{country.value}</Select.Option>)}
+                    </Select>
+                  </FormItem>
+                </Edit>
+              )}
           </ItemRow>
+          {!editing && (
+            <PenIcon
+              onClick={() => {
+                setEditing('living')
+              }}
+            />
+          )}
         </ContentRow>
         <ContentRow>
           <ItemRow>
             <InfoTitle>Timezone</InfoTitle>
-            <InfoContent>{timezoneOptions.filter((e) => e.key === user.user.timezone)[0]?.text || 'Not specified'}</InfoContent>
+            {editing !== 'timezone'
+              ? <InfoContent>{timezoneOptions.filter((e) => e.key === user.user.timezone)[0]?.text || 'Not specified'}</InfoContent>
+              : (
+                <Edit setEditing={setEditing} initialValues={{ timezone: timezoneOptions.filter((e) => e.key === user.user.timezone)[0]?.value || 'Not specified' }}>
+                  <FormItem
+                    name="timezone"
+                  >
+                    <Select
+                      showSearch
+                      placeholder="Select a timezone"
+                    >
+                      {timezoneOptions.map((timezone) => <Select.Option key={timezone.value}>{`${timezone.value} - ${timezone.text}`}</Select.Option>)}
+                    </Select>
+                  </FormItem>
+                </Edit>
+              )}
           </ItemRow>
+          {!editing && (
+            <PenIcon
+              onClick={() => {
+                setEditing('timezone')
+              }}
+            />
+          )}
         </ContentRow>
       </ContentContainer>
       <HeaderContainer>
@@ -289,7 +380,7 @@ const Profile = () => {
         </EmptyContainer>
       </ContentContainer>
     </>
-  );
-};
+  )
+}
 
-export default Profile;
+export default Profile

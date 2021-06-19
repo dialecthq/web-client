@@ -1,9 +1,11 @@
 /* eslint-disable react/prop-types */
-import React, { useState } from 'react';
-import styled from 'styled-components';
-import { Form, Button } from 'antd';
-import axios from 'axios';
-import User from '../../Containers/userContainer';
+import React, { useState } from 'react'
+import styled from 'styled-components'
+import { Form, Button } from 'antd'
+import axios from 'axios'
+import User from '../../Containers/userContainer'
+import countryOptions from '../../Data/countryOptions'
+import timezoneOptions from '../../Data/timezoneOptions'
 
 const EditingContainer = styled.div`
     display: flex;
@@ -14,7 +16,7 @@ const EditingContainer = styled.div`
     @media screen and (max-width: 768px) {
         margin-top: 10px;
     }
-`;
+`
 
 const EditingRow = styled.div`
     display: flex;
@@ -22,35 +24,65 @@ const EditingRow = styled.div`
     align-items: center;
     width: 100%;
     max-width: 200px;
-`;
+`
 
 const InputRow = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
     width: 100%;
-`;
+`
 
 const Edit = ({ children, setEditing, initialValues }) => {
-  const [loading, setLoading] = useState(false);
-  const user = User.useContainer();
+  const [loading, setLoading] = useState(false)
+  const user = User.useContainer()
 
   const onFinish = (values) => {
-    setLoading(true);
-    axios.post('http://localhost:9000/user/edit', values).then((data) => {
-      setLoading(false);
-      setEditing('');
+    console.log(values)
+    setLoading(true)
+    let parameters = values
+
+    // date of birth
+    if (Object.keys(parameters).includes('day', 'month', 'year')) {
+      parameters = {
+        dob: { ...parameters }
+      }
+    }
+
+    // countries
+    if (Object.keys(parameters).includes('country')) {
+      parameters = {
+        country: countryOptions.filter((e) => e.value === values.country)[0].key,
+      }
+    }
+
+    if (Object.keys(parameters).includes('living')) {
+      parameters = {
+        living: countryOptions.filter((e) => e.value === values.living)[0].key,
+      }
+    }
+
+    // timezones
+    if (Object.keys(parameters).includes('timezone')) {
+      parameters = {
+        timezone: timezoneOptions.filter((e) => e.value === values.timezone)[0].key,
+      }
+    }
+
+    axios.post('http://localhost:9000/user/edit', parameters).then((data) => {
+      setLoading(false)
+      setEditing('')
       if (data.data.user) {
-        user.setUser(data.data.user);
+        user.setUser(data.data.user)
       }
     }).catch(() => {
-      setLoading(false);
-    });
-  };
+      setLoading(false)
+    })
+  }
 
   const onFinishFailed = () => {
-    console.log('finish failed');
-  };
+    console.log('finish failed')
+  }
 
   return (
     <Form
@@ -69,7 +101,7 @@ const Edit = ({ children, setEditing, initialValues }) => {
             <Button
               style={{ width: '100%' }}
               onClick={() => {
-                setEditing('');
+                setEditing('')
               }}
             >
               Cancel
@@ -81,7 +113,7 @@ const Edit = ({ children, setEditing, initialValues }) => {
         </EditingRow>
       </EditingContainer>
     </Form>
-  );
-};
+  )
+}
 
-export default Edit;
+export default Edit
