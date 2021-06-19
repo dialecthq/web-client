@@ -1,14 +1,14 @@
-import React, { useState } from 'react';
-import styled from 'styled-components';
+import React, { useState } from 'react'
+import styled from 'styled-components'
 import {
   FaBars, FaQuestion, FaSignOutAlt, FaHome, FaUser, FaCalendarAlt, FaChalkboardTeacher,
-} from 'react-icons/fa';
-import { Popover, Divider, Menu } from 'antd';
-import Logo from '../../Img/logo.svg';
-import User from '../../Containers/userContainer';
-import ExchangeState from '../../Containers/exchangeContainer';
+} from 'react-icons/fa'
+import { Popover, Divider, Menu } from 'antd'
+import Logo from '../../Img/logo.svg'
+import User from '../../Containers/userContainer'
+import ExchangeState from '../../Containers/exchangeContainer'
 
-import { signOut } from '../../Helpers/user';
+import { signOut } from '../../Helpers/user'
 
 const NavContainer = styled.div`
     display: flex;
@@ -20,7 +20,7 @@ const NavContainer = styled.div`
     height: 55px;
     position: fixed;
     width: 100%;
-`;
+`
 
 const NavWrapper = styled.div`
     display: flex;
@@ -30,13 +30,13 @@ const NavWrapper = styled.div`
     max-width: 1200px;
     padding-left: 18px;
     padding-right: 18px;
-`;
+`
 
 const NavContent = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-`;
+`
 
 const Title = styled.p`
     font-size: 2em;
@@ -44,7 +44,7 @@ const Title = styled.p`
     margin-right: 20px;
     margin-top: 0px;
     margin-bottom: 0px;
-`;
+`
 
 const Avatar = styled.div`
     display: flex;
@@ -52,18 +52,17 @@ const Avatar = styled.div`
     align-items: center;
     padding: 5px;
     background-color: #a8a8a8;
-    border: 0.5px solid #fff;
     border-radius: 100px;
-
+    box-shadow: ${(p) => (p.active ? 'rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;' : 'none')};
+    transition: 0.2s box-shadow ease-in-out;
     :hover {
-        border: 0.5px solid #6e6e6e;
         cursor: pointer;
     }
-`;
+`
 
 const AvatarImg = styled.img`
     filter: grayscale(100%);
-`;
+`
 
 const MenuIcon = styled(FaBars)`
     height: 24px;
@@ -77,7 +76,7 @@ const MenuIcon = styled(FaBars)`
         display: none;
     }
 
-`;
+`
 
 const ProfilePopoverContainer = styled.div`
     display: flex;
@@ -85,7 +84,7 @@ const ProfilePopoverContainer = styled.div`
     align-items: flex-start;
     justify-content: center;
     padding: 12px 0px;
-`;
+`
 
 const Username = styled.p`
     font-size: 0.9em;
@@ -93,7 +92,7 @@ const Username = styled.p`
     margin: 0px 12px;
     color: #454545;
     opacity: 0.6;
-`;
+`
 
 const MenuItem = styled(Menu.Item)`
     display: flex;
@@ -102,13 +101,13 @@ const MenuItem = styled(Menu.Item)`
     :hover {
         background: #efefef;
     }
-`;
+`
 
 const Header = () => {
-  const user = User.useContainer();
-  const exchangeState = ExchangeState.useContainer();
-  const [ppOpen, setPPOpen] = useState(false);
-  const [epOpen, setEPOpen] = useState(false);
+  const user = User.useContainer()
+  const exchangeState = ExchangeState.useContainer()
+  const [ppOpen, setPPOpen] = useState(false)
+  const [epOpen, setEPOpen] = useState(false)
 
   const profilePopover = (
     <ProfilePopoverContainer style={{ minWidth: 200 }}>
@@ -126,7 +125,7 @@ const Header = () => {
           key="sign-out"
           icon={<FaSignOutAlt />}
           onClick={() => {
-            signOut(user);
+            signOut(user)
           }}
         >
           Sign out
@@ -134,7 +133,7 @@ const Header = () => {
       </Menu>
 
     </ProfilePopoverContainer>
-  );
+  )
 
   const navigationPopover = (
     <ProfilePopoverContainer style={{ minWidth: 200 }}>
@@ -142,8 +141,8 @@ const Header = () => {
         <MenuItem
           icon={<FaHome />}
           onClick={() => {
-            exchangeState.setPage('home');
-            setEPOpen(false);
+            exchangeState.setPage('home')
+            setEPOpen(false)
           }}
         >
           Home
@@ -151,8 +150,8 @@ const Header = () => {
         <MenuItem
           icon={<FaUser />}
           onClick={() => {
-            exchangeState.setPage('profile');
-            setEPOpen(false);
+            exchangeState.setPage('profile')
+            setEPOpen(false)
           }}
         >
           Profile
@@ -160,8 +159,8 @@ const Header = () => {
         <MenuItem
           icon={<FaCalendarAlt />}
           onClick={() => {
-            exchangeState.setPage('schedule');
-            setEPOpen(false);
+            exchangeState.setPage('schedule')
+            setEPOpen(false)
           }}
         >
           Schedule
@@ -169,15 +168,15 @@ const Header = () => {
         <MenuItem
           icon={<FaChalkboardTeacher />}
           onClick={() => {
-            exchangeState.setPage('find');
-            setEPOpen(false);
+            exchangeState.setPage('find')
+            setEPOpen(false)
           }}
         >
           Find
         </MenuItem>
       </Menu>
     </ProfilePopoverContainer>
-  );
+  )
 
   return (
     <NavContainer>
@@ -191,14 +190,14 @@ const Header = () => {
         </NavContent>
         <NavContent>
           <Popover content={profilePopover} placement="bottomLeft" trigger="click" visible={ppOpen} onVisibleChange={setPPOpen}>
-            <Avatar>
+            <Avatar active={ppOpen}>
               <AvatarImg src={Logo} style={{ height: 22, width: 22 }} />
             </Avatar>
           </Popover>
         </NavContent>
       </NavWrapper>
     </NavContainer>
-  );
-};
+  )
+}
 
-export default Header;
+export default Header
