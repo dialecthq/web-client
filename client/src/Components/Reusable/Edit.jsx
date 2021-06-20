@@ -1,8 +1,9 @@
 /* eslint-disable react/prop-types */
 import React, { useState } from 'react'
 import styled from 'styled-components'
-import { Form, Button } from 'antd'
+import { Form, Button, message } from 'antd'
 import axios from 'axios'
+import { FaCheckCircle, FaTimesCircle } from 'react-icons/fa'
 import User from '../../Containers/userContainer'
 import countryOptions from '../../Data/countryOptions'
 import timezoneOptions from '../../Data/timezoneOptions'
@@ -38,7 +39,6 @@ const Edit = ({ children, setEditing, initialValues }) => {
   const user = User.useContainer()
 
   const onFinish = (values) => {
-    console.log(values)
     setLoading(true)
     let parameters = values
 
@@ -74,14 +74,27 @@ const Edit = ({ children, setEditing, initialValues }) => {
       setEditing('')
       if (data.data.user) {
         user.setUser(data.data.user)
+        message.success({
+          content: 'Updated successfully',
+          icon: <FaCheckCircle size={24} color="#1ae398" style={{ marginRight: 10 }} />
+        })
+      } else {
+        message.error({
+          content: 'Update failed',
+          icon: <FaTimesCircle size={24} color="#e86461" style={{ marginRight: 10 }} />
+        })
       }
     }).catch(() => {
+      message.error({
+        content: 'Update failed',
+        icon: <FaTimesCircle size={24} color="#e86461" style={{ marginRight: 10 }} />
+      })
       setLoading(false)
     })
   }
 
   const onFinishFailed = () => {
-    console.log('finish failed')
+
   }
 
   return (
