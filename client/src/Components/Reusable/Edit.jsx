@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 /* eslint-disable react/prop-types */
 import React, { useState } from 'react'
 import styled from 'styled-components'
@@ -7,6 +8,8 @@ import { FaCheckCircle, FaTimesCircle } from 'react-icons/fa'
 import User from '../../Containers/userContainer'
 import countryOptions from '../../Data/countryOptions'
 import timezoneOptions from '../../Data/timezoneOptions'
+import languageOptions from '../../Data/languageOptions'
+import levelOptions from '../../Data/levelOptions'
 
 const EditingContainer = styled.div`
     display: flex;
@@ -34,7 +37,9 @@ const InputRow = styled.div`
     width: 100%;
 `
 
-const Edit = ({ children, setEditing, initialValues }) => {
+const Edit = ({
+  children, setEditing, initialValues, index
+}) => {
   const [loading, setLoading] = useState(false)
   const user = User.useContainer()
 
@@ -66,6 +71,23 @@ const Edit = ({ children, setEditing, initialValues }) => {
     if (Object.keys(parameters).includes('timezone')) {
       parameters = {
         timezone: timezoneOptions.filter((e) => e.value === values.timezone)[0].key,
+      }
+    }
+
+    // languages
+    if (Object.keys(parameters).includes('language')) {
+      const tempLanguages = [...user.user.languages]
+      tempLanguages[index] = { level: parseInt(levelOptions.filter((e) => e.value === parameters.level)[0].key, 10), key: languageOptions.filter((e) => e.value === parameters.language)[0].key }
+      if (tempLanguages.filter((e) => e.level === 7).length < 1) {
+        message.error({
+          content: 'Must have one native language',
+          icon: <FaTimesCircle size={24} color="#e86461" style={{ marginRight: 10 }} />
+        })
+        setLoading(false)
+        return
+      }
+      parameters = {
+        languages: tempLanguages
       }
     }
 

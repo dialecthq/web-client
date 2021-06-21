@@ -13,8 +13,7 @@ router.post('/register', function(req, res, next) {
     fire.firestore().collection('users').doc(userCredential.user.uid).set({
       name: req.body.name,
       email: req.body.email,
-      target: req.body.target,
-      native: req.body.native,
+      languages: req.body.languages,
       country: req.body.country,
       timezone: req.body.timezone,
       username: req.body.username
@@ -22,8 +21,7 @@ router.post('/register', function(req, res, next) {
       res.json({status: 200, message: 'successfully registered user', user: {
         name: req.body.name,
         email: req.body.email,
-        target: req.body.target,
-        native: req.body.native,
+        languages: req.body.languages,
         country: req.body.country,
         timezone: req.body.timezone,
         username: req.body.username,

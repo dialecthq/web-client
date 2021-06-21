@@ -169,8 +169,7 @@ const SignUp = ({ visible, setVisible, setSignInVisible }) => {
   const onFinishPage2 = (values) => {
     const newTempUser = {
       ...tempUser,
-      target: [{ key: languageOptions.filter((e) => e.value === values.target)[0].key, level }],
-      native: [{ key: languageOptions.filter((e) => e.value === values.native)[0].key, level: 7 }],
+      languages: [{ key: languageOptions.filter((e) => e.value === values.target)[0].key, level }, { key: languageOptions.filter((e) => e.value === values.native)[0].key, level: 7 }],
       country: countryOptions.filter((e) => e.value === values.country)[0].key,
       timezone: timezoneOptions.filter((e) => e.value === values.timezone)[0].key,
     }

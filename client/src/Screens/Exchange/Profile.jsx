@@ -9,6 +9,7 @@ import User from '../../Containers/userContainer'
 import countryOptions from '../../Data/countryOptions'
 import languageOptions from '../../Data/languageOptions'
 import timezoneOptions from '../../Data/timezoneOptions'
+import levelOptions from '../../Data/levelOptions'
 import Level from '../../Components/Reusable/Level'
 import Edit from '../../Components/Reusable/Edit'
 import { years, months, getDays } from '../../Data/dateOptions'
@@ -352,23 +353,46 @@ const Profile = () => {
         <HeaderTitle>Languages</HeaderTitle>
       </HeaderContainer>
       <ContentContainer>
-        {user.user.native.map((language) => (
-          <ContentRow>
+        {user.user.languages.map((language, i) => (editing !== language.key ? (
+          <ContentRow key={language.key}>
             <ItemRow>
               <InfoTitle>{languageOptions.filter((e) => e.key === language.key)[0]?.value || 'No Language'}</InfoTitle>
               <Level level={language.level} />
             </ItemRow>
-
+            {!editing && (
+              <PenIcon
+                onClick={() => {
+                  setEditing(language.key)
+                }}
+              />
+            )}
           </ContentRow>
-        ))}
-        {user.user.target.map((language) => (
-          <ContentRow>
-            <ItemRow>
-              <InfoTitle>{languageOptions.filter((e) => e.key === language.key)[0]?.value || 'No Language'}</InfoTitle>
-              <Level level={language.level} />
-            </ItemRow>
-          </ContentRow>
-        ))}
+        ) : (
+          <Edit index={i} key={language.key} setEditing={setEditing} initialValues={{ language: languageOptions.filter((e) => e.key === language.key)[0]?.value || 'Not specified', level: levelOptions.filter((e) => e.key === language.level)[0]?.value }}>
+            <FormItem
+              name="language"
+            >
+              <Select
+                showSearch
+                placeholder="Select a language"
+              >
+                {languageOptions.map((languageOption) => <Select.Option key={languageOption.value}>{languageOption.value}</Select.Option>)}
+              </Select>
+            </FormItem>
+            <FormItem
+              name="level"
+            >
+              <Select
+                showSearch
+                placeholder="Select a level"
+              >
+                {levelOptions.map((level) => (
+                  <Select.Option key={level.value}>{level.value}</Select.Option>
+                ))}
+              </Select>
+            </FormItem>
+          </Edit>
+        )))}
       </ContentContainer>
       <HeaderContainer>
         <HeaderTitle>Communication Tools</HeaderTitle>
