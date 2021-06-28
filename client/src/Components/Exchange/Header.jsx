@@ -72,7 +72,7 @@ const MenuIcon = styled(FaBars)`
     :hover {
         cursor: pointer;
     }
-    @media screen and (min-width: 960px) {
+    @media screen and (min-width: 769px) {
         display: none;
     }
 
@@ -113,6 +113,7 @@ const Header = () => {
     <ProfilePopoverContainer style={{ minWidth: 200 }}>
       <Username>
         signed in as
+        {' '}
         <span style={{ color: '#000' }}>
           @
           {user.user.username}

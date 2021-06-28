@@ -1,4 +1,6 @@
-const CracoLessPlugin = require('craco-less');
+const CracoLessPlugin = require('craco-less')
+const CracoAlias = require('craco-alias')
+const path = require('path')
 
 module.exports = {
   plugins: [
@@ -17,5 +19,13 @@ module.exports = {
         },
       },
     },
+    {
+      plugin: CracoAlias,
+      options: {
+        aliases: {
+          '@components/*': './src/Components/*'
+        }
+      }
+    },
   ],
-};
+}

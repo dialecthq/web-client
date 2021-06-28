@@ -1,10 +1,10 @@
-import React from 'react';
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import React from 'react'
+import { BrowserRouter, Switch, Route } from 'react-router-dom'
 
-import Home from './Pages/Home';
-import Exchange from './Pages/Exchange';
+import Home from './Pages/Home'
+import Exchange from './Pages/Exchange'
 
-import ExchangeState from './Containers/exchangeContainer';
+import ExchangeState from './Containers/exchangeContainer'
 
 const App = () => (
   <ExchangeState.Provider>
@@ -25,6 +25,6 @@ const App = () => (
       </Switch>
     </BrowserRouter>
   </ExchangeState.Provider>
-);
+)
 
-export default App;
+export default App
