@@ -6,9 +6,9 @@ import { Form, Button, message } from 'antd'
 import axios from 'axios'
 import { FaCheckCircle, FaTimesCircle } from 'react-icons/fa'
 import User from '../../Containers/userContainer'
-import countryOptions from '../../Data/countryOptions'
-import timezoneOptions from '../../Data/timezoneOptions'
-import languageOptions from '../../Data/languageOptions'
+import countryOptions from '../../Data/CountryOptions'
+import timezoneOptions from '../../Data/TimezoneOptions'
+import languageOptions from '../../Data/LanguageOptions'
 import levelOptions from '../../Data/levelOptions'
 
 const EditingContainer = styled.div`

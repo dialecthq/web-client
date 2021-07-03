@@ -15,9 +15,9 @@ import axios from 'axios'
 import { useHistory } from 'react-router-dom'
 
 // Data objects
-import languageOptions from '../../Data/languageOptions'
-import countryOptions from '../../Data/countryOptions'
-import timezoneOptions from '../../Data/timezoneOptions'
+import languageOptions from '../../Data/LanguageOptions'
+import countryOptions from '../../Data/CountryOptions'
+import timezoneOptions from '../../Data/TimezoneOptions'
 
 // Validators
 import emailValidator from '../../Validators/emailValidator'
