@@ -5,14 +5,14 @@ import {
   Button, Input, Form, Select,
 } from 'antd'
 import { FaPen } from 'react-icons/fa'
-import User from '../../Containers/userContainer'
-import countryOptions from '../../Data/CountryOptions'
-import languageOptions from '../../Data/LanguageOptions'
-import timezoneOptions from '../../Data/TimezoneOptions'
-import levelOptions from '../../Data/levelOptions'
-import Level from '../../Components/Reusable/Level'
-import Edit from '../../Components/Reusable/Edit'
-import { years, months, getDays } from '../../Data/dateOptions'
+import User from '@utils/state/userContainer'
+import countryOptions from '@utils/data/CountryOptions'
+import languageOptions from '@utils/data/LanguageOptions'
+import timezoneOptions from '@utils/data/TimezoneOptions'
+import levelOptions from '@utils/data/levelOptions'
+import Level from '@components/common/Level'
+import Edit from '@components/common/Edit'
+import { years, months, getDays } from '@utils/data/dateOptions'
 
 const HeaderContainer = styled.div`
     display: flex;

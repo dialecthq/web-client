@@ -1,26 +1,26 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable max-len */
-import React, { useState } from 'react';
-import styled from 'styled-components';
-import axios from 'axios';
+import React, { useState } from 'react'
+import styled from 'styled-components'
+import axios from 'axios'
 import {
   Modal, Button, Input, Tooltip, Divider, Form,
-} from 'antd';
-import { AiOutlineEye } from 'react-icons/ai';
-import { FaFacebook } from 'react-icons/fa';
-import { FcGoogle } from 'react-icons/fc';
+} from 'antd'
+import { AiOutlineEye } from 'react-icons/ai'
+import { FaFacebook } from 'react-icons/fa'
+import { FcGoogle } from 'react-icons/fc'
 import {
   IoLockClosedOutline, IoMailOutline,
-} from 'react-icons/io5';
-import { useHistory } from 'react-router-dom';
-import User from '../../Containers/userContainer';
+} from 'react-icons/io5'
+import { useHistory } from 'react-router-dom'
+import User from '@utils/state/userContainer'
 
 const TabContent = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-`;
+`
 
 const AuthModal = styled(Modal)`
   width: 425px !important;
@@ -28,7 +28,7 @@ const AuthModal = styled(Modal)`
   @media screen and (max-width: 768px) {
     width: 100% !important;
   } 
-`;
+`
 
 const TabRow = styled.div`
   display: flex;
@@ -36,12 +36,12 @@ const TabRow = styled.div`
   align-items: center;
   width: 100%;
   margin-bottom: 10px;
-`;
+`
 
 const ButtonText = styled.span`
   font-weight: 600;
   letter-spacing: 0.5px;
-`;
+`
 
 const AuthLink = styled.a`
   font-size: 14px;
@@ -55,7 +55,7 @@ const AuthLink = styled.a`
     opacity: 0.9;
     color: #000 !important
   }
-`;
+`
 
 const Text = styled.p`
   font-weight: 500;
@@ -64,7 +64,7 @@ const Text = styled.p`
   vertical-align: middle;
   margin-bottom: 0px;
   text-align: center;
-`;
+`
 
 const SmallText = styled.p`
   font-size: 10px;
@@ -72,14 +72,14 @@ const SmallText = styled.p`
   font-weight: 600;
   vertical-align: middle;
   margin-bottom: 0px;
-`;
+`
 
 const OauthContainer = styled.div`
     padding: 20px;
     display: flex;
     justify-content: center;
     align-items: center;
-`;
+`
 
 const TermsContainer = styled.div`
     display: flex;
@@ -87,13 +87,13 @@ const TermsContainer = styled.div`
     justify-content: center;
     align-items: center;
     width: 100%;
-`;
+`
 
 const Terms = styled.p`
     font-size: 12px;
     font-weight: 400;
     width: 70%;
-`;
+`
 const IconButton = styled.a`
     margin: 10px;
     svg {
@@ -106,37 +106,37 @@ const IconButton = styled.a`
             border: 0.5px solid black;
         }
     }
-`;
+`
 const SignIn = ({ visible, setVisible, setSignUpVisible }) => {
-  const [loading, setLoading] = useState(false);
-  const user = User.useContainer();
-  const history = useHistory();
+  const [loading, setLoading] = useState(false)
+  const user = User.useContainer()
+  const history = useHistory()
 
   const onFinish = (values) => {
-    setLoading(true);
+    setLoading(true)
     axios.get('http://localhost:9000/user/login', {
       params: {
         email: values.email,
         password: values.password,
       },
     }).then((data) => {
-      user.setUser(data.data.user);
-      setVisible(false);
-      setLoading(false);
-      history.push('/exchange');
+      user.setUser(data.data.user)
+      setVisible(false)
+      setLoading(false)
+      history.push('/exchange')
     }).catch(() => {
-      setLoading(false);
-    });
-  };
+      setLoading(false)
+    })
+  }
 
   const onFinishFailed = (errorInfo) => {
-    console.log('Failed:', errorInfo);
-  };
+    console.log('Failed:', errorInfo)
+  }
 
   return (
     <AuthModal
       visible={visible}
-      onCancel={() => { setVisible(false); }}
+      onCancel={() => { setVisible(false) }}
       title="Log In"
       footer={null}
     >
@@ -172,7 +172,7 @@ const SignIn = ({ visible, setVisible, setSignUpVisible }) => {
                 <Tooltip title="Extra information">
                   <AiOutlineEye />
                 </Tooltip>
-                              )}
+              )}
             />
           </Form.Item>
           <TabRow>
@@ -193,8 +193,8 @@ const SignIn = ({ visible, setVisible, setSignUpVisible }) => {
           <Text style={{ marginBottom: 10 }}>
             No account yet?
             <AuthLink onClick={() => {
-              setVisible(false);
-              setSignUpVisible(true);
+              setVisible(false)
+              setSignUpVisible(true)
             }}
             >
               Sign up
@@ -215,6 +215,6 @@ const SignIn = ({ visible, setVisible, setSignUpVisible }) => {
         </Form>
       </TabContent>
     </AuthModal>
-  );
-};
-export default SignIn;
+  )
+}
+export default SignIn

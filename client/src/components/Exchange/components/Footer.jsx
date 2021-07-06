@@ -1,6 +1,6 @@
-import React from 'react';
-import styled from 'styled-components';
-import Logo from '../../Img/logo.svg';
+import React from 'react'
+import styled from 'styled-components'
+import Logo from '@img/logo.svg'
 
 const FooterContainer = styled.div`
     height: 60px;
@@ -11,7 +11,7 @@ const FooterContainer = styled.div`
     background-color: #fff;
     z-index: 4;
     padding: 0 18px;
-`;
+`
 
 const FooterWrapper = styled.div`
     width: 100%;
@@ -19,20 +19,20 @@ const FooterWrapper = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
-`;
+`
 
 const FooterContent = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-`;
+`
 
 const FooterLink = styled.a`
     font-size: 0.9em;
     font-weight: 400;
     color: #454545;
     margin-left: 10px;
-`;
+`
 
 const Footer = () => (
   <FooterContainer>
@@ -48,6 +48,6 @@ const Footer = () => (
       </FooterContent>
     </FooterWrapper>
   </FooterContainer>
-);
+)
 
-export default Footer;
+export default Footer

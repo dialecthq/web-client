@@ -11,20 +11,19 @@ import {
 import { AiOutlineEye } from 'react-icons/ai'
 import { FaFacebook } from 'react-icons/fa'
 import { FcGoogle } from 'react-icons/fc'
-import axios from 'axios'
 import { useHistory } from 'react-router-dom'
 
 // Data objects
-import languageOptions from '../../Data/LanguageOptions'
-import countryOptions from '../../Data/CountryOptions'
-import timezoneOptions from '../../Data/TimezoneOptions'
+import languageOptions from '@utils/data/LanguageOptions'
+import countryOptions from '@utils/data/CountryOptions'
+import timezoneOptions from '@utils/data/TimezoneOptions'
 
 // Validators
-import emailValidator from '../../Validators/emailValidator'
-import usernameValidator from '../../Validators/usernameValidator'
+import emailValidator from '@utils/validators/emailValidator'
+import usernameValidator from '@utils/validators/usernameValidator'
 
 // Containers
-import User from '../../Containers/userContainer'
+import User from '@utils/state/userContainer'
 
 const TabContent = styled.div`
   display: flex;
@@ -173,21 +172,7 @@ const SignUp = ({ visible, setVisible, setSignInVisible }) => {
       country: countryOptions.filter((e) => e.value === values.country)[0].key,
       timezone: timezoneOptions.filter((e) => e.value === values.timezone)[0].key,
     }
-    setLoading(true)
-    axios.post('http://localhost:9000/user/register', newTempUser)
-      .then((data) => {
-        setLoading(false)
-        if (data.data.user) {
-          user.setUser(data.data.user)
-          setVisible(false)
-          setPage(0)
-          setTempUser(null)
-          history.push('/exchange')
-        }
-      }).catch((error) => {
-        console.log(error)
-        setLoading(false)
-      })
+    user.userAPI.register(newTempUser, setVisible, setPage, setLoading, setTempUser, history)
   }
 
   const onFinishFailed = (errorInfo) => {
@@ -228,7 +213,7 @@ const SignUp = ({ visible, setVisible, setSignInVisible }) => {
             <Form.Item
               name="email"
               validateTrigger="onBlur"
-              rules={[{ required: true, message: 'Please input your email.' }, { type: 'email', message: 'Please input a valid email.' }, { validator: emailValidator, message: 'email is already in use.' }]}
+              rules={[{ required: true, message: 'Please input your email.' }, { type: 'email', message: 'Please input a valid email.' }, { validator: user.userAPI.checkEmail, message: 'email is already in use.' }]}
               style={{ marginBottom: 25 }}
             >
               <Input

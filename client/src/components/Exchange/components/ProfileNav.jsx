@@ -3,9 +3,9 @@ import styled from 'styled-components'
 import {
   FaHome, FaUser, FaCalendarAlt, FaChalkboardTeacher,
 } from 'react-icons/fa'
-import Logo from '../../Img/logo.svg'
-import User from '../../Containers/userContainer'
-import ExchangeState from '../../Containers/exchangeContainer'
+import Logo from '@img/logo.svg'
+import User from '@utils/state/userContainer'
+import ExchangeState from '@utils/state/exchangeContainer'
 
 const ProfileContainer = styled.div`
     position: absolute;

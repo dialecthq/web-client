@@ -4,11 +4,9 @@ import {
   FaBars, FaQuestion, FaSignOutAlt, FaHome, FaUser, FaCalendarAlt, FaChalkboardTeacher,
 } from 'react-icons/fa'
 import { Popover, Divider, Menu } from 'antd'
-import Logo from '../../Img/logo.svg'
-import User from '../../Containers/userContainer'
-import ExchangeState from '../../Containers/exchangeContainer'
-
-import { signOut } from '../../Helpers/user'
+import Logo from '@img/logo.svg'
+import User from '@utils/state/userContainer'
+import ExchangeState from '@utils/state/exchangeContainer'
 
 const NavContainer = styled.div`
     display: flex;
@@ -126,7 +124,7 @@ const Header = () => {
           key="sign-out"
           icon={<FaSignOutAlt />}
           onClick={() => {
-            signOut(user)
+            // RYANRYAN
           }}
         >
           Sign out

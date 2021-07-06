@@ -1,10 +1,10 @@
 import React from 'react'
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
 
-import Home from './Pages/Home'
-import Exchange from './Pages/Exchange'
+import Home from '@components/Landing/Home'
+import Exchange from '@components/Exchange/Exchange'
 
-import ExchangeState from './Containers/exchangeContainer'
+import ExchangeState from '@utils/state/exchangeContainer'
 
 const App = () => (
   <ExchangeState.Provider>

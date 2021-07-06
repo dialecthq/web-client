@@ -22,10 +22,9 @@ module.exports = {
     {
       plugin: CracoAlias,
       options: {
-        aliases: {
-          '@components/*': './src/Components/*'
-        }
+        source: 'jsconfig',
+        baseUrl: './src'
       }
-    },
+    }
   ],
 }

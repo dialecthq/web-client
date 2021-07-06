@@ -5,11 +5,11 @@ import styled from 'styled-components'
 import { Form, Button, message } from 'antd'
 import axios from 'axios'
 import { FaCheckCircle, FaTimesCircle } from 'react-icons/fa'
-import User from '../../Containers/userContainer'
-import countryOptions from '../../Data/CountryOptions'
-import timezoneOptions from '../../Data/TimezoneOptions'
-import languageOptions from '../../Data/LanguageOptions'
-import levelOptions from '../../Data/levelOptions'
+import User from '@utils/state/userContainer'
+import countryOptions from '@utils/data/CountryOptions'
+import timezoneOptions from '@utils/data/TimezoneOptions'
+import languageOptions from '@utils/data/LanguageOptions'
+import levelOptions from '@utils/data/levelOptions'
 
 const EditingContainer = styled.div`
     display: flex;

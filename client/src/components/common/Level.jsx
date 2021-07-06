@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
-import React from 'react';
-import styled from 'styled-components';
-import { Tooltip } from 'antd';
+import React from 'react'
+import styled from 'styled-components'
+import { Tooltip } from 'antd'
 
 const levelToText = {
   1: 'A1',
@@ -11,13 +11,13 @@ const levelToText = {
   5: 'C1',
   6: 'C2',
   7: 'Native',
-};
+}
 
 const LevelContainer = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-`;
+`
 const LevelIndicator = styled.div`
     width: 8px;
     height: 20px;
@@ -27,7 +27,7 @@ const LevelIndicator = styled.div`
     margin-right: 2px;
 
 
-    `;
+    `
 
 const Level = ({ level }) => (
   <Tooltip title={levelToText[level]}>
@@ -40,6 +40,6 @@ const Level = ({ level }) => (
       <LevelIndicator active={level >= 6} />
     </LevelContainer>
   </Tooltip>
-);
+)
 
-export default Level;
+export default Level

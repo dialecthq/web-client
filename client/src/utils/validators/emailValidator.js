@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios from 'axios'
 
 const emailValidator = async (_, value) => {
   if (value) {
@@ -6,14 +6,14 @@ const emailValidator = async (_, value) => {
       params: {
         email: value,
       },
-    });
+    })
 
     if (resp.data.available) {
-      return Promise.resolve(true);
+      return Promise.resolve(true)
     }
-    return Promise.reject(resp.data.available);
+    return Promise.reject(resp.data.available)
   }
-  return Promise.resolve(false);
-};
+  return Promise.resolve(false)
+}
 
-export default emailValidator;
+export default emailValidator

@@ -1,6 +1,6 @@
-import React from 'react';
-import styled from 'styled-components';
-import { Oval } from '@agney/react-loading';
+import React from 'react'
+import styled from 'styled-components'
+import { Oval } from '@agney/react-loading'
 
 const LoadingContainer = styled.div`
     height: 100vh;
@@ -8,7 +8,7 @@ const LoadingContainer = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-`;
+`
 
 const LoadingWrapper = styled.div`
     display: flex;
@@ -16,7 +16,7 @@ const LoadingWrapper = styled.div`
     justify-content: center;
     align-items: center;
     padding: 18px;
-`;
+`
 
 const Text = styled.p`
     font-size: 1.2em;
@@ -25,7 +25,7 @@ const Text = styled.p`
     margin-top: 30px;
     margin-bottom: 0px;
     text-align: center;
-`;
+`
 
 const Loading = () => (
   <LoadingContainer>
@@ -34,6 +34,6 @@ const Loading = () => (
       <Text>Revolutionizing language acquisition, one exchange at a time</Text>
     </LoadingWrapper>
   </LoadingContainer>
-);
+)
 
-export default Loading;
+export default Loading

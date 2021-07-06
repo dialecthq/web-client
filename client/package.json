@@ -9,8 +9,10 @@
     "@testing-library/jest-dom": "^5.12.0",
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^12.8.3",
+    "agent-base": "^6.0.2",
     "antd": "^4.16.2",
     "axios": "^0.21.1",
+    "babel-register": "^6.26.0",
     "boring-avatars": "^1.5.5",
     "craco-alias": "^3.0.1",
     "craco-less": "^1.17.1",
@@ -52,6 +54,7 @@
   "devDependencies": {
     "eslint": "^7.28.0",
     "eslint-config-airbnb": "^18.2.1",
+    "eslint-import-resolver-alias": "^1.1.2",
     "eslint-plugin-import": "^2.23.4",
     "eslint-plugin-jsx-a11y": "^6.4.1",
     "eslint-plugin-react": "^7.24.0",

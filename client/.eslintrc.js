@@ -1,3 +1,5 @@
+require('babel-register')
+
 function isTruthy(value) {
   if (!value) return false
   return ['1', 'true'].indexOf(value.toLowerCase()) >= 0
@@ -30,6 +32,7 @@ module.exports = {
     'comma-dangle': OFF,
     eqeqeq: [WARNING, 'allow-null'],
     'import/imports-first': OFF,
+    // 'import/no-unresolved': OFF,
     indent: [WARNING, 2, { SwitchCase: 1 }],
     'max-len': [WARNING, 100, 2],
     'no-console': [WARNING, { allow: ['warn', 'error'] }],
@@ -40,6 +43,17 @@ module.exports = {
     'no-var': ERROR,
     'prefer-const': WARNING,
     'react/prop-types': [WARNING, { ignore: ['className'] }],
+    'import/no-unresolved': WARNING,
     semi: [WARNING, 'never'],
   },
+  settings: {
+    'import/resolver': {
+      alias: {
+        map: [
+          ['@components', './src/components'],
+        ],
+        extensions: ['.js', '.jsx', '.json']
+      }
+    }
+  }
 }
