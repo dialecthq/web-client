@@ -114,19 +114,14 @@ const SignIn = ({ visible, setVisible, setSignUpVisible }) => {
 
   const onFinish = (values) => {
     setLoading(true)
-    axios.get('http://localhost:9000/user/login', {
-      params: {
-        email: values.email,
-        password: values.password,
-      },
-    }).then((data) => {
-      user.setUser(data.data.user)
-      setVisible(false)
+    const loggedIn = user.userAPI.login(values.email, values.password)
+    if (!loggedIn) {
       setLoading(false)
-      history.push('/exchange')
-    }).catch(() => {
-      setLoading(false)
-    })
+      return
+    }
+    setVisible(false)
+    setLoading(false)
+    history.push('/exchange')
   }
 
   const onFinishFailed = (errorInfo) => {

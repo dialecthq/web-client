@@ -6,35 +6,6 @@ var {countryOptions}= require('../data/countryOptions')
 var {timezoneOptions} = require('../data/timezoneOptions')
 
 /* GET users listing. */
-router.post('/register', function(req, res, next) {
-  fire.auth().createUserWithEmailAndPassword(req.body.email, req.body.password)
-  .then((userCredential) => {
-
-    fire.firestore().collection('users').doc(userCredential.user.uid).set({
-      name: req.body.name,
-      email: req.body.email,
-      languages: req.body.languages,
-      country: req.body.country,
-      timezone: req.body.timezone,
-      username: req.body.username
-    }).then((data) => {
-      res.json({status: 200, message: 'successfully registered user', user: {
-        name: req.body.name,
-        email: req.body.email,
-        languages: req.body.languages,
-        country: req.body.country,
-        timezone: req.body.timezone,
-        username: req.body.username,
-      }});
-    }).catch((error) => {
-      res.json({status: 200, message: 'could not upload user data to firestore'}, error)
-    })
-  })
-  .catch((error) => {
-    res.json({status: 200, message: 'could not register user'}, error)
-  });
-});
-
 router.get('/login', function(req, res, nex) {
   fire.auth().signInWithEmailAndPassword(req.query.email, req.query.password)
   .then((userCredential) => {
@@ -49,29 +20,6 @@ router.get('/login', function(req, res, nex) {
   });
 })
 
-router.get('/check/username', function(req, res, next) {
-  fire.firestore().collection('users').where("username", "==", req.query.username).get().then((querySnapshot) => {
-    if (querySnapshot.docs.length > 0) {
-      res.json({status: 200, message: 'username is not available.', available: false})
-    } else {
-      res.json({status: 200, message: 'username is available.', available: true})
-    }
-  }).catch((error) => {
-    res.json({status: 400, message: 'could not check if username is available.', error})
-  })
-})
-
-router.get('/check/email', function(req, res, next) {
-  fire.firestore().collection('users').where("email", "==", req.query.email).get().then((querySnapshot) => {
-    if (querySnapshot.docs.length > 0) {
-      res.json({status: 200, message: 'email is already in use.', available: false})
-    } else {
-      res.json({status: 200, message: 'email is available.', available: true})
-    }
-  }).catch((error) => {
-    res.json({status: 400, message: 'could not check if username is available.', error})
-  })
-})
 
 router.get('/', function(req, res, next) {
   if(fire.auth().currentUser) {

@@ -7,26 +7,29 @@ function useUser() {
   const [user, setUser] = useState(null)
 
   const userAPI = {
-    register: async (newUser, setVisible, setPage, setLoading, setTempUser, history) => {
-      const userCredential = await fire.auth().createUserWithEmailAndPassword(newUser.email, newUser.password)
-      if (!userCredential) {
-        console.log('no user credential')
-        return false
-      }
-
-      const data = await fire.firestore().collection('users').doc(userCredential.user.uid).set({
-        name: newUser.name,
-        email: newUser.email,
-        languages: newUser.languages,
-        country: newUser.country,
-        timezone: newUser.timezone,
-        username: newUser.username
+    register: (newUser) => {
+      const result = new Promise((resolve, reject) => {
+        fire.auth().createUserWithEmailAndPassword(newUser.email, newUser.password).then((userCredential) => {
+          fire.firestore().collection('users').doc(userCredential.user.uid).set({
+            name: newUser.name,
+            email: newUser.email,
+            languages: newUser.languages,
+            country: newUser.country,
+            timezone: newUser.timezone,
+            username: newUser.username
+          })
+            .then((data) => {
+              resolve(data)
+            })
+            .catch((error) => {
+              reject(error)
+            })
+        }).catch((error) => {
+          reject(error)
+        })
       })
-      if (!data) {
-        console.log('no data help')
-        return false
-      }
-      return data
+
+      return result
     },
     validate: async (_, value, field) => {
       if (!value) {
@@ -42,12 +45,37 @@ function useUser() {
 
       return Promise.resolve(available)
     },
-    edit: async (parameters) => {
-      const data = await fire.firestore().collection('users').doc(fire.auth().currentUser.uid).update(parameters)
-      if (!data) {
+    edit: (parameters) => {
+      const result = new Promise((resolve, reject) => {
+        fire.firestore().collection('users').doc(fire.auth().currentUser.uid).update(parameters)
+          .then(() => {
+            fire.firestore().collection('users').doc(fire.auth().currentUser.uid).get()
+              .then((document) => {
+                resolve(setUser(document.data()))
+              })
+              .catch((error) => {
+                reject(error)
+              })
+          })
+          .catch((error) => {
+            reject(error)
+          })
+      })
+      return result
+    },
+    logout: async () => {
+      const loggedOut = await fire.auth().signOut()
+      if (!loggedOut) {
         return false
       }
-      return data
+      return true
+    },
+    login: async (email, password) => {
+      const loggedIn = await fire.auth().signInWithEmailAndPassword(email, password)
+      if (!loggedIn) {
+        return false
+      }
+      return true
     }
   }
 

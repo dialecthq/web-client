@@ -16,11 +16,7 @@ const App = () => {
         type="submit"
         onClick={() => {
           if (user.user) {
-            axios.get('http://localhost:9000/user/signout').then(() => {
-              user.setUser(null)
-            }).catch((error) => {
-              console.log(error)
-            })
+            user.userAPI.logout()
           } else {
             setSignInVisible(true)
           }

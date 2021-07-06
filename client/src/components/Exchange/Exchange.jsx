@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import styled from 'styled-components'
 import axios from 'axios'
-import { useHistory } from 'react-router-dom'
+import { useHistory, Redirect } from 'react-router-dom'
 import Loading from '@components/common/Loading'
 import User from '@utils/state/userContainer'
 import ExchangeState from '@utils/state/exchangeContainer'
@@ -30,7 +30,7 @@ const Exchange = () => {
 
   return (
     !user.user
-      ? (<Loading />)
+      ? (<Redirect to="/" />)
       : (
         <DashboardContainer>
           <Header />

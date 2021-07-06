@@ -124,7 +124,7 @@ const Header = () => {
           key="sign-out"
           icon={<FaSignOutAlt />}
           onClick={() => {
-            // RYANRYAN
+            user.userAPI.logout()
           }}
         >
           Sign out

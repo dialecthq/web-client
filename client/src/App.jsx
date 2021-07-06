@@ -23,6 +23,7 @@ const App = () => {
         if (!document) {
           user.setUser(null)
           setInitializing(false)
+          return
         }
         user.setUser(document.data())
         setInitializing(false)
@@ -34,16 +35,16 @@ const App = () => {
     authListener()
   }, [])
 
-  useEffect(() => {
-    const subscriber = fire.firestore()
-      .collection('users')
-      .where('username', '==', user?.user.username)
-      .onSnapshot((querySnapshot) => {
-        const document = querySnapshot.docs[0]
-        user.setUser(document.data())
-      })
-    return () => subscriber()
-  }, [])
+  // useEffect(() => {
+  //   if (!fire.auth().currentUser) return false
+  //   const subscriber = fire.firestore()
+  //     .collection('users')
+  //     .doc(fire.auth().currentUser.uid)
+  //     .onSnapshot((document) => {
+  //       user.setUser(document.data())
+  //     })
+  //   return () => subscriber()
+  // }, [])
 
   if (initializing) {
     return <Loading />

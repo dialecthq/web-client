@@ -173,16 +173,16 @@ const SignUp = ({ visible, setVisible, setSignInVisible }) => {
       timezone: timezoneOptions.filter((e) => e.value === values.timezone)[0].key,
     }
     setLoading(true)
-    const data = user.userAPI.register(newTempUser)
-    if (!data) {
+    user.userAPI.register(newTempUser).then(() => {
+      setVisible(false)
+      setPage(0)
       setLoading(false)
-    }
-
-    setVisible(false)
-    setPage(0)
-    setLoading(false)
-    setTempUser(null)
-    history.push('/exchange')
+      setTempUser(null)
+      history.push('/exchange')
+    }).catch((error) => {
+      console.log(error)
+      setLoading(false)
+    })
   }
 
   const onFinishFailed = (errorInfo) => {

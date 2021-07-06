@@ -90,19 +90,21 @@ const Edit = ({
         languages: tempLanguages
       }
     }
-    const updated = user.userAPI.edit(parameters)
-    if (!updated) {
+
+    user.userAPI.edit(parameters).then(() => {
+      setLoading(false)
+      setEditing('')
+      message.success({
+        content: 'Successfully updated user',
+        icon: <FaCheckCircle size={24} color="#1ae398" style={{ marginRight: 10 }} />
+      })
+    }).catch((error) => {
+      console.log(error)
       setLoading(false)
       message.error({
         content: 'Could not update user',
         icon: <FaTimesCircle size={24} color="#e86461" style={{ marginRight: 10 }} />
       })
-    }
-    setLoading(false)
-    setEditing('')
-    message.success({
-      content: 'Successfully updated user',
-      icon: <FaCheckCircle size={24} color="#1ae398" style={{ marginRight: 10 }} />
     })
   }
 
