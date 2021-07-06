@@ -1,5 +1,5 @@
 /* eslint-disable max-len */
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import axios from 'axios'
 import User from '@utils/state/userContainer'
 import SignIn from './components/SignIn'
@@ -9,16 +9,6 @@ const App = () => {
   const [signInVisible, setSignInVisible] = useState(false)
   const [signUpVisible, setSignUpVisible] = useState(false)
   const user = User.useContainer()
-
-  useEffect(() => {
-    if (!user.user) {
-      axios.get('http://localhost:9000/user').then((data) => {
-        if (data.data.user) {
-          user.setUser(data.data.user)
-        }
-      })
-    }
-  }, [user])
 
   return (
     <>

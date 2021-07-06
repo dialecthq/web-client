@@ -7,48 +7,33 @@ function useUser() {
   const [user, setUser] = useState(null)
 
   const userAPI = {
-    register: (newUser, setVisible, setPage, setLoading, setTempUser, history) => {
-      setLoading(true)
-      fire.auth().createUserWithEmailAndPassword(newUser.email, newUser.password)
-        .then((userCredential) => {
-          fire.firestore().collection('users').doc(userCredential.user.uid).set({
-            name: newUser.name,
-            email: newUser.email,
-            languages: newUser.languages,
-            country: newUser.country,
-            timezone: newUser.timezone,
-            username: newUser.username
-          })
-            .then((data) => {
-              setUser({
-                name: newUser.name,
-                email: newUser.email,
-                languages: newUser.languages,
-                country: newUser.country,
-                timezone: newUser.timezone,
-                username: newUser.username,
-              })
-              setVisible(false)
-              setPage(0)
-              setTempUser(null)
-              history.push('/exchange')
-            })
-            .catch((error) => {
-              setLoading(false)
-              setUser(null)
-            })
-        })
-        .catch((error) => {
-          setLoading(false)
-          setUser(null)
-        })
+    register: async (newUser, setVisible, setPage, setLoading, setTempUser, history) => {
+      const userCredential = await fire.auth().createUserWithEmailAndPassword(newUser.email, newUser.password)
+      if (!userCredential) {
+        console.log('no user credential')
+        return false
+      }
+
+      const data = await fire.firestore().collection('users').doc(userCredential.user.uid).set({
+        name: newUser.name,
+        email: newUser.email,
+        languages: newUser.languages,
+        country: newUser.country,
+        timezone: newUser.timezone,
+        username: newUser.username
+      })
+      if (!data) {
+        console.log('no data help')
+        return false
+      }
+      return data
     },
-    checkEmail: async (_, email) => {
-      if (!email) {
+    validate: async (_, value, field) => {
+      if (!value) {
         return Promise.reject(new Error('error'))
       }
 
-      const querySnapshot = await fire.firestore().collection('users').where('email', '==', email).get()
+      const querySnapshot = await fire.firestore().collection('users').where(field, '==', value).get()
       const available = querySnapshot.docs.length === 0
 
       if (!available) {
@@ -56,7 +41,7 @@ function useUser() {
       }
 
       return Promise.resolve(available)
-    }
+    },
   }
   return {
     user, setUser, userAPI

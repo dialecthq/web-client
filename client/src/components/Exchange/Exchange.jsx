@@ -28,22 +28,6 @@ const Exchange = () => {
   const exchangeState = ExchangeState.useContainer()
   const history = useHistory()
 
-  useEffect(() => {
-    if (!user.user) {
-      setTimeout(() => {
-        axios.get('http://localhost:9000/user').then((data) => {
-          if (data.data.user) {
-            user.setUser(data.data.user)
-          } else {
-            history.push('/')
-          }
-        }).catch(() => {
-          history.push('/')
-        })
-      }, 1000)
-    }
-  }, [user, history])
-
   return (
     !user.user
       ? (<Loading />)

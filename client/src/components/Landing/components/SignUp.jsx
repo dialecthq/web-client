@@ -172,7 +172,17 @@ const SignUp = ({ visible, setVisible, setSignInVisible }) => {
       country: countryOptions.filter((e) => e.value === values.country)[0].key,
       timezone: timezoneOptions.filter((e) => e.value === values.timezone)[0].key,
     }
-    user.userAPI.register(newTempUser, setVisible, setPage, setLoading, setTempUser, history)
+    setLoading(true)
+    const data = user.userAPI.register(newTempUser)
+    if (!data) {
+      setLoading(false)
+    }
+
+    setVisible(false)
+    setPage(0)
+    setLoading(false)
+    setTempUser(null)
+    history.push('/exchange')
   }
 
   const onFinishFailed = (errorInfo) => {
@@ -213,7 +223,7 @@ const SignUp = ({ visible, setVisible, setSignInVisible }) => {
             <Form.Item
               name="email"
               validateTrigger="onBlur"
-              rules={[{ required: true, message: 'Please input your email.' }, { type: 'email', message: 'Please input a valid email.' }, { validator: user.userAPI.checkEmail, message: 'email is already in use.' }]}
+              rules={[{ required: true, message: 'Please input your email.' }, { type: 'email', message: 'Please input a valid email.' }, { validator: (_, value) => user.userAPI.validate(_, value, 'email'), message: 'email is already in use.' }]}
               style={{ marginBottom: 25 }}
             >
               <Input
@@ -225,7 +235,7 @@ const SignUp = ({ visible, setVisible, setSignInVisible }) => {
             <Form.Item
               name="username"
               validateTrigger="onBlur"
-              rules={[{ required: true, message: 'Please input your username.' }, { validator: usernameValidator, message: 'username is already in use.' }]}
+              rules={[{ required: true, message: 'Please input your username.' }, { validator: (_, value) => user.userAPI.validate(_, value, 'username'), message: 'username is already in use.' }]}
               style={{ marginBottom: 25 }}
             >
               <Input
