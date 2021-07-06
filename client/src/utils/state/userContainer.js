@@ -31,19 +31,27 @@ function useUser() {
 
       return result
     },
-    validate: async (_, value, field) => {
-      if (!value) {
-        return Promise.reject(new Error('error'))
-      }
+    validate: (_, value, field) => {
+      const result = new Promise((resolve, reject) => {
+        if (!value) {
+          resolve(true)
+        }
 
-      const querySnapshot = await fire.firestore().collection('users').where(field, '==', value).get()
-      const available = querySnapshot.docs.length === 0
+        fire.firestore().collection('users').where(field, '==', value).get()
+          .then((querySnapshot) => {
+            const available = querySnapshot.docs.length === 0
 
-      if (!available) {
-        return Promise.reject(available)
-      }
+            if (!available) {
+              reject(new Error('not available'))
+            }
 
-      return Promise.resolve(available)
+            resolve(true)
+          })
+          .catch((error) => {
+            reject(error)
+          })
+      })
+      return result
     },
     edit: (parameters) => {
       const result = new Promise((resolve, reject) => {
@@ -63,19 +71,25 @@ function useUser() {
       })
       return result
     },
-    logout: async () => {
-      const loggedOut = await fire.auth().signOut()
-      if (!loggedOut) {
-        return false
-      }
-      return true
+    logout: () => {
+      const result = new Promise((resolve, reject) => {
+        fire.auth().signOut().then((data) => {
+          resolve(data)
+        }).catch((error) => {
+          reject(error)
+        })
+      })
+      return result
     },
-    login: async (email, password) => {
-      const loggedIn = await fire.auth().signInWithEmailAndPassword(email, password)
-      if (!loggedIn) {
-        return false
-      }
-      return true
+    login: (email, password) => {
+      const result = new Promise((resolve, reject) => {
+        fire.auth().signInWithEmailAndPassword(email, password).then((data) => {
+          resolve(data)
+        }).catch((error) => {
+          reject(error)
+        })
+      })
+      return result
     }
   }
 

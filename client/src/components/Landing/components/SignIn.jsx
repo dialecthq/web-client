@@ -114,14 +114,13 @@ const SignIn = ({ visible, setVisible, setSignUpVisible }) => {
 
   const onFinish = (values) => {
     setLoading(true)
-    const loggedIn = user.userAPI.login(values.email, values.password)
-    if (!loggedIn) {
+    user.userAPI.login(values.email, values.password).then(() => {
+      setVisible(false)
       setLoading(false)
-      return
-    }
-    setVisible(false)
-    setLoading(false)
-    history.push('/exchange')
+      history.push('/exchange')
+    }).catch(() => {
+      setLoading(false)
+    })
   }
 
   const onFinishFailed = (errorInfo) => {
