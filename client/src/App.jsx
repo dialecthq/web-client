@@ -34,6 +34,17 @@ const App = () => {
     authListener()
   }, [])
 
+  useEffect(() => {
+    const subscriber = fire.firestore()
+      .collection('users')
+      .where('username', '==', user?.user.username)
+      .onSnapshot((querySnapshot) => {
+        const document = querySnapshot.docs[0]
+        user.setUser(document.data())
+      })
+    return () => subscriber()
+  }, [])
+
   if (initializing) {
     return <Loading />
   }

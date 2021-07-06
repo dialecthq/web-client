@@ -90,28 +90,19 @@ const Edit = ({
         languages: tempLanguages
       }
     }
-
-    axios.post('http://localhost:9000/user/edit', parameters).then((data) => {
+    const updated = user.userAPI.edit(parameters)
+    if (!updated) {
       setLoading(false)
-      setEditing('')
-      if (data.data.user) {
-        user.setUser(data.data.user)
-        message.success({
-          content: 'Updated successfully',
-          icon: <FaCheckCircle size={24} color="#1ae398" style={{ marginRight: 10 }} />
-        })
-      } else {
-        message.error({
-          content: 'Update failed',
-          icon: <FaTimesCircle size={24} color="#e86461" style={{ marginRight: 10 }} />
-        })
-      }
-    }).catch(() => {
       message.error({
-        content: 'Update failed',
+        content: 'Could not update user',
         icon: <FaTimesCircle size={24} color="#e86461" style={{ marginRight: 10 }} />
       })
-      setLoading(false)
+    }
+    setLoading(false)
+    setEditing('')
+    message.success({
+      content: 'Successfully updated user',
+      icon: <FaCheckCircle size={24} color="#1ae398" style={{ marginRight: 10 }} />
     })
   }
 

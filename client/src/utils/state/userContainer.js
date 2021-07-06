@@ -42,7 +42,15 @@ function useUser() {
 
       return Promise.resolve(available)
     },
+    edit: async (parameters) => {
+      const data = await fire.firestore().collection('users').doc(fire.auth().currentUser.uid).update(parameters)
+      if (!data) {
+        return false
+      }
+      return data
+    }
   }
+
   return {
     user, setUser, userAPI
   }
