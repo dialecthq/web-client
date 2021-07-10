@@ -29,19 +29,15 @@ const Exchange = () => {
   const history = useHistory()
 
   return (
-    !user.user
-      ? (<Redirect to="/" />)
-      : (
-        <DashboardContainer>
-          <Header />
-          <Page>
-            {exchangeState.page === 'profile' && <Profile />}
-            {exchangeState.page === 'home' && <Home />}
-            {exchangeState.page === 'find' && <Find />}
-            {exchangeState.page === 'schedule' && <Schedule />}
-          </Page>
-        </DashboardContainer>
-      )
+    <DashboardContainer>
+      <Header />
+      <Page>
+        {exchangeState.page === 'profile' && <Profile />}
+        {exchangeState.page === 'home' && <Home />}
+        {exchangeState.page === 'find' && <Find />}
+        {exchangeState.page === 'schedule' && <Schedule />}
+      </Page>
+    </DashboardContainer>
   )
 }
 

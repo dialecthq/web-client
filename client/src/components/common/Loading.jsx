@@ -1,6 +1,7 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import styled from 'styled-components'
-import { Oval } from '@agney/react-loading'
+import Logo from '@img/logo.svg'
+import { Progress } from 'antd'
 
 const LoadingContainer = styled.div`
     height: 100vh;
@@ -16,6 +17,7 @@ const LoadingWrapper = styled.div`
     justify-content: center;
     align-items: center;
     padding: 18px;
+    min-width: 200px;
 `
 
 const Text = styled.p`
@@ -27,13 +29,19 @@ const Text = styled.p`
     text-align: center;
 `
 
-const Loading = () => (
-  <LoadingContainer>
-    <LoadingWrapper>
-      <Oval color="#1ce6d5" width="64" />
-      <Text>Revolutionizing language acquisition, one exchange at a time</Text>
-    </LoadingWrapper>
-  </LoadingContainer>
-)
+const Loading = ({ loaded, setLoaded }) => {
+  useEffect(() => {
+    setLoaded(100)
+  })
+
+  return (
+    <LoadingContainer>
+      <LoadingWrapper>
+        <img src={Logo} alt="text" style={{ marginBottom: 20 }} />
+        <Progress strokeColor="#81FDE3" percent={loaded} showInfo={false} />
+      </LoadingWrapper>
+    </LoadingContainer>
+  )
+}
 
 export default Loading

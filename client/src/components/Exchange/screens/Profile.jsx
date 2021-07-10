@@ -394,7 +394,7 @@ const Profile = () => {
           </Edit>
         )))}
       </ContentContainer>
-      <HeaderContainer>
+      {/* <HeaderContainer>
         <HeaderTitle>Communication Tools</HeaderTitle>
       </HeaderContainer>
       <ContentContainer>
@@ -402,7 +402,7 @@ const Profile = () => {
           <EmptyText>No communications tools found</EmptyText>
           <Button type="primary">Add one</Button>
         </EmptyContainer>
-      </ContentContainer>
+      </ContentContainer> */}
     </>
   )
 }

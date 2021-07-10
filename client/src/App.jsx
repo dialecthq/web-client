@@ -6,29 +6,33 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom'
 import Home from '@components/Landing/Home'
 import Exchange from '@components/Exchange/Exchange'
 import Loading from '@components/common/Loading'
+import Room from '@components/Exchange/screens/Room'
 
 import ExchangeState from '@utils/state/exchangeContainer'
 
 const App = () => {
   const [initializing, setInitializing] = useState(true)
+  const [loaded, setLoaded] = useState(0)
   const user = User.useContainer()
 
   const authListener = () => {
-    fire.auth().onAuthStateChanged(async (newUser) => {
-      if (!newUser) {
-        user.setUser(null)
-        setInitializing(false)
-      } else {
-        const document = await fire.firestore().collection('users').doc(newUser.uid).get()
-        if (!document) {
+    setTimeout(() => {
+      fire.auth().onAuthStateChanged(async (newUser) => {
+        if (!newUser) {
           user.setUser(null)
           setInitializing(false)
-          return
+        } else {
+          const document = await fire.firestore().collection('users').doc(newUser.uid).get()
+          if (!document) {
+            user.setUser(null)
+            setInitializing(false)
+            return
+          }
+          user.setUser(document.data())
+          setInitializing(false)
         }
-        user.setUser(document.data())
-        setInitializing(false)
-      }
-    })
+      })
+    }, 500)
   }
 
   useEffect(() => {
@@ -47,7 +51,7 @@ const App = () => {
   // }, [])
 
   if (initializing) {
-    return <Loading />
+    return <Loading loaded={loaded} setLoaded={setLoaded} />
   }
   return (
     <ExchangeState.Provider>
@@ -64,6 +68,12 @@ const App = () => {
             exact
           >
             <Exchange />
+          </Route>
+          <Route
+            path="/room"
+            exact
+          >
+            <Room />
           </Route>
         </Switch>
       </BrowserRouter>

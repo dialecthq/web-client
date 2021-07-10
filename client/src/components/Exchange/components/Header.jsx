@@ -1,9 +1,12 @@
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable jsx-a11y/no-static-element-interactions */
 import React, { useState } from 'react'
 import styled from 'styled-components'
 import {
   FaBars, FaQuestion, FaSignOutAlt, FaHome, FaUser, FaCalendarAlt, FaChalkboardTeacher,
 } from 'react-icons/fa'
 import { Popover, Divider, Menu } from 'antd'
+import { useHistory } from 'react-router-dom'
 import Logo from '@img/logo.svg'
 import User from '@utils/state/userContainer'
 import ExchangeState from '@utils/state/exchangeContainer'
@@ -101,9 +104,20 @@ const MenuItem = styled(Menu.Item)`
     }
 `
 
+const HeaderLogo = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  :hover {
+    cursor: pointer;
+  }
+`
+
 const Header = () => {
   const user = User.useContainer()
   const exchangeState = ExchangeState.useContainer()
+  const history = useHistory()
   const [ppOpen, setPPOpen] = useState(false)
   const [epOpen, setEPOpen] = useState(false)
 
@@ -184,8 +198,13 @@ const Header = () => {
           <Popover content={navigationPopover} placement="bottomRight" trigger="click" visible={epOpen} onVisibleChange={setEPOpen}>
             <MenuIcon />
           </Popover>
-          <img src={Logo} style={{ height: 36, width: 36 }} alt="logo" />
-          <Title>dialect</Title>
+          <HeaderLogo onClick={() => {
+            history.push('/')
+          }}
+          >
+            <img src={Logo} style={{ height: 36, width: 36 }} alt="logo" />
+            <Title>dialect</Title>
+          </HeaderLogo>
         </NavContent>
         <NavContent>
           <Popover content={profilePopover} placement="bottomLeft" trigger="click" visible={ppOpen} onVisibleChange={setPPOpen}>

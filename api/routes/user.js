@@ -42,18 +42,4 @@ router.get('/signout', function(req, res, next) {
   })
 })
 
-router.post('/edit', function(req, res, next) {
-  fire.firestore().collection('users').doc(fire.auth().currentUser.uid).update(req.body).then((data) => {
-    fire.firestore().collection('users').doc(fire.auth().currentUser.uid).get().then((doc) => {
-      res.json({status: 200, message: 'successfully edited user object', user: doc.data() })
-    }).catch((error) => {
-      console.log(error)
-      res.json({status: 200, message: 'could not retrieve user object'})
-    })
-  }).catch((error) => {
-    console.log(error)
-    res.json({status: 200, message: 'could not update user'})
-  })
-})
-
 module.exports = router;

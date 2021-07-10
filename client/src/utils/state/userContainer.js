@@ -59,7 +59,8 @@ function useUser() {
           .then(() => {
             fire.firestore().collection('users').doc(fire.auth().currentUser.uid).get()
               .then((document) => {
-                resolve(setUser(document.data()))
+                setUser(document.data())
+                resolve(true)
               })
               .catch((error) => {
                 reject(error)
