@@ -34,7 +34,8 @@
     "start": "craco start",
     "build": "craco build",
     "test": "craco test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "server": "docker run --rm   -p 7880:7880   -p 7881:7881   -p 7882:7882/udp   -e LIVEKIT_KEYS=\"APINew5XQnFMJ5f: Aet3DQKAXhJTsE6e9OepHS9ay1I5sfr31itxhaTNrQhB\"   livekit/livekit-server:v0.10.5-SNAPSHOT   --dev   --node-ip=10.126.40.121"
   },
   "eslintConfig": {
     "extends": [

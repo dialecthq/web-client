@@ -6,7 +6,7 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom'
 import Home from '@components/Landing/Home'
 import Exchange from '@components/Exchange/Exchange'
 import Loading from '@components/common/Loading'
-import Room from '@components/Exchange/screens/Room'
+import Room from '@components/Exchange/screens/Rooms/Room'
 
 import ExchangeState from '@utils/state/exchangeContainer'
 
