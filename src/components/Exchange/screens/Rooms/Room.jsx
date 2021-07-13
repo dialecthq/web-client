@@ -13,25 +13,28 @@ import userContainer from '@utils/state/userContainer'
 
 import RoomAPI from '@utils/apis/RoomAPI'
 import fire from '@utils/fire'
+
 import Participant from './components/Participant'
+import MuteButton from './components/MuteButton'
+import RoomHeader from './components/RoomHeader'
 
 const url = 'ws://localhost:7880'
 
-const StageLayout = styled.div`
-  display: grid;
-  grid-template-rows: auto min-content;
-  grid-template-columns: auto;
-  row-gap: 1rem;
+const StageContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
   height: 100%;
-  overflow: hidden;
+  background: #020117;
+  padding: 10px 24px;
+  position: relative;
 `
 
 const StageCenter = styled.div`
   display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  gap: 1rem;
-  max-height: 96px;
+  justify-content: center;
+  align-items: center;
 `
 
 const gradientAnim = keyframes`
@@ -77,12 +80,13 @@ function renderStage({ roomState }) {
   }
 
   return (
-    <StageLayout>
+    <StageContainer>
       <div style={{
         overflowY: 'scroll',
         padding: '1.5rem'
       }}
       >
+        <RoomHeader />
         <StageCenter>
           {participants.map((participant) => (
             <Participant
@@ -99,9 +103,12 @@ function renderStage({ roomState }) {
         display: 'flex',
         flexDirection: 'row',
         justifyContent: 'center',
-        paddingBottom: '1.5rem'
+        paddingBottom: '1.5rem',
+        position: 'absolute',
+        bottom: 10,
       }}
       >
+        <MuteButton room={room} />
         <ControlsView
           room={room}
           enableScreenShare={false}
@@ -109,7 +116,7 @@ function renderStage({ roomState }) {
           onLeave={() => room.disconnect()}
         />
       </div>
-    </StageLayout>
+    </StageContainer>
   )
 }
 
@@ -127,23 +134,23 @@ async function handleConnected(room) {
 
 function RoomComponent() {
   const [token, setToken] = useState(null)
-  const user = userContainer.useContainer()
+  const { user } = userContainer.useContainer()
   const history = useHistory()
 
   useEffect(() => {
-    if (!user.user) {
+    if (!user) {
       history.push('/')
     }
-    RoomAPI.join(fire.auth().currentUser.uid, user.user.username, 'heyhey').then((data) => {
-      console.log(data.data.token)
-      setToken(data.data.token)
-    }).catch(() => {
-      console.log('beyooooooond')
+    RoomAPI.join(user, 'english').then((newToken) => {
+      setToken(newToken)
+    }).catch((error) => {
+      setToken(null)
     })
   }, [])
-  if (!token || !user.user) return null
+
+  if (!token || !user) return null
   return (
-    <div style={{ height: '100vh' }}>
+    <div style={{ height: '100vh', minHeight: 700 }}>
       <LiveKitRoom
         url={url}
         token={token}

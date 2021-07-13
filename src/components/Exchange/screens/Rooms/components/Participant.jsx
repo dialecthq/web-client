@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import { useParticipant } from 'livekit-react'
+import { FaMicrophoneSlash, FaMicrophone } from 'react-icons/fa'
 
 const Container = styled.div`
     width: 400px;
@@ -11,6 +12,7 @@ const Container = styled.div`
     justify-content: center;
     align-items: center;
     position: relative;
+    margin: 10px;
 
 `
 
@@ -29,11 +31,26 @@ const ParticipantAvatar = styled.div`
   border: ${(p) => (p.isSpeaking ? '7px solid #81FDE3' : '7px solid #fff')};
   transition: 0.2s border ease-in-out;
 `
+
+const InformationContainer = styled.div`
+  position: absolute;
+  left: 10px;
+  bottom: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`
+
+const MutedContainer = styled.div`
+  padding: 7px 14px;
+    background: #180F25;
+    color: #fff;
+    border-radius: 20px;
+    margin-right: 5px;
+`
+
 const NameContainer = styled.div`
     padding: 7px 14px;
-    position: absolute;
-    left: 10px;
-    bottom: 10px;
     background: #180F25;
     color: #fff;
     border-radius: 20px;
@@ -62,10 +79,18 @@ function Participant({ participant }) {
           src={`https://minecraftskinstealer.com/api/v1/skin/download/cube/${participant.metadata}`}
         />
       </ParticipantAvatar>
-      <NameContainer>
-        <Name>{`@${participant.metadata}`}</Name>
-      </NameContainer>
+      <InformationContainer>
+        <MutedContainer>
+          {
+            isMuted ? <FaMicrophoneSlash /> : <FaMicrophone />
+          }
+        </MutedContainer>
+        <NameContainer>
+          <Name>{`@${participant.metadata}`}</Name>
+        </NameContainer>
+      </InformationContainer>
     </Container>
+
   )
 }
 

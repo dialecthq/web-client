@@ -11,6 +11,7 @@ function useUser() {
       const result = new Promise((resolve, reject) => {
         fire.auth().createUserWithEmailAndPassword(newUser.email, newUser.password).then((userCredential) => {
           fire.firestore().collection('users').doc(userCredential.user.uid).set({
+            uid: userCredential.user.uid,
             name: newUser.name,
             email: newUser.email,
             languages: newUser.languages,
