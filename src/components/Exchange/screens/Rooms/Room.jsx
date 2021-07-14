@@ -62,10 +62,6 @@ function renderStage({ roomState }) {
     room, participants, audioTracks, isConnecting, error
   } = roomState
 
-  useEffect(() => {
-    console.log(participants)
-  }, [participants])
-
   if (isConnecting) {
     return <StageMessage><div>Connecting...</div></StageMessage>
   }
@@ -86,7 +82,7 @@ function renderStage({ roomState }) {
 
   return (
     <StageContainer>
-      <RoomHeader numParticipants={participants.length} />
+      <RoomHeader numParticipants={participants.length} room={room} />
       <StageCenter>
         {participants.map((participant) => (
           <Participant

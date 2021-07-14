@@ -10,6 +10,7 @@ import { useHistory } from 'react-router-dom'
 import Logo from '@img/logo.svg'
 import User from '@utils/state/userContainer'
 import ExchangeState from '@utils/state/exchangeContainer'
+import HeaderLogo from '@components/common/HeaderLogo'
 
 const NavContainer = styled.div`
     display: flex;
@@ -37,14 +38,6 @@ const NavContent = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-`
-
-const Title = styled.p`
-    font-size: 2em;
-    font-weight: 700;
-    margin-right: 20px;
-    margin-top: 0px;
-    margin-bottom: 0px;
 `
 
 const Avatar = styled.div`
@@ -102,16 +95,6 @@ const MenuItem = styled(Menu.Item)`
     :hover {
         background: #efefef;
     }
-`
-
-const HeaderLogo = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  :hover {
-    cursor: pointer;
-  }
 `
 
 const Header = () => {
@@ -195,19 +178,25 @@ const Header = () => {
     <NavContainer>
       <NavWrapper>
         <NavContent>
-          <Popover content={navigationPopover} placement="bottomRight" trigger="click" visible={epOpen} onVisibleChange={setEPOpen}>
+          <Popover
+            content={navigationPopover}
+            placement="bottomRight"
+            trigger="click"
+            visible={epOpen}
+            onVisibleChange={setEPOpen}
+          >
             <MenuIcon />
           </Popover>
-          <HeaderLogo onClick={() => {
-            history.push('/')
-          }}
-          >
-            <img src={Logo} style={{ height: 36, width: 36 }} alt="logo" />
-            <Title>dialect</Title>
-          </HeaderLogo>
+          <HeaderLogo />
         </NavContent>
         <NavContent>
-          <Popover content={profilePopover} placement="bottomLeft" trigger="click" visible={ppOpen} onVisibleChange={setPPOpen}>
+          <Popover
+            content={profilePopover}
+            placement="bottomLeft"
+            trigger="click"
+            visible={ppOpen}
+            onVisibleChange={setPPOpen}
+          >
             <Avatar active={ppOpen}>
               <AvatarImg src={Logo} style={{ height: 22, width: 22 }} />
             </Avatar>
