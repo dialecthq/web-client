@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 import React from 'react'
 import styled from 'styled-components'
+import { message } from 'antd'
 import {
   createLocalAudioTrack,
   createLocalVideoTrack,
@@ -41,6 +42,12 @@ const MuteButton = ({ room }) => {
         if (!audioPub || isMuted) {
           if (audioPub) {
             audioPub.unmute()
+            message.success({
+              content: 'Microphone is on',
+              icon: <FaMicrophone size={24} style={{ marginRight: 10 }} />,
+              className: 'dark-mode-message',
+              duration: 1,
+            })
           } else {
           // track not published
             const audioTrack = await createLocalAudioTrack()
@@ -48,13 +55,19 @@ const MuteButton = ({ room }) => {
           }
         } else {
           audioPub.mute()
+          message.success({
+            content: 'Microphone is off',
+            icon: <FaMicrophoneSlash size={24} style={{ marginRight: 10 }} />,
+            className: 'dark-mode-message',
+            duration: 1,
+          })
         }
       }}
     >
       {
         !audioPub || isMuted
-          ? <FaMicrophone size={24} color="fff" />
-          : <FaMicrophoneSlash size={24} color="#fff" />
+          ? <FaMicrophoneSlash size={24} color="#fff" />
+          : <FaMicrophone size={24} color="fff" />
       }
 
     </Container>

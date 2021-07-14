@@ -42,11 +42,16 @@ const InformationContainer = styled.div`
 `
 
 const MutedContainer = styled.div`
-  padding: 7px 14px;
+    display: flex;
+    justify-content: center;
+    align-items: center ;
+    padding: 7px 14px;
     background: #180F25;
     color: #fff;
     border-radius: 20px;
     margin-right: 5px;
+    height: 32px;
+
 `
 
 const NameContainer = styled.div`
@@ -80,11 +85,13 @@ function Participant({ participant }) {
         />
       </ParticipantAvatar>
       <InformationContainer>
-        <MutedContainer>
-          {
-            isMuted ? <FaMicrophoneSlash /> : <FaMicrophone />
-          }
-        </MutedContainer>
+        {isMuted
+        && (
+          <MutedContainer>
+            <FaMicrophoneSlash />
+          </MutedContainer>
+        )}
+
         <NameContainer>
           <Name>{`@${participant.metadata}`}</Name>
         </NameContainer>
