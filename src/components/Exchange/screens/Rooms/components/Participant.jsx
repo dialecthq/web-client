@@ -7,12 +7,14 @@ const Container = styled.div`
     width: 400px;
     height: 400px;
     background-color: #251B3D;
-    border-radius: 20px;
+    border-radius: 25px;
     display: flex;
     justify-content: center;
     align-items: center;
     position: relative;
     margin: 10px;
+    border: ${(p) => (p.isSpeaking ? '2px solid #81FDE3' : '2px solid #38295B')};
+    transition: 0.2s border ease-in-out;
 
 `
 
@@ -28,8 +30,6 @@ const ParticipantAvatar = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  border: ${(p) => (p.isSpeaking ? '7px solid #81FDE3' : '7px solid #fff')};
-  transition: 0.2s border ease-in-out;
 `
 
 const InformationContainer = styled.div`
@@ -68,8 +68,8 @@ function Participant({ participant }) {
   } = useParticipant(participant)
 
   return (
-    <Container>
-      <ParticipantAvatar isSpeaking={isSpeaking}>
+    <Container isSpeaking={isSpeaking}>
+      <ParticipantAvatar>
         <img
           style={{
             width: '64px',

@@ -10,13 +10,24 @@ import {
   Track,
   VideoPresets,
 } from 'livekit-client'
+import { FaMicrophone, FaMicrophoneSlash } from 'react-icons/fa'
 
 import { useParticipant } from 'livekit-react'
 
 const Container = styled.div`
-    width: 24px;
-    height: 24px;
-    background: ${(p) => (p.muted ? '#ff0000' : '#0000ff')};
+    width: 48px;
+    height: 48px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #251B3D;
+
+
+    :hover {
+      cursor: pointer;
+      opacity: 0.8;
+    }
 `
 
 const MuteButton = ({ room }) => {
@@ -39,7 +50,14 @@ const MuteButton = ({ room }) => {
           audioPub.mute()
         }
       }}
-    />
+    >
+      {
+        !audioPub || isMuted
+          ? <FaMicrophone size={24} color="fff" />
+          : <FaMicrophoneSlash size={24} color="#fff" />
+      }
+
+    </Container>
   )
 }
 

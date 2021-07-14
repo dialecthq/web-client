@@ -17,6 +17,7 @@ import fire from '@utils/fire'
 import Participant from './components/Participant'
 import MuteButton from './components/MuteButton'
 import RoomHeader from './components/RoomHeader'
+import Controls from './components/Controls'
 
 const url = 'ws://localhost:7880'
 
@@ -81,41 +82,26 @@ function renderStage({ roomState }) {
 
   return (
     <StageContainer>
-      <div style={{
-        overflowY: 'scroll',
-        padding: '1.5rem'
-      }}
-      >
-        <RoomHeader />
-        <StageCenter>
-          {participants.map((participant) => (
-            <Participant
-              key={participant.sid}
-              participant={participant}
-            />
-          ))}
-          {audioTracks.map((track) => (
-            <AudioRenderer key={track.sid} track={track} isLocal={false} />
-          ))}
-        </StageCenter>
-      </div>
-      <div style={{
-        display: 'flex',
-        flexDirection: 'row',
-        justifyContent: 'center',
-        paddingBottom: '1.5rem',
-        position: 'absolute',
-        bottom: 10,
-      }}
-      >
-        <MuteButton room={room} />
-        <ControlsView
-          room={room}
-          enableScreenShare={false}
-          enableVideo={false}
-          onLeave={() => room.disconnect()}
-        />
-      </div>
+      <RoomHeader numParticipants={participants.length} />
+      <StageCenter>
+        {participants.map((participant) => (
+          <Participant
+            key={participant.sid}
+            participant={participant}
+          />
+        ))}
+        {audioTracks.map((track) => (
+          <AudioRenderer key={track.sid} track={track} isLocal={false} />
+        ))}
+      </StageCenter>
+      <Controls room={room} />
+      {/* <MuteButton room={room} />
+      <ControlsView
+        room={room}
+        enableScreenShare={false}
+        enableVideo={false}
+        onLeave={() => room.disconnect()}
+      /> */}
     </StageContainer>
   )
 }
