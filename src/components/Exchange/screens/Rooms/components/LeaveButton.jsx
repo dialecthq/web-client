@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import { BiDoorOpen } from 'react-icons/bi'
+import { useHistory } from 'react-router-dom'
 
 const Container = styled.div`
     width: 48px;
@@ -19,14 +20,18 @@ const Container = styled.div`
     }
 `
 
-const LeaveButton = ({ room }) => (
-  <Container
-    onClick={() => {
-      room.disconnect()
-    }}
-  >
-    <BiDoorOpen size={24} color="#fff" />
-  </Container>
-)
+const LeaveButton = ({ room }) => {
+  const history = useHistory()
+  return (
+    <Container
+      onClick={() => {
+        room.disconnect()
+        history.push('/exchange')
+      }}
+    >
+      <BiDoorOpen size={24} color="#fff" />
+    </Container>
+  )
+}
 
 export default LeaveButton

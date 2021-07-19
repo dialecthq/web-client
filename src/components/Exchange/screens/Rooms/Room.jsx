@@ -11,11 +11,9 @@ import { useHistory, Redirect } from 'react-router-dom'
 import { createLocalTracks } from 'livekit-client'
 import userContainer from '@utils/state/userContainer'
 
-import RoomAPI from '@utils/apis/RoomAPI'
-import fire from '@utils/fire'
+import { join } from '@utils/apis/RoomAPI'
 
 import Participant from './components/Participant'
-import MuteButton from './components/MuteButton'
 import RoomHeader from './components/RoomHeader'
 import Controls from './components/Controls'
 
@@ -36,6 +34,7 @@ const StageCenter = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-wrap: wrap;
 `
 
 const gradientAnim = keyframes`
@@ -127,7 +126,7 @@ function RoomComponent() {
     if (!user) {
       history.push('/')
     }
-    RoomAPI.join(user, 'english').then((newToken) => {
+    join(user, { value: 'english', key: 1 }).then((newToken) => {
       setToken(newToken)
     }).catch((error) => {
       setToken(null)
