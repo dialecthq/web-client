@@ -2,121 +2,77 @@
 import axios from 'axios'
 import fire from '@utils/fire'
 import firebase from 'firebase'
-import { uuid } from 'uuidv4'
+import { v4 as uuid } from 'uuid'
+import User from '@utils/state/userContainer'
 
 export const checkNative = (user, language) => user.languages.filter((e) => (e.key === language.key && e.level > 5)).length > 0
 
-export const addToWaitingRoom = (user, language) => {
-  const result = new Promise((resolve, reject) => {
-    const native = checkNative(user, language)
-    fire.firestore().collection('waiting-rooms').doc(`${language.value}-${native ? 'native' : 'target'}`)
-      .set({
+export const addToWaitingRoom = async (user, language) => {
+  const native = checkNative(user, language)
+  const result = await fire.firestore().collection('waiting-rooms').doc(`${language.value}-${native ? 'native' : 'target'}`)
+    .set(
+      {
         participants: firebase.firestore.FieldValue.arrayUnion(user.uid),
-      }, { merge: true })
-      .then(() => {
-        resolve(true)
-      })
-      .catch((error) => {
-        reject(error)
-      })
-  })
+      },
+      { merge: true }
+    )
   return result
 }
 
-export const checkWaitingRoom = (user, language) => {
-  const result = new Promise((resolve, reject) => {
-    const native = checkNative(user, language)
-    fire.firestore().collection('waiting-rooms').doc(`${language.value}-${native ? 'target' : 'native'}`).get()
-      .then((document) => {
-        if (document.data().participants.length > 0) {
-          resolve(document.data().participants[0])
-        } else {
-          reject(new Error('Nobody in waiting room'))
-        }
-      })
-      .catch((error) => {
-        reject(error)
-      })
-  })
-
-  return result
+export const checkWaitingRoom = async (user, language) => {
+  const native = checkNative(user, language)
+  const document = await fire.firestore().collection('waiting-rooms').doc(`${language.value}-${native ? 'target' : 'native'}`).get()
+  if (document.data().participants.length > 0) {
+    return document.data().participants[0]
+  }
+  return false
 }
 
-export const createRoom = (participants, language) => {
-  const result = new Promise((resolve, reject) => {
-    const roomID = uuid()
-    fire.firestore().collection('audio-rooms').doc(roomID).set({
+export const createRoom = async (participants, language) => {
+  const roomID = uuid()
+  try {
+    await fire.firestore().collection('audio-rooms').doc(roomID).set({
       active: true,
       participants,
       language: language.key
     })
-      .then(() => {
-        resolve(roomID)
-      })
-      .catch((error) => {
-        reject(error)
-      })
-  })
-
-  return result
+    return roomID
+  } catch (error) {
+    return false
+  }
 }
 
-export const checkRoom = (user) => {
-  const result = new Promise((resolve, reject) => {
-    fire.firestore().collection('audio-rooms')
-      .where('participants', 'array-contains', user.uid)
-      .where('active', '==', true)
-      .get()
-      .then((querySnapshot) => {
-        if (querySnapshot.docs.length === 1) {
-          resolve(querySnapshot.docs[0].id)
-        }
+export const checkRoom = async (user) => {
+  const querySnapshot = await fire.firestore().collection('audio-rooms')
+    .where('active', '==', true)
+    .where('participants', 'array-contains', user.uid)
+    .get()
 
-        reject(new Error('Could not find a room'))
-      })
-      .catch((error) => {
-        reject(error)
-      })
-  })
-  return result
+  if (querySnapshot.docs.length === 1) {
+    return querySnapshot.docs[0].id
+  }
+
+  return false
 }
 
 export const joinRoom = (user, roomID) => axios.get('http://localhost:9000/rooms/join', { params: { uid: user.uid, username: user.username, roomID } })
 
-export const join = (user, language) => {
-  const result = new Promise((resolve, reject) => {
-    checkRoom(user)
-      .then((roomID) => {
-        joinRoom(user, roomID).then((data) => {
-          resolve(data.data.token)
-        }).catch((error) => {
-          reject(error)
-        })
-      })
-      .catch(() => {
-        checkWaitingRoom(user, language)
-          .then((partnerID) => {
-            createRoom([user.uid, partnerID], language)
-              .then((roomID) => {
-                joinRoom(user, roomID)
-                  .then((data) => {
-                    resolve(data.data.token)
-                  }).catch((error) => {
-                    reject(error)
-                  })
-              }).catch(() => {
-                reject(new Error('could not create room'))
-              })
-          }).catch(() => {
-            addToWaitingRoom(user, language)
-              .then(() => {
-                reject(new Error('you have been added to the waiting room'))
-              }).catch(() => {
-                reject(new Error('could not add to waiting room'))
-              })
-          })
-      })
-  })
+export const join = async (user, language) => {
+  let roomID = await checkRoom(user)
+  if (!roomID) {
+    const partnerID = await checkWaitingRoom(user, language)
+    if (!partnerID) {
+      addToWaitingRoom(user, language)
+      return false
+    }
 
-  return result
+    roomID = await createRoom([user.uid, partnerID], language)
+    if (!roomID) {
+      return false
+    }
+
+    return joinRoom(user, roomID)
+  }
+
+  return joinRoom(user, roomID)
 }

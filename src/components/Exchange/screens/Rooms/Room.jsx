@@ -7,11 +7,14 @@ import {
   LiveKitRoom, AudioRenderer, ControlsView, useParticipant
 } from 'livekit-react'
 import { useHistory, Redirect } from 'react-router-dom'
+import fire from '@utils/fire'
 
 import { createLocalTracks } from 'livekit-client'
 import userContainer from '@utils/state/userContainer'
 
-import { join } from '@utils/apis/RoomAPI'
+import {
+  checkWaitingRoom, addToWaitingRoom, createRoom, joinRoom
+} from '@utils/apis/RoomAPI'
 
 import Participant from './components/Participant'
 import RoomHeader from './components/RoomHeader'
@@ -120,17 +123,58 @@ async function handleConnected(room) {
 function RoomComponent() {
   const [token, setToken] = useState(null)
   const { user } = userContainer.useContainer()
+  const [language, setLanguage] = useState({ value: 'english', key: 1 })
   const history = useHistory()
+  const caroline = 'Pretty'
+  const otherBitches = 'ugly ew'
 
-  useEffect(() => {
-    if (!user) {
-      history.push('/')
-    }
-    join(user, { value: 'english', key: 1 }).then((newToken) => {
-      setToken(newToken)
-    }).catch((error) => {
-      setToken(null)
-    })
+  useEffect(async () => {
+    // if (!user) {
+    //   history.push('/')
+    // }
+    // const result = await join(user, { value: 'english', key: 1 })
+    // if (!result) {
+    //   setToken(null)
+    // }
+
+    // setToken(result.data.token)
+
+    const subscriber = fire.firestore().collection('audio-rooms')
+      .where('active', '==', true)
+      .where('participants', 'array-contains', user.uid)
+      .onSnapshot(async (querySnapshot) => {
+        let roomID = querySnapshot.docs[0]?.id || null
+        if (!roomID) {
+          const partnerID = await checkWaitingRoom(user, language)
+          if (!partnerID) {
+            addToWaitingRoom(user, language)
+            setToken(null)
+            return
+          }
+
+          roomID = await createRoom([user.uid, partnerID], language)
+          if (!roomID) {
+            setToken(null)
+            return
+          }
+
+          const newTokenResult = await joinRoom(user, roomID)
+          if (!newTokenResult.data.token) {
+            setToken(null)
+            return
+          }
+
+          setToken(newTokenResult.data.token)
+        }
+
+        const newTokenResult = await joinRoom(user, roomID)
+        if (!newTokenResult.data.token) {
+          setToken(null)
+          return
+        }
+        setToken(newTokenResult.data.token)
+      })
+    return () => subscriber()
   }, [])
 
   if (!token || !user) return null
