@@ -12,7 +12,6 @@ import ExchangeState from '@utils/state/exchangeContainer'
 
 const App = () => {
   const [initializing, setInitializing] = useState(true)
-  const [loaded, setLoaded] = useState(0)
   const user = User.useContainer()
 
   const authListener = () => {
@@ -51,7 +50,7 @@ const App = () => {
   // }, [])
 
   if (initializing) {
-    return <Loading loaded={loaded} setLoaded={setLoaded} />
+    return <Loading />
   }
   return (
     <ExchangeState.Provider>

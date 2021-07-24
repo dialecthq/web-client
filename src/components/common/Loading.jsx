@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import Logo from '@img/logo.svg'
 import { Progress } from 'antd'
@@ -29,7 +29,8 @@ const Text = styled.p`
     text-align: center;
 `
 
-const Loading = ({ loaded, setLoaded }) => {
+const Loading = () => {
+  const [loaded, setLoaded] = useState(0)
   useEffect(() => {
     setLoaded(100)
   })

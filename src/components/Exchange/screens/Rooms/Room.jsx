@@ -15,7 +15,10 @@ import userContainer from '@utils/state/userContainer'
 import {
   checkWaitingRoom, addToWaitingRoom, createRoom, joinRoom
 } from '@utils/apis/RoomAPI'
+import ServerDown from '@img/server_down.svg'
 
+import Waiting from '@components/common/Waiting'
+import Error from '@components/common/Error'
 import Participant from './components/Participant'
 import RoomHeader from './components/RoomHeader'
 import Controls from './components/Controls'
@@ -65,21 +68,22 @@ function renderStage({ roomState }) {
   } = roomState
 
   if (isConnecting) {
-    return <StageMessage><div>Connecting...</div></StageMessage>
+    return <Waiting />
   }
   if (error) {
     return (
-      <StageMessage>
-        <div>
-          Error:
-          {' '}
-          {error.message}
-        </div>
-      </StageMessage>
+      // <StageMessage>
+      //   <div>
+      //     Error:
+      //     {' '}
+      //     {error.message}
+      //   </div>
+      // </StageMessage>
+      <Error errorMessage={error.message} imgLink={ServerDown} />
     )
   }
   if (!room) {
-    return <StageMessage><div>room closed</div></StageMessage>
+    return <Error errorMessage="room closed" imgLink={ServerDown} />
   }
 
   return (
@@ -122,13 +126,14 @@ async function handleConnected(room) {
 
 function RoomComponent() {
   const [token, setToken] = useState(null)
+  const [waiting, setWaiting] = useState(true)
   const { user } = userContainer.useContainer()
   const [language, setLanguage] = useState({ value: 'english', key: 1 })
   const history = useHistory()
   const caroline = 'Pretty'
   const otherBitches = 'ugly ew'
 
-  useEffect(async () => {
+  useEffect(() => {
     // if (!user) {
     //   history.push('/')
     // }
@@ -149,35 +154,36 @@ function RoomComponent() {
           if (!partnerID) {
             addToWaitingRoom(user, language)
             setToken(null)
-            return
+          } else {
+            roomID = await createRoom([user.uid, partnerID], language)
+            if (!roomID) {
+              setToken(null)
+            } else {
+              const newTokenResult = await joinRoom(user, roomID)
+              if (!newTokenResult.data.token) {
+                setToken(null)
+              } else {
+                setWaiting(false)
+                setToken(newTokenResult.data.token)
+              }
+            }
           }
-
-          roomID = await createRoom([user.uid, partnerID], language)
-          if (!roomID) {
-            setToken(null)
-            return
-          }
-
+        } else {
           const newTokenResult = await joinRoom(user, roomID)
           if (!newTokenResult.data.token) {
             setToken(null)
-            return
+          } else {
+            setWaiting(false)
+            setToken(newTokenResult.data.token)
           }
-
-          setToken(newTokenResult.data.token)
         }
-
-        const newTokenResult = await joinRoom(user, roomID)
-        if (!newTokenResult.data.token) {
-          setToken(null)
-          return
-        }
-        setToken(newTokenResult.data.token)
       })
     return () => subscriber()
   }, [])
 
-  if (!token || !user) return null
+  if (waiting) return <Waiting />
+  if (!token) return null
+
   return (
     <div style={{ height: '100vh', minHeight: 700 }}>
       <LiveKitRoom
