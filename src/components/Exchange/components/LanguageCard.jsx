@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React, { useState } from 'react'
 import { Button } from 'antd'
 import styled from 'styled-components'
@@ -12,9 +13,9 @@ const CardContainer = styled.div`
   justify-content: center;
   align-items: center;
   margin-right: 10px;
+  color: #fff;
 
   @media screen and (max-width: 768px) {
-    height: 100px;
     width: 100%;
   }
 `
@@ -28,8 +29,8 @@ const CardWrapper = styled.div`
   justify-content: center;
   align-items: center;
   border-radius: 10px;
-  border: 1px solid #d4d4d4;
-  background: #fff;
+  border: 1px solid#38295B;
+  background: #251B3D;
   transition: 0.2s all ease-in-out;
   overflow: hidden;
 `
@@ -43,7 +44,7 @@ const CardContent = styled.div`
 `
 
 const CardTitle = styled.p`
-  font-size: 1.2em;
+  font-size: 1.4em;
   font-weight: 500;
 `
 
@@ -54,51 +55,46 @@ const CardPeople = styled.div`
 `
 
 const CardNum = styled.p`
-  font-size: 0.75;
+  font-size: 1em;
   font-weight: 400;
-  color: #d8d8d8;
   margin-left: 5px;
 `
 
 const Flag = styled.img`
-    height: 24px;
-    width: 24px;
+    height: 36px;
+    width: 36px;
     margin-right: 10px;
 `
 
-const LanguageCard = ({ title, flag }) => {
-  const [filled, setFilled] = useState(false)
+const LanguageCard = ({ room }) => {
   const history = useHistory()
   return (
     <CardContainer>
       <CardWrapper>
         <CardContent>
           <CardPeople style={{ marginRight: 20 }}>
-            <Flag src={flag} alt="flag" />
-            <CardTitle>{title}</CardTitle>
+            <Flag src={room.flag} alt="flag" />
+            <CardTitle>{room.value}</CardTitle>
           </CardPeople>
 
           <CardPeople>
-            <FaUserAlt size={14} color="#d8d8d8" />
+            <FaUserAlt size={16} />
             <CardNum>{Math.ceil(Math.random() * 100) }</CardNum>
-            <FaGhost size={14} color="#d8d8d8" style={{ marginLeft: 10 }} />
+            <FaGhost size={16} style={{ marginLeft: 10 }} />
             <CardNum>{Math.ceil(Math.random() * 100) }</CardNum>
-            {
-              filled
-                ? <FaStar size={22} color="#FFBE0F" style={{ marginLeft: 10 }} onClick={() => setFilled(!filled)} />
-                : <FaRegStar size={22} color="#FFBE0F" style={{ marginLeft: 10 }} onClick={() => setFilled(!filled)} />
-            }
           </CardPeople>
         </CardContent>
         <CardContent>
-          <Button block style={{ marginRight: 5 }} icon={<FaHeadphonesAlt style={{ marginRight: 5 }} />}>Just Listen</Button>
+          <Button type="primary" color="#81FDE3" block style={{ marginRight: 5, background: ' #81FDE3', color: '#000' }} icon={<FaHeadphonesAlt style={{ marginRight: 5 }} />}>Just Listen</Button>
           <Button
             block
             type="primary"
             style={{ marginLeft: 5 }}
             icon={<FaMicrophoneAlt style={{ marginRight: 5 }} />}
             onClick={() => {
-              history.push('/room')
+              history.push({
+                pathname: `/join/${room.value}`,
+              })
             }}
           >
             Talk

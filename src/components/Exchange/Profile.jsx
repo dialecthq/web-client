@@ -12,6 +12,7 @@ import timezoneOptions from '@utils/data/TimezoneOptions'
 import levelOptions from '@utils/data/levelOptions'
 import Level from '@components/common/Level'
 import Edit from '@components/common/Edit'
+import Page from '@components/Exchange/components/Page'
 import { years, months, getDays } from '@utils/data/dateOptions'
 
 const HeaderContainer = styled.div`
@@ -126,7 +127,7 @@ const Profile = () => {
   const [inputMonth, setInputMonth] = useState(1)
   const user = User.useContainer()
   return (
-    <>
+    <Page>
       <TitleContainer>
         <Title>Profile</Title>
       </TitleContainer>
@@ -403,7 +404,7 @@ const Profile = () => {
           <Button type="primary">Add one</Button>
         </EmptyContainer>
       </ContentContainer> */}
-    </>
+    </Page>
   )
 }
 

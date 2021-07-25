@@ -4,11 +4,12 @@ import Logo from '@img/logo.svg'
 
 const FooterContainer = styled.div`
     height: 60px;
-    border-top: 1px solid #efefef;
-    position: absolute;
+    max-width: 1200px;
+    border-top :1px solid #251B3D;;
+    position: fixed;
     bottom: 0;
     width: 100%;
-    background-color: #fff;
+    background-color: var(--dark-background);
     z-index: 4;
     padding: 0 18px;
 `
@@ -30,7 +31,7 @@ const FooterContent = styled.div`
 const FooterLink = styled.a`
     font-size: 0.9em;
     font-weight: 400;
-    color: #454545;
+    color: #fff;
     margin-left: 10px;
 `
 

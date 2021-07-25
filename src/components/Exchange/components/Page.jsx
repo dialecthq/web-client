@@ -4,14 +4,16 @@ import styled from 'styled-components'
 
 // Components
 import Footer from './Footer'
-import ProfileNav from './ProfileNav'
+import Header from './Header'
 
 const PageContainer = styled.div`
     display: flex;
     overflow: scroll;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
     padding-top: 100px;
+    min-height: 100vh;
+    background: var(--dark-background);
 `
 
 const PageWrapper = styled.div`
@@ -31,20 +33,14 @@ const PageContent = styled.div`
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
-    padding-left: 250px;
-    min-height: 100vh;
+    margin-bottom: 20px;
     width: 100%;
-    margin-bottom: 60px;
-
-    @media screen and (max-width: 768px) {
-        padding-left: 0px;
-    }
 `
 
 const Page = ({ children }) => (
   <PageContainer>
     <PageWrapper>
-      <ProfileNav />
+      <Header />
       <PageContent>
         {children}
       </PageContent>

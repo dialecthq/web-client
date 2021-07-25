@@ -16,12 +16,13 @@ const NavContainer = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    background: #fff;
+    background: var(--dark-background);
     z-index: 4;
-    border-bottom: 1px solid #efefef;
-    height: 55px;
+    height: 70px;
     position: fixed;
+    border-bottom: 1px solid #251B3D;
     width: 100%;
+    top: 0;
 `
 
 const NavWrapper = styled.div`
@@ -187,7 +188,7 @@ const Header = () => {
           >
             <MenuIcon />
           </Popover>
-          <HeaderLogo />
+          <HeaderLogo light />
         </NavContent>
         <NavContent>
           <Popover

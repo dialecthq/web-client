@@ -4,9 +4,10 @@ import User from '@utils/state/userContainer'
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
 
 import Home from '@components/Landing/Home'
-import Exchange from '@components/Exchange/Exchange'
 import Loading from '@components/common/Loading'
-import Room from '@components/Exchange/screens/Rooms/Room'
+import Room from '@components/Exchange/Rooms/Room'
+import Exchange from '@components/Exchange/Exchange'
+import Profile from '@components/Exchange/Profile'
 
 import ExchangeState from '@utils/state/exchangeContainer'
 
@@ -69,10 +70,14 @@ const App = () => {
             <Exchange />
           </Route>
           <Route
-            path="/room"
-            exact
+            path="/join"
           >
             <Room />
+          </Route>
+          <Route
+            path="/profile"
+          >
+            <Profile />
           </Route>
         </Switch>
       </BrowserRouter>

@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import styled, { keyframes } from 'styled-components'
-import { FaUser, FaArrowLeft } from 'react-icons/fa'
-import Logo from '@img/logo.svg'
+import { FaArrowLeft } from 'react-icons/fa'
 import { BallTriangle } from '@agney/react-loading'
-import { Progress } from 'antd'
-import { useHistory } from 'react-router-dom'
 import HeaderLogo from '@components/common/HeaderLogo'
+import { leaveWaitingRoom } from '@utils/apis/RoomAPI'
+import { useHistory } from 'react-router-dom'
+import UserContainer from '@utils/state/userContainer'
 
 const loading = keyframes`
     100% {
@@ -86,26 +86,31 @@ const BackText = styled.p`
   margin-left: 5px;
 `
 
-const Loading = () => (
-  <LoadingContainer>
-    <HeaderContainer>
-      <HeaderWrapper>
-        <BackContainer
-          onClick={() => {
-            console.log('helllo')
-          }}
-        >
-          <FaArrowLeft size={16} />
-          <BackText>back</BackText>
-        </BackContainer>
-        <HeaderLogo light />
-      </HeaderWrapper>
-    </HeaderContainer>
-    <LoadingWrapper>
-      <BallTriangle height={48} color="#81FDE3" style={{ marginBottom: 20 }} />
-      <Text>Waiting for a partner...</Text>
-    </LoadingWrapper>
-  </LoadingContainer>
-)
+const Loading = () => {
+  const history = useHistory()
+  const { user } = UserContainer.useContainer()
+  return (
+    <LoadingContainer>
+      <HeaderContainer>
+        <HeaderWrapper>
+          <BackContainer
+            onClick={async () => {
+              await leaveWaitingRoom(user)
+              history.push('/exchange')
+            }}
+          >
+            <FaArrowLeft size={16} />
+            <BackText>back</BackText>
+          </BackContainer>
+          <HeaderLogo light />
+        </HeaderWrapper>
+      </HeaderContainer>
+      <LoadingWrapper>
+        <BallTriangle height={48} color="#81FDE3" style={{ marginBottom: 20 }} />
+        <Text>Waiting for a partner...</Text>
+      </LoadingWrapper>
+    </LoadingContainer>
+  )
+}
 
 export default Loading

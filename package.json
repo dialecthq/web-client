@@ -26,6 +26,7 @@
     "react-icons": "^4.2.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",
+    "react-timer-hook": "^3.0.4",
     "styled-components": "^5.3.0",
     "unstated-next": "^1.1.0",
     "uuid": "^8.3.2",
@@ -36,7 +37,7 @@
     "build": "craco build",
     "test": "craco test",
     "eject": "react-scripts eject",
-    "server": "docker run --rm   -p 7880:7880   -p 7881:7881   -p 7882:7882/udp   -e LIVEKIT_KEYS=\"APINew5XQnFMJ5f: Aet3DQKAXhJTsE6e9OepHS9ay1I5sfr31itxhaTNrQhB\"   livekit/livekit-server   --dev   --node-ip=10.126.40.134"
+    "server": "docker run --rm   -p 7880:7880   -p 7881:7881   -p 7882:7882/udp   -e LIVEKIT_KEYS=\"APINew5XQnFMJ5f: Aet3DQKAXhJTsE6e9OepHS9ay1I5sfr31itxhaTNrQhB\"   livekit/livekit-server   --dev   --node-ip=108.30.127.166"
   },
   "eslintConfig": {
     "extends": [

@@ -16,6 +16,7 @@ import {
   checkWaitingRoom, addToWaitingRoom, createRoom, joinRoom
 } from '@utils/apis/RoomAPI'
 import ServerDown from '@img/server_down.svg'
+import rooms from '@utils/data/rooms'
 
 import Waiting from '@components/common/Waiting'
 import Error from '@components/common/Error'
@@ -31,7 +32,7 @@ const StageContainer = styled.div`
   align-items: center;
   width: 100%;
   height: 100%;
-  background: #020117;
+  background: var(--dark-background);
   padding: 10px 24px;
   position: relative;
 `
@@ -43,26 +44,10 @@ const StageCenter = styled.div`
   flex-wrap: wrap;
 `
 
-const gradientAnim = keyframes`
-0% { background-position: 0% 50%; }
-50% { background-position: 100% 50%; }
-100% { background-position: 0% 50%; }
-`
-const StageMessage = styled.div`
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: linear-gradient(-45deg, #8158F6, #D340D0, #5A8BFF, #6EE2E2);
-  background-size: 400% 400%;
-  animation: ${gradientAnim} 15s ease infinite;
-`
-
 // renderStage prepares the layout of the stage using subcomponents. Feel free to
 // modify as you see fit. It uses the built-in ParticipantView component in this
 // example; you may use a custom component instead.
 function renderStage({ roomState }) {
-  const history = useHistory()
   const {
     room, participants, audioTracks, isConnecting, error
   } = roomState
@@ -127,22 +112,19 @@ async function handleConnected(room) {
 function RoomComponent() {
   const [token, setToken] = useState(null)
   const [waiting, setWaiting] = useState(true)
+  const [error, setError] = useState(null)
   const { user } = userContainer.useContainer()
-  const [language, setLanguage] = useState({ value: 'english', key: 1 })
   const history = useHistory()
   const caroline = 'Pretty'
   const otherBitches = 'ugly ew'
 
   useEffect(() => {
-    // if (!user) {
-    //   history.push('/')
-    // }
-    // const result = await join(user, { value: 'english', key: 1 })
-    // if (!result) {
-    //   setToken(null)
-    // }
-
-    // setToken(result.data.token)
+    const languageValue = window.location.pathname.split('/').pop()
+    const language = rooms.filter((e) => e.value === languageValue)[0]
+    if (!language) {
+      setError('Could not find the requested language')
+      return null
+    }
 
     const subscriber = fire.firestore().collection('audio-rooms')
       .where('active', '==', true)
@@ -159,7 +141,7 @@ function RoomComponent() {
             if (!roomID) {
               setToken(null)
             } else {
-              const newTokenResult = await joinRoom(user, roomID)
+              const newTokenResult = await joinRoom(user, language, roomID)
               if (!newTokenResult.data.token) {
                 setToken(null)
               } else {
@@ -169,7 +151,8 @@ function RoomComponent() {
             }
           }
         } else {
-          const newTokenResult = await joinRoom(user, roomID)
+          const newTokenResult = await joinRoom(user, language, roomID)
+          console.log(newTokenResult)
           if (!newTokenResult.data.token) {
             setToken(null)
           } else {
@@ -180,6 +163,8 @@ function RoomComponent() {
       })
     return () => subscriber()
   }, [])
+
+  if (error) return <Error errorMessage={error} imgLink={ServerDown} />
 
   if (waiting || !token) return <Waiting />
 

@@ -22,7 +22,7 @@ export const addToWaitingRoom = async (user, language) => {
 export const checkWaitingRoom = async (user, language) => {
   const native = checkNative(user, language)
   const document = await fire.firestore().collection('waiting-rooms').doc(`${language.value}-${native ? 'target' : 'native'}`).get()
-  if (document.data().participants.length > 0) {
+  if (document.data()?.participants.length > 0) {
     return document.data().participants[0]
   }
   return false
@@ -49,13 +49,27 @@ export const checkRoom = async (user) => {
     .get()
 
   if (querySnapshot.docs.length === 1) {
+    console.log(querySnapshot.docs[0].id)
     return querySnapshot.docs[0].id
   }
 
   return false
 }
 
-export const joinRoom = (user, roomID) => axios.get('http://localhost:9000/rooms/join', { params: { uid: user.uid, username: user.username, roomID } })
+export const leaveWaitingRoom = async (user) => {
+  const querySnapshot = await fire.firestore().collection('waiting-rooms').where('participants', 'array-contains', user.uid).get()
+  querySnapshot.docs.forEach(async (document) => {
+    const updated = await fire.firestore().collection('waiting-rooms').doc(document.id).update({
+      participants: firebase.firestore.FieldValue.arrayRemove(user.uid)
+    })
+    console.log(updated)
+  })
+}
+
+export const joinRoom = async (user, language, roomID) => {
+  await leaveWaitingRoom(user, language)
+  return axios.get('http://localhost:9000/rooms/join', { params: { uid: user.uid, username: user.username, roomID } })
+}
 
 export const leaveRoom = async (user, room) => {
   room.disconnect()

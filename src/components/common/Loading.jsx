@@ -9,6 +9,7 @@ const LoadingContainer = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
+    background: var(--dark-background)
 `
 
 const LoadingWrapper = styled.div`

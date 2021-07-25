@@ -21,115 +21,115 @@ import spain from '@img/flags/spain.svg'
 const rooms = [
   {
     key: 1,
-    language: 'english',
+    value: 'english',
     url: '/english',
     flag: usa
   },
   {
     key: 2,
-    language: 'mandarin',
+    value: 'mandarin',
     url: '/mandarin',
     flag: china
   },
   {
     key: 91,
-    language: 'danish',
+    value: 'danish',
     url: '/danish',
     flag: denmark
   },
   {
     key: 111,
-    language: 'finnish',
+    value: 'finnish',
     url: '/finnish',
     flag: finland
   },
   {
     key: 3,
-    language: 'french',
+    value: 'french',
     url: '/french',
     flag: france
   },
   {
     key: 6,
-    language: 'german',
+    value: 'german',
     url: '/german',
     flag: germany
   },
   {
     key: 10,
-    language: 'hindi',
+    value: 'hindi',
     url: '/hindi',
     flag: india
   },
   {
     key: 147,
-    language: 'indonesian',
+    value: 'indonesian',
     url: '/indonesian',
     flag: indonesia
   },
   {
     key: 11,
-    language: 'italian',
+    value: 'italian',
     url: '/italian',
     flag: italy
   },
   {
     key: 7,
-    language: 'japanese',
+    value: 'japanese',
     url: '/japanese',
     flag: japan
   },
   {
     key: 8,
-    language: 'korean',
+    value: 'korean',
     url: '/korean',
     flag: korea
   },
   {
     key: 93,
-    language: 'dutch',
+    value: 'dutch',
     url: '/dutch',
     flag: netherlands
   },
   {
     key: 226,
-    language: 'norwegian',
+    value: 'norwegian',
     url: '/norwegian',
     flag: norway
   },
   {
     key: 5,
-    language: 'portuguese',
+    value: 'portuguese',
     url: '/portuguese',
     flag: portugal
   },
   {
     key: 12,
-    language: 'russian',
+    value: 'russian',
     url: '/russian',
     flag: russia
   },
   {
     key: 9,
-    language: 'arabic',
+    value: 'arabic',
     url: '/arabic',
     flag: saudi
   },
   {
     key: 4,
-    language: 'spanish',
+    value: 'spanish',
     url: '/spanish',
     flag: spain
   },
   {
     key: 267,
-    language: 'swedish',
+    value: 'swedish',
     url: '/swedish',
     flag: sweden
   },
   {
     key: 299,
-    language: 'turkish',
+    value: 'turkish',
     url: '/turkish',
     flag: turkey
   },

@@ -38,9 +38,6 @@ const BackContainer = styled.div`
   justify-content: center;
   margin-right: 50px;
   transition: 0.2s opacity ease-in-out;
-  position: absolute;
-  top: 20px;
-  left: 20px;
 
   :hover {
     opacity: 0.8;

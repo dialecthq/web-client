@@ -1,44 +1,59 @@
-import React, { useEffect } from 'react'
+/* eslint-disable max-len */
+import React from 'react'
 import styled from 'styled-components'
-import axios from 'axios'
-import { useHistory, Redirect } from 'react-router-dom'
-import Loading from '@components/common/Loading'
 import User from '@utils/state/userContainer'
-import ExchangeState from '@utils/state/exchangeContainer'
+import LanguageCard from '@components/Exchange/components/LanguageCard'
+import USA from '@img/flags/usa.svg'
+import rooms from '@utils/data/rooms'
+import Page from '@components/Exchange/components/Page'
 
-// Components
-import Header from './components/Header'
-import Page from './components/Page'
-
-// Screens
-import Profile from './screens/Profile'
-import Home from './screens/Home'
-import Schedule from './screens/Schedule'
-import Find from './screens/Find'
-
-const DashboardContainer = styled.div`
+const HeaderContainer = styled.div`
     display: flex;
-    background-color: #fff;
-    flex-direction: column;
-    overflow: scroll;
+    width: 100%;
+    border-bottom: 1px solid #efefef;
+    margin-bottom: 30px;
+    justify-content: space-between;
 `
 
-const Exchange = () => {
-  const user = User.useContainer()
-  const exchangeState = ExchangeState.useContainer()
-  const history = useHistory()
+const TitleContainer = styled.div`
+    display: flex;
+    width: 100%;
+    margin-bottom: 40px;
+`
 
-  return (
-    <DashboardContainer>
-      <Header />
-      <Page>
-        {exchangeState.page === 'profile' && <Profile />}
-        {exchangeState.page === 'home' && <Home />}
-        {exchangeState.page === 'find' && <Find />}
-        {exchangeState.page === 'schedule' && <Schedule />}
-      </Page>
-    </DashboardContainer>
-  )
-}
+const ContentContainer = styled.div`
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    align-items: center;
+    margin-bottom: 20px;
+    width: 100%;
+`
 
-export default Exchange
+const Title = styled.p`
+    font-size: 2.5em;
+    font-weight: 600;
+    color: #1c1c1c;
+    margin-bottom: 0px;
+`
+
+const HeaderTitle = styled.p`
+    font-size: 1.3em;
+    font-weight: 600;
+    color: #1c1c1c;
+    margin-bottom: 0px;
+`
+
+const Home = () => (
+  <Page>
+    <ContentContainer>
+      {
+        rooms.map((room) => <LanguageCard room={room} />)
+      }
+    </ContentContainer>
+
+  </Page>
+)
+
+export default Home
