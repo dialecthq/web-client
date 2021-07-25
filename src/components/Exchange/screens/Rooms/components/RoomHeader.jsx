@@ -5,6 +5,8 @@ import { ImConnection } from 'react-icons/im'
 import { FaUser, FaArrowLeft } from 'react-icons/fa'
 import HeaderLogo from '@components/common/HeaderLogo'
 import { useHistory } from 'react-router-dom'
+import { leaveRoom } from '@utils/apis/RoomAPI'
+import UserContainer from '@utils/state/userContainer'
 
 const Container = styled.div`
     position: absolute;
@@ -70,13 +72,15 @@ const BackText = styled.p`
 
 const RoomHeader = ({ numParticipants, room }) => {
   const history = useHistory()
+  const { user } = UserContainer.useContainer()
   return (
     <Container>
       <Wrapper>
         <BackContainer
           onClick={() => {
-            room.disconnect()
-            history.push('/exchange')
+            leaveRoom(user, room).then(() => {
+              history.push('/exchange')
+            })
           }}
         >
           <FaArrowLeft color="#fff" size={16} />

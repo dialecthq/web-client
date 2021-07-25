@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import styled, { keyframes } from 'styled-components'
 import { FaUser, FaArrowLeft } from 'react-icons/fa'
+import { useHistory } from 'react-router-dom'
+import HeaderLogo from '@components/common/HeaderLogo'
 
 const ErrorContainer = styled.div`
     height: 100vh;
@@ -52,21 +54,53 @@ const BackText = styled.p`
   margin-left: 5px;
 `
 
-const Error = ({ imgLink, errorMessage }) => (
-  <ErrorContainer>
-    <BackContainer
-      onClick={() => {
-        console.log('helllo')
-      }}
-    >
-      <FaArrowLeft size={16} />
-      <BackText>back</BackText>
-    </BackContainer>
-    <ErrorWrapper>
-      <img src={imgLink} style={{ height: 200, width: 200 }} alt="link" />
-      <Text>{errorMessage}</Text>
-    </ErrorWrapper>
-  </ErrorContainer>
-)
+const HeaderContainer = styled.div`
+  
+  position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100vw;
+    height: 70px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+`
+
+const HeaderWrapper = styled.div`
+width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    max-width: 1200px;
+    padding: 8px 24px;
+`
+
+const Error = ({ imgLink, errorMessage }) => {
+  const history = useHistory()
+  return (
+    <ErrorContainer>
+      <HeaderContainer>
+        <HeaderWrapper>
+          <BackContainer
+            onClick={() => {
+              history.push('/exchange')
+            }}
+          >
+            <FaArrowLeft size={16} />
+            <BackText>back</BackText>
+          </BackContainer>
+          <HeaderLogo light />
+        </HeaderWrapper>
+      </HeaderContainer>
+
+      <ErrorWrapper>
+        <img src={imgLink} style={{ height: 200, width: 200 }} alt="link" />
+        <Text>{errorMessage}</Text>
+      </ErrorWrapper>
+    </ErrorContainer>
+  )
+}
 
 export default Error

@@ -181,8 +181,7 @@ function RoomComponent() {
     return () => subscriber()
   }, [])
 
-  if (waiting) return <Waiting />
-  if (!token) return null
+  if (waiting || !token) return <Waiting />
 
   return (
     <div style={{ height: '100vh', minHeight: 700 }}>

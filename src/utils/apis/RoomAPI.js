@@ -57,22 +57,10 @@ export const checkRoom = async (user) => {
 
 export const joinRoom = (user, roomID) => axios.get('http://localhost:9000/rooms/join', { params: { uid: user.uid, username: user.username, roomID } })
 
-export const join = async (user, language) => {
-  let roomID = await checkRoom(user)
-  if (!roomID) {
-    const partnerID = await checkWaitingRoom(user, language)
-    if (!partnerID) {
-      addToWaitingRoom(user, language)
-      return false
-    }
-
-    roomID = await createRoom([user.uid, partnerID], language)
-    if (!roomID) {
-      return false
-    }
-
-    return joinRoom(user, roomID)
-  }
-
-  return joinRoom(user, roomID)
+export const leaveRoom = async (user, room) => {
+  room.disconnect()
+  const roomID = room.name
+  return fire.firestore().collection('audio-rooms').doc(roomID).update({
+    active: false
+  })
 }
