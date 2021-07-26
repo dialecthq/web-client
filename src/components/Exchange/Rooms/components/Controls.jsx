@@ -1,7 +1,9 @@
 import React from 'react'
 import styled from 'styled-components'
+import UserContainer from '@utils/state/userContainer'
 import MuteButton from './MuteButton'
 import LeaveButton from './LeaveButton'
+import Timer from './Timer'
 
 const Container = styled.div`
     background: #110A1F;
@@ -35,14 +37,19 @@ const RoomDescription = styled.p`
     color: #d4d4d4;
 `
 
-const Controls = ({ room }) => (
-  <Container>
-    <InformationContainer>
-      <RoomNames>You and @seed</RoomNames>
-      <RoomDescription>23 other people in English rooms</RoomDescription>
-    </InformationContainer>
-    <MuteButton room={room} />
-    <LeaveButton room={room} />
-  </Container>
-)
+const Controls = ({ room, participants }) => {
+  const { user } = UserContainer.useContainer()
+  const otherParticipant = participants.filter((e) => e.metadata !== user.username)[0]
+  return (
+    <Container>
+      <InformationContainer>
+        <RoomNames>{otherParticipant ? `You and @${otherParticipant}` : 'You are alone'}</RoomNames>
+        <RoomDescription>23 other people in English rooms</RoomDescription>
+      </InformationContainer>
+      <Timer room={room} />
+      <MuteButton room={room} />
+      <LeaveButton room={room} />
+    </Container>
+  )
+}
 export default Controls

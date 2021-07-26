@@ -85,7 +85,7 @@ function renderStage({ roomState }) {
           <AudioRenderer key={track.sid} track={track} isLocal={false} />
         ))}
       </StageCenter>
-      <Controls room={room} />
+      <Controls room={room} participants={participants} />
       {/* <MuteButton room={room} />
       <ControlsView
         room={room}

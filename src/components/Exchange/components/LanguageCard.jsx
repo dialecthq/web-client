@@ -23,7 +23,7 @@ const CardContainer = styled.div`
 const CardWrapper = styled.div`
   width: 100% ;
   height: 100%;
-  padding: 10px;
+  padding: 7px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -44,7 +44,7 @@ const CardContent = styled.div`
 `
 
 const CardTitle = styled.p`
-  font-size: 1.4em;
+  font-size: 1.3em;
   font-weight: 500;
 `
 
@@ -61,8 +61,8 @@ const CardNum = styled.p`
 `
 
 const Flag = styled.img`
-    height: 36px;
-    width: 36px;
+    height: 28px;
+    width: 28px;
     margin-right: 10px;
 `
 

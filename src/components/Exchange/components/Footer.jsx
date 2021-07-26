@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import Logo from '@img/logo.svg'
+import { useHistory } from 'react-router-dom'
 
 const FooterContainer = styled.div`
     height: 60px;
@@ -35,20 +36,38 @@ const FooterLink = styled.a`
     margin-left: 10px;
 `
 
-const Footer = () => (
-  <FooterContainer>
-    <FooterWrapper>
-      <FooterContent>
-        <img src={Logo} style={{ height: 42, width: 42 }} alt="logo" />
-      </FooterContent>
-      <FooterContent>
-        <FooterLink>Home</FooterLink>
-        <FooterLink>About</FooterLink>
-        <FooterLink>Contact</FooterLink>
-        <FooterLink>Terms</FooterLink>
-      </FooterContent>
-    </FooterWrapper>
-  </FooterContainer>
-)
+const LogoIMG = styled.img`
+  width: 42px;
+  height: 42px;
+  :hover {
+    cursor: pointer;
+  }
+`
+
+const Footer = () => {
+  const history = useHistory()
+  return (
+
+    <FooterContainer>
+      <FooterWrapper>
+        <FooterContent>
+          <LogoIMG
+            src={Logo}
+            alt="logo"
+            onClick={() => {
+              history.push('/')
+            }}
+          />
+        </FooterContent>
+        <FooterContent>
+          <FooterLink>Home</FooterLink>
+          <FooterLink>About</FooterLink>
+          <FooterLink>Contact</FooterLink>
+          <FooterLink>Terms</FooterLink>
+        </FooterContent>
+      </FooterWrapper>
+    </FooterContainer>
+  )
+}
 
 export default Footer

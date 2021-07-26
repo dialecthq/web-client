@@ -100,10 +100,8 @@ const MenuItem = styled(Menu.Item)`
 
 const Header = () => {
   const user = User.useContainer()
-  const exchangeState = ExchangeState.useContainer()
   const history = useHistory()
   const [ppOpen, setPPOpen] = useState(false)
-  const [epOpen, setEPOpen] = useState(false)
 
   const profilePopover = (
     <ProfilePopoverContainer style={{ minWidth: 200 }}>
@@ -119,6 +117,16 @@ const Header = () => {
       <Menu style={{ width: '100%' }}>
         <MenuItem icon={<FaQuestion />} key="help">Help</MenuItem>
         <MenuItem
+          icon={<FaUser />}
+          key="profile"
+          onClick={() => {
+            history.push('/profile')
+          }}
+        >
+          Profile
+
+        </MenuItem>
+        <MenuItem
           key="sign-out"
           icon={<FaSignOutAlt />}
           onClick={() => {
@@ -132,62 +140,10 @@ const Header = () => {
     </ProfilePopoverContainer>
   )
 
-  const navigationPopover = (
-    <ProfilePopoverContainer style={{ minWidth: 200 }}>
-      <Menu style={{ width: '100%' }}>
-        <MenuItem
-          icon={<FaHome />}
-          onClick={() => {
-            exchangeState.setPage('home')
-            setEPOpen(false)
-          }}
-        >
-          Home
-        </MenuItem>
-        <MenuItem
-          icon={<FaUser />}
-          onClick={() => {
-            exchangeState.setPage('profile')
-            setEPOpen(false)
-          }}
-        >
-          Profile
-        </MenuItem>
-        <MenuItem
-          icon={<FaCalendarAlt />}
-          onClick={() => {
-            exchangeState.setPage('schedule')
-            setEPOpen(false)
-          }}
-        >
-          Schedule
-        </MenuItem>
-        <MenuItem
-          icon={<FaChalkboardTeacher />}
-          onClick={() => {
-            exchangeState.setPage('find')
-            setEPOpen(false)
-          }}
-        >
-          Find
-        </MenuItem>
-      </Menu>
-    </ProfilePopoverContainer>
-  )
-
   return (
     <NavContainer>
       <NavWrapper>
         <NavContent>
-          <Popover
-            content={navigationPopover}
-            placement="bottomRight"
-            trigger="click"
-            visible={epOpen}
-            onVisibleChange={setEPOpen}
-          >
-            <MenuIcon />
-          </Popover>
           <HeaderLogo light />
         </NavContent>
         <NavContent>

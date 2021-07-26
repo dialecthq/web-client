@@ -8,6 +8,8 @@ import Loading from '@components/common/Loading'
 import Room from '@components/Exchange/Rooms/Room'
 import Exchange from '@components/Exchange/Exchange'
 import Profile from '@components/Exchange/Profile'
+import Error from '@components/common/Error'
+import svg404 from '@img/404.svg'
 
 import ExchangeState from '@utils/state/exchangeContainer'
 
@@ -78,6 +80,11 @@ const App = () => {
             path="/profile"
           >
             <Profile />
+          </Route>
+          <Route
+            path="*"
+          >
+            <Error errorMessage="Oops, that page doesn't exist" imgLink={svg404} />
           </Route>
         </Switch>
       </BrowserRouter>

@@ -4,9 +4,6 @@ import styled from 'styled-components'
 import { ImConnection } from 'react-icons/im'
 import { FaUser, FaArrowLeft } from 'react-icons/fa'
 import HeaderLogo from '@components/common/HeaderLogo'
-import { useHistory } from 'react-router-dom'
-import { leaveRoom } from '@utils/apis/RoomAPI'
-import UserContainer from '@utils/state/userContainer'
 
 const Container = styled.div`
     position: absolute;
@@ -70,36 +67,22 @@ const BackText = styled.p`
   margin-left: 5px;
 `
 
-const RoomHeader = ({ numParticipants, room }) => {
-  const history = useHistory()
-  const { user } = UserContainer.useContainer()
-  return (
-    <Container>
-      <Wrapper>
-        <BackContainer
-          onClick={() => {
-            leaveRoom(user, room).then(() => {
-              history.push('/exchange')
-            })
-          }}
-        >
-          <FaArrowLeft color="#fff" size={16} />
-          <BackText>back</BackText>
-        </BackContainer>
-        <HeaderLogo light />
-        <ImConnection
-          size={24}
-          color="#FF51A4"
-          style={{ transform: 'rotate(270deg)', marginRight: 5, marginLeft: 10 }}
-        />
-        <RoomName>English</RoomName>
-        <AmountContainer>
-          <FaUser size={14} color="#fff" />
-          <Amount>{numParticipants}</Amount>
-        </AmountContainer>
-      </Wrapper>
-    </Container>
-  )
-}
+const RoomHeader = ({ numParticipants, room }) => (
+  <Container>
+    <Wrapper>
+      <HeaderLogo light />
+      <ImConnection
+        size={24}
+        color="#FF51A4"
+        style={{ transform: 'rotate(270deg)', marginRight: 5, marginLeft: 10 }}
+      />
+      <RoomName>English</RoomName>
+      <AmountContainer>
+        <FaUser size={14} color="#fff" />
+        <Amount>{numParticipants}</Amount>
+      </AmountContainer>
+    </Wrapper>
+  </Container>
+)
 
 export default RoomHeader

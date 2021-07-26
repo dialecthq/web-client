@@ -63,21 +63,21 @@ const ItemRow = styled.div`
 const Title = styled.p`
     font-size: 2.5em;
     font-weight: 600;
-    color: #1c1c1c;
+    color: #fff;
     margin-bottom: 0px;
 `
 
 const HeaderTitle = styled.p`
     font-size: 1.3em;
     font-weight: 600;
-    color: #1c1c1c;
+    color: #fff;
     margin-bottom: 0px;
 `
 
 const InfoTitle = styled.p`
     font-weight: 500;
     font-size: 1.1em;
-    color: #1c1c1c;
+    color: #fff;
     min-width: 150px;
     margin-right: 10px;
 `
@@ -85,28 +85,11 @@ const InfoTitle = styled.p`
 const InfoContent = styled.p`
     font-weight: 400;
     font-size: 1.1em;
-    color: #6e6e6e;
+    color: #f8f8f8;
     display: flex;
     flex-wrap: wrap;
     overflow: hidden;
     padding-right: 25px;
-`
-
-const EmptyContainer = styled.div`
-    display: flex;
-    width: 100%;
-    color: #454545;
-    border-radius: 10px;
-    border: 2px dashed #e8e8e8;
-    height: 160px;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-`
-
-const EmptyText = styled.p`
-    font-size: 1.1em;
-    margin-bottom: 12px;
 `
 
 const FormItem = styled(Form.Item)`
@@ -115,7 +98,7 @@ const FormItem = styled(Form.Item)`
 `
 
 const PenIcon = styled(FaPen)`
-    color: #6e6e6e;
+    color: #fff;
     :hover {
         cursor: pointer;
     }

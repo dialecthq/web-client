@@ -33,7 +33,7 @@ const PageContent = styled.div`
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
-    margin-bottom: 20px;
+    margin-bottom: 60px;
     width: 100%;
 `
 
