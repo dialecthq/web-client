@@ -31,7 +31,7 @@ const format = (digit) => {
 const Timer = ({ room }) => {
   const { user } = UserContainer.useContainer()
   const time = new Date()
-  time.setSeconds(time.getSeconds() + 10000)
+  time.setSeconds(time.getSeconds() + 180)
   const {
     seconds,
     minutes,

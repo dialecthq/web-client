@@ -53,7 +53,7 @@ function renderStage({ roomState }) {
   } = roomState
 
   if (isConnecting) {
-    return <Waiting />
+    return <Waiting message="Connecting to your partner" />
   }
   if (error) {
     return (
@@ -130,6 +130,8 @@ function RoomComponent() {
       .where('active', '==', true)
       .where('participants', 'array-contains', user.uid)
       .onSnapshot(async (querySnapshot) => {
+        setWaiting(true)
+        console.log('resetting')
         let roomID = querySnapshot.docs[0]?.id || null
         if (!roomID) {
           const partnerID = await checkWaitingRoom(user, language)
@@ -156,6 +158,7 @@ function RoomComponent() {
           if (!newTokenResult.data.token) {
             setToken(null)
           } else {
+            console.log('setting token seed')
             setWaiting(false)
             setToken(newTokenResult.data.token)
           }
@@ -166,7 +169,8 @@ function RoomComponent() {
 
   if (error) return <Error errorMessage={error} imgLink={ServerDown} />
 
-  if (waiting || !token) return <Waiting />
+  if (waiting) return <Waiting message="Looking for a partner ..." />
+  if (!token) return <Error errorMessage="No token beyondie" imgLink={ServerDown} />
 
   return (
     <div style={{ height: '100vh', minHeight: 700 }}>

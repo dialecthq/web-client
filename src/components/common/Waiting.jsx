@@ -86,7 +86,7 @@ const BackText = styled.p`
   margin-left: 5px;
 `
 
-const Loading = () => {
+const Loading = ({ message }) => {
   const history = useHistory()
   const { user } = UserContainer.useContainer()
   return (
@@ -107,7 +107,7 @@ const Loading = () => {
       </HeaderContainer>
       <LoadingWrapper>
         <BallTriangle height={48} color="#81FDE3" style={{ marginBottom: 20 }} />
-        <Text>Waiting for a partner...</Text>
+        <Text>{message}</Text>
       </LoadingWrapper>
     </LoadingContainer>
   )
