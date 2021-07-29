@@ -9,7 +9,6 @@ import { Popover, Divider, Menu } from 'antd'
 import { useHistory } from 'react-router-dom'
 import Logo from '@img/logo.svg'
 import User from '@utils/state/userContainer'
-import ExchangeState from '@utils/state/exchangeContainer'
 import HeaderLogo from '@components/common/HeaderLogo'
 
 const NavContainer = styled.div`
@@ -20,7 +19,7 @@ const NavContainer = styled.div`
     z-index: 4;
     height: 70px;
     position: fixed;
-    border-bottom: 1px solid #251B3D;
+    border-bottom: 1px solid var(--border-color);
     width: 100%;
     top: 0;
 `
@@ -144,7 +143,7 @@ const Header = () => {
     <NavContainer>
       <NavWrapper>
         <NavContent>
-          <HeaderLogo light />
+          <HeaderLogo />
         </NavContent>
         <NavContent>
           <Popover

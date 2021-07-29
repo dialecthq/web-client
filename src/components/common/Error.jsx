@@ -88,7 +88,7 @@ const Error = ({ imgLink, errorMessage }) => {
             <FaArrowLeft size={16} />
             <BackText>back</BackText>
           </BackContainer>
-          <HeaderLogo light />
+          <HeaderLogo />
         </HeaderWrapper>
       </HeaderContainer>
 

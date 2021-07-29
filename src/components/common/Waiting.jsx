@@ -1,28 +1,20 @@
 import React from 'react'
 import styled, { keyframes } from 'styled-components'
 import { FaArrowLeft } from 'react-icons/fa'
-import { BallTriangle } from '@agney/react-loading'
+import { BallTriangle, TailSpin, ThreeDots } from '@agney/react-loading'
 import HeaderLogo from '@components/common/HeaderLogo'
 import { leaveWaitingRoom } from '@utils/apis/RoomAPI'
 import { useHistory } from 'react-router-dom'
 import UserContainer from '@utils/state/userContainer'
 
-const loading = keyframes`
-    100% {
-        background: #020117;
-        color: #fff;
-    }
-`
 const LoadingContainer = styled.div`
     height: 100vh;
     width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
-    background: #020117;
-    color: #fff;
-    animation: ${loading} 2s ease-in-out;
-    animation-fill-mode: forwards;
+    background: var(--dark-background);
+    color: var(--text-color);
 `
 
 const LoadingWrapper = styled.div`
@@ -102,11 +94,11 @@ const Loading = ({ message }) => {
             <FaArrowLeft size={16} />
             <BackText>back</BackText>
           </BackContainer>
-          <HeaderLogo light />
+          <HeaderLogo />
         </HeaderWrapper>
       </HeaderContainer>
       <LoadingWrapper>
-        <BallTriangle height={48} color="#81FDE3" style={{ marginBottom: 20 }} />
+        <ThreeDots height={24} color="#81FDE3" style={{ marginBottom: 20 }} />
         <Text>{message}</Text>
       </LoadingWrapper>
     </LoadingContainer>

@@ -13,7 +13,7 @@ const CardContainer = styled.div`
   justify-content: center;
   align-items: center;
   margin-right: 10px;
-  color: #fff;
+  color: var(--text-color);
 
   @media screen and (max-width: 768px) {
     width: 100%;
@@ -29,8 +29,8 @@ const CardWrapper = styled.div`
   justify-content: center;
   align-items: center;
   border-radius: 10px;
-  border: 1px solid#38295B;
-  background: #251B3D;
+  border: 1px solid var(--border-color);
+  background: var(--layer-background);
   transition: 0.2s all ease-in-out;
   overflow: hidden;
 `
@@ -80,16 +80,14 @@ const LanguageCard = ({ room }) => {
           <CardPeople>
             <FaUserAlt size={16} />
             <CardNum>{Math.ceil(Math.random() * 100) }</CardNum>
-            <FaGhost size={16} style={{ marginLeft: 10 }} />
-            <CardNum>{Math.ceil(Math.random() * 100) }</CardNum>
+            {/* <FaGhost size={16} style={{ marginLeft: 10 }} />
+            <CardNum>{Math.ceil(Math.random() * 100) }</CardNum> */}
           </CardPeople>
         </CardContent>
         <CardContent>
-          <Button type="primary" color="#81FDE3" block style={{ marginRight: 5, background: ' #81FDE3', color: '#000' }} icon={<FaHeadphonesAlt style={{ marginRight: 5 }} />}>Just Listen</Button>
           <Button
             block
             type="primary"
-            style={{ marginLeft: 5 }}
             icon={<FaMicrophoneAlt style={{ marginRight: 5 }} />}
             onClick={() => {
               history.push({
@@ -97,8 +95,7 @@ const LanguageCard = ({ room }) => {
               })
             }}
           >
-            Talk
-
+            Join
           </Button>
         </CardContent>
       </CardWrapper>

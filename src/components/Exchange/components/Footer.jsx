@@ -6,13 +6,12 @@ import { useHistory } from 'react-router-dom'
 const FooterContainer = styled.div`
     height: 60px;
     max-width: 1200px;
-    border-top :1px solid #251B3D;;
-    position: fixed;
-    bottom: 0;
+    border-top :1px solid var(--border-color);
+    /* position: fixed;
+    bottom: 0; */
     width: 100%;
     background-color: var(--dark-background);
     z-index: 4;
-    padding: 0 18px;
 `
 
 const FooterWrapper = styled.div`
@@ -32,7 +31,7 @@ const FooterContent = styled.div`
 const FooterLink = styled.a`
     font-size: 0.9em;
     font-weight: 400;
-    color: #fff;
+    color: var(--text-color);
     margin-left: 10px;
 `
 

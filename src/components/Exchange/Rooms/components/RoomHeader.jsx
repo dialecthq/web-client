@@ -29,7 +29,7 @@ const Wrapper = styled.div`
 
 const RoomName = styled.p`
   font-size: 1.1em;
-  color: #fff;
+  color: var(--text-color);
   margin-right: 15px;
 `
 
@@ -44,7 +44,7 @@ const AmountContainer = styled.div`
 
 const Amount = styled.p`
   margin-left: 5px;
-  color: #fff;
+  color: var(--text-color);
 `
 
 const BackContainer = styled.div`
@@ -61,7 +61,7 @@ const BackContainer = styled.div`
 `
 
 const BackText = styled.p`
-  color: #fff;
+  color: var(--text-color);
   font-weight: 500;
   font-size: 1em;
   margin-left: 5px;
@@ -70,7 +70,7 @@ const BackText = styled.p`
 const RoomHeader = ({ numParticipants, room }) => (
   <Container>
     <Wrapper>
-      <HeaderLogo light />
+      <HeaderLogo />
       <ImConnection
         size={24}
         color="#FF51A4"

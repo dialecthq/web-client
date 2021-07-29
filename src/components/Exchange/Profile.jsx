@@ -63,21 +63,21 @@ const ItemRow = styled.div`
 const Title = styled.p`
     font-size: 2.5em;
     font-weight: 600;
-    color: #fff;
+    color: var(--text-color);
     margin-bottom: 0px;
 `
 
 const HeaderTitle = styled.p`
     font-size: 1.3em;
     font-weight: 600;
-    color: #fff;
+    color: var(--text-color);
     margin-bottom: 0px;
 `
 
 const InfoTitle = styled.p`
     font-weight: 500;
     font-size: 1.1em;
-    color: #fff;
+    color: var(--text-color);
     min-width: 150px;
     margin-right: 10px;
 `
@@ -98,7 +98,7 @@ const FormItem = styled(Form.Item)`
 `
 
 const PenIcon = styled(FaPen)`
-    color: #fff;
+    color: var(--text-color);
     :hover {
         cursor: pointer;
     }

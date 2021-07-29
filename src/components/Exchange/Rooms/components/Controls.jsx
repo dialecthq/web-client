@@ -6,7 +6,7 @@ import LeaveButton from './LeaveButton'
 import Timer from './Timer'
 
 const Container = styled.div`
-    background: #110A1F;
+    background: var(--layer-background);
     border-radius: 20px;
     position: absolute;
     display: flex;
@@ -14,7 +14,7 @@ const Container = styled.div`
     align-items: center;
     bottom: 20px;
     padding: 10px 20px;
-    border: 2px solid #1F1239;
+    border: 1px solid var(--border-color);
 `
 
 const InformationContainer = styled.div`
@@ -28,13 +28,13 @@ const InformationContainer = styled.div`
 const RoomNames = styled.p`
     font-size: 1.2em;
     font-weight: 400;
-    color: #fff;
+    color: var(--text-color);
 `
 
 const RoomDescription = styled.p`
     font-size: 1em;
     font-weight: 300;
-    color: #d4d4d4;
+    color: #c4c4c4;
 `
 
 const Controls = ({ room, participants }) => {

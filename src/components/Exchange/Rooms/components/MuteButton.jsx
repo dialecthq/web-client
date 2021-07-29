@@ -22,7 +22,7 @@ const Container = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    background: #251B3D;
+    background: var(--layer-background);
     margin-left: 10px;
 
 

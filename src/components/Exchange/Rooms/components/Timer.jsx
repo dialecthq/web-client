@@ -11,13 +11,13 @@ const Container = styled.div`
     justify-content: center;
     align-items: center;
     padding: 10px;
-  background: #251B3D;
+  background: var(--layer-background);
 `
 
 const Time = styled.p`
     font-size: 1.1em;
     font-weight: 600;
-    color: #fff;
+    color: var(--text-color);
     letter-spacing: 0.1em;
 `
 

@@ -6,14 +6,14 @@ import { FaMicrophoneSlash, FaMicrophone } from 'react-icons/fa'
 const Container = styled.div`
     width: 400px;
     height: 400px;
-    background-color: #251B3D;
+    background-color: var(--layer-background);
     border-radius: 25px;
     display: flex;
     justify-content: center;
     align-items: center;
     position: relative;
     margin: 10px;
-    border: ${(p) => (p.isSpeaking ? '2px solid #81FDE3' : '2px solid #38295B')};
+    border: ${(p) => (p.isSpeaking ? '2px solid #81FDE3' : '2px solid #F6F6F6')};
     transition: 0.2s border ease-in-out;
 
 `
@@ -47,7 +47,7 @@ const MutedContainer = styled.div`
     align-items: center ;
     padding: 7px 14px;
     background: #180F25;
-    color: #fff;
+    color: var(--text-color);
     border-radius: 20px;
     margin-right: 5px;
     height: 32px;
@@ -57,12 +57,12 @@ const MutedContainer = styled.div`
 const NameContainer = styled.div`
     padding: 7px 14px;
     background: #180F25;
-    color: #fff;
+    color: var(--text-color);
     border-radius: 20px;
 `
 
 const Name = styled.p`
-    color: #fff;
+    color: var(--text-color);
     font-size: 1em;
     font-weight: 400;
 `

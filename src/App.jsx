@@ -22,15 +22,21 @@ const App = () => {
       fire.auth().onAuthStateChanged(async (newUser) => {
         if (!newUser) {
           user.setUser(null)
+          window.$crisp.push(['set', 'user:email', [null]])
+          window.$crisp.push(['set', 'user:nickname', [null]])
           setInitializing(false)
         } else {
           const document = await fire.firestore().collection('users').doc(newUser.uid).get()
           if (!document) {
             user.setUser(null)
+            window.$crisp.push(['set', 'user:email', [null]])
+            window.$crisp.push(['set', 'user:nickname', [null]])
             setInitializing(false)
             return
           }
           user.setUser(document.data())
+          window.$crisp.push(['set', 'user:email', [document.data().email]])
+          window.$crisp.push(['set', 'user:nickname', [document.data().name]])
           setInitializing(false)
         }
       })
@@ -38,6 +44,18 @@ const App = () => {
   }
 
   useEffect(() => {
+    window.$crisp = []
+    window.CRISP_WEBSITE_ID = '47d59959-1645-4829-a5c8-f8ca00b9d8d9';
+
+    (function () {
+      const d = document
+      const s = d.createElement('script')
+
+      s.src = 'https://client.crisp.chat/l.js'
+      s.async = 1
+      d.getElementsByTagName('head')[0].appendChild(s)
+    }())
+
     authListener()
   }, [])
 
