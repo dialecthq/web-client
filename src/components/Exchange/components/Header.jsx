@@ -41,11 +41,12 @@ const NavContent = styled.div`
 
 const Avatar = styled.div`
     display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 5px;
-    background-color: #a8a8a8;
+  justify-content: center;
+  align-items: center;
+  height: 48px;
+  width: 48px;
     border-radius: 100px;
+    overflow: hidden;
     box-shadow: ${(p) => (p.active ? 'rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;' : 'none')};
     transition: 0.2s box-shadow ease-in-out;
     :hover {
@@ -54,7 +55,11 @@ const Avatar = styled.div`
 `
 
 const AvatarImg = styled.img`
-    filter: grayscale(100%);
+    filter: ${(p) => (p.isAvatar ? null : 'grayscale(100%)')};
+    max-height: 56px;
+    max-width: 56px;
+    height: auto;
+    width: auto;
 `
 
 const MenuIcon = styled(FaBars)`
@@ -97,7 +102,7 @@ const MenuItem = styled(Menu.Item)`
 `
 
 const Header = () => {
-  const user = User.useContainer()
+  const { user, userAPI } = User.useContainer()
   const history = useHistory()
   const [ppOpen, setPPOpen] = useState(false)
 
@@ -108,7 +113,7 @@ const Header = () => {
         {' '}
         <span style={{ color: '#000' }}>
           @
-          {user.user.username}
+          {user.username}
         </span>
       </Username>
       <Divider style={{ margin: '12px 0px' }} />
@@ -128,7 +133,8 @@ const Header = () => {
           key="sign-out"
           icon={<FaSignOutAlt />}
           onClick={() => {
-            user.userAPI.logout()
+            userAPI.logout()
+            history.push('/')
           }}
         >
           Sign out
@@ -153,7 +159,10 @@ const Header = () => {
             onVisibleChange={setPPOpen}
           >
             <Avatar active={ppOpen}>
-              <AvatarImg src={Logo} style={{ height: 30, width: 30 }} />
+              <AvatarImg
+                isAvatar={user.avatarURL}
+                src={user.avatarURL ? user.avatarURL : Logo}
+              />
             </Avatar>
           </Popover>
         </NavContent>

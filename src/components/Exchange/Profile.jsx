@@ -1,11 +1,11 @@
 /* eslint-disable jsx-a11y/img-redundant-alt */
 /* eslint-disable max-len */
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import {
-  Button, Input, Form, Select,
+  Button, Input, Form, Select, Upload, message
 } from 'antd'
-import { FaPen } from 'react-icons/fa'
+import { FaPen, FaTrash, FaUpload } from 'react-icons/fa'
 import User from '@utils/state/userContainer'
 import countryOptions from '@utils/data/CountryOptions'
 import languageOptions from '@utils/data/LanguageOptions'
@@ -16,6 +16,8 @@ import Edit from '@components/common/Edit'
 import Page from '@components/Exchange/components/Page'
 import { years, months, getDays } from '@utils/data/dateOptions'
 import fire from '@utils/fire'
+import Logo from '@img/logo.svg'
+import useBreakpoint from 'antd/lib/grid/hooks/useBreakpoint'
 
 const HeaderContainer = styled.div`
     display: flex;
@@ -27,6 +29,7 @@ const HeaderContainer = styled.div`
 
 const TitleContainer = styled.div`
     display: flex;
+    flex-direction: column;
     width: 100%;
     margin-bottom: 40px;
 `
@@ -106,22 +109,114 @@ const PenIcon = styled(FaPen)`
     }
 `
 
+const AvatarContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 144px;
+  width: 144px;
+  border-radius: 100px;
+  overflow: hidden;
+`
+
+const Avatar = styled.img`
+  filter: ${(p) => (p.isAvatar ? 'none' : 'grayscale(100%)')};
+  height: 168px;
+  width: 168px;
+  object-fit: contain;
+`
+
+const PictureContainer = styled.div`
+  display: flex;
+  width: 100%;
+  justify-content: flex-start;
+  align-items: center;
+`
+
+const PictureActionContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-direction: column;
+  margin-left: 50px;
+`
+
+const Subtitle = styled.p`
+  font-size: 1.2em;
+  font-weight: 400;
+  color: #1c1c1c;
+  opacity: 0.7;
+`
+
 const Profile = () => {
   const [editing, setEditing] = useState('')
   const [inputYear, setInputYear] = useState(2002)
   const [inputMonth, setInputMonth] = useState(1)
-  const user = User.useContainer()
-  const photoURL = 'https://firebasestorage.googleapis.com/v0/b/langi-a36fc.appspot.com/o/Screen%20Shot%202021-07-25%20at%2010.36.44%20PM.png?alt=media&token=cf64d57d-e983-4496-a016-6e305ce6671f'
+  const { user, setUser, userAPI } = User.useContainer()
+
   return (
     <Page>
       <TitleContainer>
         <Title>Profile</Title>
+        <Subtitle>Let everyone know who you are</Subtitle>
       </TitleContainer>
       <HeaderContainer>
         <HeaderTitle>User Avatar</HeaderTitle>
       </HeaderContainer>
       <ContentContainer>
-        <img src={photoURL} alt="profile picture" />
+        <PictureContainer>
+          <AvatarContainer>
+            <Avatar src={user.avatarURL || Logo} isAvatar={user.avatarURL} alt="profile picture" />
+          </AvatarContainer>
+          <PictureActionContainer>
+            <Upload
+              showUploadList={false}
+              beforeUpload={(file) => {
+                if (file.type !== 'image/png' && file.type !== 'image/jpeg') {
+                  message.error(`${file.name} is not a png or jpg file`)
+                }
+                return file.type === 'image/png' || file.type === 'image/jpeg' ? true : Upload.LIST_IGNORE
+              }}
+              customRequest={async ({ file, onSuccess, onError }) => {
+                const storage = fire.storage()
+                const metadata = {
+                  contentType: file.type
+                }
+                const storageRef = await storage.ref()
+                const imgFile = storageRef.child(`${fire.auth().currentUser.uid}/profile.png`)
+                try {
+                  const image = await imgFile.put(file, metadata)
+                  const avatarURL = await imgFile.getDownloadURL()
+                  await fire.firestore().collection('users').doc(user.uid).update({
+                    avatarURL
+                  })
+
+                  const userRef = await fire.firestore().collection('users').doc(user.uid).get()
+                  setUser(userRef.data())
+                  onSuccess(null, image)
+                } catch (e) {
+                  onError(e)
+                }
+              }}
+            >
+              <Button icon={<FaUpload style={{ marginRight: 5 }} />}>{user.avatarURL ? 'Change' : 'Upload'}</Button>
+            </Upload>
+            {
+              user.avatarURL ? (
+                <Button
+                  style={{ marginTop: 10 }}
+                  icon={<FaTrash style={{ marginRight: 5 }} />}
+                  danger
+                  onClick={() => {
+                    userAPI.removeAvatarURL()
+                  }}
+                >
+                  Remove avatar
+                </Button>
+              ) : null
+            }
+          </PictureActionContainer>
+        </PictureContainer>
       </ContentContainer>
       <HeaderContainer>
         <HeaderTitle>Basic Information</HeaderTitle>
@@ -131,9 +226,9 @@ const Profile = () => {
           <ItemRow>
             <InfoTitle>Display Name</InfoTitle>
             {editing !== 'name'
-              ? <InfoContent>{user.user.name}</InfoContent>
+              ? <InfoContent>{user.name}</InfoContent>
               : (
-                <Edit setEditing={setEditing} initialValues={{ name: user.user.name }}>
+                <Edit setEditing={setEditing} initialValues={{ name: user.name }}>
                   <FormItem
                     name="name"
                     validateTrigger="onBlur"
@@ -156,9 +251,9 @@ const Profile = () => {
           <ItemRow>
             <InfoTitle>Bio</InfoTitle>
             {editing !== 'bio'
-              ? <InfoContent>{user.user.bio || 'No bio yet'}</InfoContent>
+              ? <InfoContent>{user.bio || 'No bio yet'}</InfoContent>
               : (
-                <Edit setEditing={setEditing} initialValues={{ bio: user.user.bio || '' }}>
+                <Edit setEditing={setEditing} initialValues={{ bio: user.bio || '' }}>
                   <FormItem
                     name="bio"
                     validateTrigger="onBlur"
@@ -181,9 +276,9 @@ const Profile = () => {
           <ItemRow>
             <InfoTitle>Date of birth</InfoTitle>
             {editing !== 'dob'
-              ? <InfoContent>{user.user.dob ? `${user.user.dob?.day} / ${user.user.dob?.month} / ${user.user.dob?.year}` : 'Not specified'}</InfoContent>
+              ? <InfoContent>{user.dob ? `${user.dob?.day} / ${user.dob?.month} / ${user.dob?.year}` : 'Not specified'}</InfoContent>
               : (
-                <Edit setEditing={setEditing} initialValues={{ year: user.user.dob?.year || 2002, month: user.user.dob?.month || 1, day: user.user.dob?.day || 1 }}>
+                <Edit setEditing={setEditing} initialValues={{ year: user.dob?.year || 2002, month: user.dob?.month || 1, day: user.dob?.day || 1 }}>
                   <FormItem
                     name="day"
                   >
@@ -231,9 +326,9 @@ const Profile = () => {
           <ItemRow>
             <InfoTitle>Gender</InfoTitle>
             {editing !== 'gender'
-              ? <InfoContent>{user.user.gender || 'Not specified'}</InfoContent>
+              ? <InfoContent>{user.gender || 'Not specified'}</InfoContent>
               : (
-                <Edit setEditing={setEditing} initialValues={{ gender: user.user.gender || 'Other' }}>
+                <Edit setEditing={setEditing} initialValues={{ gender: user.gender || 'Other' }}>
                   <FormItem
                     name="gender"
                   >
@@ -261,9 +356,9 @@ const Profile = () => {
           <ItemRow>
             <InfoTitle>From</InfoTitle>
             {editing !== 'country'
-              ? <InfoContent>{countryOptions.filter((e) => e.key === user.user.country)[0]?.value || 'Not specified'}</InfoContent>
+              ? <InfoContent>{countryOptions.filter((e) => e.key === user.country)[0]?.value || 'Not specified'}</InfoContent>
               : (
-                <Edit setEditing={setEditing} initialValues={{ country: countryOptions.filter((e) => e.key === user.user.country)[0]?.value || 'Not specified' }}>
+                <Edit setEditing={setEditing} initialValues={{ country: countryOptions.filter((e) => e.key === user.country)[0]?.value || 'Not specified' }}>
                   <FormItem
                     name="country"
                   >
@@ -289,9 +384,9 @@ const Profile = () => {
           <ItemRow>
             <InfoTitle>Living in</InfoTitle>
             {editing !== 'living'
-              ? <InfoContent>{countryOptions.filter((e) => e.key === user.user.living)[0]?.value || 'Not specified'}</InfoContent>
+              ? <InfoContent>{countryOptions.filter((e) => e.key === user.living)[0]?.value || 'Not specified'}</InfoContent>
               : (
-                <Edit setEditing={setEditing} initialValues={{ country: countryOptions.filter((e) => e.key === user.user.living)[0]?.value || 'Not specified' }}>
+                <Edit setEditing={setEditing} initialValues={{ country: countryOptions.filter((e) => e.key === user.living)[0]?.value || 'Not specified' }}>
                   <FormItem
                     name="living"
                   >
@@ -317,9 +412,9 @@ const Profile = () => {
           <ItemRow>
             <InfoTitle>Timezone</InfoTitle>
             {editing !== 'timezone'
-              ? <InfoContent>{timezoneOptions.filter((e) => e.key === user.user.timezone)[0]?.text || 'Not specified'}</InfoContent>
+              ? <InfoContent>{timezoneOptions.filter((e) => e.key === user.timezone)[0]?.text || 'Not specified'}</InfoContent>
               : (
-                <Edit setEditing={setEditing} initialValues={{ timezone: timezoneOptions.filter((e) => e.key === user.user.timezone)[0]?.value || 'Not specified' }}>
+                <Edit setEditing={setEditing} initialValues={{ timezone: timezoneOptions.filter((e) => e.key === user.timezone)[0]?.value || 'Not specified' }}>
                   <FormItem
                     name="timezone"
                   >
@@ -346,7 +441,7 @@ const Profile = () => {
         <HeaderTitle>Languages</HeaderTitle>
       </HeaderContainer>
       <ContentContainer>
-        {user.user.languages.map((language, i) => (editing !== language.key ? (
+        {user.languages.map((language, i) => (editing !== language.key ? (
           <ContentRow key={language.key}>
             <ItemRow>
               <InfoTitle>{languageOptions.filter((e) => e.key === language.key)[0]?.value || 'No Language'}</InfoTitle>

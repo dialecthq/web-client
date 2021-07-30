@@ -92,6 +92,18 @@ function useUser() {
         })
       })
       return result
+    },
+    removeAvatarURL: () => {
+      fire.firestore().collection('users').doc(fire.auth().currentUser.uid).update({
+        avatarURL: null
+      })
+        .then(() => {
+          userAPI.getUser()
+        })
+    },
+    getUser: async () => {
+      const userRef = await fire.firestore().collection('users').doc(fire.auth().currentUser.uid).get()
+      setUser(userRef.data())
     }
   }
 
