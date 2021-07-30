@@ -15,11 +15,10 @@ const NavContainer = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    background: var(--dark-background);
+    background: var(--dark-purple);
     z-index: 4;
     height: 70px;
     position: fixed;
-    border-bottom: 1px solid var(--border-color);
     width: 100%;
     top: 0;
 `
@@ -143,7 +142,7 @@ const Header = () => {
     <NavContainer>
       <NavWrapper>
         <NavContent>
-          <HeaderLogo />
+          <HeaderLogo light />
         </NavContent>
         <NavContent>
           <Popover
@@ -154,7 +153,7 @@ const Header = () => {
             onVisibleChange={setPPOpen}
           >
             <Avatar active={ppOpen}>
-              <AvatarImg src={Logo} style={{ height: 22, width: 22 }} />
+              <AvatarImg src={Logo} style={{ height: 30, width: 30 }} />
             </Avatar>
           </Popover>
         </NavContent>

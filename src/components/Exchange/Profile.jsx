@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/img-redundant-alt */
 /* eslint-disable max-len */
 import React, { useState } from 'react'
 import styled from 'styled-components'
@@ -14,6 +15,7 @@ import Level from '@components/common/Level'
 import Edit from '@components/common/Edit'
 import Page from '@components/Exchange/components/Page'
 import { years, months, getDays } from '@utils/data/dateOptions'
+import fire from '@utils/fire'
 
 const HeaderContainer = styled.div`
     display: flex;
@@ -85,7 +87,7 @@ const InfoTitle = styled.p`
 const InfoContent = styled.p`
     font-weight: 400;
     font-size: 1.1em;
-    color: #f8f8f8;
+    color: #808080;
     display: flex;
     flex-wrap: wrap;
     overflow: hidden;
@@ -109,11 +111,18 @@ const Profile = () => {
   const [inputYear, setInputYear] = useState(2002)
   const [inputMonth, setInputMonth] = useState(1)
   const user = User.useContainer()
+  const photoURL = 'https://firebasestorage.googleapis.com/v0/b/langi-a36fc.appspot.com/o/Screen%20Shot%202021-07-25%20at%2010.36.44%20PM.png?alt=media&token=cf64d57d-e983-4496-a016-6e305ce6671f'
   return (
     <Page>
       <TitleContainer>
         <Title>Profile</Title>
       </TitleContainer>
+      <HeaderContainer>
+        <HeaderTitle>User Avatar</HeaderTitle>
+      </HeaderContainer>
+      <ContentContainer>
+        <img src={photoURL} alt="profile picture" />
+      </ContentContainer>
       <HeaderContainer>
         <HeaderTitle>Basic Information</HeaderTitle>
       </HeaderContainer>
@@ -172,7 +181,7 @@ const Profile = () => {
           <ItemRow>
             <InfoTitle>Date of birth</InfoTitle>
             {editing !== 'dob'
-              ? <InfoContent>{`${user.user.dob?.day} - ${user.user.dob?.month} - ${user.user.dob?.year}` || 'Not specified'}</InfoContent>
+              ? <InfoContent>{user.user.dob ? `${user.user.dob?.day} / ${user.user.dob?.month} / ${user.user.dob?.year}` : 'Not specified'}</InfoContent>
               : (
                 <Edit setEditing={setEditing} initialValues={{ year: user.user.dob?.year || 2002, month: user.user.dob?.month || 1, day: user.user.dob?.day || 1 }}>
                   <FormItem

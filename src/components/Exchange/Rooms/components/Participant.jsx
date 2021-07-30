@@ -46,7 +46,8 @@ const MutedContainer = styled.div`
     justify-content: center;
     align-items: center ;
     padding: 7px 14px;
-    background: #180F25;
+    background: var(--dark-background);
+    border: 1px solid var(--border-color);
     color: var(--text-color);
     border-radius: 20px;
     margin-right: 5px;
@@ -56,8 +57,9 @@ const MutedContainer = styled.div`
 
 const NameContainer = styled.div`
     padding: 7px 14px;
-    background: #180F25;
+    background: var(--dark-background);
     color: var(--text-color);
+    border: 1px solid var(--border-color);
     border-radius: 20px;
 `
 

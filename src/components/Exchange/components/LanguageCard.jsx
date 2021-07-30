@@ -14,6 +14,11 @@ const CardContainer = styled.div`
   align-items: center;
   margin-right: 10px;
   color: var(--text-color);
+  transition: 0.2s all ease-in-out;
+
+  :hover {
+    cursor: pointer;
+  }
 
   @media screen and (max-width: 768px) {
     width: 100%;
@@ -33,6 +38,9 @@ const CardWrapper = styled.div`
   background: var(--layer-background);
   transition: 0.2s all ease-in-out;
   overflow: hidden;
+  :hover {
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+  }
 `
 
 const CardContent = styled.div`
@@ -69,7 +77,13 @@ const Flag = styled.img`
 const LanguageCard = ({ room }) => {
   const history = useHistory()
   return (
-    <CardContainer>
+    <CardContainer
+      onClick={() => {
+        history.push({
+          pathname: `/join/${room.value}`,
+        })
+      }}
+    >
       <CardWrapper>
         <CardContent>
           <CardPeople style={{ marginRight: 20 }}>
@@ -83,20 +97,6 @@ const LanguageCard = ({ room }) => {
             {/* <FaGhost size={16} style={{ marginLeft: 10 }} />
             <CardNum>{Math.ceil(Math.random() * 100) }</CardNum> */}
           </CardPeople>
-        </CardContent>
-        <CardContent>
-          <Button
-            block
-            type="primary"
-            icon={<FaMicrophoneAlt style={{ marginRight: 5 }} />}
-            onClick={() => {
-              history.push({
-                pathname: `/join/${room.value}`,
-              })
-            }}
-          >
-            Join
-          </Button>
         </CardContent>
       </CardWrapper>
     </CardContainer>

@@ -11,13 +11,14 @@ const Container = styled.div`
     justify-content: center;
     align-items: center;
     padding: 10px;
-  background: var(--layer-background);
+    background: var(--dark-background);
+    border: 1px solid #d4d4d4;
 `
 
 const Time = styled.p`
     font-size: 1.1em;
     font-weight: 600;
-    color: var(--text-color);
+    color: #1c1c1c;
     letter-spacing: 0.1em;
 `
 
@@ -46,7 +47,7 @@ const Timer = ({ room }) => {
 
   return (
     <Container>
-      <Time style={{ color: '#fff' }}>{`${format(minutes)}:${format(seconds)}`}</Time>
+      <Time>{`${format(minutes)}:${format(seconds)}`}</Time>
     </Container>
   )
 }

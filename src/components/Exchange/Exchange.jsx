@@ -7,20 +7,6 @@ import USA from '@img/flags/usa.svg'
 import rooms from '@utils/data/rooms'
 import Page from '@components/Exchange/components/Page'
 
-const HeaderContainer = styled.div`
-    display: flex;
-    width: 100%;
-    border-bottom: 1px solid #efefef;
-    margin-bottom: 30px;
-    justify-content: space-between;
-`
-
-const TitleContainer = styled.div`
-    display: flex;
-    width: 100%;
-    margin-bottom: 40px;
-`
-
 const ContentContainer = styled.div`
     display: flex;
     flex-direction: row;
@@ -31,22 +17,52 @@ const ContentContainer = styled.div`
     width: 100%;
 `
 
+const TitleContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  justify-content: center;
+  align-items: flex-start;
+  margin-bottom: 50px;
+`
 const Title = styled.p`
-    font-size: 2.5em;
-    font-weight: 600;
+    font-size: 2em;
+    font-weight: 700;
     color: #1c1c1c;
-    margin-bottom: 0px;
+    margin-bottom: 5px;
 `
 
-const HeaderTitle = styled.p`
-    font-size: 1.3em;
-    font-weight: 600;
-    color: #1c1c1c;
-    margin-bottom: 0px;
+const SubTitle = styled.p`
+  font-size: 1.2em;
+  font-weight: 400;
+  color: #1c1c1c;
+  opacity: 0.7;
+`
+
+const SectionTitle = styled.p`
+  font-size: 1.6em;
+  font-weight: 600;
+  color: #1c1c1c;
+`
+
+const SectionTitleContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  justify-content: center;
+  align-items: flex-start;
+  margin-bottom: 10px;
 `
 
 const Home = () => (
   <Page>
+    <TitleContainer>
+      <Title>Welcome to dialect!</Title>
+      <SubTitle>Click any room to connect with native speakers</SubTitle>
+    </TitleContainer>
+    <SectionTitleContainer>
+      <SectionTitle>Available Rooms</SectionTitle>
+    </SectionTitleContainer>
     <ContentContainer>
       {
         rooms.map((room) => <LanguageCard room={room} />)

@@ -22,8 +22,9 @@ const Container = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    background: var(--layer-background);
+    background: var(--dark-background);
     margin-left: 10px;
+    border: 1px solid #d4d4d4;
 
 
     :hover {
@@ -46,7 +47,6 @@ const MuteButton = ({ room }) => {
             message.success({
               content: 'Microphone is on',
               icon: <FaMicrophone size={24} style={{ marginRight: 10 }} />,
-              className: 'dark-mode-message',
               duration: 1,
             })
           } else {
@@ -59,7 +59,6 @@ const MuteButton = ({ room }) => {
           message.success({
             content: 'Microphone is off',
             icon: <FaMicrophoneSlash size={24} style={{ marginRight: 10 }} />,
-            className: 'dark-mode-message',
             duration: 1,
           })
         }
@@ -67,8 +66,8 @@ const MuteButton = ({ room }) => {
     >
       {
         !audioPub || isMuted
-          ? <FaMicrophoneSlash size={24} color="#fff" />
-          : <FaMicrophone size={24} color="fff" />
+          ? <FaMicrophoneSlash size={24} color="#1c1c1c" />
+          : <FaMicrophone size={24} color="#1c1c1c" />
       }
 
     </Container>
