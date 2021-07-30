@@ -17,6 +17,7 @@ import Page from '@components/Exchange/components/Page'
 import { years, months, getDays } from '@utils/data/dateOptions'
 import fire from '@utils/fire'
 import Logo from '@img/logo.svg'
+import { Helmet } from 'react-helmet'
 import useBreakpoint from 'antd/lib/grid/hooks/useBreakpoint'
 
 const HeaderContainer = styled.div`
@@ -156,9 +157,18 @@ const Profile = () => {
 
   return (
     <Page>
+      <Helmet>
+        <title>
+          🧘 Profile - @
+          {`${user.username}`}
+        </title>
+      </Helmet>
       <TitleContainer>
         <Title>Profile</Title>
-        <Subtitle>Let everyone know who you are</Subtitle>
+        <Subtitle>
+          <span style={{ marginRight: 10 }}>🧘</span>
+          Let everyone know who you are
+        </Subtitle>
       </TitleContainer>
       <HeaderContainer>
         <HeaderTitle>User Avatar</HeaderTitle>

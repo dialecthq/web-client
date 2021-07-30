@@ -14,13 +14,14 @@ const HeaderLogo = styled.div`
 `
 
 const Title = styled.p`
-    font-size: 2em;
-    font-weight: 700;
+    font-size: 1.6em;
+    font-weight: 600;
     margin-right: 20px;
     margin-top: 0px;
     margin-bottom: 0px;
     margin-left: 5px;
     color: ${(p) => (p.light ? '#fff' : '#000')};
+    font-family: 'Montserrat', sans-serif;
 `
 
 export default ({ light }) => {

@@ -6,6 +6,7 @@ import LanguageCard from '@components/Exchange/components/LanguageCard'
 import USA from '@img/flags/usa.svg'
 import rooms from '@utils/data/rooms'
 import Page from '@components/Exchange/components/Page'
+import { Helmet } from 'react-helmet'
 
 const ContentContainer = styled.div`
     display: flex;
@@ -56,9 +57,15 @@ const SectionTitleContainer = styled.div`
 
 const Home = () => (
   <Page>
+    <Helmet>
+      <title>💬 Exchange - connect with native speakers today</title>
+    </Helmet>
     <TitleContainer>
       <Title>Welcome to dialect!</Title>
-      <SubTitle>Click any room to connect with native speakers</SubTitle>
+      <SubTitle>
+        <span style={{ marginRight: 10 }}>💬</span>
+        Click any room to connect with native speakers
+      </SubTitle>
     </TitleContainer>
     <SectionTitleContainer>
       <SectionTitle>Available Rooms</SectionTitle>
