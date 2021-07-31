@@ -2,6 +2,7 @@ import React from 'react'
 import styled, { keyframes } from 'styled-components'
 import { FaArrowLeft } from 'react-icons/fa'
 import { BallTriangle, TailSpin, ThreeDots } from '@agney/react-loading'
+import { Button } from 'antd'
 import HeaderLogo from '@components/common/HeaderLogo'
 import { leaveWaitingRoom } from '@utils/apis/RoomAPI'
 import { useHistory } from 'react-router-dom'
@@ -59,25 +60,6 @@ width: 100%;
     padding: 8px 24px;
 `
 
-const BackContainer = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-right: 50px;
-  transition: 0.2s opacity ease-in-out;
-
-  :hover {
-    opacity: 0.8;
-    cursor: pointer;
-  }
-`
-
-const BackText = styled.p`
-  font-weight: 500;
-  font-size: 1em;
-  margin-left: 5px;
-`
-
 const Loading = ({ message }) => {
   const history = useHistory()
   const { user } = UserContainer.useContainer()
@@ -85,15 +67,14 @@ const Loading = ({ message }) => {
     <LoadingContainer>
       <HeaderContainer>
         <HeaderWrapper>
-          <BackContainer
-            onClick={async () => {
-              await leaveWaitingRoom(user)
+          <Button
+            icon={<FaArrowLeft style={{ marginRight: 5 }} />}
+            onClick={() => {
               history.push('/exchange')
             }}
           >
-            <FaArrowLeft size={16} />
-            <BackText>back</BackText>
-          </BackContainer>
+            Back
+          </Button>
           <HeaderLogo />
         </HeaderWrapper>
       </HeaderContainer>

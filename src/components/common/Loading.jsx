@@ -39,7 +39,7 @@ const Loading = () => {
   return (
     <LoadingContainer>
       <LoadingWrapper>
-        <img src={Logo} alt="text" style={{ marginBottom: 20 }} />
+        <img src={Logo} alt="text" />
         <Progress strokeColor="#81FDE3" percent={loaded} showInfo={false} />
       </LoadingWrapper>
     </LoadingContainer>

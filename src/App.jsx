@@ -59,20 +59,10 @@ const App = () => {
     authListener()
   }, [])
 
-  // useEffect(() => {
-  //   if (!fire.auth().currentUser) return false
-  //   const subscriber = fire.firestore()
-  //     .collection('users')
-  //     .doc(fire.auth().currentUser.uid)
-  //     .onSnapshot((document) => {
-  //       user.setUser(document.data())
-  //     })
-  //   return () => subscriber()
-  // }, [])
-
   if (initializing) {
     return <Loading />
   }
+
   return (
     <ExchangeState.Provider>
       <BrowserRouter>

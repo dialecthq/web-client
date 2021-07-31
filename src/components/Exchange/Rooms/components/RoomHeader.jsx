@@ -48,19 +48,6 @@ const Amount = styled.p`
   color: #fff;
 `
 
-const BackContainer = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-right: 50px;
-  transition: 0.2s opacity ease-in-out;
-
-  :hover {
-    opacity: 0.8;
-    cursor: pointer;
-  }
-`
-
 const RoomHeader = ({ numParticipants, room }) => (
   <Container>
     <Wrapper>

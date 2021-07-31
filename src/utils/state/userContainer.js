@@ -104,6 +104,13 @@ function useUser() {
     getUser: async () => {
       const userRef = await fire.firestore().collection('users').doc(fire.auth().currentUser.uid).get()
       setUser(userRef.data())
+    },
+    deleteLanguage: async (key) => {
+      console.log(key)
+      await fire.firestore().collection('users').doc(fire.auth().currentUser.uid).update({
+        languages: user.languages.filter((e) => (e.key !== key))
+      })
+      userAPI.getUser()
     }
   }
 

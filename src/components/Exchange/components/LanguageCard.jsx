@@ -52,8 +52,9 @@ const CardContent = styled.div`
 `
 
 const CardTitle = styled.p`
-  font-size: 1.3em;
+  font-size: 1.1em;
   font-weight: 500;
+  opacity: 0.9;
 `
 
 const CardPeople = styled.div`
@@ -66,6 +67,7 @@ const CardNum = styled.p`
   font-size: 1em;
   font-weight: 400;
   margin-left: 5px;
+  opacity: 0.9;
 `
 
 const Flag = styled.img`
@@ -92,7 +94,7 @@ const LanguageCard = ({ room }) => {
           </CardPeople>
 
           <CardPeople>
-            <FaUserAlt size={16} />
+            <FaUserAlt size={16} opacity={0.9} />
             <CardNum>{Math.ceil(Math.random() * 100) }</CardNum>
             {/* <FaGhost size={16} style={{ marginLeft: 10 }} />
             <CardNum>{Math.ceil(Math.random() * 100) }</CardNum> */}

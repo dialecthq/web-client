@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import styled, { keyframes } from 'styled-components'
+import { Button } from 'antd'
 import { FaUser, FaArrowLeft } from 'react-icons/fa'
 import { useHistory } from 'react-router-dom'
 import HeaderLogo from '@components/common/HeaderLogo'
@@ -32,25 +33,6 @@ const Text = styled.p`
     letter-spacing: 0.05em;
 `
 
-const BackContainer = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-right: 50px;
-  transition: 0.2s opacity ease-in-out;
-
-  :hover {
-    opacity: 0.8;
-    cursor: pointer;
-  }
-`
-
-const BackText = styled.p`
-  font-weight: 500;
-  font-size: 1em;
-  margin-left: 5px;
-`
-
 const HeaderContainer = styled.div`
   
   position: absolute;
@@ -80,14 +62,14 @@ const Error = ({ imgLink, errorMessage }) => {
     <ErrorContainer>
       <HeaderContainer>
         <HeaderWrapper>
-          <BackContainer
+          <Button
+            icon={<FaArrowLeft style={{ marginRight: 5 }} />}
             onClick={() => {
               history.push('/exchange')
             }}
           >
-            <FaArrowLeft size={16} />
-            <BackText>back</BackText>
-          </BackContainer>
+            Back
+          </Button>
           <HeaderLogo />
         </HeaderWrapper>
       </HeaderContainer>

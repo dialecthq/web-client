@@ -1,9 +1,10 @@
+/* eslint-disable no-nested-ternary */
 /* eslint-disable jsx-a11y/img-redundant-alt */
 /* eslint-disable max-len */
 import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import {
-  Button, Input, Form, Select, Upload, message
+  Button, Input, Form, Select, Upload, message, Popconfirm
 } from 'antd'
 import { FaPen, FaTrash, FaUpload } from 'react-icons/fa'
 import User from '@utils/state/userContainer'
@@ -18,7 +19,7 @@ import { years, months, getDays } from '@utils/data/dateOptions'
 import fire from '@utils/fire'
 import Logo from '@img/logo.svg'
 import { Helmet } from 'react-helmet'
-import useBreakpoint from 'antd/lib/grid/hooks/useBreakpoint'
+import { IoLanguage } from 'react-icons/io5'
 
 const HeaderContainer = styled.div`
     display: flex;
@@ -105,9 +106,19 @@ const FormItem = styled(Form.Item)`
 
 const PenIcon = styled(FaPen)`
     color: var(--text-color);
+    opacity: 0.8;
     :hover {
         cursor: pointer;
+        opacity: 0.6
     }
+`
+
+const GarbageIcon = styled(FaTrash)`
+  color: var(--error-red);
+  :hover {
+    cursor: pointer;
+    opacity: 0.7
+  }
 `
 
 const AvatarContainer = styled.div`
@@ -147,6 +158,13 @@ const Subtitle = styled.p`
   font-weight: 400;
   color: #1c1c1c;
   opacity: 0.7;
+`
+
+const AddLanguageContainer = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
 `
 
 const Profile = () => {
@@ -489,8 +507,66 @@ const Profile = () => {
                 ))}
               </Select>
             </FormItem>
+            <Popconfirm
+              title="Are you sure you want to delete this language?"
+              placement="topLeft"
+              onConfirm={() => {
+                userAPI.deleteLanguage(language.key)
+                setEditing(null)
+                message.success('Successfully deleted language')
+              }}
+              okText="Yes"
+              cancelText="No"
+              icon={null}
+            >
+              <GarbageIcon size={24} color="#e86461" style={{ marginBottom: 24 }} />
+            </Popconfirm>
+
           </Edit>
         )))}
+        <AddLanguageContainer>
+          {
+            !editing
+              ? (
+                <Button
+                  icon={<IoLanguage style={{ marginRight: 5 }} />}
+                  onClick={() => {
+                    setEditing('new')
+                  }}
+                >
+                  Add language
+                </Button>
+              )
+              : editing === 'new'
+                ? (
+                  <Edit index={user.languages.length} key={user.languages.length} setEditing={setEditing}>
+                    <FormItem
+                      name="language"
+                    >
+                      <Select
+                        showSearch
+                        placeholder="Select a language"
+                      >
+                        {languageOptions.map((languageOption) => <Select.Option key={languageOption.value}>{languageOption.value}</Select.Option>)}
+                      </Select>
+                    </FormItem>
+                    <FormItem
+                      name="level"
+                    >
+                      <Select
+                        showSearch
+                        placeholder="Select a level"
+                      >
+                        {levelOptions.map((level) => (
+                          <Select.Option key={level.value}>{level.value}</Select.Option>
+                        ))}
+                      </Select>
+                    </FormItem>
+                  </Edit>
+                )
+                : null
+          }
+        </AddLanguageContainer>
       </ContentContainer>
       {/* <HeaderContainer>
         <HeaderTitle>Communication Tools</HeaderTitle>

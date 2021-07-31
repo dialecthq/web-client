@@ -19,7 +19,6 @@ const Title = styled.p`
     margin-right: 20px;
     margin-top: 0px;
     margin-bottom: 0px;
-    margin-left: 5px;
     color: ${(p) => (p.light ? '#fff' : '#000')};
     font-family: 'Montserrat', sans-serif;
 `
@@ -31,7 +30,7 @@ export default ({ light }) => {
       history.push('/')
     }}
     >
-      <img src={Logo} style={{ height: 36, width: 36 }} alt="logo" />
+      <img src={Logo} style={{ height: 64, width: 64 }} alt="logo" />
       <Title light={light}>dialect</Title>
     </HeaderLogo>
   )
