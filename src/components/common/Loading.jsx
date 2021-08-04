@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
-import Logo from '@img/logo.svg'
 import { Progress } from 'antd'
+import HeaderLogo from '@components/common/HeaderLogo'
 
 const LoadingContainer = styled.div`
     height: 100vh;
@@ -21,15 +21,6 @@ const LoadingWrapper = styled.div`
     min-width: 200px;
 `
 
-const Text = styled.p`
-    font-size: 1.2em;
-    font-weight: 500;
-    color: #454545;
-    margin-top: 30px;
-    margin-bottom: 0px;
-    text-align: center;
-`
-
 const Loading = () => {
   const [loaded, setLoaded] = useState(0)
   useEffect(() => {
@@ -39,8 +30,13 @@ const Loading = () => {
   return (
     <LoadingContainer>
       <LoadingWrapper>
-        <img src={Logo} alt="text" />
-        <Progress strokeColor="#81FDE3" percent={loaded} showInfo={false} />
+        <HeaderLogo />
+        <Progress
+          strokeColor="#81FDE3"
+          percent={loaded}
+          showInfo={false}
+          style={{ marginTop: 20 }}
+        />
       </LoadingWrapper>
     </LoadingContainer>
   )

@@ -53,7 +53,7 @@ function renderStage({ roomState }) {
   } = roomState
 
   if (isConnecting) {
-    return <Waiting message="Connecting to your partner" />
+    return <Waiting message=" 🔗 connecting to your partner ..." />
   }
   if (error) {
     return (
@@ -169,7 +169,7 @@ function RoomComponent() {
 
   if (error) return <Error errorMessage={error} imgLink={ServerDown} />
 
-  if (waiting) return <Waiting message="Looking for a partner ..." />
+  if (waiting) return <Waiting message="🔎 looking for a partner" />
   if (!token) return <Error errorMessage="No token beyondie" imgLink={ServerDown} />
 
   return (

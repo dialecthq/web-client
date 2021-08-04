@@ -30,7 +30,8 @@ const LoadingWrapper = styled.div`
 
 const Text = styled.p`
     font-size: 1.3em;
-    font-weight: 600;
+    font-weight: 500;
+    opacity: 0.8;
     margin-top: 30px;
     margin-bottom: 0px;
     text-align: center;
@@ -52,7 +53,7 @@ const HeaderContainer = styled.div`
 `
 
 const HeaderWrapper = styled.div`
-width: 100%;
+    width: 100%;
     display: flex;
     justify-content: flex-start;
     align-items: center;
@@ -68,6 +69,7 @@ const Loading = ({ message }) => {
       <HeaderContainer>
         <HeaderWrapper>
           <Button
+            style={{ marginRight: 20 }}
             icon={<FaArrowLeft style={{ marginRight: 5 }} />}
             onClick={() => {
               history.push('/exchange')

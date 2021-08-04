@@ -43,9 +43,9 @@ const Avatar = styled.div`
     display: flex;
   justify-content: center;
   align-items: center;
-  height: 48px;
-  width: 48px;
-    border-radius: 100px;
+  height: 36px;
+  width: 36px;
+    border-radius: 36px;
     overflow: hidden;
     box-shadow: ${(p) => (p.active ? 'rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;' : 'none')};
     transition: 0.2s box-shadow ease-in-out;
@@ -56,8 +56,8 @@ const Avatar = styled.div`
 
 const AvatarImg = styled.img`
     filter: ${(p) => (p.isAvatar ? null : 'grayscale(100%)')};
-    max-height: 56px;
-    max-width: 56px;
+    max-height: 48px;
+    max-width: 48px;
     height: auto;
     width: auto;
 `

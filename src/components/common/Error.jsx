@@ -11,8 +11,8 @@ const ErrorContainer = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    background: #020117;
-    color: #fff;
+    background: var(--dark-background);
+    color: var(--text-color);
 `
 
 const ErrorWrapper = styled.div`
@@ -26,7 +26,8 @@ const ErrorWrapper = styled.div`
 
 const Text = styled.p`
     font-size: 1.3em;
-    font-weight: 600;
+    font-weight: 500;
+    opacity: 0.8;
     margin-top: 30px;
     margin-bottom: 0px;
     text-align: center;
@@ -63,6 +64,7 @@ const Error = ({ imgLink, errorMessage }) => {
       <HeaderContainer>
         <HeaderWrapper>
           <Button
+            style={{ marginRight: 20 }}
             icon={<FaArrowLeft style={{ marginRight: 5 }} />}
             onClick={() => {
               history.push('/exchange')
@@ -76,7 +78,11 @@ const Error = ({ imgLink, errorMessage }) => {
 
       <ErrorWrapper>
         <img src={imgLink} style={{ height: 200, width: 200 }} alt="link" />
-        <Text>{errorMessage}</Text>
+        <Text>
+          ❌
+          {' '}
+          {errorMessage}
+        </Text>
       </ErrorWrapper>
     </ErrorContainer>
   )

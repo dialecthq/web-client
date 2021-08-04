@@ -2,6 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import { useHistory } from 'react-router-dom'
 import Logo from '@img/logo.svg'
+import TextLogo from '@img/text-logo.svg'
 
 const HeaderLogo = styled.div`
   display: flex;
@@ -13,14 +14,8 @@ const HeaderLogo = styled.div`
   }
 `
 
-const Title = styled.p`
-    font-size: 1.6em;
-    font-weight: 600;
-    margin-right: 20px;
-    margin-top: 0px;
-    margin-bottom: 0px;
-    color: ${(p) => (p.light ? '#fff' : '#000')};
-    font-family: 'Montserrat', sans-serif;
+const Text = styled.img`
+    filter: ${(p) => (p.light ? 'none' : 'invert(0.9)')};
 `
 
 export default ({ light }) => {
@@ -30,8 +25,9 @@ export default ({ light }) => {
       history.push('/')
     }}
     >
-      <img src={Logo} style={{ height: 64, width: 64 }} alt="logo" />
-      <Title light={light}>dialect</Title>
+      <img src={Logo} style={{ height: 36, width: 36, }} alt="logo" />
+      <Text src={TextLogo} style={{ height: 22, marginLeft: 10 }} alt="text" light={light} />
+      {/* <Title light={light}>dialect</Title> */}
     </HeaderLogo>
   )
 }

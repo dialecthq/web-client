@@ -469,7 +469,7 @@ const Profile = () => {
         <HeaderTitle>Languages</HeaderTitle>
       </HeaderContainer>
       <ContentContainer>
-        {user.languages.map((language, i) => (editing !== language.key ? (
+        {user.languages.sort((a, b) => ((a.level > b.level) ? -1 : 1)).map((language, i) => (editing !== language.key ? (
           <ContentRow key={language.key}>
             <ItemRow>
               <InfoTitle>{languageOptions.filter((e) => e.key === language.key)[0]?.value || 'No Language'}</InfoTitle>
