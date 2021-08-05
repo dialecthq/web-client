@@ -7,6 +7,8 @@ import UserContainer from '@utils/state/userContainer'
 import { FaArrowLeft } from 'react-icons/fa'
 import Coin from '@img/token.svg'
 import { useHistory } from 'react-router-dom'
+import fire from '@utils/fire'
+import firebase from 'firebase'
 
 const Container = styled.div`
     height: 48px;
@@ -39,19 +41,16 @@ const format = (digit) => {
   return `${digit}`
 }
 
-const RateModal = styled.div`
-
-`
-
 const TimerModal = styled(Modal)`
   width: 300px !important;
 `
 
-const Timer = ({ room }) => {
+const Timer = ({ room, otherParticipant }) => {
   const { user } = UserContainer.useContainer()
   const history = useHistory()
   const [visible, setVisible] = useState(false)
   const [stars, setStars] = useState(5)
+  const [loading, setLoading] = useState(false)
   const time = new Date()
   time.setSeconds(time.getSeconds() + 5)
   const {
@@ -71,6 +70,34 @@ const Timer = ({ room }) => {
       // leaveRoom(user, room)
     }
   })
+
+  const rateUser = async (rating) => {
+    setLoading(true)
+    fire.firestore().collection('audio-rooms').doc(room.name).get()
+      .then((document) => {
+        const uid = document.data().participants.filter((e) => e !== user.uid)[0]
+        fire.firestore().collection('users').doc(uid).get()
+          .then((userDocument) => {
+            const rooms = userDocument.data().rooms ? userDocument.data().rooms : 0
+            const currentRating = userDocument.data().rating ? userDocument.data().rating : 0
+            const newRating = (currentRating * rooms + rating) / (rooms + 1)
+            fire.firestore().collection('users').doc(uid).update({
+              karma: firebase.firestore.FieldValue.increment(1),
+              rooms: firebase.firestore.FieldValue.increment(1),
+              rating: newRating
+            })
+              .catch(() => {
+                setLoading(false)
+              })
+          })
+          .catch(() => {
+            setLoading(false)
+          })
+      })
+      .catch(() => {
+        setLoading(false)
+      })
+  }
 
   return (
     <Container>
@@ -96,7 +123,9 @@ const Timer = ({ room }) => {
                 style={{ marginRight: 5 }}
               />
             )}
-            onClick={() => {
+            loading={loading}
+            onClick={async () => {
+              await rateUser(stars)
               leaveRoom(user, room)
               setVisible(false)
               history.push('/exchange')
@@ -109,10 +138,12 @@ const Timer = ({ room }) => {
             block
             style={{ marginLeft: 5 }}
             icon={<img src={Coin} alt="token" style={{ height: 16, marginRight: 5 }} />}
-            onClick={() => {
+            onClick={async () => {
+              await rateUser(stars)
               leaveRoom(user, room)
               setVisible(false)
             }}
+            loading={loading}
           >
             Continue
           </Button>

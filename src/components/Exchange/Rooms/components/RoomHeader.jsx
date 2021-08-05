@@ -6,7 +6,7 @@ import { FaUser, FaArrowLeft } from 'react-icons/fa'
 import HeaderLogo from '@components/common/HeaderLogo'
 
 const Container = styled.div`
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     right: 0;

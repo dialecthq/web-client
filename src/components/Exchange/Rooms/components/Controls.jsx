@@ -46,7 +46,7 @@ const Controls = ({ room, participants }) => {
         <RoomNames>{otherParticipant ? `You and @${otherParticipant}` : 'You are alone'}</RoomNames>
         <RoomDescription>23 other people in English rooms</RoomDescription>
       </InformationContainer>
-      <Timer room={room} />
+      <Timer room={room} otherParticipant={otherParticipant} />
       <MuteButton room={room} />
       <LeaveButton room={room} />
     </Container>
