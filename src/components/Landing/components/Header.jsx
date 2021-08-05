@@ -26,8 +26,8 @@ const Wrapper = styled.div`
 
 const Link = styled.a`
     color: #1c1c1c;
-    font-size: 1.2em;
-    font-weight: 600;
+    font-size: 1em;
+    font-weight: 500;
     margin-left: 20px;
 
     :hover {
@@ -63,8 +63,9 @@ const Header = () => {
         <Wrapper>
           <HeaderSection>
             <HeaderLogo />
-            <Link href="/about" style={{ marginLeft: 40 }}>about</Link>
-            <Link href="/about">blog</Link>
+            <Link href="/about" style={{ marginLeft: 40 }}>About</Link>
+            <Link href="/about">Blog</Link>
+            <Link href="/about">Pricing</Link>
           </HeaderSection>
           <HeaderSection>
             {!user
