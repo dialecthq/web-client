@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import ReactTypingEffect from 'react-typing-effect'
+import { Button } from 'antd'
 
 const Container = styled.div`
     width: 100%;
@@ -22,7 +23,7 @@ const Wrapper = styled.div`
 `
 
 const HeroText = styled.p`
-    font-size: 2.8em;
+    font-size: 3.2em;
     color: #1c1c1c;
     font-weight: 700;
 `
@@ -33,18 +34,40 @@ const Language = styled.span`
 `
 
 const Subtitle = styled.p`
-    margin-top: 20px;
+    margin-top: 15px;
     font-size: 1.8em;
+    font-weight: 500;
     color: #1c1c1c;
     opacity: 0.6;
     max-width: 600px;
     text-align: center;
+
+    @media screen and (max-width: 768px) {
+      font-size: 1.4em;
+      max-width: 400px;
+    }
+`
+
+const Typing = styled(ReactTypingEffect)`
+  @media screen and (max-width: 768px) {
+    display: none
+  }
+`
+
+const Mobile = styled.p`
+ font-size: 2em;
+ color: #1c1c1c;
+ font-weight: 700;
+ text-align: center;
+  @media screen and (min-width: 769px) {
+    display: none;
+  }
 `
 
 const Hero = () => (
   <Container>
     <Wrapper>
-      <ReactTypingEffect
+      <Typing
         speed={120}
         eraseSpeed={70}
         eraseDelay={1800}
@@ -59,7 +82,13 @@ const Hero = () => (
           </HeroText>
         )}
       />
+      <Mobile>
+        The best place to learn
+        {' '}
+        <Language>any language</Language>
+      </Mobile>
       <Subtitle>Dialect allows you to have conversations with native speakers to build confidence and fluency</Subtitle>
+      <Button type="primary" style={{ marginTop: 30, height: 50, width: 120 }}>Get Started</Button>
     </Wrapper>
   </Container>
 

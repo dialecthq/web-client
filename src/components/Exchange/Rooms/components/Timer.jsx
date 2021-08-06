@@ -52,7 +52,7 @@ const Timer = ({ room, otherParticipant }) => {
   const [stars, setStars] = useState(5)
   const [loading, setLoading] = useState(false)
   const time = new Date()
-  time.setSeconds(time.getSeconds() + 5)
+  time.setSeconds(time.getSeconds() + 180)
   const {
     seconds,
     minutes,

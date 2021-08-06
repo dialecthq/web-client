@@ -108,15 +108,19 @@ const Header = () => {
 
   const profilePopover = (
     <ProfilePopoverContainer style={{ minWidth: 200 }}>
-      <Username>
-        signed in as
-        {' '}
-        <span style={{ color: '#000' }}>
-          @
-          {user.username}
-        </span>
-      </Username>
-      <Divider style={{ margin: '12px 0px' }} />
+      {user ? (
+        <>
+          <Username>
+            signed in as
+            {' '}
+            <span style={{ color: '#000' }}>
+              @
+              {user?.username}
+            </span>
+          </Username>
+          <Divider style={{ margin: '12px 0px' }} />
+        </>
+      ) : null}
       <Menu style={{ width: '100%' }}>
         <MenuItem icon={<FaQuestion />} key="help">Help</MenuItem>
         <MenuItem
@@ -160,8 +164,8 @@ const Header = () => {
           >
             <Avatar active={ppOpen}>
               <AvatarImg
-                isAvatar={user.avatarURL}
-                src={user.avatarURL ? user.avatarURL : Logo}
+                isAvatar={user?.avatarURL}
+                src={user?.avatarURL ? user.avatarURL : Logo}
               />
             </Avatar>
           </Popover>

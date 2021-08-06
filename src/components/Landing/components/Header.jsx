@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import styled from 'styled-components'
 import HeaderLogo from '@components/common/HeaderLogo'
 import UserContainer from '@utils/state/userContainer'
+import { FaArrowLeft, FaArrowRight, FaSignOutAlt } from 'react-icons/fa'
 import { Button } from 'antd'
 import SignIn from './SignIn'
 import SignUp from './SignUp'
@@ -11,7 +12,7 @@ const Container = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 70px;
+    height: 90px;
     padding: 8px 24px;
 `
 
@@ -71,13 +72,20 @@ const Header = () => {
             {!user
               ? (
                 <>
-                  <LogInText onClick={() => {
-                    setSignInVisible(true)
-                  }}
+                  <Button
+                    style={{
+                      display: 'flex', flexDirection: 'row-reverse', marginRight: 10
+                    }}
+                    onClick={() => {
+                      setSignInVisible(true)
+                    }}
                   >
                     Log in
-                  </LogInText>
+                  </Button>
                   <Button
+                    style={{
+                      display: 'flex', flexDirection: 'row-reverse'
+                    }}
                     type="primary"
                     onClick={() => {
                       setSignUpVisible(true)
@@ -90,6 +98,9 @@ const Header = () => {
               : (
                 <Button
                   type="primary"
+                  style={{
+                    height: 50, width: 120, display: 'flex', flexDirection: 'row-reverse'
+                  }}
                   onClick={() => {
                     userAPI.logout()
                   }}

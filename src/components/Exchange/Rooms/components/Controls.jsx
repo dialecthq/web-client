@@ -43,7 +43,7 @@ const Controls = ({ room, participants }) => {
   return (
     <Container>
       <InformationContainer>
-        <RoomNames>{otherParticipant ? `You and @${otherParticipant}` : 'You are alone'}</RoomNames>
+        <RoomNames>{otherParticipant ? `You and @${otherParticipant.metadata}` : 'You are alone'}</RoomNames>
         <RoomDescription>23 other people in English rooms</RoomDescription>
       </InformationContainer>
       <Timer room={room} otherParticipant={otherParticipant} />

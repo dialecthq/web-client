@@ -5,13 +5,15 @@ import { useHistory } from 'react-router-dom'
 
 const FooterContainer = styled.div`
     height: 60px;
-    max-width: 1200px;
-    border-top :1px solid var(--border-color);
     /* position: fixed;
     bottom: 0; */
     width: 100%;
-    background-color: var(--dark-background);
+    background-color: inherit;
     z-index: 4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 8px 24px;
 `
 
 const FooterWrapper = styled.div`
@@ -20,6 +22,8 @@ const FooterWrapper = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
+    max-width: 1200px;
+    border-top :1px solid var(--border-color);
 `
 
 const FooterContent = styled.div`
