@@ -8,6 +8,7 @@ import {
 } from 'react-icons/fa'
 import { Button } from 'antd'
 import { Cross as Hamburger } from 'hamburger-react'
+import { useHistory } from 'react-router-dom'
 import SignIn from './SignIn'
 import SignUp from './SignUp'
 
@@ -76,8 +77,15 @@ const HeaderSection = styled.div`
 `
 
 const MenuModal = styled.div`
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
   position: fixed;
-  top: 0;
+  padding-top: 120px;
+  padding-left: 24px;
+  padding-right: 24px;
+  top: ${(p) => (p.visible ? '0px' : '-1000px')};
+  opacity: ${(p) => (p.visible ? 1 : 0.1)};
   bottom: 0;
   right: 0;
   left: 0;
@@ -85,13 +93,33 @@ const MenuModal = styled.div`
   width: 100%;
   z-index: 4;
   background: #fff;
-  display: ${(p) => (p.visible ? 'flex' : 'none')};
-  animation: ${MenuAnimation} 0.2s ease-in-out;
-  animation-fill-mode: forwards;
+  transition: 0.4s all ease-in-out;
+`
+
+const ButtonText = styled.span`
+  font-weight: 500;
+  font-size: 1.2em;
+  color: ${(p) => (p.white ? '#fff' : 'inherit')};
+`
+
+const MenuButton = styled.div`
+  width: 100%;
+  height: 60px;
+  border-bottom: 1px solid #d4d4d4;
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+
+  :hover {
+    opacity: 0.7;
+    cursor: pointer;
+  }
 `
 
 const Header = () => {
   const { user, userAPI } = UserContainer.useContainer()
+  const history = useHistory()
 
   const [signInVisible, setSignInVisible] = useState(false)
   const [signUpVisible, setSignUpVisible] = useState(false)
@@ -156,7 +184,66 @@ const Header = () => {
           </HeaderSection>
         </Wrapper>
       </Container>
-      <MenuModal visible={menuVisible} />
+      <MenuModal visible={menuVisible}>
+        <MenuButton
+          onClick={() => history.push('/about')}
+        >
+          <ButtonText>About</ButtonText>
+        </MenuButton>
+        <MenuButton
+          onClick={() => history.push('/about')}
+        >
+          <ButtonText>Blog</ButtonText>
+        </MenuButton>
+        <MenuButton
+          onClick={() => history.push('/about')}
+          style={{ marginBottom: 50 }}
+        >
+          <ButtonText>Pricing</ButtonText>
+        </MenuButton>
+        {!user
+          ? (
+            <>
+              <Button
+                block
+                style={{
+                  display: 'flex', flexDirection: 'row-reverse', marginBottom: 10, height: 60
+                }}
+                onClick={() => {
+                  setSignInVisible(true)
+                }}
+              >
+                <ButtonText>Log in</ButtonText>
+              </Button>
+              <Button
+                block
+                style={{
+                  display: 'flex', flexDirection: 'row-reverse', height: 60
+                }}
+                type="primary"
+                onClick={() => {
+                  setSignUpVisible(true)
+                }}
+              >
+                <ButtonText>Get started</ButtonText>
+              </Button>
+            </>
+          )
+          : (
+            <Button
+              type="primary"
+              block
+              style={{
+                height: 60, display: 'flex', flexDirection: 'row-reverse'
+              }}
+              onClick={() => {
+                userAPI.logout()
+              }}
+            >
+              <ButtonText>Sign out</ButtonText>
+            </Button>
+          )}
+      </MenuModal>
       <SignUp
         visible={signUpVisible}
         setVisible={setSignUpVisible}
