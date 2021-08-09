@@ -10,7 +10,12 @@ const Container = styled.div`
     margin-top: 24px;
     height: 100vh;
     min-height: 500px;
-    
+    background: ${(p) => (p.colored ? '#f8fafc' : '#fff')};
+
+    @media screen and (max-width: 768px){
+      height: auto;
+      min-height: auto;
+    }    
 `
 
 const Wrapper = styled.div`
@@ -22,14 +27,12 @@ const Wrapper = styled.div`
     flex-direction: ${(p) => (p.imgLeft ? 'row-reverse' : 'row')};
     justify-content: space-between;
     align-items: center;
-    border-radius: 20px;
-    background: ${(p) => (p.colored ? 'rgba(69, 188, 255, 0.2)' : '#fff')};
+    
 
     @media screen and (max-width: 768px) {
         flex-direction: column;
         width: 100%;
         border-radius: 0px;
-        background: #fff;
     }
 `
 
@@ -49,6 +52,7 @@ const Section = styled.div`
 const SectionTitle = styled.p`
     font-size: 3.2em;
     font-weight: 700;
+    color: #1c1c1c;
 
     @media screen and (max-width: 768px) {
         font-size: 2.1em;
@@ -89,8 +93,8 @@ const Img = styled.img`
 const Info = ({
   title, sub1, emph, sub2, image, imgLeft, colored
 }) => (
-  <Container>
-    <Wrapper imgLeft={imgLeft} colored={colored}>
+  <Container colored={colored}>
+    <Wrapper imgLeft={imgLeft}>
       <Section>
         <SectionTitle>{title}</SectionTitle>
         <Subtitle>

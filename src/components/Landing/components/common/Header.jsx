@@ -1,11 +1,26 @@
-import React, { useState } from 'react'
-import styled from 'styled-components'
+import React, { useState, useRef } from 'react'
+import styled, { keyframes } from 'styled-components'
+
 import HeaderLogo from '@components/common/HeaderLogo'
 import UserContainer from '@utils/state/userContainer'
-import { FaArrowLeft, FaArrowRight, FaSignOutAlt } from 'react-icons/fa'
+import {
+  FaArrowLeft, FaArrowRight, FaSignOutAlt, FaBars
+} from 'react-icons/fa'
 import { Button } from 'antd'
+import { Cross as Hamburger } from 'hamburger-react'
 import SignIn from './SignIn'
 import SignUp from './SignUp'
+
+const MenuAnimation = keyframes`
+  from {
+    top: -1000px;
+    opacity: 0.1;
+  }
+  to {
+    top: 0px;
+    opacity: 1;
+  }
+`
 
 const Container = styled.div`
     width: 100%;
@@ -14,6 +29,9 @@ const Container = styled.div`
     align-items: center;
     height: 90px;
     padding: 8px 24px;
+    background: #fff;
+    position: fixed;
+    z-index: 5;
 `
 
 const Wrapper = styled.div`
@@ -47,28 +65,52 @@ const LogInText = styled.a`
 `
 
 const HeaderSection = styled.div`
-    display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: row;
+    display: ${(p) => (p.desktop ? 'flex' : 'none')};
+
+    @media screen and (max-width: 768px) {
+      display: ${(p) => (p.mobile ? 'flex' : 'none')};
+    }
 `
+
+const MenuModal = styled.div`
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  z-index: 4;
+  background: #fff;
+  display: ${(p) => (p.visible ? 'flex' : 'none')};
+  animation: ${MenuAnimation} 0.2s ease-in-out;
+  animation-fill-mode: forwards;
+`
+
 const Header = () => {
   const { user, userAPI } = UserContainer.useContainer()
-  console.log(user)
 
   const [signInVisible, setSignInVisible] = useState(false)
   const [signUpVisible, setSignUpVisible] = useState(false)
+  const [menuVisible, setMenuVisible] = useState(false)
 
   return (
     <>
       <Container>
         <Wrapper>
-          <HeaderSection>
+          <HeaderSection desktop mobile>
             <HeaderLogo />
-            <Link href="/about" style={{ marginLeft: 40 }}>About</Link>
-            <Link href="/about">Blog</Link>
-            <Link href="/about">Pricing</Link>
+            <HeaderSection desktop>
+              <Link href="/about" style={{ marginLeft: 40 }}>About</Link>
+              <Link href="/about">Blog</Link>
+              <Link href="/about">Pricing</Link>
+            </HeaderSection>
+
           </HeaderSection>
-          <HeaderSection>
+          <HeaderSection desktop>
             {!user
               ? (
                 <>
@@ -109,8 +151,12 @@ const Header = () => {
                 </Button>
               )}
           </HeaderSection>
+          <HeaderSection mobile>
+            <Hamburger rounded onToggle={() => setMenuVisible(!menuVisible)} />
+          </HeaderSection>
         </Wrapper>
       </Container>
+      <MenuModal visible={menuVisible} />
       <SignUp
         visible={signUpVisible}
         setVisible={setSignUpVisible}

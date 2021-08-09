@@ -4,6 +4,7 @@ import User from '@utils/state/userContainer'
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
 
 import Home from '@components/Landing/Home'
+import About from '@components/Landing/About'
 import Loading from '@components/common/Loading'
 import Room from '@components/Exchange/Rooms/Room'
 import Exchange from '@components/Exchange/Exchange'
@@ -72,6 +73,12 @@ const App = () => {
             exact
           >
             <Home />
+          </Route>
+          <Route
+            path="/about"
+            exact
+          >
+            <About />
           </Route>
           <Route
             path="/exchange"
