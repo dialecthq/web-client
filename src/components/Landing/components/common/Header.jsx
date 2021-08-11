@@ -94,6 +94,10 @@ const MenuModal = styled.div`
   z-index: 4;
   background: #fff;
   transition: 0.4s all ease-in-out;
+
+  @media screen and (min-width: 769px) {
+    top: -1000px;
+  }
 `
 
 const ButtonText = styled.span`
@@ -166,37 +170,62 @@ const Header = () => {
                 </>
               )
               : (
-                <Button
-                  type="primary"
-                  style={{
-                    height: 50, width: 120, display: 'flex', flexDirection: 'row-reverse'
-                  }}
-                  onClick={() => {
-                    userAPI.logout()
-                  }}
-                >
-                  Sign out
-                </Button>
+                <>
+                  <Button
+                    style={{
+                      display: 'flex', flexDirection: 'row-reverse', marginRight: 10
+                    }}
+                    onClick={() => {
+                      userAPI.logout()
+                    }}
+                  >
+                    Sign out
+                  </Button>
+                  <Button
+                    type="primary"
+                    style={{
+                      display: 'flex', flexDirection: 'row-reverse'
+                    }}
+                    onClick={() => {
+                      history.push('/exchange')
+                    }}
+                  >
+                    Exchange
+                  </Button>
+                </>
               )}
           </HeaderSection>
           <HeaderSection mobile>
-            <Hamburger rounded onToggle={() => setMenuVisible(!menuVisible)} />
+            <Hamburger
+              rounded
+              toggled={menuVisible}
+              onToggle={() => setMenuVisible(!menuVisible)}
+            />
           </HeaderSection>
         </Wrapper>
       </Container>
       <MenuModal visible={menuVisible}>
         <MenuButton
-          onClick={() => history.push('/about')}
+          onClick={() => {
+            setMenuVisible(false)
+            history.push('/about')
+          }}
         >
           <ButtonText>About</ButtonText>
         </MenuButton>
         <MenuButton
-          onClick={() => history.push('/about')}
+          onClick={() => {
+            setMenuVisible(false)
+            history.push('/about')
+          }}
         >
           <ButtonText>Blog</ButtonText>
         </MenuButton>
         <MenuButton
-          onClick={() => history.push('/about')}
+          onClick={() => {
+            setMenuVisible(false)
+            history.push('/about')
+          }}
           style={{ marginBottom: 50 }}
         >
           <ButtonText>Pricing</ButtonText>
@@ -210,6 +239,7 @@ const Header = () => {
                   display: 'flex', flexDirection: 'row-reverse', marginBottom: 10, height: 60
                 }}
                 onClick={() => {
+                  setMenuVisible(false)
                   setSignInVisible(true)
                 }}
               >
@@ -222,6 +252,7 @@ const Header = () => {
                 }}
                 type="primary"
                 onClick={() => {
+                  setMenuVisible(false)
                   setSignUpVisible(true)
                 }}
               >
@@ -237,6 +268,7 @@ const Header = () => {
                 height: 60, display: 'flex', flexDirection: 'row-reverse'
               }}
               onClick={() => {
+                setMenuVisible(false)
                 userAPI.logout()
               }}
             >

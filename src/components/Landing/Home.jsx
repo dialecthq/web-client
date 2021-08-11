@@ -45,7 +45,7 @@ const App = () => (
       image={Messaging}
     />
     <CallToAction />
-    <Footer />
+    <Footer noBorder />
   </div>
 
 )

@@ -36,8 +36,8 @@ const App = () => {
             return
           }
           user.setUser(document.data())
-          window.$crisp.push(['set', 'user:email', [document.data().email]])
-          window.$crisp.push(['set', 'user:nickname', [document.data().name]])
+          window.$crisp.push(['set', 'user:email', [document?.data()?.email]])
+          window.$crisp.push(['set', 'user:nickname', [document?.data()?.name]])
           setInitializing(false)
         }
       })

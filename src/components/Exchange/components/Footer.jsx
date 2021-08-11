@@ -25,7 +25,7 @@ const FooterWrapper = styled.div`
     justify-content: space-between;
     align-items: center;
     max-width: 1200px;
-    border-top :1px solid var(--border-color);
+    border-top : ${(p) => (p.noBorder ? 'none' : '1px solid #eeeeee')};
 `
 
 const FooterContent = styled.div`
@@ -49,12 +49,11 @@ const LogoIMG = styled.img`
   }
 `
 
-const Footer = () => {
+const Footer = ({ noBorder }) => {
   const history = useHistory()
   return (
-
     <FooterContainer>
-      <FooterWrapper>
+      <FooterWrapper noBorder={noBorder}>
         <FooterContent>
           <LogoIMG
             src={Logo}

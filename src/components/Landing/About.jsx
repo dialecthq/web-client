@@ -13,7 +13,7 @@ const App = () => (
     <AboutHero />
     <Team />
     <CallToAction />
-    <Footer />
+    <Footer noBorder />
   </div>
 )
 
