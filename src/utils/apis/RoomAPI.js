@@ -78,3 +78,9 @@ export const leaveRoom = async (user, room) => {
     active: false
   })
 }
+
+export const checkTokens = async (user) => {
+  const document = await fire.firestore().collection('users').doc(user.uid).get()
+  const { tokens } = document.data()
+  return tokens > 0
+}

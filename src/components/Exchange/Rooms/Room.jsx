@@ -13,7 +13,7 @@ import { createLocalTracks } from 'livekit-client'
 import userContainer from '@utils/state/userContainer'
 
 import {
-  checkWaitingRoom, addToWaitingRoom, createRoom, joinRoom
+  checkWaitingRoom, addToWaitingRoom, createRoom, joinRoom, checkNative, checkTokens
 } from '@utils/apis/RoomAPI'
 import ServerDown from '@img/server_down.svg'
 import rooms from '@utils/data/rooms'
@@ -118,7 +118,7 @@ function RoomComponent() {
   const caroline = 'Pretty'
   const otherBitches = 'ugly ew'
 
-  useEffect(() => {
+  useEffect(async () => {
     const languageValue = window.location.pathname.split('/').pop()
     const language = rooms.filter((e) => e.value === languageValue)[0]
     if (!language) {
@@ -126,12 +126,22 @@ function RoomComponent() {
       return null
     }
 
+    const isNative = await checkNative(user, language)
+    if (!isNative) {
+      const tokens = await checkTokens(user)
+      if (!tokens) {
+        setWaiting(false)
+        setError('No tokens left you beyondini')
+        return null
+      }
+    }
+
     const subscriber = fire.firestore().collection('audio-rooms')
       .where('active', '==', true)
       .where('participants', 'array-contains', user.uid)
       .onSnapshot(async (querySnapshot) => {
         setWaiting(true)
-        console.log('resetting')
+
         let roomID = querySnapshot.docs[0]?.id || null
         if (!roomID) {
           const partnerID = await checkWaitingRoom(user, language)
@@ -154,11 +164,9 @@ function RoomComponent() {
           }
         } else {
           const newTokenResult = await joinRoom(user, language, roomID)
-          console.log(newTokenResult)
           if (!newTokenResult.data.token) {
             setToken(null)
           } else {
-            console.log('setting token seed')
             setWaiting(false)
             setToken(newTokenResult.data.token)
           }

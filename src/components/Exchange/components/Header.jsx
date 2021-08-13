@@ -122,7 +122,7 @@ const MenuModal = styled.div`
   padding-top: 120px;
   padding-left: 24px;
   padding-right: 24px;
-  top: ${(p) => (p.visible ? '0px' : '-1000px')};
+  top: ${(p) => (p.visible ? '0px' : 'calc(-100vh)')};
   opacity: ${(p) => (p.visible ? 1 : 0.1)};
   bottom: 0;
   right: 0;
@@ -134,7 +134,7 @@ const MenuModal = styled.div`
   transition: 0.4s all ease-in-out;
 
   @media screen and (min-width: 769px) {
-    top: -1000px;
+    top: calc(-100vh);
   }
 `
 
@@ -168,6 +168,18 @@ const MenuContent = styled.div`
   flex-direction: column;
   border-bottom: 1px solid #d4d4d4;
   padding-bottom: 20px;
+`
+
+const TokenContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background: #fff;
+  border: 1px solid #d4d4d4;
+  border-radius: 10px;
+  height: 40px;
+  margin-right: 10px;
 `
 
 const Header = () => {
@@ -236,6 +248,16 @@ const Header = () => {
             <HeaderLogo light />
           </NavContent>
           <NavContent desktop>
+            { user ? (
+              <TokenContainer>
+                <Username>
+                  <Emph style={{ color: '#000', fontWeight: 700 }}>
+                    {user.tokens || 0}
+                  </Emph>
+                  <img src={Coin} alt="token" style={{ height: 16, marginLeft: 5 }} />
+                </Username>
+              </TokenContainer>
+            ) : null}
             <Popover
               content={profilePopover}
               placement="bottomLeft"
@@ -250,6 +272,7 @@ const Header = () => {
                 />
               </Avatar>
             </Popover>
+
           </NavContent>
           <NavContent mobile>
             <Hamburger

@@ -10,6 +10,7 @@ const Container = styled.div`
     margin-top: 24px;
     height: 100vh;
     min-height: 500px;
+    max-height: 800px;
     background: ${(p) => (p.colored ? '#f8fafc' : '#fff')};
 
     @media screen and (max-width: 768px){

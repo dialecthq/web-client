@@ -11,6 +11,7 @@ import {
 import { useHistory } from 'react-router-dom'
 import firebase from 'firebase'
 import fire from '@utils/fire'
+import { checkTokens, checkNative } from '@utils/apis/RoomAPI'
 
 import languageOptions from '@utils/data/LanguageOptions'
 import countryOptions from '@utils/data/CountryOptions'
@@ -158,7 +159,9 @@ const AddLanguage = ({
     })
 
     userAPI.getUser()
-    history.push(`/join/${language.value}`)
+    history.push({
+      pathname: `/join/${language.value}`,
+    })
     setVisible(false)
     setLoading(false)
   }

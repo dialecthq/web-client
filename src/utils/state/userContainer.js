@@ -111,6 +111,11 @@ function useUser() {
         languages: user.languages.filter((e) => (e.key !== key))
       })
       userAPI.getUser()
+    },
+    checkTokens: async () => {
+      const document = await fire.firestore().collection('users').doc(fire.auth().currentUser.uid).get()
+      const { tokens } = document.data()
+      return tokens > 0
     }
   }
 

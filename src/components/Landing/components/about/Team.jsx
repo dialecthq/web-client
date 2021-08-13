@@ -85,20 +85,16 @@ const Overlay = styled.div`
     height: 100%;
     width: 100%;
     position: absolute;
-    opacity: 0.8;
+    opacity: ${(p) => (p.hover ? 1 : 0)};
     border-radius: 20px;
-    background: #1c1c1c;
+    background: #1c1c1c80;
 
     top: 0;
     bottom: 0;
     right: 0;
     left: 0;
-    transition: 0.2s all ease-in-out;
+    transition: 0.2s opacity ease-in-out;
     z-index: 5;
-
-    animation: ${Animation};
-    animation-duration: 0.2s;
-    animation-fill-mode: forwards;
 `
 
 const OverlayWrapper = styled.div`
@@ -162,21 +158,19 @@ const TeamMemberDiv = ({ Name, Image }) => {
   return (
     <TeamMember>
       <ImgWrap onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)}>
-        { hover ? (
-          <Overlay>
-            <OverlayWrapper>
-              <ProfileText>Profiles</ProfileText>
-              <IconRow>
-                <Icon>
-                  <FaTwitter style={{ marginRight: 5 }} />
-                </Icon>
-                <Icon>
-                  <FaLinkedin />
-                </Icon>
-              </IconRow>
-            </OverlayWrapper>
-          </Overlay>
-        ) : null}
+        <Overlay hover={hover}>
+          <OverlayWrapper>
+            <ProfileText>Profiles</ProfileText>
+            <IconRow>
+              <Icon>
+                <FaTwitter style={{ marginRight: 5 }} />
+              </Icon>
+              <Icon>
+                <FaLinkedin />
+              </Icon>
+            </IconRow>
+          </OverlayWrapper>
+        </Overlay>
         <TeamImage src={Logo} alt="logo" />
       </ImgWrap>
       <NameP>Ryan Brewer</NameP>

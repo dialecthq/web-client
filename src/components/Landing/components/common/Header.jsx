@@ -236,7 +236,7 @@ const Header = () => {
               <Button
                 block
                 style={{
-                  display: 'flex', flexDirection: 'row-reverse', marginBottom: 10, height: 60
+                  display: 'flex', flexDirection: 'row-reverse', marginBottom: 20, height: 60
                 }}
                 onClick={() => {
                   setMenuVisible(false)
@@ -261,19 +261,33 @@ const Header = () => {
             </>
           )
           : (
-            <Button
-              type="primary"
-              block
-              style={{
-                height: 60, display: 'flex', flexDirection: 'row-reverse'
-              }}
-              onClick={() => {
-                setMenuVisible(false)
-                userAPI.logout()
-              }}
-            >
-              <ButtonText>Sign out</ButtonText>
-            </Button>
+            <>
+              <Button
+                block
+                style={{
+                  height: 60, display: 'flex', flexDirection: 'row-reverse', marginBottom: 20
+                }}
+                onClick={() => {
+                  setMenuVisible(false)
+                  userAPI.logout()
+                }}
+              >
+                <ButtonText>Sign out</ButtonText>
+              </Button>
+              <Button
+                type="primary"
+                block
+                style={{
+                  height: 60, display: 'flex', flexDirection: 'row-reverse'
+                }}
+                onClick={() => {
+                  setMenuVisible(false)
+                  history.push('/exchange')
+                }}
+              >
+                <ButtonText>Exchange</ButtonText>
+              </Button>
+            </>
           )}
       </MenuModal>
       <SignUp
