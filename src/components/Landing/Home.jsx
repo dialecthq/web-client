@@ -1,11 +1,11 @@
 /* eslint-disable max-len */
 import React, { useState } from 'react'
 
-import Footer from '@components/Exchange/components/Footer'
 import Conversation from '@img/conversation.svg'
 import Gift from '@img/gift.svg'
 import Messaging from '@img/messaging.svg'
 import { FaGifts } from 'react-icons/fa'
+import Footer from './components/common/Footer'
 import Header from './components/common/Header'
 import Hero from './components/home/Hero'
 import HeroImage from './components/home/HeroImage'
@@ -45,7 +45,7 @@ const App = () => (
       image={Messaging}
     />
     <CallToAction />
-    <Footer noBorder />
+    <Footer />
   </div>
 
 )

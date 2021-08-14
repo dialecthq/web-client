@@ -1,7 +1,7 @@
 /* eslint-disable max-len */
 import React, { useState } from 'react'
 
-import Footer from '@components/Exchange/components/Footer'
+import Footer from './components/common/Footer'
 import AboutHero from './components/about/AboutHero'
 import Header from './components/common/Header'
 import CallToAction from './components/common/CallToAction'
@@ -13,7 +13,7 @@ const App = () => (
     <AboutHero />
     <Team />
     <CallToAction />
-    <Footer noBorder />
+    <Footer />
   </div>
 )
 
