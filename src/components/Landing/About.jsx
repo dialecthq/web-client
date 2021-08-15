@@ -1,5 +1,5 @@
 /* eslint-disable max-len */
-import React, { useState } from 'react'
+import React, { useState, useRef } from 'react'
 
 import Footer from './components/common/Footer'
 import AboutHero from './components/about/AboutHero'

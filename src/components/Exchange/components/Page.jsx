@@ -3,7 +3,7 @@ import React from 'react'
 import styled from 'styled-components'
 
 // Components
-import Footer from './Footer'
+import Footer from '@components/Landing/components/common/Footer'
 import Header from './Header'
 
 const PageContainer = styled.div`
@@ -38,15 +38,17 @@ const PageContent = styled.div`
 `
 
 const Page = ({ children }) => (
-  <PageContainer>
-    <PageWrapper>
-      <Header />
-      <PageContent>
-        {children}
-      </PageContent>
-      <Footer />
-    </PageWrapper>
-  </PageContainer>
+  <>
+    <PageContainer>
+      <PageWrapper>
+        <Header />
+        <PageContent>
+          {children}
+        </PageContent>
+      </PageWrapper>
+    </PageContainer>
+    <Footer />
+  </>
 )
 
 export default Page

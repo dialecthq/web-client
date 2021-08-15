@@ -27,6 +27,11 @@ const Section = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: flex-start;
+
+    @media screen and (max-width: 480px) {
+        margin-bottom: 30px;
+        align-items: center;
+    }
 `
 
 const BottomSection = styled.div`
@@ -39,6 +44,7 @@ const BottomSection = styled.div`
 const SectionTitle = styled.p`
     font-weight: 500;
     color: #1c1c1c;
+    margin-bottom: 10px;
 `
 
 const SectionLink = styled.a`
@@ -53,11 +59,16 @@ const SmallText = styled.p`
 `
 
 const SectionContainer = styled.div`
-    width: 80%;
+    width: 100%;
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: flex-start;
     margin-bottom: 40px;
+
+    @media screen and (max-width: 480px) {
+        flex-direction: column;
+        align-items: center;
+    }
 `
 
 const Footer = () => (

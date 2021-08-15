@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import styled, { keyframes } from 'styled-components'
 
 import HeaderLogo from '@components/common/HeaderLogo'
@@ -12,17 +12,6 @@ import { useHistory } from 'react-router-dom'
 import SignIn from './SignIn'
 import SignUp from './SignUp'
 
-const MenuAnimation = keyframes`
-  from {
-    top: -1000px;
-    opacity: 0.1;
-  }
-  to {
-    top: 0px;
-    opacity: 1;
-  }
-`
-
 const Container = styled.div`
     width: 100%;
     display: flex;
@@ -33,6 +22,7 @@ const Container = styled.div`
     background: #fff;
     position: fixed;
     z-index: 5;
+    transition: 0.2s all ease-in;
 `
 
 const Wrapper = styled.div`
@@ -121,7 +111,8 @@ const MenuButton = styled.div`
   }
 `
 
-const Header = () => {
+const Header = ({ scroll }) => {
+  console.log(scroll)
   const { user, userAPI } = UserContainer.useContainer()
   const history = useHistory()
 
@@ -131,7 +122,7 @@ const Header = () => {
 
   return (
     <>
-      <Container>
+      <Container scroll={scroll}>
         <Wrapper>
           <HeaderSection desktop mobile>
             <HeaderLogo />
@@ -207,6 +198,10 @@ const Header = () => {
       <MenuModal visible={menuVisible}>
         <MenuButton
           onClick={() => {
+            window.scrollTo({
+              top: 0,
+              behavior: 'smooth'
+            })
             setMenuVisible(false)
             history.push('/about')
           }}

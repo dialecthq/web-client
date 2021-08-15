@@ -131,20 +131,6 @@ const Timer = ({ room, otherParticipant }) => {
               history.push('/exchange')
             }}
           >
-            Return
-          </Button>
-          <Button
-            type="primary"
-            block
-            style={{ marginLeft: 5 }}
-            icon={<img src={Coin} alt="token" style={{ height: 16, marginRight: 5 }} />}
-            onClick={async () => {
-              await rateUser(stars)
-              leaveRoom(user, room)
-              setVisible(false)
-            }}
-            loading={loading}
-          >
             Continue
           </Button>
         </ButtonContainer>

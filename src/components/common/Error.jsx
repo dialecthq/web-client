@@ -67,6 +67,10 @@ const Error = ({ imgLink, errorMessage }) => {
             style={{ marginRight: 20 }}
             icon={<FaArrowLeft style={{ marginRight: 5 }} />}
             onClick={() => {
+              window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+              })
               history.push('/exchange')
             }}
           >

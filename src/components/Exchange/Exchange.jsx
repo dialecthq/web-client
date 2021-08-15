@@ -1,12 +1,13 @@
 /* eslint-disable max-len */
 import React from 'react'
 import styled from 'styled-components'
-import User from '@utils/state/userContainer'
+import UserContainer from '@utils/state/userContainer'
 import LanguageCard from '@components/Exchange/components/LanguageCard'
 import USA from '@img/flags/usa.svg'
 import rooms from '@utils/data/rooms'
 import Page from '@components/Exchange/components/Page'
 import { Helmet } from 'react-helmet'
+import { Skeleton } from 'antd'
 
 const ContentContainer = styled.div`
     display: flex;
@@ -36,8 +37,7 @@ const Title = styled.p`
 const SubTitle = styled.p`
   font-size: 1.2em;
   font-weight: 400;
-  color: #1c1c1c;
-  opacity: 0.7;
+  color: #1c1c1c70;
 `
 
 const SectionTitle = styled.p`
@@ -52,31 +52,53 @@ const SectionTitleContainer = styled.div`
   width: 100%;
   justify-content: center;
   align-items: flex-start;
-  margin-bottom: 10px;
+  margin-bottom: 30px;
 `
 
-const Home = () => (
-  <Page>
-    <Helmet>
-      <title>💬 Exchange - connect with native speakers today</title>
-    </Helmet>
-    <TitleContainer>
-      <Title>Welcome to dialect!</Title>
-      <SubTitle>
-        <span style={{ marginRight: 10 }}>💬</span>
-        Click any room to connect with native speakers
-      </SubTitle>
-    </TitleContainer>
-    <SectionTitleContainer>
-      <SectionTitle>Available Rooms</SectionTitle>
-    </SectionTitleContainer>
-    <ContentContainer>
-      {
-        rooms.map((room) => <LanguageCard room={room} />)
-      }
-    </ContentContainer>
+const Home = () => {
+  const { user } = UserContainer.useContainer()
 
-  </Page>
-)
+  const langIsNative = (key) => user.languages.some((e) => e.key === key && e.level === 7)
+
+  return (
+    <Page>
+      <Helmet>
+        <title>💬 Exchange - connect with native speakers today</title>
+      </Helmet>
+      <TitleContainer>
+        <Title>Welcome to dialect!</Title>
+        <SubTitle>
+          <span style={{ marginRight: 10, color: '#1c1c1c' }}>💬</span>
+          Click any room to connect with native speakers
+        </SubTitle>
+      </TitleContainer>
+      <SectionTitleContainer>
+        <SectionTitle>Native Rooms</SectionTitle>
+        <SubTitle>
+          <span style={{ marginRight: 10, color: '#1c1c1c' }}>🎁</span>
+          Get tokens for teaching your native language!
+        </SubTitle>
+      </SectionTitleContainer>
+      <ContentContainer>
+        {
+          user ? rooms.filter((e) => langIsNative(e.key)).map((room) => <LanguageCard room={room} />) : <Skeleton />
+        }
+      </ContentContainer>
+      <SectionTitleContainer>
+        <SectionTitle>Target Rooms</SectionTitle>
+
+        <SubTitle>
+          <span style={{ marginRight: 10, color: '#1c1c1c' }}>💸</span>
+          Spend tokens to learn your target language!
+        </SubTitle>
+      </SectionTitleContainer>
+      <ContentContainer>
+        {
+          user ? rooms.filter((e) => !langIsNative(e.key)).map((room) => <LanguageCard room={room} />) : <Skeleton />
+        }
+      </ContentContainer>
+    </Page>
+  )
+}
 
 export default Home

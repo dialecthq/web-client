@@ -17,7 +17,8 @@ function useUser() {
             languages: newUser.languages,
             country: newUser.country,
             timezone: newUser.timezone,
-            username: newUser.username
+            username: newUser.username,
+            tokens: 10,
           })
             .then((data) => {
               resolve(data)

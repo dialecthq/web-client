@@ -1,5 +1,5 @@
 /* eslint-disable max-len */
-import React, { useState } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 
 import Conversation from '@img/conversation.svg'
 import Gift from '@img/gift.svg'
@@ -13,7 +13,9 @@ import Info from './components/common/Info'
 import CallToAction from './components/common/CallToAction'
 
 const App = () => (
-  <div style={{ background: '#fff' }}>
+  <div
+    style={{ background: '#fff' }}
+  >
     <Header />
     <Hero />
     <HeroImage />
@@ -47,7 +49,6 @@ const App = () => (
     <CallToAction />
     <Footer />
   </div>
-
 )
 
 export default App

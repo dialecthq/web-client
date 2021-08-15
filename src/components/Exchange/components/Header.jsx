@@ -6,7 +6,7 @@ import {
   FaBars, FaQuestion, FaSignOutAlt, FaHome, FaUser, FaCalendarAlt, FaChalkboardTeacher,
 } from 'react-icons/fa'
 import {
-  Popover, Divider, Menu, Button
+  Popover, Divider, Menu, Button, Skeleton
 } from 'antd'
 import { useHistory } from 'react-router-dom'
 import Logo from '@img/logo.svg'
@@ -197,14 +197,14 @@ const Header = () => {
             {' '}
             <Emph style={{ color: '#000' }}>
               @
-              {user?.username}
+              {user.username}
             </Emph>
           </Username>
           <Username>
             Current balance:
             {' '}
             <Emph style={{ color: '#000' }}>
-              {user.tokens || 0}
+              {user.tokens.toLocaleString('en-US') || 0}
               {' '}
             </Emph>
 
@@ -212,13 +212,17 @@ const Header = () => {
           </Username>
           <Divider style={{ margin: '12px 0px' }} />
         </>
-      ) : null}
+      ) : <Skeleton />}
       <Menu style={{ width: '100%' }}>
         <MenuItem icon={<FaQuestion />} key="help">Help</MenuItem>
         <MenuItem
           icon={<FaUser />}
           key="profile"
           onClick={() => {
+            window.scrollTo({
+              top: 0,
+              behavior: 'smooth'
+            })
             history.push('/profile')
           }}
         >
@@ -252,7 +256,7 @@ const Header = () => {
               <TokenContainer>
                 <Username>
                   <Emph style={{ color: '#000', fontWeight: 700 }}>
-                    {user.tokens || 0}
+                    {user.tokens.toLocaleString('en-US') || 0}
                   </Emph>
                   <img src={Coin} alt="token" style={{ height: 16, marginLeft: 5 }} />
                 </Username>
@@ -292,21 +296,21 @@ const Header = () => {
               {' '}
               <Emph style={{ color: '#000' }}>
                 @
-                {user?.username}
+                {user.username}
               </Emph>
             </ButtonText>
             <ButtonText style={{ color: '#1c1c1c78' }}>
               Current balance:
               {' '}
               <Emph style={{ color: '#1c1c1c' }}>
-                {user.tokens || 0}
+                {user.tokens.toLocaleString('en-US') || 0}
                 {' '}
               </Emph>
 
               <img src={Coin} alt="token" style={{ height: 16, marginRight: 5 }} />
             </ButtonText>
           </MenuContent>
-        ) : null}
+        ) : <Skeleton />}
         <MenuButton
           onClick={() => {
             setMenuVisible(false)
