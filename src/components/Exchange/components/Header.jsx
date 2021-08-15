@@ -366,6 +366,7 @@ const Header = () => {
               onClick={() => {
                 setMenuVisible(false)
                 userAPI.logout()
+                history.push('/')
               }}
             >
               <ButtonText>Sign out</ButtonText>

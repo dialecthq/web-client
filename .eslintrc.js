@@ -50,10 +50,15 @@ module.exports = {
     'import/resolver': {
       alias: {
         map: [
-          ['@components', './src/components'],
+          ['@components/*', './components/*'],
+          ['@img/*', './src/img/*'],
+          ['@utils/*', './src/utils/*']
         ],
         extensions: ['.js', '.jsx', '.json']
+      },
+      node: {
+        extensions: ['.jsx', '.js']
       }
-    }
+    },
   }
 }
