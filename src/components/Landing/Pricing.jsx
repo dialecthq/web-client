@@ -7,11 +7,14 @@ import Header from './components/common/Header'
 import CallToAction from './components/common/CallToAction'
 import Team from './components/about/Team'
 import PricingHero from './components/pricing/PricingHero'
+import PricingSection from './components/pricing/PricingSection'
 
 const Pricing = () => (
   <div style={{ background: '#fff' }}>
     <Header />
     <PricingHero />
+    <PricingSection />
+    <CallToAction />
     <Footer />
   </div>
 )
