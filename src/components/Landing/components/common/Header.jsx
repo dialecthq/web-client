@@ -22,7 +22,8 @@ const Container = styled.div`
     background: #ffffff98;
     position: fixed;
     z-index: 5;
-    transition: 0.2s all ease-in;
+    transition: 0.15s all ease-out;
+    border-bottom: ${(p) => (p.scrollState ? '1px solid #d4d4d4' : '1px solid #fff')};
 `
 
 const Wrapper = styled.div`
@@ -111,18 +112,34 @@ const MenuButton = styled.div`
   }
 `
 
-const Header = ({ scroll }) => {
-  console.log(scroll)
+const Header = () => {
   const { user, userAPI } = UserContainer.useContainer()
   const history = useHistory()
 
   const [signInVisible, setSignInVisible] = useState(false)
   const [signUpVisible, setSignUpVisible] = useState(false)
   const [menuVisible, setMenuVisible] = useState(false)
+  const [scrollState, setScrollState] = useState(false)
+
+  useEffect(() => {
+    const listener = document.addEventListener('scroll', (e) => {
+      const scrolled = document.scrollingElement.scrollTop
+      if (scrolled >= 85) {
+        if (scrollState !== true) {
+          setScrollState(true)
+        }
+      } else if (scrollState !== false) {
+        setScrollState(false)
+      }
+    })
+    return listener
+  })
 
   return (
     <>
-      <Container scroll={scroll}>
+      <Container
+        scrollState={scrollState}
+      >
         <Wrapper>
           <HeaderSection desktop mobile>
             <HeaderLogo />
