@@ -146,7 +146,7 @@ const Header = () => {
             <HeaderSection desktop>
               <Link href="/about" style={{ marginLeft: 40 }}>About</Link>
               <Link href="/about">Blog</Link>
-              <Link href="/about">Pricing</Link>
+              <Link href="/pricing">Pricing</Link>
             </HeaderSection>
 
           </HeaderSection>

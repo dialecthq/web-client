@@ -10,6 +10,7 @@ import Room from '@components/exchange/rooms/Room'
 import Exchange from '@components/exchange/Exchange'
 import Profile from '@components/exchange/Profile'
 import Error from '@components/common/Error'
+import Pricing from '@components/landing/Pricing'
 import svg404 from '@img/404.svg'
 
 import ExchangeState from '@utils/state/exchangeContainer'
@@ -95,6 +96,11 @@ const App = () => {
             path="/profile"
           >
             <Profile />
+          </Route>
+          <Route
+            path="/pricing"
+          >
+            <Pricing />
           </Route>
           <Route
             path="*"

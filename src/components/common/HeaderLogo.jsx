@@ -22,6 +22,10 @@ export default ({ light }) => {
   const history = useHistory()
   return (
     <HeaderLogo onClick={() => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      })
       history.push('/')
     }}
     >
