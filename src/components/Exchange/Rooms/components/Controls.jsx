@@ -39,14 +39,15 @@ const RoomDescription = styled.p`
 
 const Controls = ({ room, participants }) => {
   const { user } = UserContainer.useContainer()
-  const otherParticipant = participants.filter((e) => e.metadata !== user.username)[0]
+  const otherParticipant = participants.filter((e) => JSON.parse(e.metadata).username !== user.username)[0]
+  const participant = participants.filter((e) => JSON.parse(e.metadata).username === user.username)[0]
   return (
     <Container>
       <InformationContainer>
-        <RoomNames>{otherParticipant ? `You and @${otherParticipant.metadata}` : 'You are alone'}</RoomNames>
+        <RoomNames>{otherParticipant ? `You and @${JSON.parse(otherParticipant.metadata).username}` : 'You are alone'}</RoomNames>
         <RoomDescription>23 other people in English rooms</RoomDescription>
       </InformationContainer>
-      <Timer room={room} otherParticipant={otherParticipant} />
+      <Timer room={room} otherParticipant={otherParticipant} participant={participant} />
       <MuteButton room={room} />
       <LeaveButton room={room} />
     </Container>

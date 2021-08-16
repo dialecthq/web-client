@@ -83,7 +83,7 @@ function Participant({ participant }) {
             height: '64px'
           }}
           alt="hey"
-          src={`https://minecraftskinstealer.com/api/v1/skin/download/cube/${participant.metadata}`}
+          src={`https://minecraftskinstealer.com/api/v1/skin/download/cube/${JSON.parse(participant.metadata).username}`}
         />
       </ParticipantAvatar>
       <InformationContainer>
@@ -95,7 +95,7 @@ function Participant({ participant }) {
         )}
 
         <NameContainer>
-          <Name>{`@${participant.metadata}`}</Name>
+          <Name>{`@${JSON.parse(participant.metadata).username}`}</Name>
         </NameContainer>
       </InformationContainer>
     </Container>

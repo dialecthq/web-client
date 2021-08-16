@@ -19,7 +19,7 @@ const Container = styled.div`
     align-items: center;
     height: 90px;
     padding: 8px 24px;
-    background: #fff;
+    background: #ffffff98;
     position: fixed;
     z-index: 5;
     transition: 0.2s all ease-in;

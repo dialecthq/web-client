@@ -263,8 +263,16 @@ const LanguageCard = ({ room }) => {
   const [visible, setVisible] = useState(false)
   return (
     <CardContainer
-      onClick={() => {
+      onClick={async () => {
         if (visible) return
+        const isNative = await checkNative(user, room)
+        if (!isNative) {
+          const tokens = await checkTokens(user)
+          if (!tokens) {
+            history.push('/pricing')
+          }
+        }
+
         if (user.languages.filter((e) => e.key === room.key).length > 0) {
           history.push({
             pathname: `/join/${room.value}`,

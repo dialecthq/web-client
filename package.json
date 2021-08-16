@@ -40,7 +40,7 @@
     "build": "craco build",
     "test": "craco test",
     "eject": "react-scripts eject",
-    "server": "docker run --rm   -p 7880:7880   -p 7881:7881   -p 7882:7882/udp   -e LIVEKIT_KEYS=\"APINew5XQnFMJ5f: Aet3DQKAXhJTsE6e9OepHS9ay1I5sfr31itxhaTNrQhB\"   livekit/livekit-server   --dev   --node-ip=108.30.127.166"
+    "server": "docker run --rm   -p 7880:7880   -p 7881:7881   -p 7882:7882/udp   -e LIVEKIT_KEYS=\"APINew5XQnFMJ5f: Aet3DQKAXhJTsE6e9OepHS9ay1I5sfr31itxhaTNrQhB\"   livekit/livekit-server   --dev   --node-ip=10.126.40.128"
   },
   "eslintConfig": {
     "extends": [

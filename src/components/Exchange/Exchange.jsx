@@ -2,10 +2,10 @@
 import React from 'react'
 import styled from 'styled-components'
 import UserContainer from '@utils/state/userContainer'
-import LanguageCard from '@components/Exchange/components/LanguageCard'
+import LanguageCard from '@components/exchange/components/LanguageCard'
 import USA from '@img/flags/usa.svg'
 import rooms from '@utils/data/rooms'
-import Page from '@components/Exchange/components/Page'
+import Page from '@components/exchange/components/Page'
 import { Helmet } from 'react-helmet'
 import { Skeleton } from 'antd'
 

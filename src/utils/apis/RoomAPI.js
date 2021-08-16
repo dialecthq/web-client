@@ -68,7 +68,12 @@ export const leaveWaitingRoom = async (user) => {
 
 export const joinRoom = async (user, language, roomID) => {
   await leaveWaitingRoom(user, language)
-  return axios.get('http://localhost:9000/rooms/join', { params: { uid: user.uid, username: user.username, roomID } })
+  const isNative = await checkNative(user, language)
+  return axios.get('http://localhost:9000/rooms/join', {
+    params: {
+      uid: user.uid, username: user.username, roomID, isNative
+    }
+  })
 }
 
 export const leaveRoom = async (user, room) => {
@@ -79,8 +84,24 @@ export const leaveRoom = async (user, room) => {
   })
 }
 
+export const spendToken = async (user) => fire.firestore().collection('users').doc(user.uid).update({
+  tokens: firebase.firestore.FieldValue.increment(-1)
+})
+
+export const leaveRoomEarly = async (user, room) => {
+  room.disconnect()
+  const roomID = room.name
+  await spendToken(user)
+  return fire.firestore().collection('audio-rooms').doc(roomID).update({
+    active: false
+  })
+}
 export const checkTokens = async (user) => {
   const document = await fire.firestore().collection('users').doc(user.uid).get()
   const { tokens } = document.data()
   return tokens > 0
 }
+
+export const addToken = async (user) => fire.firestore().collection('users').doc(user.uid).update({
+  tokens: firebase.firestore.FieldValue.increment(1)
+})

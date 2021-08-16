@@ -3,7 +3,7 @@ import React from 'react'
 import styled from 'styled-components'
 
 // Components
-import Footer from '@components/Landing/components/common/Footer'
+import Footer from '@components/landing/components/common/Footer'
 import Header from './Header'
 
 const PageContainer = styled.div`

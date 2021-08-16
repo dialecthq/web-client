@@ -2,7 +2,9 @@ import React, { useState } from 'react'
 import styled from 'styled-components'
 import { Modal, Rate, Button } from 'antd'
 import { useTimer } from 'react-timer-hook'
-import { leaveRoom } from '@utils/apis/RoomAPI'
+import {
+  checkNative, leaveRoom, spendToken, addToken
+} from '@utils/apis/RoomAPI'
 import UserContainer from '@utils/state/userContainer'
 import { FaArrowLeft } from 'react-icons/fa'
 import Coin from '@img/token.svg'
@@ -45,29 +47,27 @@ const TimerModal = styled(Modal)`
   width: 300px !important;
 `
 
-const Timer = ({ room, otherParticipant }) => {
-  const { user } = UserContainer.useContainer()
+const Timer = ({ room }) => {
+  const { user, userAPI } = UserContainer.useContainer()
   const history = useHistory()
   const [visible, setVisible] = useState(false)
   const [stars, setStars] = useState(5)
   const [loading, setLoading] = useState(false)
   const time = new Date()
-  time.setSeconds(time.getSeconds() + 180)
+  time.setSeconds(time.getSeconds() + 10)
   const {
     seconds,
     minutes,
-    hours,
-    days,
-    isRunning,
-    start,
-    pause,
-    resume,
-    restart,
   } = useTimer({
     expiryTimestamp: time,
-    onExpire: () => {
+    onExpire: async () => {
+      if (!JSON.parse(room.localParticipant.metadata).isNative) {
+        await spendToken(user)
+      } else {
+        await addToken(user)
+      }
+      userAPI.getUser()
       setVisible(true)
-      // leaveRoom(user, room)
     }
   })
 
@@ -117,12 +117,8 @@ const Timer = ({ room, otherParticipant }) => {
         <ButtonContainer>
           <Button
             block
+            type="primary"
             style={{ marginRight: 5 }}
-            icon={(
-              <FaArrowLeft
-                style={{ marginRight: 5 }}
-              />
-            )}
             loading={loading}
             onClick={async () => {
               await rateUser(stars)
