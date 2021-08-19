@@ -82,7 +82,7 @@ const ColDiv = styled.div`
 
 const PricingText = styled.p`
     font-size: 1.7em;
-    font-weight: 500;
+    font-weight: 400;
     color: #1c1c1c;
 `
 
@@ -93,7 +93,7 @@ font-size: 0.4em;
 
 const SectionTitle = styled.p`
     font-size: 1.5em;
-    font-weight: 600;
+    font-weight: 700;
     color: #1c1c1c;
 `
 
@@ -149,7 +149,7 @@ const PricingSection = () => (
             <ColDiv>
               <SectionTitle>Starter</SectionTitle>
               <PricingText>
-                $2.99
+                $3
                 {' '}
                 <PricingSpan>/ mo</PricingSpan>
               </PricingText>
@@ -181,7 +181,7 @@ const PricingSection = () => (
             <ColDiv>
               <SectionTitle>Pro</SectionTitle>
               <PricingText>
-                $9.99
+                $20
                 {' '}
                 <PricingSpan>/ mo</PricingSpan>
               </PricingText>
@@ -213,7 +213,7 @@ const PricingSection = () => (
             <ColDiv>
               <SectionTitle>Basic</SectionTitle>
               <PricingText>
-                $4.99
+                $8
                 {' '}
                 <PricingSpan>/ mo</PricingSpan>
               </PricingText>

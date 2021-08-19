@@ -13,7 +13,7 @@ import { createLocalTracks } from 'livekit-client'
 import userContainer from '@utils/state/userContainer'
 
 import {
-  checkWaitingRoom, addToWaitingRoom, createRoom, joinRoom, checkNative, checkTokens
+  checkWaitingRoom, addToWaitingRoom, createRoom, joinRoom, checkNative, checkTokens, getRoom
 } from '@utils/apis/RoomAPI'
 import ServerDown from '@img/server_down.svg'
 import rooms from '@utils/data/rooms'
@@ -98,8 +98,6 @@ function renderStage({ roomState }) {
 }
 
 async function handleConnected(room) {
-  console.log('connected to room', room)
-
   const tracks = await createLocalTracks({
     audio: true,
     video: false,

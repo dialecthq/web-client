@@ -49,7 +49,7 @@ const Subtitle = styled.p`
 const PricingHero = () => (
   <Container>
     <Wrapper>
-      <HeroText>Ran Out of Tokens?</HeroText>
+      <HeroText>Run Out of Tokens?</HeroText>
       <Subtitle> Purchase a token pack and get back to learning. You can always join your native language room to earn the hard way</Subtitle>
     </Wrapper>
   </Container>

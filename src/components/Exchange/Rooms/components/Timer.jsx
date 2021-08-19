@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import { Modal, Rate, Button } from 'antd'
 import { useTimer } from 'react-timer-hook'
 import {
-  checkNative, leaveRoom, spendToken, addToken
+  checkNative, leaveRoom, spendToken, addToken, getRoom
 } from '@utils/apis/RoomAPI'
 import UserContainer from '@utils/state/userContainer'
 import { FaArrowLeft } from 'react-icons/fa'
@@ -53,15 +53,17 @@ const Timer = ({ room }) => {
   const [visible, setVisible] = useState(false)
   const [stars, setStars] = useState(5)
   const [loading, setLoading] = useState(false)
+  const { roomMeta, isNative } = JSON.parse(room.localParticipant.metadata)
   const time = new Date()
-  time.setSeconds(time.getSeconds() + 10)
+  time.setTime(roomMeta.endTime)
+  console.log(time)
   const {
     seconds,
     minutes,
   } = useTimer({
     expiryTimestamp: time,
     onExpire: async () => {
-      if (!JSON.parse(room.localParticipant.metadata).isNative) {
+      if (!isNative) {
         await spendToken(user)
       } else {
         await addToken(user)
@@ -69,8 +71,7 @@ const Timer = ({ room }) => {
       userAPI.getUser()
       setVisible(true)
     }
-  })
-
+  }, [])
   const rateUser = async (rating) => {
     setLoading(true)
     fire.firestore().collection('audio-rooms').doc(room.name).get()

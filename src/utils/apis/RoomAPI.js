@@ -30,13 +30,27 @@ export const checkWaitingRoom = async (user, language) => {
 
 export const createRoom = async (participants, language) => {
   const roomID = uuid()
+  const startTime = new Date()
+  const endTime = new Date()
+  endTime.setSeconds(startTime.getSeconds() + 180)
   try {
     await fire.firestore().collection('audio-rooms').doc(roomID).set({
       active: true,
       participants,
-      language: language.key
+      language: language.key,
+      startTime: startTime.getTime(),
+      endTime: endTime.getTime(),
     })
     return roomID
+  } catch (error) {
+    return false
+  }
+}
+
+export const getRoom = async (room) => {
+  try {
+    const document = await fire.firestore().collection('audio-rooms').doc(room.name).get()
+    return document.data()
   } catch (error) {
     return false
   }
@@ -85,7 +99,7 @@ export const leaveRoom = async (user, room) => {
 }
 
 export const spendToken = async (user) => fire.firestore().collection('users').doc(user.uid).update({
-  tokens: firebase.firestore.FieldValue.increment(-1)
+  tokens: user.tokens - 1
 })
 
 export const leaveRoomEarly = async (user, room) => {

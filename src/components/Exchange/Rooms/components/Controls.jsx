@@ -1,6 +1,7 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import UserContainer from '@utils/state/userContainer'
+import { getRoom } from '@utils/apis/RoomAPI'
 import MuteButton from './MuteButton'
 import LeaveButton from './LeaveButton'
 import Timer from './Timer'
@@ -37,17 +38,17 @@ const RoomDescription = styled.p`
     color: #c4c4c4;
 `
 
-const Controls = ({ room, participants }) => {
+const Controls = ({ room, participants, roomData }) => {
   const { user } = UserContainer.useContainer()
   const otherParticipant = participants.filter((e) => JSON.parse(e.metadata).username !== user.username)[0]
-  const participant = participants.filter((e) => JSON.parse(e.metadata).username === user.username)[0]
+
   return (
     <Container>
       <InformationContainer>
         <RoomNames>{otherParticipant ? `You and @${JSON.parse(otherParticipant.metadata).username}` : 'You are alone'}</RoomNames>
         <RoomDescription>23 other people in English rooms</RoomDescription>
       </InformationContainer>
-      <Timer room={room} otherParticipant={otherParticipant} participant={participant} />
+      <Timer room={room} />
       <MuteButton room={room} />
       <LeaveButton room={room} />
     </Container>
