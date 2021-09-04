@@ -3,7 +3,13 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
 import {
-  FaBars, FaQuestion, FaSignOutAlt, FaHome, FaUser, FaCalendarAlt, FaChalkboardTeacher,
+  FaBars,
+  FaQuestion,
+  FaSignOutAlt,
+  FaHome,
+  FaUser,
+  FaCalendarAlt,
+  FaChalkboardTeacher
 } from 'react-icons/fa'
 import {
   Popover, Divider, Menu, Button, Skeleton
@@ -14,90 +20,78 @@ import User from '@utils/state/userContainer'
 import HeaderLogo from '@components/common/HeaderLogo'
 import Coin from '@img/token.svg'
 import { Cross as Hamburger } from 'hamburger-react'
+import Avatar from '@components/common/Avatar'
 
 const NavContainer = styled.div`
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: var(--dark-purple);
-    z-index: 5;
-    height: 70px;
-    position: fixed;
-    width: 100%;
-    top: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: var(--dark-purple);
+  z-index: 5;
+  height: 70px;
+  position: fixed;
+  width: 100%;
+  top: 0;
 `
 
 const NavWrapper = styled.div`
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-    max-width: 1200px;
-    padding-left: 18px;
-    padding-right: 18px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  max-width: 1200px;
+  padding-left: 18px;
+  padding-right: 18px;
 `
 
 const NavContent = styled.div`
-    justify-content: center;
-    align-items: center;
-
-    display: ${(p) => (p.desktop ? 'flex' : 'none')};
-
-    @media screen and (max-width: 768px) {
-      display: ${(p) => (p.mobile ? 'flex' : 'none')};
-    }
-`
-
-const Avatar = styled.div`
-    display: flex;
   justify-content: center;
   align-items: center;
-  height: 36px;
-  width: 36px;
-    border-radius: 36px;
-    overflow: hidden;
-    box-shadow: ${(p) => (p.active ? 'rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;' : 'none')};
-    transition: 0.2s box-shadow ease-in-out;
-    :hover {
-        cursor: pointer;
-    }
+
+  display: ${(p) => (p.desktop ? 'flex' : 'none')};
+
+  @media screen and (max-width: 768px) {
+    display: ${(p) => (p.mobile ? 'flex' : 'none')};
+  }
 `
 
-const AvatarImg = styled.img`
-    filter: ${(p) => (p.isAvatar ? null : 'grayscale(100%)')};
-    max-height: 48px;
-    max-width: 48px;
-    height: auto;
-    width: auto;
+const AvatarIMG = styled.div`
+  border-radius: 36px;
+  box-shadow: ${(p) => (p.active
+    ? 'rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;'
+    : 'none')};
+  transition: 0.2s box-shadow ease-in-out;
+  :hover {
+    cursor: pointer;
+  }
 `
 
 const MenuIcon = styled(FaBars)`
-    height: 24px;
-    width: 24px;
-    color: #454545;
-    margin-right: 10px;
-    :hover {
-        cursor: pointer;
-    }
-    @media screen and (min-width: 769px) {
-        display: none;
-    }
-
+  height: 24px;
+  width: 24px;
+  color: #454545;
+  margin-right: 10px;
+  :hover {
+    cursor: pointer;
+  }
+  @media screen and (min-width: 769px) {
+    display: none;
+  }
 `
 
 const ProfilePopoverContainer = styled.div`
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: center;
-    padding: 12px 0px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 12px 0px;
 `
 
 const Username = styled.p`
-    font-size: 0.9em;
-    margin-bottom: 0px;
-    margin: 0px 12px;
-    color: #1c1c1c78;
+  font-size: 0.9em;
+  margin-bottom: 0px;
+  margin: 0px 12px;
+  color: #1c1c1c78;
 `
 
 const Emph = styled.span`
@@ -106,12 +100,12 @@ const Emph = styled.span`
 `
 
 const MenuItem = styled(Menu.Item)`
-    display: flex;
-    align-items: center;
-    color: #454545;
-    :hover {
-        background: #efefef;
-    }
+  display: flex;
+  align-items: center;
+  color: #454545;
+  :hover {
+    background: #efefef;
+  }
 `
 
 const MenuModal = styled.div`
@@ -207,14 +201,17 @@ const Header = () => {
               {user.tokens.toLocaleString('en-US') || 0}
               {' '}
             </Emph>
-
             <img src={Coin} alt="token" style={{ height: 16, marginRight: 5 }} />
           </Username>
           <Divider style={{ margin: '12px 0px' }} />
         </>
-      ) : <Skeleton />}
+      ) : (
+        <Skeleton />
+      )}
       <Menu style={{ width: '100%' }}>
-        <MenuItem icon={<FaQuestion />} key="help">Help</MenuItem>
+        <MenuItem icon={<FaQuestion />} key="help">
+          Help
+        </MenuItem>
         <MenuItem
           icon={<FaUser />}
           key="profile"
@@ -227,7 +224,6 @@ const Header = () => {
           }}
         >
           Profile
-
         </MenuItem>
         <MenuItem
           key="sign-out"
@@ -240,7 +236,6 @@ const Header = () => {
           Sign out
         </MenuItem>
       </Menu>
-
     </ProfilePopoverContainer>
   )
 
@@ -252,7 +247,7 @@ const Header = () => {
             <HeaderLogo light />
           </NavContent>
           <NavContent desktop>
-            { user ? (
+            {user ? (
               <TokenContainer>
                 <Username>
                   <Emph style={{ color: '#000', fontWeight: 700 }}>
@@ -269,14 +264,10 @@ const Header = () => {
               visible={ppOpen}
               onVisibleChange={setPPOpen}
             >
-              <Avatar active={ppOpen}>
-                <AvatarImg
-                  isAvatar={user?.avatarURL}
-                  src={user?.avatarURL ? user.avatarURL : Logo}
-                />
-              </Avatar>
+              <AvatarIMG active={ppOpen} size={36}>
+                <Avatar size={36} user={user} />
+              </AvatarIMG>
             </Popover>
-
           </NavContent>
           <NavContent mobile>
             <Hamburger
@@ -306,11 +297,12 @@ const Header = () => {
                 {user.tokens.toLocaleString('en-US') || 0}
                 {' '}
               </Emph>
-
               <img src={Coin} alt="token" style={{ height: 16, marginRight: 5 }} />
             </ButtonText>
           </MenuContent>
-        ) : <Skeleton />}
+        ) : (
+          <Skeleton />
+        )}
         <MenuButton
           onClick={() => {
             setMenuVisible(false)
@@ -328,50 +320,55 @@ const Header = () => {
         >
           <ButtonText>Profile</ButtonText>
         </MenuButton>
-        {!user
-          ? (
-            <>
-              <Button
-                block
-                style={{
-                  display: 'flex', flexDirection: 'row-reverse', marginBottom: 10, height: 60
-                }}
-                onClick={() => {
-                  setMenuVisible(false)
-                }}
-              >
-                <ButtonText>Log in</ButtonText>
-              </Button>
-              <Button
-                block
-                style={{
-                  display: 'flex', flexDirection: 'row-reverse', height: 60
-                }}
-                type="primary"
-                onClick={() => {
-                  setMenuVisible(false)
-                }}
-              >
-                <ButtonText>Get started</ButtonText>
-              </Button>
-            </>
-          )
-          : (
+        {!user ? (
+          <>
             <Button
-              type="primary"
               block
               style={{
-                height: 60, display: 'flex', flexDirection: 'row-reverse'
+                display: 'flex',
+                flexDirection: 'row-reverse',
+                marginBottom: 10,
+                height: 60
               }}
               onClick={() => {
                 setMenuVisible(false)
-                userAPI.logout()
-                history.push('/')
               }}
             >
-              <ButtonText>Sign out</ButtonText>
+              <ButtonText>Log in</ButtonText>
             </Button>
-          )}
+            <Button
+              block
+              style={{
+                display: 'flex',
+                flexDirection: 'row-reverse',
+                height: 60
+              }}
+              type="primary"
+              onClick={() => {
+                setMenuVisible(false)
+              }}
+            >
+              <ButtonText>Get started</ButtonText>
+            </Button>
+          </>
+        ) : (
+          <Button
+            type="primary"
+            block
+            style={{
+              height: 60,
+              display: 'flex',
+              flexDirection: 'row-reverse'
+            }}
+            onClick={() => {
+              setMenuVisible(false)
+              userAPI.logout()
+              history.push('/')
+            }}
+          >
+            <ButtonText>Sign out</ButtonText>
+          </Button>
+        )}
       </MenuModal>
     </>
   )

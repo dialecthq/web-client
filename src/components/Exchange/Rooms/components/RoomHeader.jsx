@@ -6,26 +6,39 @@ import { FaUser, FaArrowLeft } from 'react-icons/fa'
 import HeaderLogo from '@components/common/HeaderLogo'
 
 const Container = styled.div`
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    width: 100vw;
-    height: 70px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 10px;
-    background: var(--dark-purple);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100vw;
+  height: 70px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  background: var(--dark-purple);
+  z-index: 5;
 `
 
 const Wrapper = styled.div`
-    width: 100%;
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    max-width: 1200px;
-    padding: 8px 24px;
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  max-width: 1200px;
+  padding: 8px 24px;
+`
+const Wrapper2 = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  max-width: 1200px;
+  padding: 8px 24px;
+
+  @media screen and (max-width: 959px) {
+    display: none;
+  }
 `
 
 const RoomName = styled.p`
@@ -52,16 +65,18 @@ const RoomHeader = ({ numParticipants, room }) => (
   <Container>
     <Wrapper>
       <HeaderLogo light />
-      <ImConnection
-        size={24}
-        color="#FF51A4"
-        style={{ transform: 'rotate(270deg)', marginRight: 5, marginLeft: 10 }}
-      />
-      <RoomName>English</RoomName>
-      <AmountContainer>
-        <FaUser size={14} color="#fff" />
-        <Amount>{numParticipants}</Amount>
-      </AmountContainer>
+      <Wrapper2>
+        <ImConnection
+          size={24}
+          color="#FF51A4"
+          style={{ transform: 'rotate(270deg)', marginRight: 5, marginLeft: 10 }}
+        />
+        <RoomName>English</RoomName>
+        <AmountContainer>
+          <FaUser size={14} color="#fff" />
+          <Amount>{numParticipants}</Amount>
+        </AmountContainer>
+      </Wrapper2>
     </Wrapper>
   </Container>
 )

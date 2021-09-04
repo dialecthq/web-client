@@ -5,7 +5,7 @@ const timezoneOptions = [
     offset: -12,
     isdst: 'FALSE',
     text: '(UTC-12:00) International Date Line West',
-    key: 1,
+    key: 1
   },
   {
     value: 'UTC-11',
@@ -13,7 +13,7 @@ const timezoneOptions = [
     offset: -11,
     isdst: 'FALSE',
     text: '(UTC-11:00) Coordinated Universal Time-11',
-    key: 2,
+    key: 2
   },
   {
     value: 'Hawaiian Standard Time',
@@ -21,7 +21,7 @@ const timezoneOptions = [
     offset: -10,
     isdst: 'FALSE',
     text: '(UTC-10:00) Hawaii',
-    key: 3,
+    key: 3
   },
   {
     value: 'Alaskan Standard Time',
@@ -29,7 +29,7 @@ const timezoneOptions = [
     offset: -8,
     isdst: 'TRUE',
     text: '(UTC-09:00) Alaska',
-    key: 4,
+    key: 4
   },
   {
     value: 'Pacific Standard Time (Mexico)',
@@ -37,7 +37,7 @@ const timezoneOptions = [
     offset: -7,
     isdst: 'TRUE',
     text: '(UTC-08:00) Baja California',
-    key: 5,
+    key: 5
   },
   {
     value: 'Pacific Daylight Time',
@@ -45,7 +45,7 @@ const timezoneOptions = [
     offset: -7,
     isdst: 'TRUE',
     text: '(UTC-07:00) Pacific Time (US & Canada)',
-    key: 6,
+    key: 6
   },
   {
     value: 'Pacific Standard Time',
@@ -53,7 +53,7 @@ const timezoneOptions = [
     offset: -8,
     isdst: 'FALSE',
     text: '(UTC-08:00) Pacific Time (US & Canada)',
-    key: 7,
+    key: 7
   },
   {
     value: 'US Mountain Standard Time',
@@ -61,7 +61,7 @@ const timezoneOptions = [
     offset: -7,
     isdst: 'FALSE',
     text: '(UTC-07:00) Arizona',
-    key: 8,
+    key: 8
   },
   {
     value: 'Mountain Standard Time (Mexico)',
@@ -69,7 +69,7 @@ const timezoneOptions = [
     offset: -6,
     isdst: 'TRUE',
     text: '(UTC-07:00) Chihuahua, La Paz, Mazatlan',
-    key: 9,
+    key: 9
   },
   {
     value: 'Mountain Standard Time',
@@ -77,7 +77,7 @@ const timezoneOptions = [
     offset: -6,
     isdst: 'TRUE',
     text: '(UTC-07:00) Mountain Time (US & Canada)',
-    key: 10,
+    key: 10
   },
   {
     value: 'Central America Standard Time',
@@ -85,7 +85,7 @@ const timezoneOptions = [
     offset: -6,
     isdst: 'FALSE',
     text: '(UTC-06:00) Central America',
-    key: 11,
+    key: 11
   },
   {
     value: 'Central Standard Time',
@@ -93,7 +93,7 @@ const timezoneOptions = [
     offset: -5,
     isdst: 'TRUE',
     text: '(UTC-06:00) Central Time (US & Canada)',
-    key: 12,
+    key: 12
   },
   {
     value: 'Central Standard Time (Mexico)',
@@ -101,7 +101,7 @@ const timezoneOptions = [
     offset: -5,
     isdst: 'TRUE',
     text: '(UTC-06:00) Guadalajara, Mexico City, Monterrey',
-    key: 13,
+    key: 13
   },
   {
     value: 'Canada Central Standard Time',
@@ -109,7 +109,7 @@ const timezoneOptions = [
     offset: -6,
     isdst: 'FALSE',
     text: '(UTC-06:00) Saskatchewan',
-    key: 14,
+    key: 14
   },
   {
     value: 'SA Pacific Standard Time',
@@ -117,7 +117,7 @@ const timezoneOptions = [
     offset: -5,
     isdst: 'FALSE',
     text: '(UTC-05:00) Bogota, Lima, Quito',
-    key: 15,
+    key: 15
   },
   {
     value: 'Eastern Standard Time',
@@ -125,7 +125,7 @@ const timezoneOptions = [
     offset: -4,
     isdst: 'TRUE',
     text: '(UTC-05:00) Eastern Time (US & Canada)',
-    key: 16,
+    key: 16
   },
   {
     value: 'US Eastern Standard Time',
@@ -133,7 +133,7 @@ const timezoneOptions = [
     offset: -4,
     isdst: 'TRUE',
     text: '(UTC-05:00) Indiana (East)',
-    key: 17,
+    key: 17
   },
   {
     value: 'Venezuela Standard Time',
@@ -141,7 +141,7 @@ const timezoneOptions = [
     offset: -4.5,
     isdst: 'FALSE',
     text: '(UTC-04:30) Caracas',
-    key: 18,
+    key: 18
   },
   {
     value: 'Paraguay Standard Time',
@@ -149,7 +149,7 @@ const timezoneOptions = [
     offset: -4,
     isdst: 'FALSE',
     text: '(UTC-04:00) Asuncion',
-    key: 19,
+    key: 19
   },
   {
     value: 'Atlantic Standard Time',
@@ -157,7 +157,7 @@ const timezoneOptions = [
     offset: -3,
     isdst: 'TRUE',
     text: '(UTC-04:00) Atlantic Time (Canada)',
-    key: 20,
+    key: 20
   },
   {
     value: 'Central Brazilian Standard Time',
@@ -165,7 +165,7 @@ const timezoneOptions = [
     offset: -4,
     isdst: 'FALSE',
     text: '(UTC-04:00) Cuiaba',
-    key: 21,
+    key: 21
   },
   {
     value: 'SA Western Standard Time',
@@ -173,7 +173,7 @@ const timezoneOptions = [
     offset: -4,
     isdst: 'FALSE',
     text: '(UTC-04:00) Georgetown, La Paz, Manaus, San Juan',
-    key: 22,
+    key: 22
   },
   {
     value: 'Pacific SA Standard Time',
@@ -181,7 +181,7 @@ const timezoneOptions = [
     offset: -4,
     isdst: 'FALSE',
     text: '(UTC-04:00) Santiago',
-    key: 23,
+    key: 23
   },
   {
     value: 'Newfoundland Standard Time',
@@ -189,7 +189,7 @@ const timezoneOptions = [
     offset: -2.5,
     isdst: 'TRUE',
     text: '(UTC-03:30) Newfoundland',
-    key: 24,
+    key: 24
   },
   {
     value: 'E. South America Standard Time',
@@ -197,7 +197,7 @@ const timezoneOptions = [
     offset: -3,
     isdst: 'FALSE',
     text: '(UTC-03:00) Brasilia',
-    key: 25,
+    key: 25
   },
   {
     value: 'Argentina Standard Time',
@@ -205,7 +205,7 @@ const timezoneOptions = [
     offset: -3,
     isdst: 'FALSE',
     text: '(UTC-03:00) Buenos Aires',
-    key: 26,
+    key: 26
   },
   {
     value: 'SA Eastern Standard Time',
@@ -213,7 +213,7 @@ const timezoneOptions = [
     offset: -3,
     isdst: 'FALSE',
     text: '(UTC-03:00) Cayenne, Fortaleza',
-    key: 27,
+    key: 27
   },
   {
     value: 'Greenland Standard Time',
@@ -221,7 +221,7 @@ const timezoneOptions = [
     offset: -3,
     isdst: 'TRUE',
     text: '(UTC-03:00) Greenland',
-    key: 28,
+    key: 28
   },
   {
     value: 'Montevideo Standard Time',
@@ -229,7 +229,7 @@ const timezoneOptions = [
     offset: -3,
     isdst: 'FALSE',
     text: '(UTC-03:00) Montevideo',
-    key: 29,
+    key: 29
   },
   {
     value: 'Bahia Standard Time',
@@ -237,7 +237,7 @@ const timezoneOptions = [
     offset: -3,
     isdst: 'FALSE',
     text: '(UTC-03:00) Salvador',
-    key: 30,
+    key: 30
   },
   {
     value: 'UTC-02',
@@ -245,7 +245,7 @@ const timezoneOptions = [
     offset: -2,
     isdst: 'FALSE',
     text: '(UTC-02:00) Coordinated Universal Time-02',
-    key: 31,
+    key: 31
   },
   {
     value: 'Mid-Atlantic Standard Time',
@@ -253,7 +253,7 @@ const timezoneOptions = [
     offset: -1,
     isdst: 'TRUE',
     text: '(UTC-02:00) Mid-Atlantic - Old',
-    key: 32,
+    key: 32
   },
   {
     value: 'Azores Standard Time',
@@ -261,7 +261,7 @@ const timezoneOptions = [
     offset: 0,
     isdst: 'TRUE',
     text: '(UTC-01:00) Azores',
-    key: 33,
+    key: 33
   },
   {
     value: 'Cape Verde Standard Time',
@@ -269,7 +269,7 @@ const timezoneOptions = [
     offset: -1,
     isdst: 'FALSE',
     text: '(UTC-01:00) Cape Verde Is.',
-    key: 34,
+    key: 34
   },
   {
     value: 'Morocco Standard Time',
@@ -277,7 +277,7 @@ const timezoneOptions = [
     offset: 1,
     isdst: 'TRUE',
     text: '(UTC) Casablanca',
-    key: 35,
+    key: 35
   },
   {
     value: 'UTC',
@@ -285,7 +285,7 @@ const timezoneOptions = [
     offset: 0,
     isdst: 'FALSE',
     text: '(UTC) Coordinated Universal Time',
-    key: 36,
+    key: 36
   },
   {
     value: 'GMT Standard Time',
@@ -293,7 +293,7 @@ const timezoneOptions = [
     offset: 0,
     isdst: 'FALSE',
     text: '(UTC) Edinburgh, London',
-    key: 37,
+    key: 37
   },
   {
     value: 'British Summer Time',
@@ -301,7 +301,7 @@ const timezoneOptions = [
     offset: 1,
     isdst: 'TRUE',
     text: '(UTC+01:00) Edinburgh, London',
-    key: 38,
+    key: 38
   },
   {
     value: 'GMT Standard Time',
@@ -309,7 +309,7 @@ const timezoneOptions = [
     offset: 1,
     isdst: 'TRUE',
     text: '(UTC) Dublin, Lisbon',
-    key: 39,
+    key: 39
   },
   {
     value: 'Greenwich Standard Time',
@@ -317,7 +317,7 @@ const timezoneOptions = [
     offset: 0,
     isdst: 'FALSE',
     text: '(UTC) Monrovia, Reykjavik',
-    key: 40,
+    key: 40
   },
   {
     value: 'W. Europe Standard Time',
@@ -325,7 +325,7 @@ const timezoneOptions = [
     offset: 2,
     isdst: 'TRUE',
     text: '(UTC+01:00) Amsterdam, Berlin, Bern, Rome, Stockholm, Vienna',
-    key: 41,
+    key: 41
   },
   {
     value: 'Central Europe Standard Time',
@@ -333,7 +333,7 @@ const timezoneOptions = [
     offset: 2,
     isdst: 'TRUE',
     text: '(UTC+01:00) Belgrade, Bratislava, Budapest, Ljubljana, Prague',
-    key: 42,
+    key: 42
   },
   {
     value: 'Romance Standard Time',
@@ -341,7 +341,7 @@ const timezoneOptions = [
     offset: 2,
     isdst: 'TRUE',
     text: '(UTC+01:00) Brussels, Copenhagen, Madrid, Paris',
-    key: 43,
+    key: 43
   },
   {
     value: 'Central European Standard Time',
@@ -349,7 +349,7 @@ const timezoneOptions = [
     offset: 2,
     isdst: 'TRUE',
     text: '(UTC+01:00) Sarajevo, Skopje, Warsaw, Zagreb',
-    key: 44,
+    key: 44
   },
   {
     value: 'W. Central Africa Standard Time',
@@ -357,7 +357,7 @@ const timezoneOptions = [
     offset: 1,
     isdst: 'FALSE',
     text: '(UTC+01:00) West Central Africa',
-    key: 45,
+    key: 45
   },
   {
     value: 'Namibia Standard Time',
@@ -365,7 +365,7 @@ const timezoneOptions = [
     offset: 1,
     isdst: 'FALSE',
     text: '(UTC+01:00) Windhoek',
-    key: 46,
+    key: 46
   },
   {
     value: 'GTB Standard Time',
@@ -373,7 +373,7 @@ const timezoneOptions = [
     offset: 3,
     isdst: 'TRUE',
     text: '(UTC+02:00) Athens, Bucharest',
-    key: 47,
+    key: 47
   },
   {
     value: 'Middle East Standard Time',
@@ -381,7 +381,7 @@ const timezoneOptions = [
     offset: 3,
     isdst: 'TRUE',
     text: '(UTC+02:00) Beirut',
-    key: 48,
+    key: 48
   },
   {
     value: 'Egypt Standard Time',
@@ -389,7 +389,7 @@ const timezoneOptions = [
     offset: 2,
     isdst: 'FALSE',
     text: '(UTC+02:00) Cairo',
-    key: 49,
+    key: 49
   },
   {
     value: 'Syria Standard Time',
@@ -397,7 +397,7 @@ const timezoneOptions = [
     offset: 3,
     isdst: 'TRUE',
     text: '(UTC+02:00) Damascus',
-    key: 50,
+    key: 50
   },
   {
     value: 'E. Europe Standard Time',
@@ -405,7 +405,7 @@ const timezoneOptions = [
     offset: 3,
     isdst: 'TRUE',
     text: '(UTC+02:00) E. Europe',
-    key: 51,
+    key: 51
   },
   {
     value: 'South Africa Standard Time',
@@ -413,7 +413,7 @@ const timezoneOptions = [
     offset: 2,
     isdst: 'FALSE',
     text: '(UTC+02:00) Harare, Pretoria',
-    key: 52,
+    key: 52
   },
   {
     value: 'FLE Standard Time',
@@ -421,7 +421,7 @@ const timezoneOptions = [
     offset: 3,
     isdst: 'TRUE',
     text: '(UTC+02:00) Helsinki, Kyiv, Riga, Sofia, Tallinn, Vilnius',
-    key: 53,
+    key: 53
   },
   {
     value: 'Turkey Standard Time',
@@ -429,7 +429,7 @@ const timezoneOptions = [
     offset: 3,
     isdst: 'FALSE',
     text: '(UTC+03:00) Istanbul',
-    key: 54,
+    key: 54
   },
   {
     value: 'Israel Standard Time',
@@ -437,7 +437,7 @@ const timezoneOptions = [
     offset: 3,
     isdst: 'TRUE',
     text: '(UTC+02:00) Jerusalem',
-    key: 55,
+    key: 55
   },
   {
     value: 'Libya Standard Time',
@@ -445,7 +445,7 @@ const timezoneOptions = [
     offset: 2,
     isdst: 'FALSE',
     text: '(UTC+02:00) Tripoli',
-    key: 56,
+    key: 56
   },
   {
     value: 'Jordan Standard Time',
@@ -453,7 +453,7 @@ const timezoneOptions = [
     offset: 3,
     isdst: 'FALSE',
     text: '(UTC+03:00) Amman',
-    key: 57,
+    key: 57
   },
   {
     value: 'Arabic Standard Time',
@@ -461,7 +461,7 @@ const timezoneOptions = [
     offset: 3,
     isdst: 'FALSE',
     text: '(UTC+03:00) Baghdad',
-    key: 58,
+    key: 58
   },
   {
     value: 'Kaliningrad Standard Time',
@@ -469,7 +469,7 @@ const timezoneOptions = [
     offset: 3,
     isdst: 'FALSE',
     text: '(UTC+02:00) Kaliningrad',
-    key: 59,
+    key: 59
   },
   {
     value: 'Arab Standard Time',
@@ -477,7 +477,7 @@ const timezoneOptions = [
     offset: 3,
     isdst: 'FALSE',
     text: '(UTC+03:00) Kuwait, Riyadh',
-    key: 60,
+    key: 60
   },
   {
     value: 'E. Africa Standard Time',
@@ -485,7 +485,7 @@ const timezoneOptions = [
     offset: 3,
     isdst: 'FALSE',
     text: '(UTC+03:00) Nairobi',
-    key: 61,
+    key: 61
   },
   {
     value: 'Moscow Standard Time',
@@ -493,7 +493,7 @@ const timezoneOptions = [
     offset: 3,
     isdst: 'FALSE',
     text: '(UTC+03:00) Moscow, St. Petersburg, Volgograd, Minsk',
-    key: 62,
+    key: 62
   },
   {
     value: 'Samara Time',
@@ -501,7 +501,7 @@ const timezoneOptions = [
     offset: 4,
     isdst: 'FALSE',
     text: '(UTC+04:00) Samara, Ulyanovsk, Saratov',
-    key: 63,
+    key: 63
   },
   {
     value: 'Iran Standard Time',
@@ -509,7 +509,7 @@ const timezoneOptions = [
     offset: 4.5,
     isdst: 'TRUE',
     text: '(UTC+03:30) Tehran',
-    key: 64,
+    key: 64
   },
   {
     value: 'Arabian Standard Time',
@@ -517,7 +517,7 @@ const timezoneOptions = [
     offset: 4,
     isdst: 'FALSE',
     text: '(UTC+04:00) Abu Dhabi, Muscat',
-    key: 65,
+    key: 65
   },
   {
     value: 'Azerbaijan Standard Time',
@@ -525,7 +525,7 @@ const timezoneOptions = [
     offset: 5,
     isdst: 'TRUE',
     text: '(UTC+04:00) Baku',
-    key: 66,
+    key: 66
   },
   {
     value: 'Mauritius Standard Time',
@@ -533,7 +533,7 @@ const timezoneOptions = [
     offset: 4,
     isdst: 'FALSE',
     text: '(UTC+04:00) Port Louis',
-    key: 67,
+    key: 67
   },
   {
     value: 'Georgian Standard Time',
@@ -541,7 +541,7 @@ const timezoneOptions = [
     offset: 4,
     isdst: 'FALSE',
     text: '(UTC+04:00) Tbilisi',
-    key: 68,
+    key: 68
   },
   {
     value: 'Caucasus Standard Time',
@@ -549,7 +549,7 @@ const timezoneOptions = [
     offset: 4,
     isdst: 'FALSE',
     text: '(UTC+04:00) Yerevan',
-    key: 69,
+    key: 69
   },
   {
     value: 'Afghanistan Standard Time',
@@ -557,7 +557,7 @@ const timezoneOptions = [
     offset: 4.5,
     isdst: 'FALSE',
     text: '(UTC+04:30) Kabul',
-    key: 70,
+    key: 70
   },
   {
     value: 'West Asia Standard Time',
@@ -565,7 +565,7 @@ const timezoneOptions = [
     offset: 5,
     isdst: 'FALSE',
     text: '(UTC+05:00) Ashgabat, Tashkent',
-    key: 71,
+    key: 71
   },
   {
     value: 'Yekaterinburg Time',
@@ -573,7 +573,7 @@ const timezoneOptions = [
     offset: 5,
     isdst: 'FALSE',
     text: '(UTC+05:00) Yekaterinburg',
-    key: 72,
+    key: 72
   },
   {
     value: 'Pakistan Standard Time',
@@ -581,7 +581,7 @@ const timezoneOptions = [
     offset: 5,
     isdst: 'FALSE',
     text: '(UTC+05:00) Islamabad, Karachi',
-    key: 73,
+    key: 73
   },
   {
     value: 'India Standard Time',
@@ -589,7 +589,7 @@ const timezoneOptions = [
     offset: 5.5,
     isdst: 'FALSE',
     text: '(UTC+05:30) Chennai, Kolkata, Mumbai, New Delhi',
-    key: 74,
+    key: 74
   },
   {
     value: 'Sri Lanka Standard Time',
@@ -597,7 +597,7 @@ const timezoneOptions = [
     offset: 5.5,
     isdst: 'FALSE',
     text: '(UTC+05:30) Sri Jayawardenepura',
-    key: 75,
+    key: 75
   },
   {
     value: 'Nepal Standard Time',
@@ -605,7 +605,7 @@ const timezoneOptions = [
     offset: 5.75,
     isdst: 'FALSE',
     text: '(UTC+05:45) Kathmandu',
-    key: 76,
+    key: 76
   },
   {
     value: 'Central Asia Standard Time',
@@ -613,7 +613,7 @@ const timezoneOptions = [
     offset: 6,
     isdst: 'FALSE',
     text: '(UTC+06:00) Nur-Sultan (Astana)',
-    key: 77,
+    key: 77
   },
   {
     value: 'Bangladesh Standard Time',
@@ -621,7 +621,7 @@ const timezoneOptions = [
     offset: 6,
     isdst: 'FALSE',
     text: '(UTC+06:00) Dhaka',
-    key: 78,
+    key: 78
   },
   {
     value: 'Myanmar Standard Time',
@@ -629,7 +629,7 @@ const timezoneOptions = [
     offset: 6.5,
     isdst: 'FALSE',
     text: '(UTC+06:30) Yangon (Rangoon)',
-    key: 79,
+    key: 79
   },
   {
     value: 'SE Asia Standard Time',
@@ -637,7 +637,7 @@ const timezoneOptions = [
     offset: 7,
     isdst: 'FALSE',
     text: '(UTC+07:00) Bangkok, Hanoi, Jakarta',
-    key: 80,
+    key: 80
   },
   {
     value: 'N. Central Asia Standard Time',
@@ -645,7 +645,7 @@ const timezoneOptions = [
     offset: 7,
     isdst: 'FALSE',
     text: '(UTC+07:00) Novosibirsk',
-    key: 81,
+    key: 81
   },
   {
     value: 'China Standard Time',
@@ -653,7 +653,7 @@ const timezoneOptions = [
     offset: 8,
     isdst: 'FALSE',
     text: '(UTC+08:00) Beijing, Chongqing, Hong Kong, Urumqi',
-    key: 82,
+    key: 82
   },
   {
     value: 'North Asia Standard Time',
@@ -661,7 +661,7 @@ const timezoneOptions = [
     offset: 8,
     isdst: 'FALSE',
     text: '(UTC+08:00) Krasnoyarsk',
-    key: 83,
+    key: 83
   },
   {
     value: 'Singapore Standard Time',
@@ -669,7 +669,7 @@ const timezoneOptions = [
     offset: 8,
     isdst: 'FALSE',
     text: '(UTC+08:00) Kuala Lumpur, Singapore',
-    key: 84,
+    key: 84
   },
   {
     value: 'W. Australia Standard Time',
@@ -677,7 +677,7 @@ const timezoneOptions = [
     offset: 8,
     isdst: 'FALSE',
     text: '(UTC+08:00) Perth',
-    key: 85,
+    key: 85
   },
   {
     value: 'Taipei Standard Time',
@@ -685,7 +685,7 @@ const timezoneOptions = [
     offset: 8,
     isdst: 'FALSE',
     text: '(UTC+08:00) Taipei',
-    key: 86,
+    key: 86
   },
   {
     value: 'Ulaanbaatar Standard Time',
@@ -693,7 +693,7 @@ const timezoneOptions = [
     offset: 8,
     isdst: 'FALSE',
     text: '(UTC+08:00) Ulaanbaatar',
-    key: 87,
+    key: 87
   },
   {
     value: 'North Asia East Standard Time',
@@ -701,7 +701,7 @@ const timezoneOptions = [
     offset: 8,
     isdst: 'FALSE',
     text: '(UTC+08:00) Irkutsk',
-    key: 88,
+    key: 88
   },
   {
     value: 'Japan Standard Time',
@@ -709,7 +709,7 @@ const timezoneOptions = [
     offset: 9,
     isdst: 'FALSE',
     text: '(UTC+09:00) Osaka, Sapporo, Tokyo',
-    key: 89,
+    key: 89
   },
   {
     value: 'Korea Standard Time',
@@ -717,7 +717,7 @@ const timezoneOptions = [
     offset: 9,
     isdst: 'FALSE',
     text: '(UTC+09:00) Seoul',
-    key: 90,
+    key: 90
   },
   {
     value: 'Cen. Australia Standard Time',
@@ -725,7 +725,7 @@ const timezoneOptions = [
     offset: 9.5,
     isdst: 'FALSE',
     text: '(UTC+09:30) Adelaide',
-    key: 91,
+    key: 91
   },
   {
     value: 'AUS Central Standard Time',
@@ -733,7 +733,7 @@ const timezoneOptions = [
     offset: 9.5,
     isdst: 'FALSE',
     text: '(UTC+09:30) Darwin',
-    key: 92,
+    key: 92
   },
   {
     value: 'E. Australia Standard Time',
@@ -741,7 +741,7 @@ const timezoneOptions = [
     offset: 10,
     isdst: 'FALSE',
     text: '(UTC+10:00) Brisbane',
-    key: 93,
+    key: 93
   },
   {
     value: 'AUS Eastern Standard Time',
@@ -749,7 +749,7 @@ const timezoneOptions = [
     offset: 10,
     isdst: 'FALSE',
     text: '(UTC+10:00) Canberra, Melbourne, Sydney',
-    key: 94,
+    key: 94
   },
   {
     value: 'West Pacific Standard Time',
@@ -757,7 +757,7 @@ const timezoneOptions = [
     offset: 10,
     isdst: 'FALSE',
     text: '(UTC+10:00) Guam, Port Moresby',
-    key: 95,
+    key: 95
   },
   {
     value: 'Tasmania Standard Time',
@@ -765,7 +765,7 @@ const timezoneOptions = [
     offset: 10,
     isdst: 'FALSE',
     text: '(UTC+10:00) Hobart',
-    key: 96,
+    key: 96
   },
   {
     value: 'Yakutsk Standard Time',
@@ -773,7 +773,7 @@ const timezoneOptions = [
     offset: 9,
     isdst: 'FALSE',
     text: '(UTC+09:00) Yakutsk',
-    key: 97,
+    key: 97
   },
   {
     value: 'Central Pacific Standard Time',
@@ -781,7 +781,7 @@ const timezoneOptions = [
     offset: 11,
     isdst: 'FALSE',
     text: '(UTC+11:00) Solomon Is., New Caledonia',
-    key: 98,
+    key: 98
   },
   {
     value: 'Vladivostok Standard Time',
@@ -789,7 +789,7 @@ const timezoneOptions = [
     offset: 11,
     isdst: 'FALSE',
     text: '(UTC+11:00) Vladivostok',
-    key: 99,
+    key: 99
   },
   {
     value: 'New Zealand Standard Time',
@@ -797,7 +797,7 @@ const timezoneOptions = [
     offset: 12,
     isdst: 'FALSE',
     text: '(UTC+12:00) Auckland, Wellington',
-    key: 100,
+    key: 100
   },
   {
     value: 'UTC+12',
@@ -805,7 +805,7 @@ const timezoneOptions = [
     offset: 12,
     isdst: 'FALSE',
     text: '(UTC+12:00) Coordinated Universal Time+12',
-    key: 101,
+    key: 101
   },
   {
     value: 'Fiji Standard Time',
@@ -813,7 +813,7 @@ const timezoneOptions = [
     offset: 12,
     isdst: 'FALSE',
     text: '(UTC+12:00) Fiji',
-    key: 102,
+    key: 102
   },
   {
     value: 'Magadan Standard Time',
@@ -821,7 +821,7 @@ const timezoneOptions = [
     offset: 12,
     isdst: 'FALSE',
     text: '(UTC+12:00) Magadan',
-    key: 103,
+    key: 103
   },
   {
     value: 'Kamchatka Standard Time',
@@ -829,15 +829,15 @@ const timezoneOptions = [
     offset: 13,
     isdst: 'TRUE',
     text: '(UTC+12:00) Petropavlovsk-Kamchatsky - Old',
-    key: 104,
+    key: 104
   },
   {
     value: 'Tonga Standard Time',
     abbr: 'TST',
     offset: 13,
     isdst: 'FALSE',
-    text: "(UTC+13:00) Nuku'alofa",
-    key: 105,
+    text: '(UTC+13:00) Nuku\'alofa',
+    key: 105
   },
   {
     value: 'Samoa Standard Time',
@@ -845,8 +845,8 @@ const timezoneOptions = [
     offset: 13,
     isdst: 'FALSE',
     text: '(UTC+13:00) Samoa',
-    key: 106,
-  },
-];
+    key: 106
+  }
+]
 
-export default timezoneOptions;
+export default timezoneOptions

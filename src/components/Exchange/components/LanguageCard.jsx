@@ -45,7 +45,7 @@ const CardWrapper = styled.div`
   align-items: center;
   border-radius: 10px;
   border: 1px solid var(--border-color);
-  background: var(--layer-background);
+  background: var(--dark-background);
   transition: 0.2s all ease-in-out;
   overflow: hidden;
   :hover {

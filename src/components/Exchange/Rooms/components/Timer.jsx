@@ -13,21 +13,21 @@ import fire from '@utils/fire'
 import firebase from 'firebase'
 
 const Container = styled.div`
-    height: 48px;
-    border-radius: 10px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 10px;
-    background: var(--dark-background);
-    border: 1px solid #d4d4d4;
+  height: 48px;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  background: var(--dark-background);
+  border: 1px solid #d4d4d4;
 `
 
 const Time = styled.p`
-    font-size: 1.1em;
-    font-weight: 600;
-    color: #1c1c1c;
-    letter-spacing: 0.1em;
+  font-size: 1.1em;
+  font-weight: 600;
+  color: #1c1c1c;
+  letter-spacing: 0.1em;
 `
 const ButtonContainer = styled.div`
   display: flex;
@@ -57,36 +57,48 @@ const Timer = ({ room }) => {
   const time = new Date()
   time.setTime(roomMeta.endTime)
   console.log(time)
-  const {
-    seconds,
-    minutes,
-  } = useTimer({
-    expiryTimestamp: time,
-    onExpire: async () => {
-      if (!isNative) {
-        await spendToken(user)
-      } else {
-        await addToken(user)
+  const { seconds, minutes } = useTimer(
+    {
+      expiryTimestamp: time,
+      onExpire: async () => {
+        if (!isNative) {
+          await spendToken(user)
+        } else {
+          await addToken(user)
+        }
+        userAPI.getUser()
+        setVisible(true)
       }
-      userAPI.getUser()
-      setVisible(true)
-    }
-  }, [])
+    },
+    []
+  )
   const rateUser = async (rating) => {
     setLoading(true)
-    fire.firestore().collection('audio-rooms').doc(room.name).get()
+    fire
+      .firestore()
+      .collection('audio-rooms')
+      .doc(room.name)
+      .get()
       .then((document) => {
         const uid = document.data().participants.filter((e) => e !== user.uid)[0]
-        fire.firestore().collection('users').doc(uid).get()
+        fire
+          .firestore()
+          .collection('users')
+          .doc(uid)
+          .get()
           .then((userDocument) => {
             const rooms = userDocument.data().rooms ? userDocument.data().rooms : 0
             const currentRating = userDocument.data().rating ? userDocument.data().rating : 0
             const newRating = (currentRating * rooms + rating) / (rooms + 1)
-            fire.firestore().collection('users').doc(uid).update({
-              karma: firebase.firestore.FieldValue.increment(1),
-              rooms: firebase.firestore.FieldValue.increment(1),
-              rating: newRating
-            })
+            fire
+              .firestore()
+              .collection('users')
+              .doc(uid)
+              .update({
+                karma: firebase.firestore.FieldValue.increment(1),
+                rooms: firebase.firestore.FieldValue.increment(1),
+                rating: newRating
+              })
               .catch(() => {
                 setLoading(false)
               })
@@ -110,11 +122,7 @@ const Timer = ({ room }) => {
         title="How was the conversation?"
         closable={false}
       >
-        <Rate
-          value={stars}
-          onChange={(value) => setStars(value)}
-          allowClear={false}
-        />
+        <Rate value={stars} onChange={(value) => setStars(value)} allowClear={false} />
         <ButtonContainer>
           <Button
             block

@@ -28,7 +28,7 @@ const EditingRow = styled.div`
     align-items: center;
     width: 100%;
     max-width: 200px;
-`
+`;
 
 const InputRow = styled.div`
     display: flex;

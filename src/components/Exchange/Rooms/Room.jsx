@@ -13,7 +13,13 @@ import { createLocalTracks } from 'livekit-client'
 import userContainer from '@utils/state/userContainer'
 
 import {
-  checkWaitingRoom, addToWaitingRoom, createRoom, joinRoom, checkNative, checkTokens, getRoom
+  checkWaitingRoom,
+  addToWaitingRoom,
+  createRoom,
+  joinRoom,
+  checkNative,
+  checkTokens,
+  getRoom
 } from '@utils/apis/RoomAPI'
 import ServerDown from '@img/server_down.svg'
 import rooms from '@utils/data/rooms'
@@ -42,6 +48,20 @@ const StageCenter = styled.div`
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
+  width: 100%;
+  max-width: 1100px;
+
+  @media screen and (max-width: 959px) {
+    justify-content: space-around;
+  }
+`
+
+const StageDiv = styled.div`
+  height: 100vh;
+
+  @media screen and (max-width: 959px) {
+    min-height: 200px;
+  }
 `
 
 // renderStage prepares the layout of the stage using subcomponents. Feel free to
@@ -70,16 +90,14 @@ function renderStage({ roomState }) {
   if (!room) {
     return <Error errorMessage="room closed" imgLink={ServerDown} />
   }
+  console.log('participants', participants)
 
   return (
     <StageContainer>
       <RoomHeader numParticipants={participants.length} room={room} />
       <StageCenter>
         {participants.map((participant) => (
-          <Participant
-            key={participant.sid}
-            participant={participant}
-          />
+          <Participant key={participant.sid} participant={participant} />
         ))}
         {audioTracks.map((track) => (
           <AudioRenderer key={track.sid} track={track} isLocal={false} />
@@ -100,7 +118,7 @@ function renderStage({ roomState }) {
 async function handleConnected(room) {
   const tracks = await createLocalTracks({
     audio: true,
-    video: false,
+    video: false
   })
   tracks.forEach((track) => {
     room.localParticipant.publishTrack(track)
@@ -134,7 +152,9 @@ function RoomComponent() {
       }
     }
 
-    const subscriber = fire.firestore().collection('audio-rooms')
+    const subscriber = fire
+      .firestore()
+      .collection('audio-rooms')
       .where('active', '==', true)
       .where('participants', 'array-contains', user.uid)
       .onSnapshot(async (querySnapshot) => {
@@ -179,14 +199,16 @@ function RoomComponent() {
   if (!token) return <Error errorMessage="No token beyondie" imgLink={ServerDown} />
 
   return (
-    <div style={{ height: '100vh', minHeight: 700 }}>
+    <StageDiv>
       <LiveKitRoom
         url={url}
         token={token}
         stageRenderer={renderStage}
-        onConnected={(room) => { handleConnected(room) }}
+        onConnected={(room) => {
+          handleConnected(room)
+        }}
       />
-    </div>
+    </StageDiv>
   )
 }
 

@@ -20,7 +20,7 @@ const Container = styled.div`
       cursor: pointer;
       opacity: 0.8;
     }
-`
+`;
 
 const LeaveButton = ({ room }) => {
   const history = useHistory()

@@ -14,10 +14,7 @@ module.exports = {
     browser: true,
     es2021: true,
   },
-  extends: [
-    'plugin:react/recommended',
-    'airbnb',
-  ],
+  extends: ['plugin:react/recommended', 'airbnb'],
   parserOptions: {
     ecmaFeatures: {
       jsx: true,
@@ -25,14 +22,13 @@ module.exports = {
     ecmaVersion: 12,
     sourceType: 'module',
   },
-  plugins: [
-    'react',
-  ],
+  plugins: ['react'],
   rules: {
     'comma-dangle': OFF,
     eqeqeq: [WARNING, 'allow-null'],
     'import/imports-first': OFF,
     // 'import/no-unresolved': OFF,
+    quotes: ['error', 'single'],
     indent: [WARNING, 2, { SwitchCase: 1 }],
     'max-len': [WARNING, 100, 2],
     'no-console': [WARNING, { allow: ['warn', 'error'] }],
@@ -52,13 +48,13 @@ module.exports = {
         map: [
           ['@components/*', './components/*'],
           ['@img/*', './src/img/*'],
-          ['@utils/*', './src/utils/*']
+          ['@utils/*', './src/utils/*'],
         ],
-        extensions: ['.js', '.jsx', '.json']
+        extensions: ['.js', '.jsx', '.json'],
       },
       node: {
-        extensions: ['.jsx', '.js']
-      }
+        extensions: ['.jsx', '.js'],
+      },
     },
-  }
+  },
 }

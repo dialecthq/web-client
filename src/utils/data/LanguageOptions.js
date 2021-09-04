@@ -1,1348 +1,1348 @@
 const languageOptions = [
   {
     value: 'English',
-    key: 1,
+    key: 1
   },
   {
     value: 'Chinese (Mandarin)',
-    key: 2,
+    key: 2
   },
   {
     value: 'French',
-    key: 3,
+    key: 3
   },
   {
     value: 'Spanish',
-    key: 4,
+    key: 4
   },
   {
     value: 'Portuguese',
-    key: 5,
+    key: 5
   },
   {
     value: 'German',
-    key: 6,
+    key: 6
   },
   {
     value: 'Japanese',
-    key: 7,
+    key: 7
   },
   {
     value: 'Korean',
-    key: 8,
+    key: 8
   },
   {
     value: 'Arabic',
-    key: 9,
+    key: 9
   },
   {
     value: 'Hindi',
-    key: 10,
+    key: 10
   },
   {
     value: 'Italian',
-    key: 11,
+    key: 11
   },
   {
     value: 'Russian',
-    key: 12,
+    key: 12
   },
   {
     value: 'Afrikaans',
-    key: 13,
+    key: 13
   },
   {
     value: 'Akan Twi',
-    key: 14,
+    key: 14
   },
   {
     value: 'Albanian',
-    key: 15,
+    key: 15
   },
   {
     value: 'American Sign Language (ASL)',
-    key: 16,
+    key: 16
   },
   {
     value: 'Amharic',
-    key: 17,
+    key: 17
   },
   {
     value: 'Argentine Sign Language',
-    key: 18,
+    key: 18
   },
   {
     value: 'Armenian',
-    key: 19,
+    key: 19
   },
   {
     value: 'Azeri',
-    key: 20,
+    key: 20
   },
   {
     value: 'Arabic (Egyptian)',
-    key: 21,
+    key: 21
   },
   {
     value: 'Arabic (Gulf)',
-    key: 22,
+    key: 22
   },
   {
     value: 'Arabic (Modern Standard)',
-    key: 23,
+    key: 23
   },
   {
     value: 'Arabic(Sudanese)',
-    key: 24,
+    key: 24
   },
   {
     value: 'Arabic (Maghrebi)',
-    key: 25,
+    key: 25
   },
   {
     value: 'Arabic (Levantine)',
-    key: 26,
+    key: 26
   },
   {
     value: 'Alsatian',
-    key: 27,
+    key: 27
   },
   {
     value: 'Assamese',
-    key: 28,
+    key: 28
   },
   {
     value: 'Aiki (Kibet)',
-    key: 29,
+    key: 29
   },
   {
     value: 'Aiki (Runga)',
-    key: 30,
+    key: 30
   },
   {
     value: 'Ainu',
-    key: 31,
+    key: 31
   },
   {
     value: 'Aragonese',
-    key: 32,
+    key: 32
   },
   {
     value: 'Aramaic',
-    key: 33,
+    key: 33
   },
   {
     value: 'Aromanian',
-    key: 34,
+    key: 34
   },
   {
     value: 'Assiniboine (Nakota)',
-    key: 35,
+    key: 35
   },
   {
     value: 'Austrian German',
-    key: 36,
+    key: 36
   },
   {
     value: 'Australian Sign Language (Auslan)',
-    key: 37,
+    key: 37
   },
   {
     value: 'Avar',
-    key: 38,
+    key: 38
   },
   {
     value: 'Aymara',
-    key: 39,
+    key: 39
   },
   {
     value: 'Azerbaijani',
-    key: 40,
+    key: 40
   },
   {
     value: 'Basque',
-    key: 41,
+    key: 41
   },
   {
     value: 'Belait',
-    key: 42,
+    key: 42
   },
   {
     value: 'Belarusian',
-    key: 43,
+    key: 43
   },
   {
     value: 'Bengali',
-    key: 44,
+    key: 44
   },
   {
     value: 'Bosnian',
-    key: 45,
+    key: 45
   },
   {
     value: 'Brazilian Sign Language (LIBRAS)',
-    key: 46,
+    key: 46
   },
   {
     value: 'British Sign Language (BSL)',
-    key: 47,
+    key: 47
   },
   {
     value: 'Bulgarian',
-    key: 48,
+    key: 48
   },
   {
     value: 'Burmese',
-    key: 49,
+    key: 49
   },
   {
     value: 'Balochi',
-    key: 50,
+    key: 50
   },
   {
-    value: "Blackfoot (Niitsi'powahsin)",
-    key: 51,
+    value: 'Blackfoot (Niitsi\'powahsin)',
+    key: 51
   },
   {
     value: 'Breton',
-    key: 52,
+    key: 52
   },
   {
     value: 'Balinese',
-    key: 53,
+    key: 53
   },
   {
     value: 'Bago-Kusuntu',
-    key: 54,
+    key: 54
   },
   {
     value: 'Bagri',
-    key: 55,
+    key: 55
   },
   {
     value: 'Bambara (Bamanankan)',
-    key: 56,
+    key: 56
   },
   {
     value: 'Banjar',
-    key: 57,
+    key: 57
   },
   {
     value: 'Barawana (Baré)',
-    key: 58,
+    key: 58
   },
   {
     value: 'Bari',
-    key: 59,
+    key: 59
   },
   {
     value: 'Batak Toba',
-    key: 60,
+    key: 60
   },
   {
     value: 'Bats',
-    key: 61,
+    key: 61
   },
   {
     value: 'Bavarian',
-    key: 62,
+    key: 62
   },
   {
     value: 'Beja',
-    key: 63,
+    key: 63
   },
   {
     value: 'Bhojpuri',
-    key: 64,
+    key: 64
   },
   {
     value: 'Bislama',
-    key: 65,
+    key: 65
   },
   {
     value: 'Bugis',
-    key: 66,
+    key: 66
   },
   {
     value: 'Catalan',
-    key: 67,
+    key: 67
   },
   {
     value: 'Cebuano',
-    key: 68,
+    key: 68
   },
   {
     value: 'Chinese (Cantonese)',
-    key: 69,
+    key: 69
   },
   {
     value: 'Chinese (Hakka)',
-    key: 70,
+    key: 70
   },
   {
     value: 'Chinese (Hokkien)',
-    key: 71,
+    key: 71
   },
   {
     value: 'Chinese (Shanghainese)',
-    key: 72,
+    key: 72
   },
   {
     value: 'Chinese (Taiwanese)',
-    key: 73,
+    key: 73
   },
   {
     value: 'Chinese (Other)',
-    key: 74,
+    key: 74
   },
   {
     value: 'Croatian',
-    key: 75,
+    key: 75
   },
   {
     value: 'Czech',
-    key: 76,
+    key: 76
   },
   {
     value: 'Cornish',
-    key: 77,
+    key: 77
   },
   {
     value: 'Corsican',
-    key: 78,
+    key: 78
   },
   {
     value: 'Cree',
-    key: 79,
+    key: 79
   },
   {
     value: 'Cherokee',
-    key: 80,
+    key: 80
   },
   {
     value: 'Chewa (Chichewa)',
-    key: 81,
+    key: 81
   },
   {
     value: 'Chavacano',
-    key: 82,
+    key: 82
   },
   {
     value: 'Chechen',
-    key: 83,
+    key: 83
   },
   {
     value: 'Chibarwe',
-    key: 84,
+    key: 84
   },
   {
     value: 'Chiquitano',
-    key: 85,
+    key: 85
   },
   {
     value: 'Choctaw',
-    key: 86,
+    key: 86
   },
   {
     value: 'Chukchi',
-    key: 87,
+    key: 87
   },
   {
     value: 'Chuwabu',
-    key: 88,
+    key: 88
   },
   {
     value: 'Coptic',
-    key: 89,
+    key: 89
   },
   {
     value: 'Crow',
-    key: 90,
+    key: 90
   },
   {
     value: 'Danish',
-    key: 91,
+    key: 91
   },
   {
     value: 'Dutch',
-    key: 93,
+    key: 93
   },
   {
     value: 'Dzongkha',
-    key: 94,
+    key: 94
   },
   {
     value: 'Dari',
-    key: 95,
+    key: 95
   },
   {
     value: 'Dothraki',
-    key: 96,
+    key: 96
   },
   {
     value: 'Daakaka',
-    key: 97,
+    key: 97
   },
   {
     value: 'Dakota',
-    key: 98,
+    key: 98
   },
   {
     value: 'Daza',
-    key: 99,
+    key: 99
   },
   {
     value: 'Dela-Oenale',
-    key: 100,
+    key: 100
   },
   {
     value: 'Dinka',
-    key: 101,
+    key: 101
   },
   {
     value: 'Domari',
-    key: 102,
+    key: 102
   },
   {
     value: 'Dotyali',
-    key: 103,
+    key: 103
   },
   {
     value: 'Drehu',
-    key: 104,
+    key: 104
   },
   {
     value: 'Esperanto',
-    key: 105,
+    key: 105
   },
   {
     value: 'Estonian',
-    key: 106,
+    key: 106
   },
   {
     value: 'Erzya',
-    key: 107,
+    key: 107
   },
   {
     value: 'Ewe',
-    key: 108,
+    key: 108
   },
   {
     value: 'Ewondo (Fang)',
-    key: 109,
+    key: 109
   },
   {
     value: 'Filipino (Tagalog)',
-    key: 110,
+    key: 110
   },
   {
     value: 'Finnish',
-    key: 111,
+    key: 111
   },
   {
     value: 'Flemish',
-    key: 112,
+    key: 112
   },
   {
     value: 'Faroese',
-    key: 113,
+    key: 113
   },
   {
     value: 'Frisian',
-    key: 114,
+    key: 114
   },
   {
     value: 'Fijian (ITaukei)',
-    key: 115,
+    key: 115
   },
   {
     value: 'Fon (Fon gbè)',
-    key: 116,
+    key: 116
   },
   {
     value: 'Friulian',
-    key: 117,
+    key: 117
   },
   {
     value: 'Fulah',
-    key: 118,
+    key: 118
   },
   {
     value: 'Fur',
-    key: 119,
+    key: 119
   },
   {
     value: 'Gaelic (Irish)',
-    key: 120,
+    key: 120
   },
   {
     value: 'Gaelic (Scottish)',
-    key: 121,
+    key: 121
   },
   {
     value: 'Galician',
-    key: 122,
+    key: 122
   },
   {
     value: 'Georgian',
-    key: 123,
+    key: 123
   },
   {
     value: 'Greek',
-    key: 124,
+    key: 124
   },
   {
     value: 'Greek (Ancient)',
-    key: 125,
+    key: 125
   },
   {
     value: 'Greenlandic',
-    key: 126,
+    key: 126
   },
   {
     value: 'Gujarati',
-    key: 127,
+    key: 127
   },
   {
     value: 'Ga',
-    key: 128,
+    key: 128
   },
   {
     value: 'Guarani',
-    key: 129,
+    key: 129
   },
   {
     value: 'Gaelic (Manx)',
-    key: 130,
+    key: 130
   },
   {
     value: 'Gallo',
-    key: 131,
+    key: 131
   },
   {
     value: 'Garifuna',
-    key: 132,
+    key: 132
   },
   {
     value: 'Gikuyu',
-    key: 133,
+    key: 133
   },
   {
     value: 'Guambiano',
-    key: 135,
+    key: 135
   },
   {
     value: 'Gullah',
-    key: 136,
+    key: 136
   },
   {
     value: 'Gullah (Afro-Seminole Creole)',
-    key: 137,
+    key: 137
   },
   {
     value: 'Haitian Creole',
-    key: 138,
+    key: 138
   },
   {
     value: 'Hausa',
-    key: 139,
+    key: 139
   },
   {
     value: 'hawaiian',
-    key: 140,
+    key: 140
   },
   {
     value: 'Hebrew',
-    key: 141,
+    key: 141
   },
   {
     value: 'Hmong',
-    key: 142,
+    key: 142
   },
   {
     value: 'Hungarian',
-    key: 143,
+    key: 143
   },
   {
     value: 'Hawaiian Pidgin (Hawaiian Creole English)',
-    key: 144,
+    key: 144
   },
   {
     value: 'Honduran Sign Language (LESHO)',
-    key: 145,
+    key: 145
   },
   {
     value: 'Icelandic',
-    key: 146,
+    key: 146
   },
   {
     value: 'Indonesian',
-    key: 147,
+    key: 147
   },
   {
     value: 'Igbo',
-    key: 148,
+    key: 148
   },
   {
     value: 'Inuktitut',
-    key: 149,
+    key: 149
   },
   {
     value: 'Iban',
-    key: 150,
+    key: 150
   },
   {
     value: 'Ingush',
-    key: 151,
+    key: 151
   },
   {
     value: 'International Sign (IS)',
-    key: 152,
+    key: 152
   },
   {
     value: 'Ido',
-    key: 153,
+    key: 153
   },
   {
     value: 'Inuinnaqtun',
-    key: 154,
+    key: 154
   },
   {
     value: 'Inuvialuktun',
-    key: 155,
+    key: 155
   },
   {
     value: 'Ixcatec',
-    key: 156,
+    key: 156
   },
   {
     value: 'Javanese',
-    key: 157,
+    key: 157
   },
   {
     value: 'Japanese (Okinawan)',
-    key: 158,
+    key: 158
   },
   {
     value: 'Japanese Sign Language',
-    key: 159,
+    key: 159
   },
   {
     value: 'Jamaican Creole',
-    key: 160,
+    key: 160
   },
   {
     value: 'Judeo-Tat',
-    key: 161,
+    key: 161
   },
   {
     value: 'Kannada',
-    key: 162,
+    key: 162
   },
   {
     value: 'Kazakh',
-    key: 163,
+    key: 163
   },
   {
     value: 'Kinyarwanda',
-    key: 164,
+    key: 164
   },
   {
     value: 'Khmer (Cambodian)',
-    key: 165,
+    key: 165
   },
   {
     value: 'Klingon',
-    key: 166,
+    key: 166
   },
   {
     value: 'Kurdish',
-    key: 167,
+    key: 167
   },
   {
     value: 'Kyrgyz',
-    key: 168,
+    key: 168
   },
   {
-    value: "Kekchi (Q'eqchi')",
-    key: 169,
+    value: 'Kekchi (Q\'eqchi\')',
+    key: 169
   },
   {
-    value: "K'iche'",
-    key: 170,
+    value: 'K\'iche\'',
+    key: 170
   },
   {
     value: 'Kachin (Jingpho)',
-    key: 171,
+    key: 171
   },
   {
     value: 'Kalanga',
-    key: 172,
+    key: 172
   },
   {
     value: 'Kalmyk Oirat',
-    key: 173,
+    key: 173
   },
   {
     value: 'Kanuri',
-    key: 174,
+    key: 174
   },
   {
     value: 'Kenjeje',
-    key: 175,
+    key: 175
   },
   {
     value: 'Khmu',
-    key: 176,
+    key: 176
   },
   {
     value: 'Khoemana',
-    key: 177,
+    key: 177
   },
   {
     value: 'Kirundi',
-    key: 178,
+    key: 178
   },
   {
     value: 'Koisan (Tsoa)',
-    key: 179,
+    key: 179
   },
   {
     value: 'Konkani',
-    key: 180,
+    key: 180
   },
   {
     value: 'Lao',
-    key: 181,
+    key: 181
   },
   {
     value: 'Latin',
-    key: 182,
+    key: 182
   },
   {
     value: 'Latvian',
-    key: 183,
+    key: 183
   },
   {
     value: 'Lithuanian',
-    key: 184,
+    key: 184
   },
   {
     value: 'Luo',
-    key: 185,
+    key: 185
   },
   {
     value: 'Luxembourgish',
-    key: 186,
+    key: 186
   },
   {
     value: 'Lakota',
-    key: 187,
+    key: 187
   },
   {
     value: 'Ladino (Judeo-Spanish)',
-    key: 188,
+    key: 188
   },
   {
     value: 'Ladin',
-    key: 189,
+    key: 189
   },
   {
     value: 'Lau',
-    key: 190,
+    key: 190
   },
   {
     value: 'Limburgish',
-    key: 191,
+    key: 191
   },
   {
     value: 'Litzlitz (Naman)',
-    key: 192,
+    key: 192
   },
   {
     value: 'Lombard',
-    key: 193,
+    key: 193
   },
   {
     value: 'Macedonian',
-    key: 194,
+    key: 194
   },
   {
     value: 'Malagasy',
-    key: 195,
+    key: 195
   },
   {
     value: 'Malay',
-    key: 196,
+    key: 196
   },
   {
     value: 'Malayalam',
-    key: 197,
+    key: 197
   },
   {
     value: 'Maltese',
-    key: 198,
+    key: 198
   },
   {
     value: 'Maori',
-    key: 199,
+    key: 199
   },
   {
     value: 'Marathi',
-    key: 200,
+    key: 200
   },
   {
     value: 'Mongolian',
-    key: 201,
+    key: 201
   },
   {
     value: 'Maasai',
-    key: 202,
+    key: 202
   },
   {
     value: 'Maithili',
-    key: 203,
+    key: 203
   },
   {
     value: 'Mamuju',
-    key: 204,
+    key: 204
   },
   {
     value: 'Manchu',
-    key: 205,
+    key: 205
   },
   {
     value: 'Mandingo (Madinka)',
-    key: 206,
+    key: 206
   },
   {
     value: 'Manggarai',
-    key: 207,
+    key: 207
   },
   {
     value: 'Mapudungun',
-    key: 208,
+    key: 208
   },
   {
     value: 'Marri Ngarr',
-    key: 209,
+    key: 209
   },
   {
     value: 'Masalit',
-    key: 210,
+    key: 210
   },
   {
     value: 'Mekeo',
-    key: 211,
+    key: 211
   },
   {
     value: 'Mexican Sign Language (LSM)',
-    key: 212,
+    key: 212
   },
   {
     value: 'Minangkabau',
-    key: 213,
+    key: 213
   },
   {
     value: 'Mingrelian',
-    key: 214,
+    key: 214
   },
   {
     value: 'Mirandese',
-    key: 215,
+    key: 215
   },
   {
     value: 'Miyako',
-    key: 216,
+    key: 216
   },
   {
     value: 'Mon',
-    key: 217,
+    key: 217
   },
   {
     value: 'Maldivian (Dhivehi)',
-    key: 218,
+    key: 218
   },
   {
     value: 'Marshallese',
-    key: 219,
+    key: 219
   },
   {
     value: 'Mauritian Creole',
-    key: 220,
+    key: 220
   },
   {
     value: 'Mazatec',
-    key: 221,
+    key: 221
   },
   {
     value: 'Montenegrin',
-    key: 222,
+    key: 222
   },
   {
     value: 'Mnong',
-    key: 223,
+    key: 223
   },
   {
     value: 'Nahuatl',
-    key: 224,
+    key: 224
   },
   {
     value: 'Nepali',
-    key: 225,
+    key: 225
   },
   {
     value: 'Norwegian',
-    key: 226,
+    key: 226
   },
   {
     value: 'Nambya',
-    key: 227,
+    key: 227
   },
   {
     value: 'Neapolitan (Napoletano)',
-    key: 228,
+    key: 228
   },
   {
     value: 'Natchez',
-    key: 229,
+    key: 229
   },
   {
     value: 'Navajo (Diné bizaad)',
-    key: 230,
+    key: 230
   },
   {
     value: 'Ndebele',
-    key: 231,
+    key: 231
   },
   {
     value: 'Neverver',
-    key: 232,
+    key: 232
   },
   {
     value: 'Newar',
-    key: 233,
+    key: 233
   },
   {
     value: 'Nigerian Pidgin',
-    key: 234,
+    key: 234
   },
   {
     value: 'North Efate (Nakanamanga)',
-    key: 235,
+    key: 235
   },
   {
     value: 'Nubian (Midob)',
-    key: 236,
+    key: 236
   },
   {
     value: 'Nubian (Nobiin)',
-    key: 237,
+    key: 237
   },
   {
     value: 'Nuer',
-    key: 238,
+    key: 238
   },
   {
     value: 'Ojibwe',
-    key: 239,
+    key: 239
   },
   {
     value: 'Ogiek (Akiek)',
-    key: 240,
+    key: 240
   },
   {
     value: 'Okinawan',
-    key: 241,
+    key: 241
   },
   {
     value: 'Oromo',
-    key: 242,
+    key: 242
   },
   {
     value: 'Pashto',
-    key: 243,
+    key: 243
   },
   {
     value: 'Persian (Farsi)',
-    key: 244,
+    key: 244
   },
   {
     value: 'Polish',
-    key: 245,
+    key: 245
   },
   {
     value: 'Punjabi',
-    key: 246,
+    key: 246
   },
   {
     value: 'Papiamento',
-    key: 247,
+    key: 247
   },
   {
-    value: "Pa'o",
-    key: 248,
+    value: 'Pa\'o',
+    key: 248
   },
   {
     value: 'Palauan',
-    key: 249,
+    key: 249
   },
   {
     value: 'Quechua',
-    key: 250,
+    key: 250
   },
   {
     value: 'Rohingya',
-    key: 251,
+    key: 251
   },
   {
     value: 'Romanian',
-    key: 252,
+    key: 252
   },
   {
     value: 'Romani (Balkan)',
-    key: 253,
+    key: 253
   },
   {
     value: 'Romani (Sinte)',
-    key: 254,
+    key: 254
   },
   {
     value: 'Romani (Vlax)',
-    key: 255,
+    key: 255
   },
   {
     value: 'Romansch',
-    key: 256,
+    key: 256
   },
   {
     value: 'Samoan',
-    key: 257,
+    key: 257
   },
   {
     value: 'Sanskrit',
-    key: 258,
+    key: 258
   },
   {
     value: 'Serbian',
-    key: 259,
+    key: 259
   },
   {
     value: 'Sindhi',
-    key: 260,
+    key: 260
   },
   {
     value: 'Sinhala',
-    key: 261,
+    key: 261
   },
   {
     value: 'Sicilian',
-    key: 262,
+    key: 262
   },
   {
     value: 'Slovak',
-    key: 263,
+    key: 263
   },
   {
     value: 'Slovenian',
-    key: 264,
+    key: 264
   },
   {
     value: 'Somali',
-    key: 265,
+    key: 265
   },
   {
     value: 'Swahili',
-    key: 266,
+    key: 266
   },
   {
     value: 'Swedish',
-    key: 267,
+    key: 267
   },
   {
     value: 'Scots',
-    key: 268,
+    key: 268
   },
   {
     value: 'Swiss German',
-    key: 269,
+    key: 269
   },
   {
     value: 'Syriac',
-    key: 270,
+    key: 270
   },
   {
     value: 'Sa',
-    key: 271,
+    key: 271
   },
   {
     value: 'Saami (Kildin)',
-    key: 272,
+    key: 272
   },
   {
     value: 'Saami (Lule)',
-    key: 273,
+    key: 273
   },
   {
     value: 'Saami (Northern)',
-    key: 274,
+    key: 274
   },
   {
     value: 'Sardinian',
-    key: 275,
+    key: 275
   },
   {
     value: 'Sekani',
-    key: 276,
+    key: 276
   },
   {
     value: 'Sena',
-    key: 277,
+    key: 277
   },
   {
     value: 'Sfyria',
-    key: 278,
+    key: 278
   },
   {
     value: 'Shan',
-    key: 279,
+    key: 279
   },
   {
     value: 'Sherpa',
-    key: 280,
+    key: 280
   },
   {
     value: 'Shona',
-    key: 281,
+    key: 281
   },
   {
     value: 'Shona (Ndau)',
-    key: 282,
+    key: 282
   },
   {
     value: 'Shoshoni',
-    key: 283,
+    key: 283
   },
   {
     value: 'Shumashti',
-    key: 284,
+    key: 284
   },
   {
     value: 'Sign Language(Other)',
-    key: 285,
+    key: 285
   },
   {
     value: 'Silbo Gomero',
-    key: 286,
+    key: 286
   },
   {
     value: 'Sotho',
-    key: 287,
+    key: 287
   },
   {
     value: 'Sundanese',
-    key: 288,
+    key: 288
   },
   {
     value: 'Swazi',
-    key: 289,
+    key: 289
   },
   {
     value: 'Swiss-French Sign Language',
-    key: 290,
+    key: 290
   },
   {
     value: 'Swiss-German Sign Language',
-    key: 291,
+    key: 291
   },
   {
     value: 'Tajik',
-    key: 292,
+    key: 292
   },
   {
     value: 'Berber (Tamazight)',
-    key: 293,
+    key: 293
   },
   {
     value: 'Tamil',
-    key: 294,
+    key: 294
   },
   {
     value: 'Tatar',
-    key: 295,
+    key: 295
   },
   {
     value: 'Telugu',
-    key: 296,
+    key: 296
   },
   {
     value: 'Thai',
-    key: 297,
+    key: 297
   },
   {
     value: 'Tibetan',
-    key: 298,
+    key: 298
   },
   {
     value: 'Turkish',
-    key: 299,
+    key: 299
   },
   {
     value: 'Turkmen',
-    key: 300,
+    key: 300
   },
   {
     value: 'Tutong',
-    key: 301,
+    key: 301
   },
   {
     value: 'Toki Pona',
-    key: 302,
+    key: 302
   },
   {
     value: 'Tamang',
-    key: 303,
+    key: 303
   },
   {
     value: 'Tharu',
-    key: 304,
+    key: 304
   },
   {
     value: 'Tigrinya',
-    key: 305,
+    key: 305
   },
   {
     value: 'Tlingit',
-    key: 306,
+    key: 306
   },
   {
     value: 'Tongan',
-    key: 307,
+    key: 307
   },
   {
     value: 'Tsonga (Xitsonga)',
-    key: 308,
+    key: 308
   },
   {
     value: 'Tswana',
-    key: 309,
+    key: 309
   },
   {
     value: 'Tz’utujil',
-    key: 310,
+    key: 310
   },
   {
     value: 'Ukrainian',
-    key: 311,
+    key: 311
   },
   {
     value: 'Urdu',
-    key: 312,
+    key: 312
   },
   {
     value: 'Uyghur',
-    key: 313,
+    key: 313
   },
   {
     value: 'Uzbek',
-    key: 314,
+    key: 314
   },
   {
     value: 'Vietnamese',
-    key: 315,
+    key: 315
   },
   {
     value: 'Venda',
-    key: 316,
+    key: 316
   },
   {
     value: 'Welsh',
-    key: 317,
+    key: 317
   },
   {
     value: 'Wolof',
-    key: 318,
+    key: 318
   },
   {
     value: 'Waray',
-    key: 319,
+    key: 319
   },
   {
     value: 'Wayuu',
-    key: 320,
+    key: 320
   },
   {
     value: 'Wyandot',
-    key: 321,
+    key: 321
   },
   {
     value: 'Xhosa',
-    key: 322,
+    key: 322
   },
   {
     value: 'Yakut',
-    key: 323,
+    key: 323
   },
   {
     value: 'Yiddish',
-    key: 324,
+    key: 324
   },
   {
     value: 'Yoruba',
-    key: 325,
+    key: 325
   },
   {
     value: 'Yucatec Maya',
-    key: 326,
+    key: 326
   },
   {
     value: 'Yola',
-    key: 327,
+    key: 327
   },
   {
     value: 'Yugoslavian Sign Language',
-    key: 328,
+    key: 328
   },
   {
     value: 'Zhuang',
-    key: 329,
+    key: 329
   },
   {
     value: 'Zulu',
-    key: 330,
+    key: 330
   },
   {
     value: 'Zaghawa (Beria)',
-    key: 331,
+    key: 331
   },
   {
     value: 'Oneida',
-    key: 332,
+    key: 332
   },
   {
     value: 'Zapotec',
-    key: 333,
+    key: 333
   },
   {
     value: 'Zarma',
-    key: 334,
+    key: 334
   },
   {
     value: 'Other',
-    key: 335,
+    key: 335
   },
   {
     value: 'Occitan',
-    key: 336,
+    key: 336
   },
   {
     value: 'Odia',
-    key: 337,
+    key: 337
   },
   {
     value: 'Zaza (Northern)',
-    key: 338,
-  },
-];
+    key: 338
+  }
+]
 
-export default languageOptions;
+export default languageOptions
