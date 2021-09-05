@@ -14,10 +14,13 @@ import Pricing from '@components/landing/Pricing'
 import svg404 from '@img/404.svg'
 
 import ExchangeState from '@utils/state/exchangeContainer'
+import LanguageContainer from '@utils/state/languageContainer'
+import strings from '@utils/data/strings'
 
 const App = () => {
   const [initializing, setInitializing] = useState(true)
   const user = User.useContainer()
+  const { language, setLanguage } = LanguageContainer.useContainer()
 
   const authListener = () => {
     setTimeout(() => {
@@ -48,7 +51,6 @@ const App = () => {
   useEffect(() => {
     window.$crisp = []
     window.CRISP_WEBSITE_ID = '47d59959-1645-4829-a5c8-f8ca00b9d8d9';
-
     (function () {
       const d = document
       const s = d.createElement('script')
@@ -61,6 +63,10 @@ const App = () => {
     authListener()
   }, [])
 
+  useEffect(() => {
+    strings.setLanguage(language)
+  }, [language])
+
   if (initializing) {
     return <Loading />
   }
@@ -69,42 +75,25 @@ const App = () => {
     <ExchangeState.Provider>
       <BrowserRouter>
         <Switch>
-          <Route
-            path="/"
-            exact
-          >
+          <Route path="/" exact>
             <Home />
           </Route>
-          <Route
-            path="/about"
-            exact
-          >
+          <Route path="/about" exact>
             <About />
           </Route>
-          <Route
-            path="/exchange"
-            exact
-          >
+          <Route path="/exchange" exact>
             <Exchange />
           </Route>
-          <Route
-            path="/join"
-          >
+          <Route path="/join">
             <Room />
           </Route>
-          <Route
-            path="/profile"
-          >
+          <Route path="/profile">
             <Profile />
           </Route>
-          <Route
-            path="/pricing"
-          >
+          <Route path="/pricing">
             <Pricing />
           </Route>
-          <Route
-            path="*"
-          >
+          <Route path="*">
             <Error errorMessage="Oops, that page doesn't exist" imgLink={svg404} />
           </Route>
         </Switch>

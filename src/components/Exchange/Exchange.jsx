@@ -8,15 +8,16 @@ import rooms from '@utils/data/rooms'
 import Page from '@components/exchange/components/Page'
 import { Helmet } from 'react-helmet'
 import { Skeleton } from 'antd'
+import strings from '@utils/data/strings'
 
 const ContentContainer = styled.div`
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-    flex-wrap: wrap;
-    align-items: center;
-    margin-bottom: 20px;
-    width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  align-items: center;
+  margin-bottom: 20px;
+  width: 100%;
 `
 
 const TitleContainer = styled.div`
@@ -28,10 +29,10 @@ const TitleContainer = styled.div`
   margin-bottom: 50px;
 `
 const Title = styled.p`
-    font-size: 2em;
-    font-weight: 700;
-    color: #1c1c1c;
-    margin-bottom: 5px;
+  font-size: 2em;
+  font-weight: 700;
+  color: #1c1c1c;
+  margin-bottom: 5px;
 `
 
 const SubTitle = styled.p`
@@ -66,7 +67,10 @@ const Home = () => {
         <title>💬 Exchange - connect with native speakers today</title>
       </Helmet>
       <TitleContainer>
-        <Title>Welcome to dialect!</Title>
+        <Title>
+          {strings.welcome}
+          dialect!
+        </Title>
         <SubTitle>
           <span style={{ marginRight: 10, color: '#1c1c1c' }}>💬</span>
           Click any room to connect with native speakers
@@ -80,9 +84,11 @@ const Home = () => {
         </SubTitle>
       </SectionTitleContainer>
       <ContentContainer>
-        {
-          user ? rooms.filter((e) => langIsNative(e.key)).map((room) => <LanguageCard room={room} />) : <Skeleton />
-        }
+        {user ? (
+          rooms.filter((e) => langIsNative(e.key)).map((room) => <LanguageCard room={room} />)
+        ) : (
+          <Skeleton />
+        )}
       </ContentContainer>
       <SectionTitleContainer>
         <SectionTitle>Target Rooms</SectionTitle>
@@ -93,9 +99,11 @@ const Home = () => {
         </SubTitle>
       </SectionTitleContainer>
       <ContentContainer>
-        {
-          user ? rooms.filter((e) => !langIsNative(e.key)).map((room) => <LanguageCard room={room} />) : <Skeleton />
-        }
+        {user ? (
+          rooms.filter((e) => !langIsNative(e.key)).map((room) => <LanguageCard room={room} />)
+        ) : (
+          <Skeleton />
+        )}
       </ContentContainer>
     </Page>
   )

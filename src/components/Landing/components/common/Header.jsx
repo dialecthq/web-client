@@ -9,62 +9,64 @@ import {
 import { Button } from 'antd'
 import { Cross as Hamburger } from 'hamburger-react'
 import { useHistory } from 'react-router-dom'
+import strings from '@utils/data/strings'
+import LanguageContainer from '@utils/state/languageContainer'
 import SignIn from './SignIn'
 import SignUp from './SignUp'
 
 const Container = styled.div`
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 90px;
-    padding: 8px 24px;
-    background: #ffffff;
-    position: fixed;
-    z-index: 5;
-    transition: 0.15s all ease-out;
-    border-bottom: ${(p) => (p.scrollState ? '1px solid #d4d4d4' : '1px solid #fff')};
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 90px;
+  padding: 8px 24px;
+  background: #ffffff;
+  position: fixed;
+  z-index: 5;
+  transition: 0.15s all ease-out;
+  border-bottom: ${(p) => (p.scrollState ? '1px solid #d4d4d4' : '1px solid #fff')};
 `
 
 const Wrapper = styled.div`
-    width: 100%;
-    max-width: 1200px;
-    height: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  width: 100%;
+  max-width: 1200px;
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 `
 
 const Link = styled.a`
-    color: #1c1c1c;
-    font-size: 1em;
-    font-weight: 500;
-    margin-left: 20px;
+  color: #1c1c1c;
+  font-size: 1em;
+  font-weight: 500;
+  margin-left: 20px;
 
-    :hover {
-        opacity: 0.8;
-    }
+  :hover {
+    opacity: 0.8;
+  }
 `
 const LogInText = styled.a`
-    color: #1c1c1c;
-    font-size: 1em;
-    font-weight: 500;
-    margin-right: 15px;
+  color: #1c1c1c;
+  font-size: 1em;
+  font-weight: 500;
+  margin-right: 15px;
 
-    :hover {
-        opacity: 0.8;
-    }
+  :hover {
+    opacity: 0.8;
+  }
 `
 
 const HeaderSection = styled.div`
-    justify-content: center;
-    align-items: center;
-    flex-direction: row;
-    display: ${(p) => (p.desktop ? 'flex' : 'none')};
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  display: ${(p) => (p.desktop ? 'flex' : 'none')};
 
-    @media screen and (max-width: 768px) {
-      display: ${(p) => (p.mobile ? 'flex' : 'none')};
-    }
+  @media screen and (max-width: 768px) {
+    display: ${(p) => (p.mobile ? 'flex' : 'none')};
+  }
 `
 
 const MenuModal = styled.div`
@@ -114,6 +116,7 @@ const MenuButton = styled.div`
 
 const Header = () => {
   const { user, userAPI } = UserContainer.useContainer()
+  const { language, setLanguage } = LanguageContainer.useContainer()
   const history = useHistory()
 
   const [signInVisible, setSignInVisible] = useState(false)
@@ -135,73 +138,80 @@ const Header = () => {
     return listener
   })
 
+  // useEffect(() => {
+  //   strings.setLanguage(language)
+  // }, [language])
+
   return (
     <>
-      <Container
-        scrollState={scrollState}
-      >
+      <Container scrollState={scrollState}>
         <Wrapper>
           <HeaderSection desktop mobile>
             <HeaderLogo />
             <HeaderSection desktop>
-              <Link href="/about" style={{ marginLeft: 40 }}>About</Link>
-              <Link href="/about">Blog</Link>
-              <Link href="/pricing">Pricing</Link>
+              <Link href="/about" style={{ marginLeft: 40 }}>
+                {strings.about.uncapitalize()}
+              </Link>
+              <Link href="/about">{strings.blog.uncapitalize()}</Link>
+              <Link href="/pricing">{strings.pricing.uncapitalize()}</Link>
             </HeaderSection>
-
           </HeaderSection>
           <HeaderSection desktop>
-            {!user
-              ? (
-                <>
-                  <Button
-                    style={{
-                      display: 'flex', flexDirection: 'row-reverse', marginRight: 10
-                    }}
-                    onClick={() => {
-                      setSignInVisible(true)
-                    }}
-                  >
-                    Log in
-                  </Button>
-                  <Button
-                    style={{
-                      display: 'flex', flexDirection: 'row-reverse'
-                    }}
-                    type="primary"
-                    onClick={() => {
-                      setSignUpVisible(true)
-                    }}
-                  >
-                    Get started
-                  </Button>
-                </>
-              )
-              : (
-                <>
-                  <Button
-                    style={{
-                      display: 'flex', flexDirection: 'row-reverse', marginRight: 10
-                    }}
-                    onClick={() => {
-                      userAPI.logout()
-                    }}
-                  >
-                    Sign out
-                  </Button>
-                  <Button
-                    type="primary"
-                    style={{
-                      display: 'flex', flexDirection: 'row-reverse'
-                    }}
-                    onClick={() => {
-                      history.push('/exchange')
-                    }}
-                  >
-                    Exchange
-                  </Button>
-                </>
-              )}
+            {!user ? (
+              <>
+                <Button
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'row-reverse',
+                    marginRight: 10
+                  }}
+                  onClick={() => {
+                    setSignInVisible(true)
+                  }}
+                >
+                  {strings.logIn.capitalize()}
+                </Button>
+                <Button
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'row-reverse'
+                  }}
+                  type="primary"
+                  onClick={() => {
+                    setSignUpVisible(true)
+                  }}
+                >
+                  {strings.getStarted.capitalize()}
+                </Button>
+              </>
+            ) : (
+              <>
+                <Button
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'row-reverse',
+                    marginRight: 10
+                  }}
+                  onClick={() => {
+                    userAPI.logout()
+                  }}
+                >
+                  {strings.signOut.capitalize()}
+                </Button>
+                <Button
+                  type="primary"
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'row-reverse'
+                  }}
+                  onClick={() => {
+                    history.push('/exchange')
+                  }}
+                >
+                  {strings.exchange.capitalize()}
+                </Button>
+              </>
+            )}
           </HeaderSection>
           <HeaderSection mobile>
             <Hamburger
@@ -223,7 +233,7 @@ const Header = () => {
             history.push('/about')
           }}
         >
-          <ButtonText>About</ButtonText>
+          <ButtonText>{strings.about.capitalize()}</ButtonText>
         </MenuButton>
         <MenuButton
           onClick={() => {
@@ -231,7 +241,7 @@ const Header = () => {
             history.push('/about')
           }}
         >
-          <ButtonText>Blog</ButtonText>
+          <ButtonText>{strings.blog.capitalize()}</ButtonText>
         </MenuButton>
         <MenuButton
           onClick={() => {
@@ -240,67 +250,75 @@ const Header = () => {
           }}
           style={{ marginBottom: 50 }}
         >
-          <ButtonText>Pricing</ButtonText>
+          <ButtonText>{strings.pricing.capitalize()}</ButtonText>
         </MenuButton>
-        {!user
-          ? (
-            <>
-              <Button
-                block
-                style={{
-                  display: 'flex', flexDirection: 'row-reverse', marginBottom: 20, height: 60
-                }}
-                onClick={() => {
-                  setMenuVisible(false)
-                  setSignInVisible(true)
-                }}
-              >
-                <ButtonText>Log in</ButtonText>
-              </Button>
-              <Button
-                block
-                style={{
-                  display: 'flex', flexDirection: 'row-reverse', height: 60
-                }}
-                type="primary"
-                onClick={() => {
-                  setMenuVisible(false)
-                  setSignUpVisible(true)
-                }}
-              >
-                <ButtonText>Get started</ButtonText>
-              </Button>
-            </>
-          )
-          : (
-            <>
-              <Button
-                block
-                style={{
-                  height: 60, display: 'flex', flexDirection: 'row-reverse', marginBottom: 20
-                }}
-                onClick={() => {
-                  setMenuVisible(false)
-                  userAPI.logout()
-                }}
-              >
-                <ButtonText>Sign out</ButtonText>
-              </Button>
-              <Button
-                type="primary"
-                block
-                style={{
-                  height: 60, display: 'flex', flexDirection: 'row-reverse'
-                }}
-                onClick={() => {
-                  setMenuVisible(false)
-                  history.push('/exchange')
-                }}
-              >
-                <ButtonText>Exchange</ButtonText>
-              </Button>
-            </>
-          )}
+        {!user ? (
+          <>
+            <Button
+              block
+              style={{
+                display: 'flex',
+                flexDirection: 'row-reverse',
+                marginBottom: 20,
+                height: 60
+              }}
+              onClick={() => {
+                setMenuVisible(false)
+                setSignInVisible(true)
+              }}
+            >
+              <ButtonText>{strings.logIn.capitalize()}</ButtonText>
+            </Button>
+            <Button
+              block
+              style={{
+                display: 'flex',
+                flexDirection: 'row-reverse',
+                height: 60
+              }}
+              type="primary"
+              onClick={() => {
+                setMenuVisible(false)
+                setSignUpVisible(true)
+              }}
+            >
+              <ButtonText>{strings.getStarted.capitalize()}</ButtonText>
+            </Button>
+          </>
+        ) : (
+          <>
+            <Button
+              block
+              style={{
+                height: 60,
+                display: 'flex',
+                flexDirection: 'row-reverse',
+                marginBottom: 20
+              }}
+              onClick={() => {
+                setMenuVisible(false)
+                userAPI.logout()
+              }}
+            >
+              <ButtonText>{strings.signOut.capitalize()}</ButtonText>
+            </Button>
+            <Button
+              type="primary"
+              block
+              style={{
+                height: 60,
+                display: 'flex',
+                flexDirection: 'row-reverse'
+              }}
+              onClick={() => {
+                setMenuVisible(false)
+                history.push('/exchange')
+              }}
+            >
+              <ButtonText>{strings.exchange.capitalize()}</ButtonText>
+            </Button>
+          </>
+        )}
       </MenuModal>
       <SignUp
         visible={signUpVisible}

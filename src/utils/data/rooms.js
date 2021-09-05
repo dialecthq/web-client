@@ -23,116 +23,135 @@ const rooms = [
     key: 1,
     value: 'english',
     url: '/english',
-    flag: usa
+    flag: usa,
+    code: 'en'
   },
   {
     key: 2,
-    value: 'mandarin',
-    url: '/mandarin',
-    flag: china
+    value: 'chinese',
+    url: '/chinese',
+    flag: china,
+    code: 'zh'
   },
   {
     key: 91,
     value: 'danish',
     url: '/danish',
-    flag: denmark
+    flag: denmark,
+    code: 'da'
   },
   {
     key: 111,
     value: 'finnish',
     url: '/finnish',
-    flag: finland
+    flag: finland,
+    code: 'fi'
   },
   {
     key: 3,
     value: 'french',
     url: '/french',
-    flag: france
+    flag: france,
+    code: 'fr'
   },
   {
     key: 6,
     value: 'german',
     url: '/german',
-    flag: germany
+    flag: germany,
+    code: 'de'
   },
   {
     key: 10,
     value: 'hindi',
     url: '/hindi',
-    flag: india
+    flag: india,
+    code: 'hi'
   },
   {
     key: 147,
     value: 'indonesian',
     url: '/indonesian',
-    flag: indonesia
+    flag: indonesia,
+    code: 'id'
   },
   {
     key: 11,
     value: 'italian',
     url: '/italian',
-    flag: italy
+    flag: italy,
+    code: 'it'
   },
   {
     key: 7,
     value: 'japanese',
     url: '/japanese',
-    flag: japan
+    flag: japan,
+    code: 'ja'
   },
   {
     key: 8,
     value: 'korean',
     url: '/korean',
-    flag: korea
+    flag: korea,
+    code: 'ko'
   },
   {
     key: 93,
     value: 'dutch',
     url: '/dutch',
-    flag: netherlands
+    flag: netherlands,
+    code: 'nl'
   },
   {
     key: 226,
     value: 'norwegian',
     url: '/norwegian',
-    flag: norway
+    flag: norway,
+    code: 'nb'
   },
   {
     key: 5,
     value: 'portuguese',
     url: '/portuguese',
-    flag: portugal
+    flag: portugal,
+    code: 'pt'
   },
   {
     key: 12,
     value: 'russian',
     url: '/russian',
-    flag: russia
+    flag: russia,
+    code: 'ru'
   },
   {
     key: 9,
     value: 'arabic',
     url: '/arabic',
-    flag: saudi
+    flag: saudi,
+    code: 'ar'
   },
   {
     key: 4,
     value: 'spanish',
     url: '/spanish',
-    flag: spain
+    flag: spain,
+    code: 'es'
   },
   {
     key: 267,
     value: 'swedish',
     url: '/swedish',
-    flag: sweden
+    flag: sweden,
+    code: 'sv'
   },
   {
     key: 299,
     value: 'turkish',
     url: '/turkish',
-    flag: turkey
-  },
+    flag: turkey,
+    code: 'tr'
+  }
 ]
 
 export default rooms

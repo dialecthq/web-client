@@ -5,9 +5,7 @@ import {
   Button, Modal, Form, Select
 } from 'antd'
 import styled from 'styled-components'
-import {
-  FaUserAlt
-} from 'react-icons/fa'
+import { FaUserAlt } from 'react-icons/fa'
 import { useHistory } from 'react-router-dom'
 import firebase from 'firebase'
 import fire from '@utils/fire'
@@ -16,6 +14,7 @@ import { checkTokens, checkNative } from '@utils/apis/RoomAPI'
 import languageOptions from '@utils/data/LanguageOptions'
 import countryOptions from '@utils/data/CountryOptions'
 import timezoneOptions from '@utils/data/TimezoneOptions'
+import strings from '@utils/data/strings'
 
 const CardContainer = styled.div`
   margin-bottom: 20px;
@@ -36,7 +35,7 @@ const CardContainer = styled.div`
 `
 
 const CardWrapper = styled.div`
-  width: 100% ;
+  width: 100%;
   height: 100%;
   padding: 7px;
   display: flex;
@@ -81,9 +80,9 @@ const CardNum = styled.p`
 `
 
 const Flag = styled.img`
-    height: 28px;
-    width: 28px;
-    margin-right: 10px;
+  height: 28px;
+  width: 28px;
+  margin-right: 10px;
 `
 const TabContent = styled.div`
   display: flex;
@@ -98,51 +97,51 @@ const ButtonText = styled.span`
 `
 
 const TermsContainer = styled.div`
-    display: flex;
-    text-align: center;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
 `
 
 const Terms = styled.p`
-    font-size: 12px;
-    font-weight: 400;
-    width: 100%;
+  font-size: 12px;
+  font-weight: 400;
+  width: 100%;
 `
 
 const Label = styled.p`
-    font-size: 14px;
-    font-weight: 400;
+  font-size: 14px;
+  font-weight: 400;
 `
 
 const FormRow = styled.div`
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
 `
 
 const FluencyButton = styled.div`
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 10px;
-    border: ${(p) => (p.active ? '1px solid #4D40F0' : '1px solid #d4d4d4')};
-    color: ${(p) => (p.active ? '#4D40F0' : '#898989')};
-    transition: 0.2s all ease-in-out;
-    border-radius: 20px;
-    :hover {
-        cursor: pointer;
-        border: 1px solid #4D40F0;
-        color: #4D40F0;
-    }
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  border: ${(p) => (p.active ? '1px solid #4D40F0' : '1px solid #d4d4d4')};
+  color: ${(p) => (p.active ? '#4D40F0' : '#898989')};
+  transition: 0.2s all ease-in-out;
+  border-radius: 20px;
+  :hover {
+    cursor: pointer;
+    border: 1px solid #4d40f0;
+    color: #4d40f0;
+  }
 `
 
 const FluencyButtonText = styled.p`
-    margin-bottom: 0px;
-    font-size: 12px;
-    font-weight: 600;
+  margin-bottom: 0px;
+  font-size: 12px;
+  font-weight: 600;
 `
 
 const AddLanguage = ({
@@ -154,13 +153,17 @@ const AddLanguage = ({
 
   const onFinish = async () => {
     setLoading(true)
-    await fire.firestore().collection('users').doc(user.uid).update({
-      languages: firebase.firestore.FieldValue.arrayUnion({ key: language.key, level })
-    })
+    await fire
+      .firestore()
+      .collection('users')
+      .doc(user.uid)
+      .update({
+        languages: firebase.firestore.FieldValue.arrayUnion({ key: language.key, level })
+      })
 
     userAPI.getUser()
     history.push({
-      pathname: `/join/${language.value}`,
+      pathname: `/join/${language.value}`
     })
     setVisible(false)
     setLoading(false)
@@ -181,9 +184,7 @@ const AddLanguage = ({
               setLevel(1)
             }}
           >
-            <FluencyButtonText>
-              Beginner
-            </FluencyButtonText>
+            <FluencyButtonText>Beginner</FluencyButtonText>
           </FluencyButton>
           <FluencyButton
             active={level === 2}
@@ -191,9 +192,7 @@ const AddLanguage = ({
               setLevel(2)
             }}
           >
-            <FluencyButtonText>
-              Elementary
-            </FluencyButtonText>
+            <FluencyButtonText>Elementary</FluencyButtonText>
           </FluencyButton>
           <FluencyButton
             active={level === 3}
@@ -201,9 +200,7 @@ const AddLanguage = ({
               setLevel(3)
             }}
           >
-            <FluencyButtonText>
-              Intermediate
-            </FluencyButtonText>
+            <FluencyButtonText>Intermediate</FluencyButtonText>
           </FluencyButton>
           <FluencyButton
             active={level === 5}
@@ -211,9 +208,7 @@ const AddLanguage = ({
               setLevel(5)
             }}
           >
-            <FluencyButtonText>
-              Advanced
-            </FluencyButtonText>
+            <FluencyButtonText>Advanced</FluencyButtonText>
           </FluencyButton>
           <FluencyButton
             active={level === 7}
@@ -221,11 +216,8 @@ const AddLanguage = ({
               setLevel(7)
             }}
           >
-            <FluencyButtonText>
-              Native
-            </FluencyButtonText>
+            <FluencyButtonText>Native</FluencyButtonText>
           </FluencyButton>
-
         </FormRow>
 
         <FormRow style={{ marginTop: 50 }}>
@@ -237,17 +229,11 @@ const AddLanguage = ({
                 setVisible(false)
               }}
             >
-              <ButtonText>Cancel</ButtonText>
+              <ButtonText>{strings.cancel}</ButtonText>
             </Button>
           </Form.Item>
           <Form.Item style={{ marginBottom: 20, width: '100%', paddingLeft: 5 }}>
-            <Button
-              type="primary"
-              block
-              htmlType="submit"
-              style={{ height: 40 }}
-              loading={loading}
-            >
+            <Button type="primary" block htmlType="submit" style={{ height: 40 }} loading={loading}>
               <ButtonText>Continue</ButtonText>
             </Button>
           </Form.Item>
@@ -275,7 +261,7 @@ const LanguageCard = ({ room }) => {
 
         if (user.languages.filter((e) => e.key === room.key).length > 0) {
           history.push({
-            pathname: `/join/${room.value}`,
+            pathname: `/join/${room.value}`
           })
         } else {
           setVisible(true)
@@ -291,7 +277,7 @@ const LanguageCard = ({ room }) => {
 
           <CardPeople>
             <FaUserAlt size={16} opacity={0.9} />
-            <CardNum>{Math.ceil(Math.random() * 100) }</CardNum>
+            <CardNum>{Math.ceil(Math.random() * 100)}</CardNum>
           </CardPeople>
         </CardContent>
       </CardWrapper>
