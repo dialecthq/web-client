@@ -21,6 +21,7 @@ import HeaderLogo from '@components/common/HeaderLogo'
 import Coin from '@img/token.svg'
 import { Cross as Hamburger } from 'hamburger-react'
 import Avatar from '@components/common/Avatar'
+import strings from '@utils/data/strings'
 
 const NavContainer = styled.div`
   display: flex;
@@ -187,7 +188,7 @@ const Header = () => {
       {user ? (
         <>
           <Username>
-            Signed in as
+            {strings.signedInAs}
             {' '}
             <Emph style={{ color: '#000' }}>
               @
@@ -195,10 +196,11 @@ const Header = () => {
             </Emph>
           </Username>
           <Username>
-            Current balance:
+            {strings.currentBalance}
+            :
             {' '}
             <Emph style={{ color: '#000' }}>
-              {user.tokens.toLocaleString('en-US') || 0}
+              {user.tokens.toLocaleString(strings.getLanguage()) || 0}
               {' '}
             </Emph>
             <img src={Coin} alt="token" style={{ height: 16, marginRight: 5 }} />
@@ -210,7 +212,7 @@ const Header = () => {
       )}
       <Menu style={{ width: '100%' }}>
         <MenuItem icon={<FaQuestion />} key="help">
-          Help
+          {strings.help.capitalize()}
         </MenuItem>
         <MenuItem
           icon={<FaUser />}
@@ -223,7 +225,7 @@ const Header = () => {
             history.push('/profile')
           }}
         >
-          Profile
+          {strings.profile.capitalize()}
         </MenuItem>
         <MenuItem
           key="sign-out"
@@ -233,7 +235,7 @@ const Header = () => {
             history.push('/')
           }}
         >
-          Sign out
+          {strings.signOut.capitalize()}
         </MenuItem>
       </Menu>
     </ProfilePopoverContainer>
@@ -251,7 +253,7 @@ const Header = () => {
               <TokenContainer>
                 <Username>
                   <Emph style={{ color: '#000', fontWeight: 700 }}>
-                    {user.tokens.toLocaleString('en-US') || 0}
+                    {user.tokens.toLocaleString(strings.getLanguage()) || 0}
                   </Emph>
                   <img src={Coin} alt="token" style={{ height: 16, marginLeft: 5 }} />
                 </Username>
@@ -283,7 +285,7 @@ const Header = () => {
         {user ? (
           <MenuContent>
             <ButtonText style={{ color: '#1c1c1c78' }}>
-              Signed in as
+              {strings.signedInAs}
               {' '}
               <Emph style={{ color: '#000' }}>
                 @
@@ -291,10 +293,11 @@ const Header = () => {
               </Emph>
             </ButtonText>
             <ButtonText style={{ color: '#1c1c1c78' }}>
-              Current balance:
+              {strings.currentBalance}
+              :
               {' '}
               <Emph style={{ color: '#1c1c1c' }}>
-                {user.tokens.toLocaleString('en-US') || 0}
+                {user.tokens.toLocaleString(strings.getLanguage) || 0}
                 {' '}
               </Emph>
               <img src={Coin} alt="token" style={{ height: 16, marginRight: 5 }} />
@@ -309,7 +312,7 @@ const Header = () => {
             history.push('/about')
           }}
         >
-          <ButtonText>Help</ButtonText>
+          <ButtonText>{strings.help.capitalize()}</ButtonText>
         </MenuButton>
         <MenuButton
           onClick={() => {
@@ -318,7 +321,7 @@ const Header = () => {
           }}
           style={{ marginBottom: 50 }}
         >
-          <ButtonText>Profile</ButtonText>
+          <ButtonText>{strings.profile.capitalize()}</ButtonText>
         </MenuButton>
         {!user ? (
           <>
@@ -334,7 +337,7 @@ const Header = () => {
                 setMenuVisible(false)
               }}
             >
-              <ButtonText>Log in</ButtonText>
+              <ButtonText>{strings.logIn.capitalize()}</ButtonText>
             </Button>
             <Button
               block
@@ -348,7 +351,7 @@ const Header = () => {
                 setMenuVisible(false)
               }}
             >
-              <ButtonText>Get started</ButtonText>
+              <ButtonText>{strings.getStarted.capitalize()}</ButtonText>
             </Button>
           </>
         ) : (
@@ -366,7 +369,7 @@ const Header = () => {
               history.push('/')
             }}
           >
-            <ButtonText>Sign out</ButtonText>
+            <ButtonText>{strings.signOut.capitalize()}</ButtonText>
           </Button>
         )}
       </MenuModal>

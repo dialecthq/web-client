@@ -64,23 +64,23 @@ const Home = () => {
   return (
     <Page>
       <Helmet>
-        <title>💬 Exchange - connect with native speakers today</title>
+        <title>
+          💬
+          {strings.exchange}
+        </title>
       </Helmet>
       <TitleContainer>
-        <Title>
-          {strings.welcome}
-          dialect!
-        </Title>
+        <Title>{strings.welcomeToDialect}</Title>
         <SubTitle>
           <span style={{ marginRight: 10, color: '#1c1c1c' }}>💬</span>
-          Click any room to connect with native speakers
+          {strings.clickAny}
         </SubTitle>
       </TitleContainer>
       <SectionTitleContainer>
-        <SectionTitle>Native Rooms</SectionTitle>
+        <SectionTitle>{strings.nativeRooms}</SectionTitle>
         <SubTitle>
           <span style={{ marginRight: 10, color: '#1c1c1c' }}>🎁</span>
-          Get tokens for teaching your native language!
+          {strings.getTokens}
         </SubTitle>
       </SectionTitleContainer>
       <ContentContainer>
@@ -91,11 +91,11 @@ const Home = () => {
         )}
       </ContentContainer>
       <SectionTitleContainer>
-        <SectionTitle>Target Rooms</SectionTitle>
+        <SectionTitle>{strings.targetRooms}</SectionTitle>
 
         <SubTitle>
           <span style={{ marginRight: 10, color: '#1c1c1c' }}>💸</span>
-          Spend tokens to learn your target language!
+          {strings.spendTokens}
         </SubTitle>
       </SectionTitleContainer>
       <ContentContainer>

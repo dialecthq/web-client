@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import UserContainer from '@utils/state/userContainer'
 import { getRoom } from '@utils/apis/RoomAPI'
+import strings from '@utils/data/strings'
 import MuteButton from './MuteButton'
 import LeaveButton from './LeaveButton'
 import Timer from './Timer'
@@ -54,7 +55,7 @@ const Controls = ({ room, participants, roomData }) => {
         <RoomNames>
           {otherParticipant
             ? `You and @${JSON.parse(otherParticipant.metadata).username}`
-            : 'You are alone'}
+            : strings.youAreAlone}
         </RoomNames>
         <RoomDescription>23 other people in English rooms</RoomDescription>
       </InformationContainer>

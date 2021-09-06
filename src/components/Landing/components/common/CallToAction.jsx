@@ -29,6 +29,7 @@ const Title = styled.p`
   font-size: 2.8em;
   font-weight: 700;
   color: #1c1c1c;
+  text-align: center;
 
   @media screen and (max-width: 768px) {
     font-size: 1.9em;

@@ -27,10 +27,10 @@ const HeroText = styled.p`
   font-size: 3.2em;
   color: #1c1c1c;
   font-weight: 700;
+  text-align: center;
 `
 
 const Language = styled.span`
-  font-size: 3.2em;
   color: var(--dark-purple);
   font-weight: 700;
 
@@ -92,13 +92,13 @@ const Hero = () => {
             strings.arabic,
             strings.norwegian
           ]}
-          cursorRenderer={(cursor) => <HeroText>{cursor}</HeroText>}
+          cursorRenderer={(cursor) => <HeroText style={{ display: 'none' }}>{cursor}</HeroText>}
           displayTextRenderer={(text, i) => (
-            <div style={{ display: 'flex', width: '100%' }}>
-              <HeroText>{arr[0]}</HeroText>
-              <Language style={{ marginLeft: 10, marginRight: 10 }}>{text}</Language>
-              <HeroText>{arr[1]}</HeroText>
-            </div>
+            <HeroText>
+              <span>{arr[0]}</span>
+              <Language>{text.capitalize()}</Language>
+              <span>{arr[1]}</span>
+            </HeroText>
           )}
         />
         <Mobile>

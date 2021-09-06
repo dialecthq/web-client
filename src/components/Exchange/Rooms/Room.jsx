@@ -11,6 +11,7 @@ import fire from '@utils/fire'
 
 import { createLocalTracks } from 'livekit-client'
 import userContainer from '@utils/state/userContainer'
+import strings from '@utils/data/strings'
 
 import {
   checkWaitingRoom,
@@ -73,19 +74,10 @@ function renderStage({ roomState }) {
   } = roomState
 
   if (isConnecting) {
-    return <Waiting message=" 🔗 connecting to your partner ..." />
+    return <Waiting message={` 🔗 ${strings.connectingToYourPartner} ...`} />
   }
   if (error) {
-    return (
-      // <StageMessage>
-      //   <div>
-      //     Error:
-      //     {' '}
-      //     {error.message}
-      //   </div>
-      // </StageMessage>
-      <Error errorMessage={error.message} imgLink={ServerDown} />
-    )
+    return <Error errorMessage={error.message} imgLink={ServerDown} />
   }
   if (!room) {
     return <Error errorMessage="room closed" imgLink={ServerDown} />
@@ -104,13 +96,6 @@ function renderStage({ roomState }) {
         ))}
       </StageCenter>
       <Controls room={room} participants={participants} />
-      {/* <MuteButton room={room} />
-      <ControlsView
-        room={room}
-        enableScreenShare={false}
-        enableVideo={false}
-        onLeave={() => room.disconnect()}
-      /> */}
     </StageContainer>
   )
 }
@@ -131,14 +116,12 @@ function RoomComponent() {
   const [error, setError] = useState(null)
   const { user } = userContainer.useContainer()
   const history = useHistory()
-  const caroline = 'Pretty'
-  const otherBitches = 'ugly ew'
 
   useEffect(async () => {
     const languageValue = window.location.pathname.split('/').pop()
     const language = rooms.filter((e) => e.value === languageValue)[0]
     if (!language) {
-      setError('Could not find the requested language')
+      setError(strings.couldNotFindRequestedLanguage)
       return null
     }
 
@@ -147,7 +130,6 @@ function RoomComponent() {
       const tokens = await checkTokens(user)
       if (!tokens) {
         setWaiting(false)
-        setError('No tokens left you beyondini')
         return null
       }
     }
@@ -195,8 +177,8 @@ function RoomComponent() {
 
   if (error) return <Error errorMessage={error} imgLink={ServerDown} />
 
-  if (waiting) return <Waiting message="🔎 looking for a partner" />
-  if (!token) return <Error errorMessage="No token beyondie" imgLink={ServerDown} />
+  if (waiting) return <Waiting message={`🔎 ${strings.lookingForPartner}`} />
+  if (!token) return <Error errorMessage="No token beyond" imgLink={ServerDown} />
 
   return (
     <StageDiv>

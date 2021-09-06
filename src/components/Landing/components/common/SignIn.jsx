@@ -4,16 +4,15 @@ import React, { useState } from 'react'
 import styled from 'styled-components'
 import axios from 'axios'
 import {
-  Modal, Button, Input, Tooltip, Divider, Form,
+  Modal, Button, Input, Tooltip, Divider, Form
 } from 'antd'
 import { AiOutlineEye } from 'react-icons/ai'
 import { FaFacebook } from 'react-icons/fa'
 import { FcGoogle } from 'react-icons/fc'
-import {
-  IoLockClosedOutline, IoMailOutline,
-} from 'react-icons/io5'
+import { IoLockClosedOutline, IoMailOutline } from 'react-icons/io5'
 import { useHistory } from 'react-router-dom'
 import User from '@utils/state/userContainer'
+import strings from '@utils/data/strings'
 
 const TabContent = styled.div`
   display: flex;
@@ -27,7 +26,7 @@ const AuthModal = styled(Modal)`
 
   @media screen and (max-width: 768px) {
     width: 100% !important;
-  } 
+  }
 `
 
 const TabRow = styled.div`
@@ -47,14 +46,6 @@ const AuthLink = styled.a`
   font-size: 14px;
   font-weight: 500;
   vertical-align: middle;
-  color: #000 !important;
-  opacity: 0.6;
-  transition: 0.2s all ease-in-out;
-
-  :hover {
-    opacity: 0.9;
-    color: #000 !important
-  }
 `
 
 const Text = styled.p`
@@ -75,37 +66,37 @@ const SmallText = styled.p`
 `
 
 const OauthContainer = styled.div`
-    padding: 20px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `
 
 const TermsContainer = styled.div`
-    display: flex;
-    text-align: center;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
 `
 
 const Terms = styled.p`
-    font-size: 12px;
-    font-weight: 400;
-    width: 70%;
+  font-size: 12px;
+  font-weight: 400;
+  width: 70%;
 `
 const IconButton = styled.a`
-    margin: 10px;
-    svg {
-        height: 40px;
-        width: 40px;
-        border-radius: 50px;
-        border: 0.5px solid #d4d4d4;
-        transition: 0.2s all ease-in-out;
-        :hover {
-            border: 0.5px solid black;
-        }
+  margin: 10px;
+  svg {
+    height: 40px;
+    width: 40px;
+    border-radius: 50px;
+    border: 0.5px solid #d4d4d4;
+    transition: 0.2s all ease-in-out;
+    :hover {
+      border: 0.5px solid black;
     }
+  }
 `
 const SignIn = ({ visible, setVisible, setSignUpVisible }) => {
   const [loading, setLoading] = useState(false)
@@ -114,13 +105,16 @@ const SignIn = ({ visible, setVisible, setSignUpVisible }) => {
 
   const onFinish = (values) => {
     setLoading(true)
-    user.userAPI.login(values.email, values.password).then(() => {
-      setVisible(false)
-      setLoading(false)
-      history.push('/exchange')
-    }).catch(() => {
-      setLoading(false)
-    })
+    user.userAPI
+      .login(values.email, values.password)
+      .then(() => {
+        setVisible(false)
+        setLoading(false)
+        history.push('/exchange')
+      })
+      .catch(() => {
+        setLoading(false)
+      })
   }
 
   const onFinishFailed = (errorInfo) => {
@@ -130,8 +124,10 @@ const SignIn = ({ visible, setVisible, setSignUpVisible }) => {
   return (
     <AuthModal
       visible={visible}
-      onCancel={() => { setVisible(false) }}
-      title="Log In"
+      onCancel={() => {
+        setVisible(false)
+      }}
+      title={strings.logIn.capitalize()}
       footer={null}
     >
       <TabContent>
@@ -144,10 +140,13 @@ const SignIn = ({ visible, setVisible, setSignUpVisible }) => {
           <Form.Item
             name="email"
             validateTrigger="onBlur"
-            rules={[{ required: true, message: 'Please input your email.' }, { type: 'email', message: 'Please input a valid email.' }]}
+            rules={[
+              { required: true, message: strings.pleaseInputEmail.capitalize() },
+              { type: 'email', message: strings.pleaseInputValidEmail.capitalize() }
+            ]}
           >
             <Input
-              placeholder="Email"
+              placeholder={strings.email.capitalize()}
               style={{ height: 40 }}
               prefix={<IoMailOutline />}
             />
@@ -155,10 +154,10 @@ const SignIn = ({ visible, setVisible, setSignUpVisible }) => {
           <Form.Item
             name="password"
             validateTrigger="onBlur"
-            rules={[{ required: true, message: 'Please input your password.' }]}
+            rules={[{ required: true, message: strings.pleaseInputValidEmail.capitalize() }]}
           >
             <Input
-              placeholder="Password"
+              placeholder={strings.password.capitalize()}
               type="password"
               style={{ height: 40 }}
               prefix={<IoLockClosedOutline />}
@@ -170,31 +169,29 @@ const SignIn = ({ visible, setVisible, setSignUpVisible }) => {
             />
           </Form.Item>
           <TabRow>
-            <Text>Keep me logged in</Text>
-            <AuthLink>Forgot password?</AuthLink>
+            <Text />
+            <AuthLink style={{ opacity: 0.8 }}>{strings.forgotPassword.capitalize()}</AuthLink>
           </TabRow>
           <Form.Item style={{ marginBottom: 20 }}>
-            <Button
-              type="primary"
-              block
-              htmlType="submit"
-              loading={loading}
-              style={{ height: 40 }}
-            >
-              <ButtonText>LOG IN</ButtonText>
+            <Button type="primary" block htmlType="submit" loading={loading} style={{ height: 40 }}>
+              <ButtonText>{strings.logIn}</ButtonText>
             </Button>
           </Form.Item>
           <Text style={{ marginBottom: 10 }}>
-            No account yet?
-            <AuthLink onClick={() => {
-              setVisible(false)
-              setSignUpVisible(true)
-            }}
+            {strings.noAccountYet.capitalize()}
+            <AuthLink
+              style={{ marginLeft: 5 }}
+              onClick={() => {
+                setVisible(false)
+                setSignUpVisible(true)
+              }}
             >
-              Sign up
+              {strings.signUp.capitalize()}
             </AuthLink>
           </Text>
-          <Divider style={{ marginBottom: 10 }}><SmallText>or</SmallText></Divider>
+          <Divider style={{ marginBottom: 10 }}>
+            <SmallText>or</SmallText>
+          </Divider>
           <OauthContainer>
             <IconButton>
               <FaFacebook height={24} />
@@ -204,7 +201,7 @@ const SignIn = ({ visible, setVisible, setSignUpVisible }) => {
             </IconButton>
           </OauthContainer>
           <TermsContainer>
-            <Terms>By logging in or creating an account, you agree to Dialects Terms of Service and Privacy Policy.</Terms>
+            <Terms>{strings.byLoggingIn.capitalize()}</Terms>
           </TermsContainer>
         </Form>
       </TabContent>

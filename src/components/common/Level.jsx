@@ -10,24 +10,22 @@ const levelToText = {
   4: 'B2',
   5: 'C1',
   6: 'C2',
-  7: 'Native',
+  7: 'Native'
 }
 
 const LevelContainer = styled.div`
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `
 const LevelIndicator = styled.div`
-    width: 8px;
-    height: 20px;
-    border-radius: 10px;
-    background: ${(p) => (p.active ? '#57c6ff' : '#efefef')};
-    border: ${(p) => (p.active ? 'none' : '1px solid #d4d4d4')};
-    margin-right: 2px;
-
-
-    `
+  width: 8px;
+  height: 20px;
+  border-radius: 10px;
+  background: ${(p) => (p.active ? '#57c6ff' : '#efefef')};
+  border: ${(p) => (p.active ? 'none' : '1px solid #d4d4d4')};
+  margin-right: 2px;
+`
 
 const Level = ({ level }) => (
   <Tooltip title={levelToText[level]}>

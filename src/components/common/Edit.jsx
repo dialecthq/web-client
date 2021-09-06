@@ -101,15 +101,14 @@ const Edit = ({
         setLoading(false)
         setEditing('')
         message.success({
-          content: 'Successfully updated user',
+          content: strings.successfullyUpdatedUser,
           icon: <FaCheckCircle size={24} color="#1ae398" style={{ marginRight: 10 }} />
         })
       })
       .catch((error) => {
-        console.log(error)
         setLoading(false)
         message.error({
-          content: 'Could not update user',
+          content: strings.couldNotUpdateUser,
           icon: <FaTimesCircle size={24} color="#e86461" style={{ marginRight: 10 }} />
         })
       })
@@ -140,7 +139,7 @@ const Edit = ({
           </Form.Item>
           <Form.Item style={{ width: '100%', paddingLeft: 5 }}>
             <Button type="primary" style={{ width: '100%' }} htmlType="submit" loading={loading}>
-              Save
+              {strings.save.capitalize()}
             </Button>
           </Form.Item>
         </EditingRow>

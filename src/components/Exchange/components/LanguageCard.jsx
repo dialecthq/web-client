@@ -184,7 +184,7 @@ const AddLanguage = ({
               setLevel(1)
             }}
           >
-            <FluencyButtonText>Beginner</FluencyButtonText>
+            <FluencyButtonText>{strings.beginner.capitalize()}</FluencyButtonText>
           </FluencyButton>
           <FluencyButton
             active={level === 2}
@@ -192,7 +192,7 @@ const AddLanguage = ({
               setLevel(2)
             }}
           >
-            <FluencyButtonText>Elementary</FluencyButtonText>
+            <FluencyButtonText>{strings.elementary.capitalize()}</FluencyButtonText>
           </FluencyButton>
           <FluencyButton
             active={level === 3}
@@ -200,7 +200,7 @@ const AddLanguage = ({
               setLevel(3)
             }}
           >
-            <FluencyButtonText>Intermediate</FluencyButtonText>
+            <FluencyButtonText>{strings.intermediate.capitalize()}</FluencyButtonText>
           </FluencyButton>
           <FluencyButton
             active={level === 5}
@@ -208,7 +208,7 @@ const AddLanguage = ({
               setLevel(5)
             }}
           >
-            <FluencyButtonText>Advanced</FluencyButtonText>
+            <FluencyButtonText>{strings.advanced.capitalize()}</FluencyButtonText>
           </FluencyButton>
           <FluencyButton
             active={level === 7}
@@ -216,7 +216,7 @@ const AddLanguage = ({
               setLevel(7)
             }}
           >
-            <FluencyButtonText>Native</FluencyButtonText>
+            <FluencyButtonText>{strings.native.capitalize()}</FluencyButtonText>
           </FluencyButton>
         </FormRow>
 
@@ -234,7 +234,7 @@ const AddLanguage = ({
           </Form.Item>
           <Form.Item style={{ marginBottom: 20, width: '100%', paddingLeft: 5 }}>
             <Button type="primary" block htmlType="submit" style={{ height: 40 }} loading={loading}>
-              <ButtonText>Continue</ButtonText>
+              <ButtonText>{strings.continue.capitalize()}</ButtonText>
             </Button>
           </Form.Item>
         </FormRow>
@@ -272,7 +272,7 @@ const LanguageCard = ({ room }) => {
         <CardContent>
           <CardPeople style={{ marginRight: 20 }}>
             <Flag src={room.flag} alt="flag" />
-            <CardTitle>{room.value}</CardTitle>
+            <CardTitle>{strings[room.value.toLowerCase()].uncapitalize()}</CardTitle>
           </CardPeople>
 
           <CardPeople>

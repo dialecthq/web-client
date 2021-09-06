@@ -12,7 +12,7 @@ import {
 import Avatar from '@components/common/Avatar'
 import User from '@utils/state/userContainer'
 import countryOptions from '@utils/data/CountryOptions'
-import languageOptions from '@utils/data/LanguageOptions'
+import rooms from '@utils/data/rooms'
 import timezoneOptions from '@utils/data/TimezoneOptions'
 import levelOptions from '@utils/data/levelOptions'
 import Level from '@components/common/Level'
@@ -24,6 +24,7 @@ import Logo from '@img/logo.svg'
 import { Helmet } from 'react-helmet'
 import { IoLanguage } from 'react-icons/io5'
 import { useHistory } from 'react-router-dom'
+import strings from '@utils/data/strings'
 
 const HeaderContainer = styled.div`
   display: flex;
@@ -164,7 +165,11 @@ const Profile = () => {
     <Page>
       <Helmet>
         <title>
-          🧘 Profile - @
+          🧘
+          {' '}
+          {strings.profile.capitalize()}
+          {' '}
+          - @
           {`${user.username}`}
         </title>
       </Helmet>
@@ -177,17 +182,17 @@ const Profile = () => {
               history.push('/exchange')
             }}
           >
-            Back
+            {strings.back}
           </Button>
         </div>
-        <Title>Profile</Title>
+        <Title>{strings.profile.capitalize()}</Title>
         <Subtitle>
           <span style={{ marginRight: 10 }}>🧘</span>
-          Let everyone know who you are
+          {strings.letEveryoneKnow}
         </Subtitle>
       </TitleContainer>
       <HeaderContainer>
-        <HeaderTitle>User Avatar</HeaderTitle>
+        <HeaderTitle>{strings.userAvatar}</HeaderTitle>
       </HeaderContainer>
       <ContentContainer>
         <PictureContainer>
@@ -197,7 +202,7 @@ const Profile = () => {
               showUploadList={false}
               beforeUpload={(file) => {
                 if (file.type !== 'image/png' && file.type !== 'image/jpeg') {
-                  message.error(`${file.name} is not a png or jpg file`)
+                  message.error(strings.isNotJPGPNG)
                 }
                 return file.type === 'image/png' || file.type === 'image/jpeg'
                   ? true
@@ -226,7 +231,7 @@ const Profile = () => {
               }}
             >
               <Button icon={<FaUpload style={{ marginRight: 5 }} />}>
-                {user.avatarURL ? 'Change' : 'Upload'}
+                {user.avatarURL ? strings.change.capitalize() : strings.upload.capitalize()}
               </Button>
             </Upload>
             {user.avatarURL ? (
@@ -238,19 +243,19 @@ const Profile = () => {
                   userAPI.removeAvatarURL()
                 }}
               >
-                Remove avatar
+                {strings.removeAvatar}
               </Button>
             ) : null}
           </PictureActionContainer>
         </PictureContainer>
       </ContentContainer>
       <HeaderContainer>
-        <HeaderTitle>Basic Information</HeaderTitle>
+        <HeaderTitle>{strings.basicInformation}</HeaderTitle>
       </HeaderContainer>
       <ContentContainer>
         <ContentRow>
           <ItemRow>
-            <InfoTitle>Display Name</InfoTitle>
+            <InfoTitle>{strings.displayName}</InfoTitle>
             {editing !== 'name' ? (
               <InfoContent>{user.name}</InfoContent>
             ) : (
@@ -258,7 +263,7 @@ const Profile = () => {
                 <FormItem
                   name="name"
                   validateTrigger="onBlur"
-                  rules={[{ required: true, message: 'Please input your name.' }]}
+                  rules={[{ required: true, message: strings.pleaseInputName }]}
                 >
                   <Input />
                 </FormItem>
@@ -275,15 +280,15 @@ const Profile = () => {
         </ContentRow>
         <ContentRow>
           <ItemRow>
-            <InfoTitle>Bio</InfoTitle>
+            <InfoTitle>{strings.bio.capitalize()}</InfoTitle>
             {editing !== 'bio' ? (
-              <InfoContent>{user.bio || 'No bio yet'}</InfoContent>
+              <InfoContent>{user.bio || strings.noBio}</InfoContent>
             ) : (
               <Edit setEditing={setEditing} initialValues={{ bio: user.bio || '' }}>
                 <FormItem
                   name="bio"
                   validateTrigger="onBlur"
-                  rules={[{ required: true, message: 'Please input your bio.' }]}
+                  rules={[{ required: true, message: strings.pleaseInputBio }]}
                 >
                   <Input.TextArea autoSize />
                 </FormItem>
@@ -300,12 +305,12 @@ const Profile = () => {
         </ContentRow>
         <ContentRow>
           <ItemRow>
-            <InfoTitle>Date of birth</InfoTitle>
+            <InfoTitle>{strings.dateOfBirth}</InfoTitle>
             {editing !== 'dob' ? (
               <InfoContent>
                 {user.dob
                   ? `${user.dob?.day} / ${user.dob?.month} / ${user.dob?.year}`
-                  : 'Not specified'}
+                  : strings.notSpecified}
               </InfoContent>
             ) : (
               <Edit
@@ -317,21 +322,21 @@ const Profile = () => {
                 }}
               >
                 <FormItem name="day">
-                  <Select showSearch placeholder="Select a day">
+                  <Select showSearch placeholder={strings.selectADay}>
                     {getDays(inputYear, inputMonth).map((day) => (
                       <Select.Option key={day}>{day}</Select.Option>
                     ))}
                   </Select>
                 </FormItem>
                 <FormItem name="month">
-                  <Select showSearch placeholder="Select a month" onChange={setInputMonth}>
+                  <Select showSearch placeholder={strings.selectAMonth} onChange={setInputMonth}>
                     {months.map((month) => (
                       <Select.Option key={month}>{month}</Select.Option>
                     ))}
                   </Select>
                 </FormItem>
                 <FormItem name="year">
-                  <Select showSearch placeholder="Select a year" onChange={setInputYear}>
+                  <Select showSearch placeholder={strings.selectAYear} onChange={setInputYear}>
                     {years.map((year) => (
                       <Select.Option key={year}>{year}</Select.Option>
                     ))}
@@ -350,16 +355,19 @@ const Profile = () => {
         </ContentRow>
         <ContentRow>
           <ItemRow>
-            <InfoTitle>Gender</InfoTitle>
+            <InfoTitle>{strings.gender}</InfoTitle>
             {editing !== 'gender' ? (
-              <InfoContent>{user.gender || 'Not specified'}</InfoContent>
+              <InfoContent>{user.gender || strings.notSpecified}</InfoContent>
             ) : (
-              <Edit setEditing={setEditing} initialValues={{ gender: user.gender || 'Other' }}>
+              <Edit
+                setEditing={setEditing}
+                initialValues={{ gender: user.gender || strings.other.capitalize() }}
+              >
                 <FormItem name="gender">
-                  <Select showSearch placeholder="Select a gender">
-                    <Select.Option key="Male">Male</Select.Option>
-                    <Select.Option key="Female">Female</Select.Option>
-                    <Select.Option key="Other">Other</Select.Option>
+                  <Select showSearch placeholder={strings.selectAGender}>
+                    <Select.Option key="Male">{strings.male.capitalize()}</Select.Option>
+                    <Select.Option key="Female">{strings.female.capitalize()}</Select.Option>
+                    <Select.Option key="Other">{strings.other.capitalize()}</Select.Option>
                   </Select>
                 </FormItem>
               </Edit>
@@ -375,10 +383,11 @@ const Profile = () => {
         </ContentRow>
         <ContentRow>
           <ItemRow>
-            <InfoTitle>From</InfoTitle>
+            <InfoTitle>{strings.from.capitalize()}</InfoTitle>
             {editing !== 'country' ? (
               <InfoContent>
-                {countryOptions.filter((e) => e.key === user.country)[0]?.value || 'Not specified'}
+                {countryOptions.filter((e) => e.key === user.country)[0]?.value
+                  || strings.notSpecified}
               </InfoContent>
             ) : (
               <Edit
@@ -386,11 +395,11 @@ const Profile = () => {
                 initialValues={{
                   country:
                     countryOptions.filter((e) => e.key === user.country)[0]?.value
-                    || 'Not specified'
+                    || strings.notSpecified
                 }}
               >
                 <FormItem name="country">
-                  <Select showSearch placeholder="Select a country">
+                  <Select showSearch placeholder={strings.selectACountry}>
                     {countryOptions.map((country) => (
                       <Select.Option key={country.value}>{country.value}</Select.Option>
                     ))}
@@ -409,21 +418,23 @@ const Profile = () => {
         </ContentRow>
         <ContentRow>
           <ItemRow>
-            <InfoTitle>Living in</InfoTitle>
+            <InfoTitle>{strings.livingIn.capitalize()}</InfoTitle>
             {editing !== 'living' ? (
               <InfoContent>
-                {countryOptions.filter((e) => e.key === user.living)[0]?.value || 'Not specified'}
+                {countryOptions.filter((e) => e.key === user.living)[0]?.value
+                  || strings.notSpecified}
               </InfoContent>
             ) : (
               <Edit
                 setEditing={setEditing}
                 initialValues={{
                   country:
-                    countryOptions.filter((e) => e.key === user.living)[0]?.value || 'Not specified'
+                    countryOptions.filter((e) => e.key === user.living)[0]?.value
+                    || strings.notSpecified
                 }}
               >
                 <FormItem name="living">
-                  <Select showSearch placeholder="Select a country">
+                  <Select showSearch placeholder={strings.selectACountry}>
                     {countryOptions.map((country) => (
                       <Select.Option key={country.value}>{country.value}</Select.Option>
                     ))}
@@ -442,10 +453,11 @@ const Profile = () => {
         </ContentRow>
         <ContentRow>
           <ItemRow>
-            <InfoTitle>Timezone</InfoTitle>
+            <InfoTitle>{strings.timezone.capitalize()}</InfoTitle>
             {editing !== 'timezone' ? (
               <InfoContent>
-                {timezoneOptions.filter((e) => e.key === user.timezone)[0]?.text || 'Not specified'}
+                {timezoneOptions.filter((e) => e.key === user.timezone)[0]?.text
+                  || strings.notSpecified}
               </InfoContent>
             ) : (
               <Edit
@@ -453,11 +465,11 @@ const Profile = () => {
                 initialValues={{
                   timezone:
                     timezoneOptions.filter((e) => e.key === user.timezone)[0]?.value
-                    || 'Not specified'
+                    || strings.notSpecified
                 }}
               >
                 <FormItem name="timezone">
-                  <Select showSearch placeholder="Select a timezone">
+                  <Select showSearch placeholder={strings.selectATimezone}>
                     {timezoneOptions.map((timezone) => (
                       <Select.Option key={timezone.value}>
                         {`${timezone.value} - ${timezone.text}`}
@@ -478,7 +490,7 @@ const Profile = () => {
         </ContentRow>
       </ContentContainer>
       <HeaderContainer>
-        <HeaderTitle>Languages</HeaderTitle>
+        <HeaderTitle>{strings.languages.capitalize()}</HeaderTitle>
       </HeaderContainer>
       <ContentContainer>
         {user.languages
@@ -487,8 +499,8 @@ const Profile = () => {
             <ContentRow key={language.key}>
               <ItemRow>
                 <InfoTitle>
-                  {languageOptions.filter((e) => e.key === language.key)[0]?.value
-                      || 'No Language'}
+                  {strings[rooms.filter((e) => e.key === language.key)[0]?.value.toLowerCase()]
+                      || strings.noLanguage}
                 </InfoTitle>
                 <Level level={language.level} />
               </ItemRow>
@@ -507,16 +519,16 @@ const Profile = () => {
               setEditing={setEditing}
               initialValues={{
                 language:
-                    languageOptions.filter((e) => e.key === language.key)[0]?.value
-                    || 'Not specified',
+                    strings[rooms.filter((e) => e.key === language.key)[0]?.value.toLowerCase()]
+                    || strings.notSpecified,
                 level: levelOptions.filter((e) => e.key === language.level)[0]?.value
               }}
             >
               <FormItem name="language">
                 <Select showSearch placeholder="Select a language">
-                  {languageOptions.map((languageOption) => (
+                  {rooms.map((languageOption) => (
                     <Select.Option key={languageOption.value}>
-                      {languageOption.value}
+                      {strings[languageOption.value.toLowerCase()]}
                     </Select.Option>
                   ))}
                 </Select>
@@ -557,14 +569,16 @@ const Profile = () => {
           ) : editing === 'new' ? (
             <Edit index={user.languages.length} key={user.languages.length} setEditing={setEditing}>
               <FormItem name="language">
-                <Select showSearch placeholder="Select a language">
-                  {languageOptions.map((languageOption) => (
-                    <Select.Option key={languageOption.value}>{languageOption.value}</Select.Option>
+                <Select showSearch placeholder={strings.selectALanguage}>
+                  {rooms.map((languageOption) => (
+                    <Select.Option key={languageOption.value}>
+                      {strings[languageOption.value.toLowerCase()]}
+                    </Select.Option>
                   ))}
                 </Select>
               </FormItem>
               <FormItem name="level">
-                <Select showSearch placeholder="Select a level">
+                <Select showSearch placeholder={strings.selectALevel}>
                   {levelOptions.map((level) => (
                     <Select.Option key={level.value}>{level.value}</Select.Option>
                   ))}
@@ -574,15 +588,6 @@ const Profile = () => {
           ) : null}
         </AddLanguageContainer>
       </ContentContainer>
-      {/* <HeaderContainer>
-        <HeaderTitle>Communication Tools</HeaderTitle>
-      </HeaderContainer>
-      <ContentContainer>
-        <EmptyContainer>
-          <EmptyText>No communications tools found</EmptyText>
-          <Button type="primary">Add one</Button>
-        </EmptyContainer>
-      </ContentContainer> */}
     </Page>
   )
 }
