@@ -21,7 +21,7 @@ const Container = styled.div`
   align-items: center;
   height: 90px;
   padding: 8px 24px;
-  background: #ffffff;
+  background: ${(p) => (p.scrollState ? '#fff' : 'transparent')};
   position: fixed;
   z-index: 5;
   transition: 0.15s all ease-out;
