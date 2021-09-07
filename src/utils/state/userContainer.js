@@ -166,15 +166,12 @@ function useUser() {
     signInWithGoogle: () => {
       const provider = new firebase.auth.GoogleAuthProvider()
       provider.setCustomParameters({})
-      fire
+      firebase
         .auth()
-        .signInWithRedirect(provider)
+        .signInWithPopup(provider)
         .then((result) => {
-          // This gives you a Google Access Token. You can use it to access the Google API.
-          const credential = firebase.auth.GoogleAuthProvider().credentialFromResult(result)
-          const token = credential.accessToken
-          // The signed-in user info.
           console.log(result)
+          window.location = '/exchange'
         })
         .catch((error) => {
           console.log(error)
@@ -184,7 +181,7 @@ function useUser() {
           // The email of the user's account used.
           const { email } = error
           // The AuthCredential type that was used.
-          const credential = firebase.auth.GoogleAuthProvider().credentialFromError(error)
+          const credential = firebase.auth.GoogleAuthProvider.credentialFromError(error)
           // ...
         })
     }
