@@ -95,7 +95,7 @@ const Overlay = styled.div`
   right: 0;
   left: 0;
   transition: 0.2s opacity ease-in-out;
-  z-index: 5;
+  z-index: 4;
 `
 
 const OverlayWrapper = styled.div`
@@ -162,10 +162,18 @@ const TeamMemberDiv = ({ Name, Image }) => {
           <OverlayWrapper>
             <ProfileText>{strings.profiles.capitalize()}</ProfileText>
             <IconRow>
-              <Icon>
+              <Icon
+                onClick={() => {
+                  window.open('https://twitter.com/ryanbrwr', '_blank').focus()
+                }}
+              >
                 <FaTwitter style={{ marginRight: 5 }} />
               </Icon>
-              <Icon>
+              <Icon
+                onClick={() => {
+                  window.open('https://linkedin.com/in/ryanbrwr', '_blank').focus()
+                }}
+              >
                 <FaLinkedin />
               </Icon>
             </IconRow>

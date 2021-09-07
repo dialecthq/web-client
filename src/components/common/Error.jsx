@@ -4,6 +4,7 @@ import { Button } from 'antd'
 import { FaUser, FaArrowLeft } from 'react-icons/fa'
 import { useHistory } from 'react-router-dom'
 import HeaderLogo from '@components/common/HeaderLogo'
+import strings from '@utils/data/strings'
 
 const ErrorContainer = styled.div`
   height: 100vh;
@@ -73,7 +74,7 @@ const Error = ({ imgLink, errorMessage }) => {
               history.push('/exchange')
             }}
           >
-            Back
+            {strings.back.capitalize()}
           </Button>
           <HeaderLogo />
         </HeaderWrapper>

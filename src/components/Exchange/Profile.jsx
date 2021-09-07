@@ -564,7 +564,7 @@ const Profile = () => {
                 setEditing('new')
               }}
             >
-              Add language
+              {strings.addLanguage}
             </Button>
           ) : editing === 'new' ? (
             <Edit index={user.languages.length} key={user.languages.length} setEditing={setEditing}>

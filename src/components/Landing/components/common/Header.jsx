@@ -328,7 +328,7 @@ const Header = () => {
       <SignIn
         visible={signInVisible}
         setVisible={setSignInVisible}
-        setSignInVisible={setSignUpVisible}
+        setSignUpVisible={setSignUpVisible}
       />
     </>
   )

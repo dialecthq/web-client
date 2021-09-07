@@ -66,6 +66,7 @@ const App = () => {
 
   useEffect(() => {
     strings.setLanguage(language)
+    fire.auth().languageCode = language
   }, [language])
 
   if (initializing) {

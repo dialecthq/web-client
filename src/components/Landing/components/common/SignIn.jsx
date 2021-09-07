@@ -2,12 +2,13 @@
 /* eslint-disable max-len */
 import React, { useState } from 'react'
 import styled from 'styled-components'
+import fire from '@utils/fire'
 import axios from 'axios'
 import {
-  Modal, Button, Input, Tooltip, Divider, Form
+  Modal, Button, Input, Tooltip, Divider, Form, message
 } from 'antd'
 import { AiOutlineEye } from 'react-icons/ai'
-import { FaFacebook } from 'react-icons/fa'
+import { FaFacebook, FaTimesCircle, FaCheckCircle } from 'react-icons/fa'
 import { FcGoogle } from 'react-icons/fc'
 import { IoLockClosedOutline, IoMailOutline } from 'react-icons/io5'
 import { useHistory } from 'react-router-dom'
@@ -100,21 +101,51 @@ const IconButton = styled.a`
 `
 const SignIn = ({ visible, setVisible, setSignUpVisible }) => {
   const [loading, setLoading] = useState(false)
-  const user = User.useContainer()
+  const [email, setEmail] = useState(null)
+  const { user, userAPI } = User.useContainer()
   const history = useHistory()
 
   const onFinish = (values) => {
     setLoading(true)
-    user.userAPI
+    userAPI
       .login(values.email, values.password)
       .then(() => {
         setVisible(false)
         setLoading(false)
         history.push('/exchange')
       })
-      .catch(() => {
+      .catch((e) => {
+        message.error({
+          content: e.message,
+          icon: <FaTimesCircle size={24} color="#e86461" style={{ marginRight: 10 }} />
+        })
         setLoading(false)
       })
+  }
+
+  const forgotPassword = (inputEmail) => {
+    if (!inputEmail) {
+      message.error({
+        content: strings.pleaseInputEmail,
+        icon: <FaTimesCircle size={24} color="#e86461" style={{ marginRight: 10 }} />
+      })
+    } else {
+      fire
+        .auth()
+        .sendPasswordResetEmail(inputEmail)
+        .then(() => {
+          message.success({
+            content: strings.successfullyUpdatedUser,
+            icon: <FaCheckCircle size={24} color="#1ae398" style={{ marginRight: 10 }} />
+          })
+        })
+        .catch((e) => {
+          message.error({
+            content: e.message,
+            icon: <FaTimesCircle size={24} color="#e86461" style={{ marginRight: 10 }} />
+          })
+        })
+    }
   }
 
   const onFinishFailed = (errorInfo) => {
@@ -140,6 +171,9 @@ const SignIn = ({ visible, setVisible, setSignUpVisible }) => {
           <Form.Item
             name="email"
             validateTrigger="onBlur"
+            onChange={(e) => {
+              setEmail(e.target.value)
+            }}
             rules={[
               { required: true, message: strings.pleaseInputEmail.capitalize() },
               { type: 'email', message: strings.pleaseInputValidEmail.capitalize() }
@@ -170,7 +204,14 @@ const SignIn = ({ visible, setVisible, setSignUpVisible }) => {
           </Form.Item>
           <TabRow>
             <Text />
-            <AuthLink style={{ opacity: 0.8 }}>{strings.forgotPassword.capitalize()}</AuthLink>
+            <AuthLink
+              style={{ opacity: 0.8 }}
+              onClick={() => {
+                forgotPassword(email)
+              }}
+            >
+              {strings.forgotPassword.capitalize()}
+            </AuthLink>
           </TabRow>
           <Form.Item style={{ marginBottom: 20 }}>
             <Button type="primary" block htmlType="submit" loading={loading} style={{ height: 40 }}>
@@ -196,7 +237,11 @@ const SignIn = ({ visible, setVisible, setSignUpVisible }) => {
             <IconButton>
               <FaFacebook height={24} />
             </IconButton>
-            <IconButton>
+            <IconButton
+              onClick={() => {
+                userAPI.signInWithGoogle()
+              }}
+            >
               <FcGoogle height={24} />
             </IconButton>
           </OauthContainer>
