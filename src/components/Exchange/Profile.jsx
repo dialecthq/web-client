@@ -255,7 +255,7 @@ const Profile = () => {
       <ContentContainer>
         <ContentRow>
           <ItemRow>
-            <InfoTitle>{strings.displayName}</InfoTitle>
+            <InfoTitle>{strings.displayName.capitalize()}</InfoTitle>
             {editing !== 'name' ? (
               <InfoContent>{user.name}</InfoContent>
             ) : (
@@ -274,6 +274,37 @@ const Profile = () => {
             <PenIcon
               onClick={() => {
                 setEditing('name')
+              }}
+            />
+          )}
+        </ContentRow>
+        <ContentRow>
+          <ItemRow>
+            <InfoTitle>{strings.username.capitalize()}</InfoTitle>
+            {editing !== 'username' ? (
+              <InfoContent>{user.username}</InfoContent>
+            ) : (
+              <Edit setEditing={setEditing} initialValues={{ username: user.username }}>
+                <FormItem
+                  name="username"
+                  validateTrigger="onBlur"
+                  rules={[
+                    { required: true, message: strings.pleaseInputUsername },
+                    {
+                      validator: (_, value) => userAPI.validate(_, value, 'username'),
+                      message: strings.usernameAlreadyInUse
+                    }
+                  ]}
+                >
+                  <Input />
+                </FormItem>
+              </Edit>
+            )}
+          </ItemRow>
+          {!editing && (
+            <PenIcon
+              onClick={() => {
+                setEditing('username')
               }}
             />
           )}
@@ -499,8 +530,9 @@ const Profile = () => {
             <ContentRow key={language.key}>
               <ItemRow>
                 <InfoTitle>
-                  {strings[rooms.filter((e) => e.key === language.key)[0]?.value.toLowerCase()]
-                      || strings.noLanguage}
+                  {strings[
+                    rooms.filter((e) => e.key === language.key)[0]?.value.toLowerCase()
+                  ].capitalize() || strings.noLanguage.capitalize()}
                 </InfoTitle>
                 <Level level={language.level} />
               </ItemRow>
@@ -528,7 +560,7 @@ const Profile = () => {
                 <Select showSearch placeholder="Select a language">
                   {rooms.map((languageOption) => (
                     <Select.Option key={languageOption.value}>
-                      {strings[languageOption.value.toLowerCase()]}
+                      {strings[languageOption.value.toLowerCase()].capitalize()}
                     </Select.Option>
                   ))}
                 </Select>
@@ -572,7 +604,7 @@ const Profile = () => {
                 <Select showSearch placeholder={strings.selectALanguage}>
                   {rooms.map((languageOption) => (
                     <Select.Option key={languageOption.value}>
-                      {strings[languageOption.value.toLowerCase()]}
+                      {strings[languageOption.value.toLowerCase()].capitalize()}
                     </Select.Option>
                   ))}
                 </Select>

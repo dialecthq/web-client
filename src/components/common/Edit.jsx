@@ -134,7 +134,7 @@ const Edit = ({
                 setEditing('')
               }}
             >
-              {strings.cancel}
+              {strings.cancel.capitalize()}
             </Button>
           </Form.Item>
           <Form.Item style={{ width: '100%', paddingLeft: 5 }}>

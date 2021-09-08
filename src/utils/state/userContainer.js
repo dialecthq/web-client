@@ -1,8 +1,14 @@
+/* eslint-disable no-shadow */
 /* eslint-disable max-len */
 import { useState } from 'react'
 import { createContainer } from 'unstated-next'
 import fire from '@utils/fire'
 import firebase from 'firebase'
+import {
+  uniqueNamesGenerator, adjectives, colors, animals
+} from 'unique-names-generator'
+import strings from '@utils/data/strings'
+import rooms from '@utils/data/rooms'
 
 function useUser() {
   const [user, setUser] = useState(null)
@@ -170,19 +176,36 @@ function useUser() {
         .auth()
         .signInWithPopup(provider)
         .then((result) => {
-          console.log(result)
-          window.location = '/exchange'
+          const { additionalUserInfo, user } = result
+          const username = uniqueNamesGenerator({
+            dictionaries: [adjectives, colors, animals],
+            separator: '-',
+            length: 3
+          })
+          const inferredNativeLanguage = rooms.filter((e) => strings.getLanguage().includes(e.code))[0]
+          const languages = [{ key: inferredNativeLanguage.key, level: 7 }]
+          if (additionalUserInfo.isNewUser) {
+            fire
+              .firestore()
+              .collection('users')
+              .doc(user.uid)
+              .set({
+                uid: user.uid,
+                name: additionalUserInfo.profile.name,
+                username,
+                email: user.email,
+                tokens: 10,
+                languages
+              })
+              .then(() => {
+                window.location = '/exchange'
+              })
+          } else {
+            window.location = '/exchange'
+          }
         })
         .catch((error) => {
-          console.log(error)
-          // Handle Errors here.
-          const errorCode = error.code
-          const errorMessage = error.message
-          // The email of the user's account used.
-          const { email } = error
-          // The AuthCredential type that was used.
-          const credential = firebase.auth.GoogleAuthProvider.credentialFromError(error)
-          // ...
+          console.log(error.message)
         })
     }
   }

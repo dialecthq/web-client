@@ -85,7 +85,7 @@ const strings = new LocalizedStrings({
     name: 'name',
     emailAlreadyInUse: 'email is already in use.',
     pleaseInputUsername: 'please input your username.',
-    usernameAlreadyInUse: 'username is already in use.\'',
+    usernameAlreadyInUse: 'username is already in use.',
     continue: 'continue',
     alreadyHaveAccount: 'Already have an account?',
     signIn: 'Sign In',

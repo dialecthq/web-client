@@ -188,7 +188,7 @@ const Header = () => {
       {user ? (
         <>
           <Username>
-            {strings.signedInAs}
+            {strings.signedInAs.capitalize()}
             {' '}
             <Emph style={{ color: '#000' }}>
               @
@@ -285,7 +285,7 @@ const Header = () => {
         {user ? (
           <MenuContent>
             <ButtonText style={{ color: '#1c1c1c78' }}>
-              {strings.signedInAs}
+              {strings.signedInAs.capitalize()}
               {' '}
               <Emph style={{ color: '#000' }}>
                 @

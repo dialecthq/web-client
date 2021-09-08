@@ -331,7 +331,7 @@ const SignUp = ({ visible, setVisible, setSignInVisible }) => {
               >
                 {rooms.map((language) => (
                   <Select.Option value={language.value}>
-                    {strings[language.value.toLowerCase()]}
+                    {strings[language.value.toLowerCase()].capitalize()}
                   </Select.Option>
                 ))}
               </Select>
