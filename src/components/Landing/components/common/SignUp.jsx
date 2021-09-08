@@ -145,7 +145,7 @@ const SignUp = ({ visible, setVisible, setSignInVisible }) => {
   const [loading, setLoading] = useState(false)
   const [level, setLevel] = useState(1)
 
-  const user = User.useContainer()
+  const { user, userAPI } = User.useContainer()
   const history = useHistory()
 
   const onFinishPage1 = (values) => {
@@ -169,7 +169,7 @@ const SignUp = ({ visible, setVisible, setSignInVisible }) => {
       timezone: timezoneOptions.filter((e) => e.value === values.timezone)[0].key
     }
     setLoading(true)
-    user.userAPI
+    userAPI
       .register(newTempUser)
       .then(() => {
         setVisible(false)
@@ -228,7 +228,7 @@ const SignUp = ({ visible, setVisible, setSignInVisible }) => {
                 { required: true, message: strings.pleaseInputEmail },
                 { type: 'email', message: strings.pleaseInputValidEmail },
                 {
-                  validator: (_, value) => user.userAPI.validate(_, value, 'email'),
+                  validator: (_, value) => userAPI.validate(_, value, 'email'),
                   message: strings.emailAlreadyInUse
                 }
               ]}
@@ -246,7 +246,7 @@ const SignUp = ({ visible, setVisible, setSignInVisible }) => {
               rules={[
                 { required: true, message: strings.pleaseInputUsername },
                 {
-                  validator: (_, value) => user.userAPI.validate(_, value, 'username'),
+                  validator: (_, value) => userAPI.validate(_, value, 'username'),
                   message: strings.usernameAlreadyInUse
                 }
               ]}
@@ -298,9 +298,13 @@ const SignUp = ({ visible, setVisible, setSignInVisible }) => {
             </Divider>
             <OauthContainer>
               <IconButton>
-                <FaFacebook height={24} />
+                <FaFacebook height={24} color="#1A76F1" />
               </IconButton>
-              <IconButton>
+              <IconButton
+                onClick={() => {
+                  userAPI.signInWithGoogle()
+                }}
+              >
                 <FcGoogle height={24} />
               </IconButton>
             </OauthContainer>

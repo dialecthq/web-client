@@ -67,7 +67,9 @@ const SmallText = styled.p`
 `
 
 const OauthContainer = styled.div`
-  padding: 20px;
+  width: 100%;
+  padding-top: 20px;
+  padding-bottom: 20px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -86,18 +88,23 @@ const Terms = styled.p`
   font-weight: 400;
   width: 70%;
 `
-const IconButton = styled.a`
-  margin: 10px;
-  svg {
-    height: 40px;
-    width: 40px;
-    border-radius: 50px;
-    border: 0.5px solid #d4d4d4;
-    transition: 0.2s all ease-in-out;
-    :hover {
-      border: 0.5px solid black;
-    }
+const IconButton = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 40px;
+  border-radius: 10px;
+  border: 1px solid #00000070;
+  :hover {
+    cursor: pointer;
+    opacity: 0.7;
   }
+`
+
+const SignInText = styled.p`
+  font-weight: 600;
+  font-size: 14px;
 `
 const SignIn = ({ visible, setVisible, setSignUpVisible }) => {
   const [loading, setLoading] = useState(false)
@@ -234,15 +241,13 @@ const SignIn = ({ visible, setVisible, setSignUpVisible }) => {
             <SmallText>or</SmallText>
           </Divider>
           <OauthContainer>
-            <IconButton>
-              <FaFacebook height={24} />
-            </IconButton>
             <IconButton
               onClick={() => {
                 userAPI.signInWithGoogle()
               }}
             >
-              <FcGoogle height={24} />
+              <FcGoogle height={36} style={{ marginRight: 10 }} />
+              <SignInText>Sign in with google</SignInText>
             </IconButton>
           </OauthContainer>
           <TermsContainer>
