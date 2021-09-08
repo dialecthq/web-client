@@ -171,7 +171,6 @@ function useUser() {
     },
     signInWithGoogle: () => {
       const provider = new firebase.auth.GoogleAuthProvider()
-      provider.setCustomParameters({})
       firebase
         .auth()
         .signInWithPopup(provider)
