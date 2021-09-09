@@ -1,11 +1,11 @@
 import React from 'react'
 import styled from 'styled-components'
-import HeaderLogo from '@components/common/HeaderLogo'
+import HeaderLogo from 'Components/common/HeaderLogo'
 import { Select } from 'antd'
-import rooms from '@utils/data/rooms'
+import rooms from 'Utils/data/rooms'
 import { FaGlobe } from 'react-icons/fa'
-import strings from '@utils/data/strings'
-import LanguageContainer from '@utils/state/languageContainer'
+import strings from 'Utils/data/strings'
+import LanguageContainer from 'Utils/state/languageContainer'
 
 const Container = styled.div`
   width: 100%;

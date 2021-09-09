@@ -1,14 +1,14 @@
 /* eslint-disable max-len */
 import React from 'react'
 import styled from 'styled-components'
-import UserContainer from '@utils/state/userContainer'
-import LanguageCard from '@components/exchange/components/LanguageCard'
-import USA from '@img/flags/usa.svg'
-import rooms from '@utils/data/rooms'
-import Page from '@components/exchange/components/Page'
+import UserContainer from 'Utils/state/userContainer'
+import LanguageCard from 'Components/exchange/components/LanguageCard'
+import USA from 'Img/flags/usa.svg'
+import rooms from 'Utils/data/rooms'
+import Page from 'Components/exchange/components/Page'
 import { Helmet } from 'react-helmet'
 import { Skeleton } from 'antd'
-import strings from '@utils/data/strings'
+import strings from 'Utils/data/strings'
 
 const ContentContainer = styled.div`
   display: flex;

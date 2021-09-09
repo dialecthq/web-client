@@ -7,11 +7,11 @@ import {
   LiveKitRoom, AudioRenderer, ControlsView, useParticipant
 } from 'livekit-react'
 import { useHistory, Redirect } from 'react-router-dom'
-import fire from '@utils/fire'
+import fire from 'Utils/fire'
 
 import { createLocalTracks } from 'livekit-client'
-import userContainer from '@utils/state/userContainer'
-import strings from '@utils/data/strings'
+import userContainer from 'Utils/state/userContainer'
+import strings from 'Utils/data/strings'
 
 import {
   checkWaitingRoom,
@@ -21,12 +21,12 @@ import {
   checkNative,
   checkTokens,
   getRoom
-} from '@utils/apis/RoomAPI'
-import ServerDown from '@img/server_down.svg'
-import rooms from '@utils/data/rooms'
+} from 'Utils/apis/RoomAPI'
+import ServerDown from 'Img/server_down.svg'
+import rooms from 'Utils/data/rooms'
 
-import Waiting from '@components/common/Waiting'
-import Error from '@components/common/Error'
+import Waiting from 'Components/common/Waiting'
+import Error from 'Components/common/Error'
 import Participant from './components/Participant'
 import RoomHeader from './components/RoomHeader'
 import Controls from './components/Controls'

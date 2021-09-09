@@ -3,11 +3,11 @@ import styled, { keyframes } from 'styled-components'
 import { FaArrowLeft } from 'react-icons/fa'
 import { BallTriangle, TailSpin, ThreeDots } from '@agney/react-loading'
 import { Button } from 'antd'
-import HeaderLogo from '@components/common/HeaderLogo'
-import { leaveWaitingRoom } from '@utils/apis/RoomAPI'
+import HeaderLogo from 'Components/common/HeaderLogo'
+import { leaveWaitingRoom } from 'Utils/apis/RoomAPI'
 import { useHistory } from 'react-router-dom'
-import UserContainer from '@utils/state/userContainer'
-import strings from '@utils/data/strings'
+import UserContainer from 'Utils/state/userContainer'
+import strings from 'Utils/data/strings'
 
 const LoadingContainer = styled.div`
   height: 100vh;

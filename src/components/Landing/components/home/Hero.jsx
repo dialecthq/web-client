@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import ReactTypingEffect from 'react-typing-effect'
 import { Button } from 'antd'
-import strings from '@utils/data/strings'
+import strings from 'Utils/data/strings'
 
 const Container = styled.div`
   width: 100%;

@@ -1,16 +1,16 @@
 import React, { useState, useRef, useEffect } from 'react'
 import styled, { keyframes } from 'styled-components'
 
-import HeaderLogo from '@components/common/HeaderLogo'
-import UserContainer from '@utils/state/userContainer'
+import HeaderLogo from 'Components/common/HeaderLogo'
+import UserContainer from 'Utils/state/userContainer'
 import {
   FaArrowLeft, FaArrowRight, FaSignOutAlt, FaBars
 } from 'react-icons/fa'
 import { Button } from 'antd'
 import { Cross as Hamburger } from 'hamburger-react'
 import { useHistory } from 'react-router-dom'
-import strings from '@utils/data/strings'
-import LanguageContainer from '@utils/state/languageContainer'
+import strings from 'Utils/data/strings'
+import LanguageContainer from 'Utils/state/languageContainer'
 import SignIn from './SignIn'
 import SignUp from './SignUp'
 

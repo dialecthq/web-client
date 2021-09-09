@@ -2,13 +2,13 @@
 /* eslint-disable max-len */
 import { useState } from 'react'
 import { createContainer } from 'unstated-next'
-import fire from '@utils/fire'
+import fire from 'Utils/fire'
 import firebase from 'firebase'
 import {
   uniqueNamesGenerator, adjectives, colors, animals
 } from 'unique-names-generator'
-import strings from '@utils/data/strings'
-import rooms from '@utils/data/rooms'
+import strings from 'Utils/data/strings'
+import rooms from 'Utils/data/rooms'
 
 function useUser() {
   const [user, setUser] = useState(null)

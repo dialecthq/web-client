@@ -1,5 +1,3 @@
-/* eslint-disable jsx-a11y/click-events-have-key-events */
-/* eslint-disable jsx-a11y/no-static-element-interactions */
 import React, { useState } from 'react'
 import styled from 'styled-components'
 import {
@@ -15,13 +13,13 @@ import {
   Popover, Divider, Menu, Button, Skeleton
 } from 'antd'
 import { useHistory } from 'react-router-dom'
-import Logo from '@img/logo.svg'
-import User from '@utils/state/userContainer'
-import HeaderLogo from '@components/common/HeaderLogo'
-import Coin from '@img/token.svg'
+import Logo from 'Img/logo.svg'
+import User from 'Utils/state/userContainer'
+import HeaderLogo from 'Components/common/HeaderLogo'
+import Coin from 'Img/token.svg'
 import { Cross as Hamburger } from 'hamburger-react'
-import Avatar from '@components/common/Avatar'
-import strings from '@utils/data/strings'
+import Avatar from 'Components/common/Avatar'
+import strings from 'Utils/data/strings'
 
 const NavContainer = styled.div`
   display: flex;

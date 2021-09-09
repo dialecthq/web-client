@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
 import { Button } from 'antd'
-import strings from '@utils/data/strings'
+import strings from 'Utils/data/strings'
 import SignUp from './SignUp'
 import SignIn from './SignIn'
 

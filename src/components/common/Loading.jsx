@@ -1,24 +1,24 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { Progress } from 'antd'
-import HeaderLogo from '@components/common/HeaderLogo'
+import HeaderLogo from 'Components/common/HeaderLogo'
 
 const LoadingContainer = styled.div`
-    height: 100vh;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: var(--dark-background)
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: var(--dark-background);
 `
 
 const LoadingWrapper = styled.div`
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 18px;
-    min-width: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 18px;
+  min-width: 200px;
 `
 
 const Loading = () => {

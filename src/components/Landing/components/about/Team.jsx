@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import styled, { keyframes } from 'styled-components'
-import Logo from '@img/ROSE14.jpg'
+import Logo from 'Img/ROSE14.jpg'
 import { FaTwitter, FaLinkedin } from 'react-icons/fa'
-import strings from '@utils/data/strings'
+import strings from 'Utils/data/strings'
 
 const Animation = keyframes`
   from {

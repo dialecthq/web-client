@@ -12,15 +12,15 @@ const WARNING = isTruthy(process.env.CI) ? ERROR : 'warn'
 module.exports = {
   env: {
     browser: true,
-    es2021: true,
+    es2021: true
   },
   extends: ['plugin:react/recommended', 'airbnb'],
   parserOptions: {
     ecmaFeatures: {
-      jsx: true,
+      jsx: true
     },
     ecmaVersion: 12,
-    sourceType: 'module',
+    sourceType: 'module'
   },
   plugins: ['react'],
   rules: {
@@ -40,21 +40,13 @@ module.exports = {
     'prefer-const': WARNING,
     'react/prop-types': [WARNING, { ignore: ['className'] }],
     'import/no-unresolved': WARNING,
-    semi: [WARNING, 'never'],
+    semi: [WARNING, 'never']
   },
   settings: {
     'import/resolver': {
-      alias: {
-        map: [
-          ['@components/*', './components/*'],
-          ['@img/*', './src/img/*'],
-          ['@utils/*', './src/utils/*'],
-        ],
-        extensions: ['.js', '.jsx', '.json'],
-      },
       node: {
-        extensions: ['.jsx', '.js'],
-      },
-    },
-  },
+        paths: ['src']
+      }
+    }
+  }
 }

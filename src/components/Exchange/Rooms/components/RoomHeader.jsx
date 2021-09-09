@@ -1,9 +1,8 @@
-/* eslint-disable react/prop-types */
 import React from 'react'
 import styled from 'styled-components'
 import { ImConnection } from 'react-icons/im'
 import { FaUser, FaArrowLeft } from 'react-icons/fa'
-import HeaderLogo from '@components/common/HeaderLogo'
+import HeaderLogo from 'Components/common/HeaderLogo'
 
 const Container = styled.div`
   position: fixed;

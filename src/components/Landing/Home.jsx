@@ -1,11 +1,11 @@
 /* eslint-disable max-len */
 import React, { useState, useRef, useEffect } from 'react'
 
-import Conversation from '@img/conversation.svg'
-import Gift from '@img/gift.svg'
-import Messaging from '@img/messaging.svg'
+import Conversation from 'Img/conversation.svg'
+import Gift from 'Img/gift.svg'
+import Messaging from 'Img/messaging.svg'
 import { FaGifts } from 'react-icons/fa'
-import strings from '@utils/data/strings'
+import strings from 'Utils/data/strings'
 import Footer from './components/common/Footer'
 import Header from './components/common/Header'
 import Hero from './components/home/Hero'

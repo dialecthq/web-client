@@ -14,17 +14,17 @@ import { FcGoogle } from 'react-icons/fc'
 import { useHistory } from 'react-router-dom'
 
 // Data objects
-import countryOptions from '@utils/data/CountryOptions'
-import timezoneOptions from '@utils/data/TimezoneOptions'
-import rooms from '@utils/data/rooms'
+import countryOptions from 'Utils/data/CountryOptions'
+import timezoneOptions from 'Utils/data/TimezoneOptions'
+import rooms from 'Utils/data/rooms'
 
 // Validators
-import emailValidator from '@utils/validators/emailValidator'
-import usernameValidator from '@utils/validators/usernameValidator'
+import emailValidator from 'Utils/validators/emailValidator'
+import usernameValidator from 'Utils/validators/usernameValidator'
 
 // Containers
-import User from '@utils/state/userContainer'
-import strings from '@utils/data/strings'
+import User from 'Utils/state/userContainer'
+import strings from 'Utils/data/strings'
 
 const TabContent = styled.div`
   display: flex;
@@ -90,18 +90,23 @@ const Terms = styled.p`
   width: 100%;
 `
 
-const IconButton = styled.a`
-  margin: 10px;
-  svg {
-    height: 40px;
-    width: 40px;
-    border-radius: 50px;
-    border: 0.5px solid #d4d4d4;
-    transition: 0.2s all ease-in-out;
-    :hover {
-      border: 0.5px solid black;
-    }
+const IconButton = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 40px;
+  border-radius: 10px;
+  border: 1px solid #00000070;
+  :hover {
+    cursor: pointer;
+    opacity: 0.7;
   }
+`
+
+const SignInText = styled.p`
+  font-weight: 600;
+  font-size: 14px;
 `
 
 const Label = styled.p`
@@ -297,15 +302,13 @@ const SignUp = ({ visible, setVisible, setSignInVisible }) => {
               <SmallText>{strings.or}</SmallText>
             </Divider>
             <OauthContainer>
-              <IconButton>
-                <FaFacebook height={24} color="#1A76F1" />
-              </IconButton>
               <IconButton
                 onClick={() => {
                   userAPI.signInWithGoogle()
                 }}
               >
-                <FcGoogle height={24} />
+                <FcGoogle height={36} style={{ marginRight: 10 }} />
+                <SignInText>Sign in with google</SignInText>
               </IconButton>
             </OauthContainer>
           </Form>

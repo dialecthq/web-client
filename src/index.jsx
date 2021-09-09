@@ -5,8 +5,8 @@ import './index.css'
 import App from './App'
 import './App.less'
 
-import User from './utils/state/userContainer'
-import LanguageContainer from './utils/state/languageContainer'
+import User from './Utils/state/userContainer'
+import LanguageContainer from './Utils/state/languageContainer'
 
 ReactDOM.render(
   <React.StrictMode>

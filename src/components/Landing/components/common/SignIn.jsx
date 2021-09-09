@@ -1,8 +1,7 @@
-/* eslint-disable react/prop-types */
 /* eslint-disable max-len */
 import React, { useState } from 'react'
 import styled from 'styled-components'
-import fire from '@utils/fire'
+import fire from 'Utils/fire'
 import axios from 'axios'
 import {
   Modal, Button, Input, Tooltip, Divider, Form, message
@@ -12,8 +11,8 @@ import { FaFacebook, FaTimesCircle, FaCheckCircle } from 'react-icons/fa'
 import { FcGoogle } from 'react-icons/fc'
 import { IoLockClosedOutline, IoMailOutline } from 'react-icons/io5'
 import { useHistory } from 'react-router-dom'
-import User from '@utils/state/userContainer'
-import strings from '@utils/data/strings'
+import User from 'Utils/state/userContainer'
+import strings from 'Utils/data/strings'
 
 const TabContent = styled.div`
   display: flex;

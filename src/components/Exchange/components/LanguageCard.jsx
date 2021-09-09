@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import React, { useState } from 'react'
-import UserContainer from '@utils/state/userContainer'
+import UserContainer from 'Utils/state/userContainer'
 import {
   Button, Modal, Form, Select
 } from 'antd'
@@ -8,13 +8,13 @@ import styled from 'styled-components'
 import { FaUserAlt } from 'react-icons/fa'
 import { useHistory } from 'react-router-dom'
 import firebase from 'firebase'
-import fire from '@utils/fire'
-import { checkTokens, checkNative } from '@utils/apis/RoomAPI'
+import fire from 'Utils/fire'
+import { checkTokens, checkNative } from 'Utils/apis/RoomAPI'
 
-import languageOptions from '@utils/data/LanguageOptions'
-import countryOptions from '@utils/data/CountryOptions'
-import timezoneOptions from '@utils/data/TimezoneOptions'
-import strings from '@utils/data/strings'
+import languageOptions from 'Utils/data/LanguageOptions'
+import countryOptions from 'Utils/data/CountryOptions'
+import timezoneOptions from 'Utils/data/TimezoneOptions'
+import strings from 'Utils/data/strings'
 
 const CardContainer = styled.div`
   margin-bottom: 20px;

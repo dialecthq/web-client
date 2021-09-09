@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import { useParticipant } from 'livekit-react'
 import { FaMicrophoneSlash, FaMicrophone } from 'react-icons/fa'
-import Avatar from '@components/common/Avatar'
+import Avatar from 'Components/common/Avatar'
 
 const Container = styled.div`
   width: 40%;

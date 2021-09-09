@@ -4,12 +4,12 @@ import { Modal, Rate, Button } from 'antd'
 import { useTimer } from 'react-timer-hook'
 import {
   checkNative, leaveRoom, spendToken, addToken, getRoom
-} from '@utils/apis/RoomAPI'
-import UserContainer from '@utils/state/userContainer'
+} from 'Utils/apis/RoomAPI'
+import UserContainer from 'Utils/state/userContainer'
 import { FaArrowLeft } from 'react-icons/fa'
-import Coin from '@img/token.svg'
+import Coin from 'Img/token.svg'
 import { useHistory } from 'react-router-dom'
-import fire from '@utils/fire'
+import fire from 'Utils/fire'
 import firebase from 'firebase'
 
 const Container = styled.div`

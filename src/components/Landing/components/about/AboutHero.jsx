@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import strings from '@utils/data/strings'
+import strings from 'Utils/data/strings'
 
 const Container = styled.div`
   width: 100%;

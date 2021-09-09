@@ -1,16 +1,15 @@
 /* eslint-disable max-len */
-/* eslint-disable react/prop-types */
 import React, { useState } from 'react'
 import styled from 'styled-components'
 import { Form, Button, message } from 'antd'
 import axios from 'axios'
 import { FaCheckCircle, FaTimesCircle } from 'react-icons/fa'
-import User from '@utils/state/userContainer'
-import countryOptions from '@utils/data/CountryOptions'
-import timezoneOptions from '@utils/data/TimezoneOptions'
-import languageOptions from '@utils/data/LanguageOptions'
-import levelOptions from '@utils/data/levelOptions'
-import strings from '@utils/data/strings'
+import User from 'Utils/state/userContainer'
+import countryOptions from 'Utils/data/CountryOptions'
+import timezoneOptions from 'Utils/data/TimezoneOptions'
+import languageOptions from 'Utils/data/LanguageOptions'
+import levelOptions from 'Utils/data/levelOptions'
+import strings from 'Utils/data/strings'
 
 const EditingContainer = styled.div`
   display: flex;

@@ -3,8 +3,8 @@ import styled, { keyframes } from 'styled-components'
 import { Button } from 'antd'
 import { FaUser, FaArrowLeft } from 'react-icons/fa'
 import { useHistory } from 'react-router-dom'
-import HeaderLogo from '@components/common/HeaderLogo'
-import strings from '@utils/data/strings'
+import HeaderLogo from 'Components/common/HeaderLogo'
+import strings from 'Utils/data/strings'
 
 const ErrorContainer = styled.div`
   height: 100vh;
