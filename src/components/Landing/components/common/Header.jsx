@@ -1,16 +1,14 @@
-import React, { useState, useRef, useEffect } from 'react'
-import styled, { keyframes } from 'styled-components'
+import React, { useState, useEffect } from 'react'
+import styled from 'styled-components'
 
 import HeaderLogo from 'Components/common/HeaderLogo'
 import UserContainer from 'Utils/state/userContainer'
-import {
-  FaArrowLeft, FaArrowRight, FaSignOutAlt, FaBars
-} from 'react-icons/fa'
 import { Button } from 'antd'
 import { Cross as Hamburger } from 'hamburger-react'
 import { useHistory } from 'react-router-dom'
 import strings from 'Utils/data/strings'
 import LanguageContainer from 'Utils/state/languageContainer'
+import { logout } from 'Utils/apis/UserAPI'
 import SignIn from './SignIn'
 import SignUp from './SignUp'
 
@@ -115,7 +113,7 @@ const MenuButton = styled.div`
 `
 
 const Header = () => {
-  const { user, userAPI } = UserContainer.useContainer()
+  const { user } = UserContainer.useContainer()
   const { language, setLanguage } = LanguageContainer.useContainer()
   const history = useHistory()
 
@@ -193,7 +191,7 @@ const Header = () => {
                     marginRight: 10
                   }}
                   onClick={() => {
-                    userAPI.logout()
+                    logout()
                   }}
                 >
                   {strings.signOut.capitalize()}
@@ -297,7 +295,7 @@ const Header = () => {
               }}
               onClick={() => {
                 setMenuVisible(false)
-                userAPI.logout()
+                logout()
               }}
             >
               <ButtonText>{strings.signOut.capitalize()}</ButtonText>

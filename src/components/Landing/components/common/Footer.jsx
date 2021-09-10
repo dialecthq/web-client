@@ -101,7 +101,7 @@ const Footer = () => {
           </Section>
           <Section>
             <SectionTitle>{strings.legal.capitalize()}</SectionTitle>
-            <SectionLink>{strings.privacyPolicy.capitalize()}</SectionLink>
+            <SectionLink href="/privacy">{strings.privacyPolicy.capitalize()}</SectionLink>
             <SectionLink>{strings.termsOfService.capitalize()}</SectionLink>
           </Section>
         </SectionContainer>
@@ -111,7 +111,7 @@ const Footer = () => {
           <SmallText>
             {strings.copyright.capitalize()}
             {' '}
-            2021 Dialect Inc.
+            2021 Dialect Technology Inc.
           </SmallText>
           <Select
             style={{ width: 150, marginTop: 30 }}

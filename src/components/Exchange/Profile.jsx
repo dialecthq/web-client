@@ -25,6 +25,13 @@ import { Helmet } from 'react-helmet'
 import { IoLanguage } from 'react-icons/io5'
 import { useHistory } from 'react-router-dom'
 import strings from 'Utils/data/strings'
+import {
+  removeAvatarURL,
+  uploadAvatarUrl,
+  validate,
+  deleteLanguage,
+  getUser
+} from 'Utils/apis/UserAPI'
 
 const HeaderContainer = styled.div`
   display: flex;
@@ -158,7 +165,7 @@ const Profile = () => {
   const [editing, setEditing] = useState('')
   const [inputYear, setInputYear] = useState(2002)
   const [inputMonth, setInputMonth] = useState(1)
-  const { user, setUser, userAPI } = User.useContainer()
+  const { user, setUser } = User.useContainer()
   const history = useHistory()
 
   return (
@@ -209,25 +216,9 @@ const Profile = () => {
                   : Upload.LIST_IGNORE
               }}
               customRequest={async ({ file, onSuccess, onError }) => {
-                const storage = fire.storage()
-                const metadata = {
-                  contentType: file.type
-                }
-                const storageRef = await storage.ref()
-                const imgFile = storageRef.child(`${fire.auth().currentUser.uid}/profile.png`)
-                try {
-                  const image = await imgFile.put(file, metadata)
-                  const avatarURL = await imgFile.getDownloadURL()
-                  await fire.firestore().collection('users').doc(user.uid).update({
-                    avatarURL
-                  })
-
-                  const userRef = await fire.firestore().collection('users').doc(user.uid).get()
-                  setUser(userRef.data())
-                  onSuccess(null, image)
-                } catch (e) {
-                  onError(e)
-                }
+                await uploadAvatarUrl(user, file, onSuccess, onError)
+                const userRef = await getUser()
+                setUser(userRef.data())
               }}
             >
               <Button icon={<FaUpload style={{ marginRight: 5 }} />}>
@@ -239,8 +230,10 @@ const Profile = () => {
                 style={{ marginTop: 10 }}
                 icon={<FaTrash style={{ marginRight: 5 }} />}
                 danger
-                onClick={() => {
-                  userAPI.removeAvatarURL()
+                onClick={async () => {
+                  await removeAvatarURL()
+                  const userRef = await getUser()
+                  setUser(userRef.data())
                 }}
               >
                 {strings.removeAvatar}
@@ -291,7 +284,7 @@ const Profile = () => {
                   rules={[
                     { required: true, message: strings.pleaseInputUsername },
                     {
-                      validator: (_, value) => userAPI.validate(_, value, 'username'),
+                      validator: (_, value) => validate(_, value, 'username'),
                       message: strings.usernameAlreadyInUse
                     }
                   ]}
@@ -576,7 +569,7 @@ const Profile = () => {
                 title="Are you sure you want to delete this language?"
                 placement="topLeft"
                 onConfirm={() => {
-                  userAPI.deleteLanguage(language.key)
+                  deleteLanguage(user, language.key)
                   setEditing(null)
                   message.success('Successfully deleted language')
                 }}

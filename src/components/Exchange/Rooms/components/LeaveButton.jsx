@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import { BiDoorOpen } from 'react-icons/bi'
 import { useHistory } from 'react-router-dom'
 import { leaveRoomEarly } from 'Utils/apis/RoomAPI'
+import { getUser } from 'Utils/apis/UserAPI'
 import UserContainer from 'Utils/state/userContainer'
 
 const Container = styled.div`
@@ -23,12 +24,13 @@ const Container = styled.div`
 
 const LeaveButton = ({ room }) => {
   const history = useHistory()
-  const { user, userAPI } = UserContainer.useContainer()
+  const { user, setUser } = UserContainer.useContainer()
   return (
     <Container
-      onClick={() => {
-        leaveRoomEarly(user, room)
-        userAPI.getUser()
+      onClick={async () => {
+        await leaveRoomEarly(user, room)
+        const userRef = await getUser()
+        setUser(userRef.data())
         history.push('/exchange')
       }}
     >

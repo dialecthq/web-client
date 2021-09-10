@@ -20,6 +20,7 @@ import Coin from 'Img/token.svg'
 import { Cross as Hamburger } from 'hamburger-react'
 import Avatar from 'Components/common/Avatar'
 import strings from 'Utils/data/strings'
+import { logout } from 'Utils/apis/UserAPI'
 
 const NavContainer = styled.div`
   display: flex;
@@ -176,7 +177,7 @@ const TokenContainer = styled.div`
 `
 
 const Header = () => {
-  const { user, userAPI } = User.useContainer()
+  const { user } = User.useContainer()
   const history = useHistory()
   const [ppOpen, setPPOpen] = useState(false)
   const [menuVisible, setMenuVisible] = useState(false)
@@ -229,7 +230,7 @@ const Header = () => {
           key="sign-out"
           icon={<FaSignOutAlt />}
           onClick={() => {
-            userAPI.logout()
+            logout()
             history.push('/')
           }}
         >
@@ -363,7 +364,7 @@ const Header = () => {
             }}
             onClick={() => {
               setMenuVisible(false)
-              userAPI.logout()
+              logout()
               history.push('/')
             }}
           >

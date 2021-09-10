@@ -1,11 +1,12 @@
 import React from 'react'
-import styled from 'styled-components'
 import Footer from './components/common/Footer'
 import Header from './components/common/Header'
+import Content from './components/privacy/Content'
 
 const Privacy = () => (
   <>
     <Header />
+    <Content />
     <Footer />
   </>
 )

@@ -2,7 +2,6 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
 import { Form, Button, message } from 'antd'
-import axios from 'axios'
 import { FaCheckCircle, FaTimesCircle } from 'react-icons/fa'
 import User from 'Utils/state/userContainer'
 import countryOptions from 'Utils/data/CountryOptions'
@@ -10,6 +9,7 @@ import timezoneOptions from 'Utils/data/TimezoneOptions'
 import languageOptions from 'Utils/data/LanguageOptions'
 import levelOptions from 'Utils/data/levelOptions'
 import strings from 'Utils/data/strings'
+import { getUser, edit } from 'Utils/apis/UserAPI'
 
 const EditingContainer = styled.div`
   display: flex;
@@ -41,7 +41,7 @@ const Edit = ({
   children, setEditing, initialValues, index
 }) => {
   const [loading, setLoading] = useState(false)
-  const user = User.useContainer()
+  const { user, setUser } = User.useContainer()
 
   const onFinish = (values) => {
     setLoading(true)
@@ -76,7 +76,7 @@ const Edit = ({
 
     // languages
     if (Object.keys(parameters).includes('language')) {
-      const tempLanguages = [...user.user.languages]
+      const tempLanguages = [...user.languages]
       tempLanguages[index] = {
         level: parseInt(levelOptions.filter((e) => e.value === parameters.level)[0].key, 10),
         key: languageOptions.filter((e) => e.value === parameters.language)[0].key
@@ -94,11 +94,13 @@ const Edit = ({
       }
     }
 
-    user.userAPI
-      .edit(parameters)
-      .then(() => {
+    edit(parameters)
+      .then(async () => {
         setLoading(false)
         setEditing('')
+        const userRef = await getUser()
+        setUser(userRef.data())
+
         message.success({
           content: strings.successfullyUpdatedUser,
           icon: <FaCheckCircle size={24} color="#1ae398" style={{ marginRight: 10 }} />

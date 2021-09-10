@@ -11,10 +11,8 @@ import firebase from 'firebase'
 import fire from 'Utils/fire'
 import { checkTokens, checkNative } from 'Utils/apis/RoomAPI'
 
-import languageOptions from 'Utils/data/LanguageOptions'
-import countryOptions from 'Utils/data/CountryOptions'
-import timezoneOptions from 'Utils/data/TimezoneOptions'
 import strings from 'Utils/data/strings'
+import { getUser } from 'Utils/apis/UserAPI'
 
 const CardContainer = styled.div`
   margin-bottom: 20px;
@@ -145,7 +143,7 @@ const FluencyButtonText = styled.p`
 `
 
 const AddLanguage = ({
-  setVisible, user, userAPI, language
+  setVisible, user, language, setUser
 }) => {
   const [loading, setLoading] = useState(false)
   const [level, setLevel] = useState(1)
@@ -161,7 +159,9 @@ const AddLanguage = ({
         languages: firebase.firestore.FieldValue.arrayUnion({ key: language.key, level })
       })
 
-    userAPI.getUser()
+    const userRef = await getUser()
+    setUser(userRef.data())
+
     history.push({
       pathname: `/join/${language.value}`
     })
@@ -245,7 +245,7 @@ const AddLanguage = ({
 
 const LanguageCard = ({ room }) => {
   const history = useHistory()
-  const { user, userAPI } = UserContainer.useContainer()
+  const { user, setUser } = UserContainer.useContainer()
   const [visible, setVisible] = useState(false)
   return (
     <CardContainer
@@ -287,7 +287,7 @@ const LanguageCard = ({ room }) => {
         onCancel={() => setVisible(false)}
         title={`Select your ${room.value} level`}
       >
-        <AddLanguage setVisible={setVisible} user={user} language={room} userAPI={userAPI} />
+        <AddLanguage setVisible={setVisible} user={user} language={room} setUser={setUser} />
       </Modal>
     </CardContainer>
   )

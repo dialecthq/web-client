@@ -12,15 +12,12 @@ import { AiOutlineEye } from 'react-icons/ai'
 import { FaFacebook } from 'react-icons/fa'
 import { FcGoogle } from 'react-icons/fc'
 import { useHistory } from 'react-router-dom'
+import { register, signInWithGoogle, validate } from 'Utils/apis/UserAPI'
 
 // Data objects
 import countryOptions from 'Utils/data/CountryOptions'
 import timezoneOptions from 'Utils/data/TimezoneOptions'
 import rooms from 'Utils/data/rooms'
-
-// Validators
-import emailValidator from 'Utils/validators/emailValidator'
-import usernameValidator from 'Utils/validators/usernameValidator'
 
 // Containers
 import User from 'Utils/state/userContainer'
@@ -150,7 +147,7 @@ const SignUp = ({ visible, setVisible, setSignInVisible }) => {
   const [loading, setLoading] = useState(false)
   const [level, setLevel] = useState(1)
 
-  const { user, userAPI } = User.useContainer()
+  const { user } = User.useContainer()
   const history = useHistory()
 
   const onFinishPage1 = (values) => {
@@ -174,8 +171,7 @@ const SignUp = ({ visible, setVisible, setSignInVisible }) => {
       timezone: timezoneOptions.filter((e) => e.value === values.timezone)[0].key
     }
     setLoading(true)
-    userAPI
-      .register(newTempUser)
+    register(newTempUser)
       .then(() => {
         setVisible(false)
         setPage(0)
@@ -233,7 +229,7 @@ const SignUp = ({ visible, setVisible, setSignInVisible }) => {
                 { required: true, message: strings.pleaseInputEmail },
                 { type: 'email', message: strings.pleaseInputValidEmail },
                 {
-                  validator: (_, value) => userAPI.validate(_, value, 'email'),
+                  validator: (_, value) => validate(_, value, 'email'),
                   message: strings.emailAlreadyInUse
                 }
               ]}
@@ -251,7 +247,7 @@ const SignUp = ({ visible, setVisible, setSignInVisible }) => {
               rules={[
                 { required: true, message: strings.pleaseInputUsername },
                 {
-                  validator: (_, value) => userAPI.validate(_, value, 'username'),
+                  validator: (_, value) => validate(_, value, 'username'),
                   message: strings.usernameAlreadyInUse
                 }
               ]}
@@ -304,7 +300,7 @@ const SignUp = ({ visible, setVisible, setSignInVisible }) => {
             <OauthContainer>
               <IconButton
                 onClick={() => {
-                  userAPI.signInWithGoogle()
+                  signInWithGoogle()
                 }}
               >
                 <FcGoogle height={36} style={{ marginRight: 10 }} />

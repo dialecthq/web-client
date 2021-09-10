@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { createContainer } from 'unstated-next'
-import strings from 'Utils/data/strings'
+import strings from '../data/strings'
 
 function useLanguage() {
   const [language, setLanguage] = useState(

@@ -2,15 +2,12 @@ import React, { useState } from 'react'
 import styled from 'styled-components'
 import { Modal, Rate, Button } from 'antd'
 import { useTimer } from 'react-timer-hook'
-import {
-  checkNative, leaveRoom, spendToken, addToken, getRoom
-} from 'Utils/apis/RoomAPI'
+import { leaveRoom, spendToken, addToken } from 'Utils/apis/RoomAPI'
 import UserContainer from 'Utils/state/userContainer'
-import { FaArrowLeft } from 'react-icons/fa'
-import Coin from 'Img/token.svg'
 import { useHistory } from 'react-router-dom'
 import fire from 'Utils/fire'
 import firebase from 'firebase'
+import { getUser } from 'Utils/apis/UserAPI'
 
 const Container = styled.div`
   height: 48px;
@@ -48,7 +45,7 @@ const TimerModal = styled(Modal)`
 `
 
 const Timer = ({ room }) => {
-  const { user, userAPI } = UserContainer.useContainer()
+  const { user, setUser } = UserContainer.useContainer()
   const history = useHistory()
   const [visible, setVisible] = useState(false)
   const [stars, setStars] = useState(5)
@@ -56,7 +53,6 @@ const Timer = ({ room }) => {
   const { roomMeta, isNative } = JSON.parse(room.localParticipant.metadata)
   const time = new Date()
   time.setTime(roomMeta.endTime)
-  console.log(time)
   const { seconds, minutes } = useTimer(
     {
       expiryTimestamp: time,
@@ -66,7 +62,8 @@ const Timer = ({ room }) => {
         } else {
           await addToken(user)
         }
-        userAPI.getUser()
+        const userRef = await getUser()
+        setUser(userRef.data())
         setVisible(true)
       }
     },

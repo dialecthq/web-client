@@ -13,6 +13,7 @@ import { IoLockClosedOutline, IoMailOutline } from 'react-icons/io5'
 import { useHistory } from 'react-router-dom'
 import User from 'Utils/state/userContainer'
 import strings from 'Utils/data/strings'
+import { signInWithGoogle, login } from 'Utils/apis/UserAPI'
 
 const TabContent = styled.div`
   display: flex;
@@ -108,13 +109,12 @@ const SignInText = styled.p`
 const SignIn = ({ visible, setVisible, setSignUpVisible }) => {
   const [loading, setLoading] = useState(false)
   const [email, setEmail] = useState(null)
-  const { user, userAPI } = User.useContainer()
+  const { user } = User.useContainer()
   const history = useHistory()
 
   const onFinish = (values) => {
     setLoading(true)
-    userAPI
-      .login(values.email, values.password)
+    login(values.email, values.password)
       .then(() => {
         setVisible(false)
         setLoading(false)
@@ -242,7 +242,7 @@ const SignIn = ({ visible, setVisible, setSignUpVisible }) => {
           <OauthContainer>
             <IconButton
               onClick={() => {
-                userAPI.signInWithGoogle()
+                signInWithGoogle()
               }}
             >
               <FcGoogle height={36} style={{ marginRight: 10 }} />
