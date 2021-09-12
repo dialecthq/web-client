@@ -1,10 +1,10 @@
 import React from 'react'
 import Footer from './components/common/Footer'
 import Header from './components/common/Header'
-import Content from './components/privacy/Content'
+import Content from './components/tos/Content'
 import CallToAction from './components/common/CallToAction'
 
-const Privacy = () => (
+const TOS = () => (
   <>
     <Header />
     <Content />
@@ -13,4 +13,4 @@ const Privacy = () => (
   </>
 )
 
-export default Privacy
+export default TOS

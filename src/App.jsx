@@ -12,6 +12,7 @@ import Profile from 'Components/exchange/Profile'
 import Error from 'Components/common/Error'
 import Pricing from 'Components/landing/Pricing'
 import Privacy from 'Components/landing/Privacy'
+import TOS from 'Components/landing/TOS'
 import svg404 from 'Img/404.svg'
 
 import ExchangeState from 'Utils/state/exchangeContainer'
@@ -97,6 +98,9 @@ const App = () => {
           </Route>
           <Route path="/privacy">
             <Privacy />
+          </Route>
+          <Route path="/terms">
+            <TOS />
           </Route>
           <Route path="*">
             <Error errorMessage="Oops, that page doesn't exist" imgLink={svg404} />

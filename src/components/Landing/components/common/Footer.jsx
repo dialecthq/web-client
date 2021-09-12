@@ -90,19 +90,23 @@ const Footer = () => {
         <SectionContainer>
           <Section>
             <SectionTitle>{strings.general.capitalize()}</SectionTitle>
-            <SectionLink>{strings.about.capitalize()}</SectionLink>
-            <SectionLink>{strings.pricing.capitalize()}</SectionLink>
-            <SectionLink>{strings.blog.capitalize()}</SectionLink>
+            <SectionLink href="/about">{strings.about.capitalize()}</SectionLink>
+            <SectionLink href="/pricing">{strings.pricing.capitalize()}</SectionLink>
+            <SectionLink href="/blog">{strings.blog.capitalize()}</SectionLink>
           </Section>
           <Section>
             <SectionTitle>{strings.aboutDialect.capitalize()}</SectionTitle>
-            <SectionLink>Twitter</SectionLink>
-            <SectionLink>GitHub</SectionLink>
+            <SectionLink href="https://twitter.com/DialectHQ" target="_blank">
+              Twitter
+            </SectionLink>
+            <SectionLink href="https://github.com/dialecthq" target="_blank">
+              GitHub
+            </SectionLink>
           </Section>
           <Section>
             <SectionTitle>{strings.legal.capitalize()}</SectionTitle>
             <SectionLink href="/privacy">{strings.privacyPolicy.capitalize()}</SectionLink>
-            <SectionLink>{strings.termsOfService.capitalize()}</SectionLink>
+            <SectionLink href="/terms">{strings.termsOfService.capitalize()}</SectionLink>
           </Section>
         </SectionContainer>
         <BottomSection>

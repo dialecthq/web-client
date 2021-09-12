@@ -40,7 +40,8 @@ module.exports = {
     'prefer-const': WARNING,
     'react/prop-types': [WARNING, { ignore: ['className'] }],
     'import/no-unresolved': WARNING,
-    semi: [WARNING, 'never']
+    semi: [WARNING, 'never'],
+    'react/no-unescaped-entities': [OFF]
   },
   settings: {
     'import/resolver': {
