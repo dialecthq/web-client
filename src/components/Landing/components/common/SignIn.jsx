@@ -237,7 +237,7 @@ const SignIn = ({ visible, setVisible, setSignUpVisible }) => {
             </AuthLink>
           </Text>
           <Divider style={{ marginBottom: 10 }}>
-            <SmallText>or</SmallText>
+            <SmallText>{strings.or}</SmallText>
           </Divider>
           <OauthContainer>
             <IconButton

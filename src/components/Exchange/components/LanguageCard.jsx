@@ -272,7 +272,7 @@ const LanguageCard = ({ room }) => {
         <CardContent>
           <CardPeople style={{ marginRight: 20 }}>
             <Flag src={room.flag} alt="flag" />
-            <CardTitle>{strings[room.value.toLowerCase()].uncapitalize()}</CardTitle>
+            <CardTitle>{strings[room.value.toLowerCase()].capitalize()}</CardTitle>
           </CardPeople>
 
           <CardPeople>
