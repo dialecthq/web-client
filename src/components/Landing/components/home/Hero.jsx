@@ -1,8 +1,11 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 import ReactTypingEffect from 'react-typing-effect'
 import { Button } from 'antd'
 import strings from 'Utils/data/strings'
+
+import SignIn from '../common/SignIn'
+import SignUp from '../common/SignUp'
 
 const Container = styled.div`
   width: 100%;
@@ -71,47 +74,64 @@ const Mobile = styled.p`
 `
 
 const Hero = () => {
-  const HeroTextString = strings.theBest
+  const [signInVisible, setSignInVisible] = useState(false)
+  const [signUpVisible, setSignUpVisible] = useState(false)
   const arr = strings.theBest.split('HDHKA')
   return (
-    <Container>
-      <Wrapper>
-        <Typing
-          speed={120}
-          eraseSpeed={70}
-          eraseDelay={1800}
-          typingDelay={100}
-          text={[
-            strings.english,
-            strings.russian,
-            strings.chinese,
-            strings.chinese,
-            strings.french,
-            strings.dutch,
-            strings.indonesian,
-            strings.arabic,
-            strings.norwegian
-          ]}
-          cursorRenderer={(cursor) => <HeroText style={{ display: 'none' }}>{cursor}</HeroText>}
-          displayTextRenderer={(text, i) => (
-            <HeroText>
-              <span>{arr[0]}</span>
-              <Language>{text.capitalize()}</Language>
-              <span>{arr[1]}</span>
-            </HeroText>
-          )}
-        />
-        <Mobile>
-          {arr[0]}
-          <Language>{strings.anyLanguage}</Language>
-          {arr[1]}
-        </Mobile>
-        <Subtitle>{strings.heroText}</Subtitle>
-        <Button type="primary" style={{ marginTop: 30, height: 50, width: 120 }}>
-          {strings.getStarted}
-        </Button>
-      </Wrapper>
-    </Container>
+    <>
+      <Container>
+        <Wrapper>
+          <Typing
+            speed={120}
+            eraseSpeed={70}
+            eraseDelay={1800}
+            typingDelay={100}
+            text={[
+              strings.english,
+              strings.russian,
+              strings.chinese,
+              strings.chinese,
+              strings.french,
+              strings.dutch,
+              strings.indonesian,
+              strings.arabic,
+              strings.norwegian
+            ]}
+            cursorRenderer={(cursor) => <HeroText style={{ display: 'none' }}>{cursor}</HeroText>}
+            displayTextRenderer={(text, i) => (
+              <HeroText>
+                <span>{arr[0]}</span>
+                <Language>{text.capitalize()}</Language>
+                <span>{arr[1]}</span>
+              </HeroText>
+            )}
+          />
+          <Mobile>
+            {arr[0]}
+            <Language>{strings.anyLanguage}</Language>
+            {arr[1]}
+          </Mobile>
+          <Subtitle>{strings.heroText}</Subtitle>
+          <Button
+            type="primary"
+            style={{ marginTop: 30, height: 50, width: 120 }}
+            onClick={() => setSignUpVisible(true)}
+          >
+            {strings.getStarted}
+          </Button>
+        </Wrapper>
+      </Container>
+      <SignUp
+        visible={signUpVisible}
+        setVisible={setSignUpVisible}
+        setSignInVisible={setSignInVisible}
+      />
+      <SignIn
+        visible={signInVisible}
+        setVisible={setSignInVisible}
+        setSignUpVisible={setSignUpVisible}
+      />
+    </>
   )
 }
 export default Hero

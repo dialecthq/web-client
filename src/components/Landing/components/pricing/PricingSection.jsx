@@ -6,6 +6,9 @@ import DarkBlueIcon from 'Img/pricing-icon-darkblue.svg'
 import { Button, Switch } from 'antd'
 import { FaCheck, FaTimes } from 'react-icons/fa'
 
+import SignIn from '../common/SignIn'
+import SignUp from '../common/SignUp'
+
 const Container = styled.div`
   width: 100%;
   display: flex;
@@ -188,92 +191,112 @@ const BulletText = styled.p`
 `
 const PricingSection = () => {
   const [yearly, setYearly] = useState(false)
+  const [signInVisible, setSignInVisible] = useState(false)
+  const [signUpVisible, setSignUpVisible] = useState(false)
+
   const price = yearly ? Math.ceil(8 * 12 * 0.8) : 8
   return (
-    <Container>
-      <Wrapper>
-        <YearlyContainer>
-          <YearlyText left checked={!yearly}>
-            Monthly
-          </YearlyText>
-          <Switch checked={yearly} onChange={() => setYearly(!yearly)} />
-          <YearlyText checked={yearly}>Yearly</YearlyText>
-          <DiscountContainer>
-            <DiscountText>20% Off</DiscountText>
-          </DiscountContainer>
-        </YearlyContainer>
-        <PriceContainer>
-          <Card>
-            <SectionHero>
-              <Icon src={GreenIcon} alt="green icon" />
-              <ColDiv>
-                <SectionTitle>Free</SectionTitle>
-                <PricingText>$0</PricingText>
-              </ColDiv>
-            </SectionHero>
-            <InfoSection>
-              <Bullets>
-                <Bullet>
-                  <CheckMark />
-                  <BulletText>3 target conversations / day</BulletText>
-                </Bullet>
-                <Bullet>
-                  <CheckMark />
-                  <BulletText>Unlimited native conversations</BulletText>
-                </Bullet>
-                <Bullet>
-                  <XMark />
-                  <BulletText x>Unlimited target conversations</BulletText>
-                </Bullet>
-                <Bullet>
-                  <XMark />
-                  <BulletText x>Early access to new features</BulletText>
-                </Bullet>
-              </Bullets>
-              <Button block type="primary" style={{ height: 40 }}>
-                Get Started
-              </Button>
-            </InfoSection>
-          </Card>
-          <Card>
-            <SectionHero>
-              <Icon src={BlueIcon} alt="green icon" />
-              <ColDiv>
-                <SectionTitle>Pro</SectionTitle>
-                <PricingText>
-                  $
-                  {price}
-                  {' '}
-                  <PricingSpan>
-                    /
-                    {yearly ? 'yr' : 'mo'}
-                  </PricingSpan>
-                </PricingText>
-              </ColDiv>
-            </SectionHero>
-            <InfoSection>
-              <Bullets>
-                <Bullet>
-                  <CheckMark />
-                  <BulletText>Unlimited native conversations</BulletText>
-                </Bullet>
-                <Bullet>
-                  <CheckMark />
-                  <BulletText>Unlimited target conversations</BulletText>
-                </Bullet>
-                <Bullet>
-                  <CheckMark />
-                  <BulletText>Early access to new features</BulletText>
-                </Bullet>
-              </Bullets>
-              <Button block type="primary" style={{ height: 40 }}>
-                Try 30 Days Free
-              </Button>
-            </InfoSection>
-          </Card>
-        </PriceContainer>
-      </Wrapper>
-    </Container>
+    <>
+      <Container>
+        <Wrapper>
+          <YearlyContainer>
+            <YearlyText left checked={!yearly}>
+              Monthly
+            </YearlyText>
+            <Switch checked={yearly} onChange={() => setYearly(!yearly)} />
+            <YearlyText checked={yearly}>Yearly</YearlyText>
+            <DiscountContainer>
+              <DiscountText>20% Off</DiscountText>
+            </DiscountContainer>
+          </YearlyContainer>
+          <PriceContainer>
+            <Card>
+              <SectionHero>
+                <Icon src={GreenIcon} alt="green icon" />
+                <ColDiv>
+                  <SectionTitle>Free</SectionTitle>
+                  <PricingText>$0</PricingText>
+                </ColDiv>
+              </SectionHero>
+              <InfoSection>
+                <Bullets>
+                  <Bullet>
+                    <CheckMark />
+                    <BulletText>3 target conversations / day</BulletText>
+                  </Bullet>
+                  <Bullet>
+                    <CheckMark />
+                    <BulletText>Unlimited native conversations</BulletText>
+                  </Bullet>
+                  <Bullet>
+                    <XMark />
+                    <BulletText x>Unlimited target conversations</BulletText>
+                  </Bullet>
+                  <Bullet>
+                    <XMark />
+                    <BulletText x>Early access to new features</BulletText>
+                  </Bullet>
+                </Bullets>
+                <Button
+                  block
+                  type="primary"
+                  style={{ height: 40 }}
+                  onClick={() => setSignUpVisible(true)}
+                >
+                  Get Started
+                </Button>
+              </InfoSection>
+            </Card>
+            <Card>
+              <SectionHero>
+                <Icon src={BlueIcon} alt="green icon" />
+                <ColDiv>
+                  <SectionTitle>Pro</SectionTitle>
+                  <PricingText>
+                    $
+                    {price}
+                    {' '}
+                    <PricingSpan>
+                      /
+                      {yearly ? 'yr' : 'mo'}
+                    </PricingSpan>
+                  </PricingText>
+                </ColDiv>
+              </SectionHero>
+              <InfoSection>
+                <Bullets>
+                  <Bullet>
+                    <CheckMark />
+                    <BulletText>Unlimited native conversations</BulletText>
+                  </Bullet>
+                  <Bullet>
+                    <CheckMark />
+                    <BulletText>Unlimited target conversations</BulletText>
+                  </Bullet>
+                  <Bullet>
+                    <CheckMark />
+                    <BulletText>Early access to new features</BulletText>
+                  </Bullet>
+                </Bullets>
+                <Button block type="primary" style={{ height: 40 }}>
+                  Try 30 Days Free
+                </Button>
+              </InfoSection>
+            </Card>
+          </PriceContainer>
+        </Wrapper>
+      </Container>
+      <SignUp
+        visible={signUpVisible}
+        setVisible={setSignUpVisible}
+        setSignInVisible={setSignInVisible}
+      />
+      <SignIn
+        visible={signInVisible}
+        setVisible={setSignInVisible}
+        setSignUpVisible={setSignUpVisible}
+      />
+    </>
   )
 }
 
