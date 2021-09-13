@@ -13,7 +13,7 @@ const Container = styled.div`
   justify-content: center;
   align-items: center;
   padding: 50px 24px;
-  background: #fff;
+  background: #ffffff;
   z-index: 5;
 `
 

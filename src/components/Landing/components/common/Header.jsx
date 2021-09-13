@@ -23,7 +23,7 @@ const Container = styled.div`
   position: fixed;
   z-index: 5;
   transition: 0.15s all ease-out;
-  border-bottom: ${(p) => (p.scrollState ? '1px solid #d4d4d4' : '1px solid #fff')};
+  border-bottom: ${(p) => (p.scrollState ? '1px solid #d4d4d4' : 'none')};
 `
 
 const Wrapper = styled.div`
