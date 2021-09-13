@@ -1,10 +1,10 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 import GreenIcon from 'Img/pricing-icon-green.svg'
 import BlueIcon from 'Img/pricing-icon-blue.svg'
 import DarkBlueIcon from 'Img/pricing-icon-darkblue.svg'
-import { Button } from 'antd'
-import { FaCheck } from 'react-icons/fa'
+import { Button, Switch } from 'antd'
+import { FaCheck, FaTimes } from 'react-icons/fa'
 
 const Container = styled.div`
   width: 100%;
@@ -12,7 +12,6 @@ const Container = styled.div`
   justify-content: center;
   align-items: center;
   padding: 8px 24px;
-  margin-top: 50px;
   margin-bottom: 40px;
 `
 
@@ -23,6 +22,46 @@ const Wrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
+`
+
+const YearlyContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+  margin-top: 20px;
+`
+
+const YearlyText = styled.p`
+  font-weight: 400;
+  font-size: 1.2em;
+  color: ${(p) => (p.checked ? '#1c1c1c' : '#1c1c1c80')};
+  margin: 16px;
+  margin-left: ${(p) => (p.left ? '60px' : '16px')};
+
+  @media screen and (max-width: 768px) {
+    margin-left: 16px;
+  }
+`
+
+const DiscountContainer = styled.div`
+  display: flex;
+  padding: 8px;
+  justify-content: center;
+  align-items: center;
+  background: #45bdff;
+  border-radius: 10px;
+
+  @media screen and (max-width: 768px) {
+    display: none;
+  } ;
+`
+
+const DiscountText = styled.p`
+  color: #fff;
+  font-weight: 500;
+  font-size; 1.1em;
 `
 
 const PriceContainer = styled.div`
@@ -38,15 +77,13 @@ const PriceContainer = styled.div`
 `
 
 const Card = styled.div`
-  height: ${(p) => (p.small ? '350px' : '400px')};
-  width: ${(p) => (p.small ? '230px' : '280px')};
+  height: 400px;
+  width: 300px;
   z-index: ${(p) => (p.small ? '2' : '3')};
   background: #f8fafc;
   border-radius: 20px;
-  margin: ${(p) => (p.small ? '0px' : '0px')};
-  box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px;
-  margin-left: ${(p) => (p.right ? '-5px' : '0px')};
-  margin-right: ${(p) => (p.left ? '-5px' : '0px')};
+  margin: 10px;
+  /* box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px; */
   border: 1px solid #eeeeee;
   display: flex;
   flex-direction: column;
@@ -55,7 +92,7 @@ const Card = styled.div`
   padding: 24px;
 
   @media screen and (max-width: 768px) {
-    height: 300px;
+    height: auto;
     width: 100%;
     margin-bottom: 20px;
     box-shadow: none;
@@ -117,6 +154,10 @@ const Bullets = styled.div`
   flex-direction: column;
   align-items: flex-start;
   justify-content: center;
+
+  @media screen and (max-width: 768px) {
+    margin-bottom: 20px;
+  }
 `
 
 const Bullet = styled.div`
@@ -130,116 +171,110 @@ const CheckMark = styled(FaCheck)`
   height: 14px;
   width: 14px;
   margin-right: 10px;
+  color: #1c1c1c;
+`
+
+const XMark = styled(FaTimes)`
+  height: 14px;
+  width: 14px;
+  margin-right: 10px;
+  color: #1c1c1c70;
 `
 
 const BulletText = styled.p`
-  font-size: 0.8em;
-  color: #1c1c1c;
+  font-size: 0.9em;
+  color: ${(p) => (p.x ? '#1c1c1c70' : '#1c1c1c')};
   font-weight: 400;
 `
-const PricingSection = () => (
-  <Container>
-    <Wrapper>
-      <PriceContainer>
-        <Card small left>
-          <SectionHero>
-            <Icon src={GreenIcon} alt="green icon" />
-            <ColDiv>
-              <SectionTitle>Starter</SectionTitle>
-              <PricingText>
-                $3
-                {' '}
-                <PricingSpan>/ mo</PricingSpan>
-              </PricingText>
-            </ColDiv>
-          </SectionHero>
-          <InfoSection>
-            <Bullets>
-              <Bullet>
-                <CheckMark />
-                <BulletText>hihihihihi</BulletText>
-              </Bullet>
-              <Bullet>
-                <CheckMark />
-                <BulletText>hihihihihi</BulletText>
-              </Bullet>
-              <Bullet>
-                <CheckMark />
-                <BulletText>hihihihihi</BulletText>
-              </Bullet>
-            </Bullets>
-            <Button block type="primary" style={{ height: 40 }}>
-              Choose Plan
-            </Button>
-          </InfoSection>
-        </Card>
-        <Card>
-          <SectionHero>
-            <Icon src={BlueIcon} alt="green icon" />
-            <ColDiv>
-              <SectionTitle>Pro</SectionTitle>
-              <PricingText>
-                $20
-                {' '}
-                <PricingSpan>/ mo</PricingSpan>
-              </PricingText>
-            </ColDiv>
-          </SectionHero>
-          <InfoSection>
-            <Bullets>
-              <Bullet>
-                <CheckMark />
-                <BulletText>hihihihihi</BulletText>
-              </Bullet>
-              <Bullet>
-                <CheckMark />
-                <BulletText>hihihihihi</BulletText>
-              </Bullet>
-              <Bullet>
-                <CheckMark />
-                <BulletText>hihihihihi</BulletText>
-              </Bullet>
-            </Bullets>
-            <Button block type="primary" style={{ height: 40 }}>
-              Choose Plan
-            </Button>
-          </InfoSection>
-        </Card>
-        <Card small right>
-          <SectionHero>
-            <Icon src={DarkBlueIcon} alt="green icon" />
-            <ColDiv>
-              <SectionTitle>Basic</SectionTitle>
-              <PricingText>
-                $8
-                {' '}
-                <PricingSpan>/ mo</PricingSpan>
-              </PricingText>
-            </ColDiv>
-          </SectionHero>
-          <InfoSection>
-            <Bullets>
-              <Bullet>
-                <CheckMark />
-                <BulletText>hihihihihi</BulletText>
-              </Bullet>
-              <Bullet>
-                <CheckMark />
-                <BulletText>hihihihihi</BulletText>
-              </Bullet>
-              <Bullet>
-                <CheckMark />
-                <BulletText>hihihihihi</BulletText>
-              </Bullet>
-            </Bullets>
-            <Button block type="primary" style={{ height: 40 }}>
-              Choose Plan
-            </Button>
-          </InfoSection>
-        </Card>
-      </PriceContainer>
-    </Wrapper>
-  </Container>
-)
+const PricingSection = () => {
+  const [yearly, setYearly] = useState(false)
+  const price = yearly ? Math.ceil(8 * 12 * 0.8) : 8
+  return (
+    <Container>
+      <Wrapper>
+        <YearlyContainer>
+          <YearlyText left checked={!yearly}>
+            Monthly
+          </YearlyText>
+          <Switch checked={yearly} onChange={() => setYearly(!yearly)} />
+          <YearlyText checked={yearly}>Yearly</YearlyText>
+          <DiscountContainer>
+            <DiscountText>20% Off</DiscountText>
+          </DiscountContainer>
+        </YearlyContainer>
+        <PriceContainer>
+          <Card>
+            <SectionHero>
+              <Icon src={GreenIcon} alt="green icon" />
+              <ColDiv>
+                <SectionTitle>Free</SectionTitle>
+                <PricingText>$0</PricingText>
+              </ColDiv>
+            </SectionHero>
+            <InfoSection>
+              <Bullets>
+                <Bullet>
+                  <CheckMark />
+                  <BulletText>3 target conversations / day</BulletText>
+                </Bullet>
+                <Bullet>
+                  <CheckMark />
+                  <BulletText>Unlimited native conversations</BulletText>
+                </Bullet>
+                <Bullet>
+                  <XMark />
+                  <BulletText x>Unlimited target conversations</BulletText>
+                </Bullet>
+                <Bullet>
+                  <XMark />
+                  <BulletText x>Early access to new features</BulletText>
+                </Bullet>
+              </Bullets>
+              <Button block type="primary" style={{ height: 40 }}>
+                Get Started
+              </Button>
+            </InfoSection>
+          </Card>
+          <Card>
+            <SectionHero>
+              <Icon src={BlueIcon} alt="green icon" />
+              <ColDiv>
+                <SectionTitle>Pro</SectionTitle>
+                <PricingText>
+                  $
+                  {price}
+                  {' '}
+                  <PricingSpan>
+                    /
+                    {yearly ? 'yr' : 'mo'}
+                  </PricingSpan>
+                </PricingText>
+              </ColDiv>
+            </SectionHero>
+            <InfoSection>
+              <Bullets>
+                <Bullet>
+                  <CheckMark />
+                  <BulletText>Unlimited native conversations</BulletText>
+                </Bullet>
+                <Bullet>
+                  <CheckMark />
+                  <BulletText>Unlimited target conversations</BulletText>
+                </Bullet>
+                <Bullet>
+                  <CheckMark />
+                  <BulletText>Early access to new features</BulletText>
+                </Bullet>
+              </Bullets>
+              <Button block type="primary" style={{ height: 40 }}>
+                Try 30 Days Free
+              </Button>
+            </InfoSection>
+          </Card>
+        </PriceContainer>
+      </Wrapper>
+    </Container>
+  )
+}
 
 export default PricingSection
