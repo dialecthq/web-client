@@ -1,7 +1,6 @@
 import React from "react";
 import Avatar from "boring-avatars";
 import styled from "styled-components";
-import Image from "next/image";
 
 const AvatarContainer = styled.div`
   width: ${(p) => `${p.size}px`};
@@ -13,7 +12,7 @@ const AvatarContainer = styled.div`
   justify-content: center;
   align-items: center;
 `;
-const AvatarImg = styled(Image)`
+const AvatarImg = styled.img`
   object-fit: contain;
   width: ${(p) => `${parseInt(p.size * 1.3, 10)}px`};
   height: ${(p) => `${parseInt(p.size * 1.3, 10)}px`};

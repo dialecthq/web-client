@@ -111,12 +111,18 @@ async function handleConnected(room) {
   });
 }
 
-function RoomComponent() {
+export default function RoomComponent() {
   const [token, setToken] = useState(null);
   const [waiting, setWaiting] = useState(true);
   const [error, setError] = useState(null);
   const { user } = userContainer.useContainer();
   const router = useRouter();
+
+  useEffect(() => {
+    if (!user) {
+      router.push("/");
+    }
+  }, [user]);
 
   useEffect(async () => {
     const { languageName } = router.query;
@@ -194,5 +200,3 @@ function RoomComponent() {
     </StageDiv>
   );
 }
-
-export default RoomComponent;

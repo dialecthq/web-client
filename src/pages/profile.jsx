@@ -21,6 +21,7 @@ import { years, months, getDays } from "../Utils/data/dateOptions";
 import fire from "../Utils/fire";
 import Logo from "../../public/logo.svg";
 import strings from "../Utils/data/strings";
+
 import {
   removeAvatarURL,
   uploadAvatarUrl,
@@ -164,11 +165,17 @@ const Profile = () => {
   const { user, setUser } = User.useContainer();
   const router = useRouter();
 
+  useEffect(() => {
+    if (!user) {
+      router.replace("/");
+    }
+  }, [user]);
+
   return (
     <Page>
       <Helmet>
         <title>
-          🧘 {strings.profile.capitalize()} - @{`${user.username}`}
+          🧘 {strings.profile.capitalize()} - @{`${user?.username}`}
         </title>
       </Helmet>
       <TitleContainer>
@@ -213,12 +220,12 @@ const Profile = () => {
               }}
             >
               <Button icon={<FaUpload style={{ marginRight: 5 }} />}>
-                {user.avatarURL
+                {user?.avatarURL
                   ? strings.change.capitalize()
                   : strings.upload.capitalize()}
               </Button>
             </Upload>
-            {user.avatarURL ? (
+            {user?.avatarURL ? (
               <Button
                 style={{ marginTop: 10 }}
                 icon={<FaTrash style={{ marginRight: 5 }} />}
@@ -243,9 +250,12 @@ const Profile = () => {
           <ItemRow>
             <InfoTitle>{strings.displayName.capitalize()}</InfoTitle>
             {editing !== "name" ? (
-              <InfoContent>{user.name}</InfoContent>
+              <InfoContent>{user?.name}</InfoContent>
             ) : (
-              <Edit setEditing={setEditing} initialValues={{ name: user.name }}>
+              <Edit
+                setEditing={setEditing}
+                initialValues={{ name: user?.name }}
+              >
                 <FormItem
                   name="name"
                   validateTrigger="onBlur"
@@ -268,11 +278,11 @@ const Profile = () => {
           <ItemRow>
             <InfoTitle>{strings.username.capitalize()}</InfoTitle>
             {editing !== "username" ? (
-              <InfoContent>{user.username}</InfoContent>
+              <InfoContent>{user?.username}</InfoContent>
             ) : (
               <Edit
                 setEditing={setEditing}
-                initialValues={{ username: user.username }}
+                initialValues={{ username: user?.username }}
               >
                 <FormItem
                   name="username"
@@ -302,11 +312,11 @@ const Profile = () => {
           <ItemRow>
             <InfoTitle>{strings.bio.capitalize()}</InfoTitle>
             {editing !== "bio" ? (
-              <InfoContent>{user.bio || strings.noBio}</InfoContent>
+              <InfoContent>{user?.bio || strings.noBio}</InfoContent>
             ) : (
               <Edit
                 setEditing={setEditing}
-                initialValues={{ bio: user.bio || "" }}
+                initialValues={{ bio: user?.bio || "" }}
               >
                 <FormItem
                   name="bio"
@@ -332,16 +342,16 @@ const Profile = () => {
             {editing !== "dob" ? (
               <InfoContent>
                 {user?.dob
-                  ? `${user.dob.day} / ${user.dob.month} / ${user.dob.year}`
+                  ? `${user?.dob.day} / ${user?.dob.month} / ${user?.dob.year}`
                   : strings.notSpecified}
               </InfoContent>
             ) : (
               <Edit
                 setEditing={setEditing}
                 initialValues={{
-                  year: user.dob.year || 2002,
-                  month: user.dob.month || 1,
-                  day: user.dob.day || 1,
+                  year: user?.dob.year || 2002,
+                  month: user?.dob.month || 1,
+                  day: user?.dob.day || 1,
                 }}
               >
                 <FormItem name="day">
@@ -388,12 +398,12 @@ const Profile = () => {
           <ItemRow>
             <InfoTitle>{strings.gender}</InfoTitle>
             {editing !== "gender" ? (
-              <InfoContent>{user.gender || strings.notSpecified}</InfoContent>
+              <InfoContent>{user?.gender || strings.notSpecified}</InfoContent>
             ) : (
               <Edit
                 setEditing={setEditing}
                 initialValues={{
-                  gender: user.gender || strings.other.capitalize(),
+                  gender: user?.gender || strings.other.capitalize(),
                 }}
               >
                 <FormItem name="gender">
@@ -425,7 +435,7 @@ const Profile = () => {
             <InfoTitle>{strings.from.capitalize()}</InfoTitle>
             {editing !== "country" ? (
               <InfoContent>
-                {countryOptions.filter((e) => e.key === user.country)[0]
+                {countryOptions.filter((e) => e.key === user?.country)[0]
                   ?.value || strings.notSpecified}
               </InfoContent>
             ) : (
@@ -433,7 +443,7 @@ const Profile = () => {
                 setEditing={setEditing}
                 initialValues={{
                   country:
-                    countryOptions.filter((e) => e.key === user.country)[0]
+                    countryOptions.filter((e) => e.key === user?.country)[0]
                       ?.value || strings.notSpecified,
                 }}
               >
@@ -462,7 +472,7 @@ const Profile = () => {
             <InfoTitle>{strings.livingIn.capitalize()}</InfoTitle>
             {editing !== "living" ? (
               <InfoContent>
-                {countryOptions.filter((e) => e.key === user.living)[0]
+                {countryOptions.filter((e) => e.key === user?.living)[0]
                   ?.value || strings.notSpecified}
               </InfoContent>
             ) : (
@@ -470,7 +480,7 @@ const Profile = () => {
                 setEditing={setEditing}
                 initialValues={{
                   country:
-                    countryOptions.filter((e) => e.key === user.living)[0]
+                    countryOptions.filter((e) => e.key === user?.living)[0]
                       ?.value || strings.notSpecified,
                 }}
               >
@@ -499,7 +509,7 @@ const Profile = () => {
             <InfoTitle>{strings.timezone.capitalize()}</InfoTitle>
             {editing !== "timezone" ? (
               <InfoContent>
-                {timezoneOptions.filter((e) => e.key === user.timezone)[0]
+                {timezoneOptions.filter((e) => e.key === user?.timezone)[0]
                   ?.text || strings.notSpecified}
               </InfoContent>
             ) : (
@@ -507,7 +517,7 @@ const Profile = () => {
                 setEditing={setEditing}
                 initialValues={{
                   timezone:
-                    timezoneOptions.filter((e) => e.key === user.timezone)[0]
+                    timezoneOptions.filter((e) => e.key === user?.timezone)[0]
                       ?.value || strings.notSpecified,
                 }}
               >
@@ -536,7 +546,7 @@ const Profile = () => {
         <HeaderTitle>{strings.languages.capitalize()}</HeaderTitle>
       </HeaderContainer>
       <ContentContainer>
-        {user.languages
+        {user?.languages
           .sort((a, b) => (a.level > b.level ? -1 : 1))
           .map((language, i) =>
             editing !== language.key ? (
@@ -628,8 +638,8 @@ const Profile = () => {
             </Button>
           ) : editing === "new" ? (
             <Edit
-              index={user.languages.length}
-              key={user.languages.length}
+              index={user?.languages.length}
+              key={user?.languages.length}
               setEditing={setEditing}
             >
               <FormItem name="language">
