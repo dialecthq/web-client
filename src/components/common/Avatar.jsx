@@ -1,6 +1,7 @@
-import React from 'react'
-import Avatar from 'boring-avatars'
-import styled from 'styled-components'
+import React from "react";
+import Avatar from "boring-avatars";
+import styled from "styled-components";
+import Image from "next/image";
 
 const AvatarContainer = styled.div`
   width: ${(p) => `${p.size}px`};
@@ -11,18 +12,18 @@ const AvatarContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-`
-const AvatarImg = styled.img`
+`;
+const AvatarImg = styled(Image)`
   object-fit: contain;
   width: ${(p) => `${parseInt(p.size * 1.3, 10)}px`};
   height: ${(p) => `${parseInt(p.size * 1.3, 10)}px`};
-`
+`;
 
 const AvatarComponent = ({ user, size }) => {
-  const { avatarURL, uid } = { ...user }
+  const { avatarURL, uid } = { ...user };
   return avatarURL ? (
     <AvatarContainer size={size}>
-      <AvatarImg size={size} src={avatarURL} />
+      <AvatarImg size={size} src={avatarURL || ""} />
     </AvatarContainer>
   ) : (
     <AvatarContainer size={size}>
@@ -30,10 +31,10 @@ const AvatarComponent = ({ user, size }) => {
         size={size}
         name={uid}
         variant="marble"
-        colors={['#1DFF00', '#FFFC00', '#FF009F', '#00CCFF', '#00FFDA']}
+        colors={["#1DFF00", "#FFFC00", "#FF009F", "#00CCFF", "#00FFDA"]}
       />
     </AvatarContainer>
-  )
-}
+  );
+};
 
-export default AvatarComponent
+export default AvatarComponent;

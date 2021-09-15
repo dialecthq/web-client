@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react'
-import styled, { keyframes } from 'styled-components'
-import { Button } from 'antd'
-import { FaUser, FaArrowLeft } from 'react-icons/fa'
-import { useHistory } from 'react-router-dom'
-import HeaderLogo from 'Components/common/HeaderLogo'
-import strings from 'Utils/data/strings'
+import React from "react";
+import styled from "styled-components";
+import { Button } from "antd";
+import { FaArrowLeft } from "react-icons/fa";
+import { useRouter } from "next/router";
+import HeaderLogo from "./HeaderLogo";
+import strings from "../../Utils/data/strings";
 
 const ErrorContainer = styled.div`
   height: 100vh;
@@ -14,7 +14,7 @@ const ErrorContainer = styled.div`
   align-items: center;
   background: var(--dark-background);
   color: var(--text-color);
-`
+`;
 
 const ErrorWrapper = styled.div`
   display: flex;
@@ -23,7 +23,7 @@ const ErrorWrapper = styled.div`
   align-items: center;
   padding: 18px;
   min-width: 200px;
-`
+`;
 
 const Text = styled.p`
   font-size: 1.3em;
@@ -33,7 +33,7 @@ const Text = styled.p`
   margin-bottom: 0px;
   text-align: center;
   letter-spacing: 0.05em;
-`
+`;
 
 const HeaderContainer = styled.div`
   position: absolute;
@@ -46,7 +46,7 @@ const HeaderContainer = styled.div`
   justify-content: center;
   align-items: center;
   padding: 10px;
-`
+`;
 
 const HeaderWrapper = styled.div`
   width: 100%;
@@ -55,10 +55,10 @@ const HeaderWrapper = styled.div`
   align-items: center;
   max-width: 1200px;
   padding: 8px 24px;
-`
+`;
 
 const Error = ({ imgLink, errorMessage }) => {
-  const history = useHistory()
+  const router = useRouter();
   return (
     <ErrorContainer>
       <HeaderContainer>
@@ -69,9 +69,9 @@ const Error = ({ imgLink, errorMessage }) => {
             onClick={() => {
               window.scrollTo({
                 top: 0,
-                behavior: 'smooth'
-              })
-              history.push('/exchange')
+                behavior: "smooth",
+              });
+              router.push("/exchange");
             }}
           >
             {strings.back.capitalize()}
@@ -81,14 +81,15 @@ const Error = ({ imgLink, errorMessage }) => {
       </HeaderContainer>
 
       <ErrorWrapper>
-        <img src={imgLink} style={{ height: 200, width: 200 }} alt="link" />
-        <Text>
-          ❌
-          {errorMessage}
-        </Text>
+        <img
+          src={imgLink || ""}
+          style={{ height: 200, width: 200 }}
+          alt="link"
+        />
+        <Text>❌{errorMessage}</Text>
       </ErrorWrapper>
     </ErrorContainer>
-  )
-}
+  );
+};
 
-export default Error
+export default Error;

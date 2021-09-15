@@ -1,13 +1,13 @@
 import React from 'react'
-import styled, { keyframes } from 'styled-components'
+import styled from 'styled-components'
 import { FaArrowLeft } from 'react-icons/fa'
-import { BallTriangle, TailSpin, ThreeDots } from '@agney/react-loading'
+import { ThreeDots } from '@agney/react-loading'
 import { Button } from 'antd'
-import HeaderLogo from 'Components/common/HeaderLogo'
-import { leaveWaitingRoom } from 'Utils/apis/RoomAPI'
-import { useHistory } from 'react-router-dom'
-import UserContainer from 'Utils/state/userContainer'
-import strings from 'Utils/data/strings'
+import { useRouter } from 'next/router'
+import HeaderLogo from './HeaderLogo'
+import { leaveWaitingRoom } from '../../Utils/apis/RoomAPI'
+import UserContainer from '../../Utils/state/userContainer'
+import strings from '../../Utils/data/strings'
 
 const LoadingContainer = styled.div`
   height: 100vh;
@@ -61,7 +61,7 @@ const HeaderWrapper = styled.div`
 `
 
 const Loading = ({ message }) => {
-  const history = useHistory()
+  const router = useRouter()
   const { user } = UserContainer.useContainer()
   return (
     <LoadingContainer>
@@ -72,7 +72,7 @@ const Loading = ({ message }) => {
             icon={<FaArrowLeft style={{ marginRight: 5 }} />}
             onClick={async () => {
               leaveWaitingRoom(user)
-              history.push('/exchange')
+              router.push('/exchange')
             }}
           >
             {strings.back.capitalize()}

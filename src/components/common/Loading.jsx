@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { Progress } from 'antd'
-import HeaderLogo from 'Components/common/HeaderLogo'
+import HeaderLogo from './HeaderLogo'
 
 const LoadingContainer = styled.div`
   height: 100vh;

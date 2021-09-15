@@ -1,9 +1,5 @@
 import firebase from 'firebase'
 
-const dotenv = require('dotenv')
-
-dotenv.config()
-
 const firebaseConfig = {
   apiKey: 'AIzaSyAL0vqWpH2JodSSUB2_ASKIMxm_4iysUNA',
   authDomain: 'langi-a36fc.firebaseapp.com',
@@ -14,6 +10,6 @@ const firebaseConfig = {
   measurementId: 'G-0RW6GPSGDS'
 }
 
-const fire = firebase.initializeApp(firebaseConfig)
+const fire = !firebase.apps.length ? firebase.initializeApp(firebaseConfig) : firebase.app()
 
 export default fire

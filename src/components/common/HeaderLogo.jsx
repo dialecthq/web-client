@@ -1,8 +1,7 @@
-import React from 'react'
-import styled from 'styled-components'
-import { useHistory } from 'react-router-dom'
-import Logo from 'Img/logo.svg'
-import TextLogo from 'Img/text-logo.svg'
+import React from "react";
+import styled from "styled-components";
+import { useRouter } from "next/router";
+import Image from "next/image";
 
 const HeaderLogo = styled.div`
   display: flex;
@@ -12,27 +11,30 @@ const HeaderLogo = styled.div`
   :hover {
     cursor: pointer;
   }
-`
+`;
 
-const Text = styled.img`
-  filter: ${(p) => (p.light ? 'none' : 'invert(0.9)')};
-`
+const Text = styled(Image)`
+  filter: ${(p) => (p.light ? "none" : "invert(0.9)")};
+  margin-left: 5px;
+`;
 
 export default ({ light }) => {
-  const history = useHistory()
+  const router = useRouter();
   return (
     <HeaderLogo
       onClick={() => {
         window.scrollTo({
           top: 0,
-          behavior: 'smooth'
-        })
-        history.push('/')
+          behavior: "smooth",
+        });
+        router.push("/");
       }}
     >
-      <img src={Logo} style={{ height: 36, width: 36 }} alt="logo" />
-      <Text src={TextLogo} style={{ height: 22, marginLeft: 10 }} alt="text" light={light} />
-      {/* <Title light={light}>dialect</Title> */}
+      {light ? (
+        <Image src="/logo-white.svg" height={54} width={144} alt="logo" />
+      ) : (
+        <Image src="/logo.svg" height={54} width={144} alt="logo" />
+      )}
     </HeaderLogo>
-  )
-}
+  );
+};

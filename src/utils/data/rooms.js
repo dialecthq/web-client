@@ -1,157 +1,137 @@
-import usa from 'Img/flags/usa.svg'
-import china from 'Img/flags/china.svg'
-import denmark from 'Img/flags/denmark.svg'
-import finland from 'Img/flags/finland.svg'
-import france from 'Img/flags/france.svg'
-import germany from 'Img/flags/germany.svg'
-import india from 'Img/flags/india.svg'
-import indonesia from 'Img/flags/indonesia.svg'
-import italy from 'Img/flags/italy.svg'
-import japan from 'Img/flags/japan.svg'
-import korea from 'Img/flags/korea.svg'
-import netherlands from 'Img/flags/netherlands.svg'
-import norway from 'Img/flags/norway.svg'
-import portugal from 'Img/flags/portugal.svg'
-import russia from 'Img/flags/russia.svg'
-import saudi from 'Img/flags/saudi.svg'
-import sweden from 'Img/flags/sweden.svg'
-import turkey from 'Img/flags/turkey.svg'
-import spain from 'Img/flags/spain.svg'
-
 const rooms = [
   {
     key: 1,
-    value: 'english',
-    url: '/english',
-    flag: usa,
-    code: 'en'
+    value: "english",
+    url: "/english",
+    flag: "/flags/usa.svg",
+    code: "en",
   },
   {
     key: 2,
-    value: 'chinese',
-    url: '/chinese',
-    flag: china,
-    code: 'zh'
+    value: "chinese",
+    url: "/chinese",
+    flag: "/flags/china.svg",
+    code: "zh",
   },
   {
     key: 91,
-    value: 'danish',
-    url: '/danish',
-    flag: denmark,
-    code: 'da'
+    value: "danish",
+    url: "/danish",
+    flag: "/flags/denmark.svg",
+    code: "da",
   },
   {
     key: 111,
-    value: 'finnish',
-    url: '/finnish',
-    flag: finland,
-    code: 'fi'
+    value: "finnish",
+    url: "/finnish",
+    flag: "/flags/finland.svg",
+    code: "fi",
   },
   {
     key: 3,
-    value: 'french',
-    url: '/french',
-    flag: france,
-    code: 'fr'
+    value: "french",
+    url: "/french",
+    flag: "/flags/france.svg",
+    code: "fr",
   },
   {
     key: 6,
-    value: 'german',
-    url: '/german',
-    flag: germany,
-    code: 'de'
+    value: "german",
+    url: "/german",
+    flag: "/flags/germany.svg",
+    code: "de",
   },
   {
     key: 10,
-    value: 'hindi',
-    url: '/hindi',
-    flag: india,
-    code: 'hi'
+    value: "hindi",
+    url: "/hindi",
+    flag: "/flags/india.svg",
+    code: "hi",
   },
   {
     key: 147,
-    value: 'indonesian',
-    url: '/indonesian',
-    flag: indonesia,
-    code: 'id'
+    value: "indonesian",
+    url: "/indonesian",
+    flag: "/flags/indonesia.svg",
+    code: "id",
   },
   {
     key: 11,
-    value: 'italian',
-    url: '/italian',
-    flag: italy,
-    code: 'it'
+    value: "italian",
+    url: "/italian",
+    flag: "/flags/italy.svg",
+    code: "it",
   },
   {
     key: 7,
-    value: 'japanese',
-    url: '/japanese',
-    flag: japan,
-    code: 'ja'
+    value: "japanese",
+    url: "/japanese",
+    flag: "/flags/japan.svg",
+    code: "ja",
   },
   {
     key: 8,
-    value: 'korean',
-    url: '/korean',
-    flag: korea,
-    code: 'ko'
+    value: "korean",
+    url: "/korean",
+    flag: "/flags/korea.svg",
+    code: "ko",
   },
   {
     key: 93,
-    value: 'dutch',
-    url: '/dutch',
-    flag: netherlands,
-    code: 'nl'
+    value: "dutch",
+    url: "/dutch",
+    flag: "/flags/netherlands.svg",
+    code: "nl",
   },
   {
     key: 226,
-    value: 'norwegian',
-    url: '/norwegian',
-    flag: norway,
-    code: 'nb'
+    value: "norwegian",
+    url: "/norwegian",
+    flag: "/flags/norway.svg",
+    code: "nb",
   },
   {
     key: 5,
-    value: 'portuguese',
-    url: '/portuguese',
-    flag: portugal,
-    code: 'pt'
+    value: "portuguese",
+    url: "/portuguese",
+    flag: "/flags/portugal.svg",
+    code: "pt",
   },
   {
     key: 12,
-    value: 'russian',
-    url: '/russian',
-    flag: russia,
-    code: 'ru'
+    value: "russian",
+    url: "/russian",
+    flag: "/flag/russia.svg",
+    code: "ru",
   },
   {
     key: 9,
-    value: 'arabic',
-    url: '/arabic',
-    flag: saudi,
-    code: 'ar'
+    value: "arabic",
+    url: "/arabic",
+    flag: "/flags/saudi.svg",
+    code: "ar",
   },
   {
     key: 4,
-    value: 'spanish',
-    url: '/spanish',
-    flag: spain,
-    code: 'es'
+    value: "spanish",
+    url: "/spanish",
+    flag: "/flags/spain.svg",
+    code: "es",
   },
   {
     key: 267,
-    value: 'swedish',
-    url: '/swedish',
-    flag: sweden,
-    code: 'sv'
+    value: "swedish",
+    url: "/swedish",
+    flag: "/flags/sweden.svg",
+    code: "sv",
   },
   {
     key: 299,
-    value: 'turkish',
-    url: '/turkish',
-    flag: turkey,
-    code: 'tr'
-  }
-]
+    value: "turkish",
+    url: "/turkish",
+    flag: "/flags/turkey.svg",
+    code: "tr",
+  },
+];
 
-export default rooms
+export default rooms;
