@@ -11,12 +11,14 @@ async function handler(req, res) {
     const { session_id, uid } = req.body;
     try {
       const session = await stripe.checkout.sessions.retrieve(session_id);
+      console.log(session);
       if (session.customer) {
         fire
           .firestore()
           .collection("users")
           .doc(uid)
           .update({
+            subscription_id: session.subscription,
             stripe_id: session.customer,
           })
           .then(() => {
