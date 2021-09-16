@@ -6,12 +6,12 @@ import { useRouter } from "next/router";
 import { Cross as Hamburger } from "hamburger-react";
 import Image from "next/image";
 import Logo from "../../../public/logo.svg";
-import User from "../../Utils/state/userContainer";
+import User from "../../utils/state/userContainer";
 import HeaderLogo from "../common/HeaderLogo";
 import Coin from "../../../public/token.svg";
 import Avatar from "../common/Avatar";
-import strings from "../../Utils/data/strings";
-import { logout } from "../../Utils/apis/UserAPI";
+import strings from "../../utils/data/strings";
+import { logout } from "../../utils/apis/UserAPI";
 
 const NavContainer = styled.div`
   display: flex;

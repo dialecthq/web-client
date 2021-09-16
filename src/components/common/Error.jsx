@@ -4,7 +4,7 @@ import { Button } from "antd";
 import { FaArrowLeft } from "react-icons/fa";
 import { useRouter } from "next/router";
 import HeaderLogo from "./HeaderLogo";
-import strings from "../../Utils/data/strings";
+import strings from "../../utils/data/strings";
 
 const ErrorContainer = styled.div`
   height: 100vh;

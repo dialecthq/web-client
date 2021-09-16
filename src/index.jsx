@@ -1,12 +1,12 @@
-import React from 'react'
-import { Helmet } from 'react-helmet'
-import ReactDOM from 'react-dom'
-import './index.css'
-import App from './App'
-import './App.less'
+import React from "react";
+import { Helmet } from "react-helmet";
+import ReactDOM from "react-dom";
+import "./index.css";
+import App from "./App";
+import "./App.less";
 
-import User from './Utils/state/userContainer'
-import LanguageContainer from './Utils/state/languageContainer'
+import User from "./utils/state/userContainer";
+import LanguageContainer from "./utils/state/languageContainer";
 
 ReactDOM.render(
   <React.StrictMode>
@@ -19,5 +19,5 @@ ReactDOM.render(
       </User.Provider>
     </LanguageContainer.Provider>
   </React.StrictMode>,
-  document.getElementById('root')
-)
+  document.getElementById("root")
+);

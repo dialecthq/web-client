@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import styled, { keyframes } from "styled-components";
 import { FaTwitter, FaLinkedin } from "react-icons/fa";
 import Image from "next/image";
-import strings from "../../../Utils/data/strings";
+import strings from "../../../utils/data/strings";
 
 const Animation = keyframes`
   from {

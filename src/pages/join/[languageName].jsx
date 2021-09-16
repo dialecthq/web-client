@@ -11,8 +11,8 @@ import {
 } from "livekit-react";
 
 import { createLocalTracks } from "livekit-client";
-import userContainer from "../../Utils/state/userContainer";
-import strings from "../../Utils/data/strings";
+import userContainer from "../../utils/state/userContainer";
+import strings from "../../utils/data/strings";
 import { useRouter } from "next/router";
 
 import {
@@ -23,13 +23,13 @@ import {
   checkNative,
   checkTokens,
   getRoom,
-} from "../../Utils/apis/RoomAPI";
+} from "../../utils/apis/RoomAPI";
 import ServerDown from "../../../public/server_down.svg";
-import rooms from "../../Utils/data/rooms";
+import rooms from "../../utils/data/rooms";
 
 import Waiting from "../../components/common/Waiting";
 import Error from "../../components/common/Error";
-import fire from "../../Utils/fire";
+import fire from "../../utils/fire";
 import Participant from "../../components/exchange/rooms/Participant";
 import RoomHeader from "../../components/exchange/rooms/RoomHeader";
 import Controls from "../../components/exchange/rooms/Controls";

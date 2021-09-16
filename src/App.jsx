@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
-import fire from 'Utils/fire'
-import User from 'Utils/state/userContainer'
+import fire from 'utils/fire'
+import User from 'utils/state/userContainer'
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
 
 import Home from 'pages/Home'
@@ -15,9 +15,9 @@ import Privacy from 'Components/landing/Privacy'
 import TOS from 'Components/landing/TOS'
 import svg404 from 'public404.svg'
 
-import ExchangeState from 'Utils/state/exchangeContainer'
-import LanguageContainer from 'Utils/state/languageContainer'
-import strings from 'Utils/data/strings'
+import ExchangeState from 'utils/state/exchangeContainer'
+import LanguageContainer from 'utils/state/languageContainer'
+import strings from 'utils/data/strings'
 
 const App = () => {
   const [initializing, setInitializing] = useState(true)

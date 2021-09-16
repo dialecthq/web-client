@@ -1,9 +1,9 @@
 /* eslint-disable max-len */
 import axios from "axios";
-import fire from "Utils/fire";
+import fire from "utils/fire";
 import firebase from "firebase";
 import { v4 as uuid } from "uuid";
-import User from "Utils/state/userContainer";
+import User from "utils/state/userContainer";
 
 export const checkNative = (user, language) =>
   user.languages.filter((e) => e.key === language.key && e.level > 5).length >

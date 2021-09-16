@@ -1,5 +1,5 @@
 import { AccessToken } from "livekit-server-sdk";
-import fire from "../../Utils/fire";
+import fire from "../../utils/fire";
 
 var API = "APINew5XQnFMJ5f";
 var SECRET = "Aet3DQKAXhJTsE6e9OepHS9ay1I5sfr31itxhaTNrQhB";

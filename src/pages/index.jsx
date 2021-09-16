@@ -5,7 +5,7 @@ import styled from "styled-components";
 import { FaGifts } from "react-icons/fa";
 import Gift from "../../public/gift.svg";
 import Messaging from "../../public/messaging.svg";
-import strings from "../Utils/data/strings";
+import strings from "../utils/data/strings";
 import Footer from "../components/landing/common/Footer";
 import Header from "../components/landing/common/Header";
 import Hero from "../components/landing/home/Hero";

@@ -1,10 +1,10 @@
-import React from 'react'
-import styled from 'styled-components'
-import UserContainer from '../../../Utils/state/userContainer'
-import strings from '../../../Utils/data/strings'
-import MuteButton from './MuteButton'
-import LeaveButton from './LeaveButton'
-import Timer from './Timer'
+import React from "react";
+import styled from "styled-components";
+import UserContainer from "../../../utils/state/userContainer";
+import strings from "../../../utils/data/strings";
+import MuteButton from "./MuteButton";
+import LeaveButton from "./LeaveButton";
+import Timer from "./Timer";
 
 const Container = styled.div`
   background: var(--layer-background);
@@ -16,7 +16,7 @@ const Container = styled.div`
   bottom: 20px;
   padding: 10px 20px;
   border: 1px solid var(--border-color);
-`
+`;
 
 const InformationContainer = styled.div`
   display: flex;
@@ -28,25 +28,25 @@ const InformationContainer = styled.div`
   @media screen and (max-width: 959px) {
     display: none;
   }
-`
+`;
 
 const RoomNames = styled.p`
   font-size: 1.2em;
   font-weight: 400;
   color: var(--text-color);
-`
+`;
 
 const RoomDescription = styled.p`
   font-size: 1em;
   font-weight: 300;
   color: #c4c4c4;
-`
+`;
 
 const Controls = ({ room, participants, roomData }) => {
-  const { user } = UserContainer.useContainer()
+  const { user } = UserContainer.useContainer();
   const otherParticipant = participants.filter(
     (e) => JSON.parse(e.metadata).username !== user.username
-  )[0]
+  )[0];
 
   return (
     <Container>
@@ -62,6 +62,6 @@ const Controls = ({ room, participants, roomData }) => {
       <MuteButton room={room} />
       <LeaveButton room={room} />
     </Container>
-  )
-}
-export default Controls
+  );
+};
+export default Controls;

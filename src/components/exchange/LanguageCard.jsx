@@ -6,12 +6,12 @@ import { FaUserAlt } from "react-icons/fa";
 import { useRouter } from "next/router";
 import firebase from "firebase";
 import Image from "next/image";
-import UserContainer from "../../Utils/state/userContainer";
-import fire from "../../Utils/fire";
-import { checkTokens, checkNative } from "../../Utils/apis/RoomAPI";
+import UserContainer from "../../utils/state/userContainer";
+import fire from "../../utils/fire";
+import { checkTokens, checkNative } from "../../utils/apis/RoomAPI";
 
-import strings from "../../Utils/data/strings";
-import { getUser } from "../../Utils/apis/UserAPI";
+import strings from "../../utils/data/strings";
+import { getUser } from "../../utils/apis/UserAPI";
 
 const CardContainer = styled.div`
   margin-bottom: 20px;

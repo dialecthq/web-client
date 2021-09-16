@@ -9,18 +9,18 @@ import { Helmet } from "react-helmet";
 import { IoLanguage } from "react-icons/io5";
 import { useRouter } from "next/router";
 import Avatar from "../components/common/Avatar";
-import User from "../Utils/state/userContainer";
-import countryOptions from "../Utils/data/CountryOptions";
-import rooms from "../Utils/data/rooms";
-import timezoneOptions from "../Utils/data/TimezoneOptions";
-import levelOptions from "../Utils/data/levelOptions";
+import User from "../utils/state/userContainer";
+import countryOptions from "../utils/data/CountryOptions";
+import rooms from "../utils/data/rooms";
+import timezoneOptions from "../utils/data/TimezoneOptions";
+import levelOptions from "../utils/data/levelOptions";
 import Level from "../components/common/Level";
 import Edit from "../components/common/Edit";
 import Page from "../components/exchange/Page";
-import { years, months, getDays } from "../Utils/data/dateOptions";
-import fire from "../Utils/fire";
+import { years, months, getDays } from "../utils/data/dateOptions";
+import fire from "../utils/fire";
 import Logo from "../../public/logo.svg";
-import strings from "../Utils/data/strings";
+import strings from "../utils/data/strings";
 
 import {
   removeAvatarURL,
@@ -28,7 +28,7 @@ import {
   validate,
   deleteLanguage,
   getUser,
-} from "../Utils/apis/UserAPI";
+} from "../utils/apis/UserAPI";
 
 const HeaderContainer = styled.div`
   display: flex;

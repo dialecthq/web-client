@@ -1,6 +1,6 @@
-import React from 'react'
-import styled from 'styled-components'
-import strings from '../../../Utils/data/strings'
+import React from "react";
+import styled from "styled-components";
+import strings from "../../../utils/data/strings";
 
 const Container = styled.div`
   width: 100%;
@@ -9,7 +9,7 @@ const Container = styled.div`
   align-items: center;
   padding: 8px 24px;
   padding-top: 160px;
-`
+`;
 
 const Wrapper = styled.div`
   width: 100%;
@@ -19,7 +19,7 @@ const Wrapper = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-`
+`;
 
 const HeroText = styled.p`
   font-size: 3em;
@@ -31,7 +31,7 @@ const HeroText = styled.p`
   @media screen and (max-width: 768px) {
     font-size: 2.1em;
   }
-`
+`;
 
 const Subtitle = styled.p`
   margin-top: 15px;
@@ -45,7 +45,7 @@ const Subtitle = styled.p`
   @media screen and (max-width: 768px) {
     font-size: 1.4em;
   }
-`
+`;
 
 const AboutHero = () => (
   <Container>
@@ -54,6 +54,6 @@ const AboutHero = () => (
       <Subtitle>{strings.forLanguageDesc}</Subtitle>
     </Wrapper>
   </Container>
-)
+);
 
-export default AboutHero
+export default AboutHero;

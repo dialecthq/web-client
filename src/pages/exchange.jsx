@@ -4,10 +4,10 @@ import styled from "styled-components";
 import { Helmet } from "react-helmet";
 import { Skeleton } from "antd";
 import Page from "../components/exchange/Page";
-import rooms from "../Utils/data/rooms";
+import rooms from "../utils/data/rooms";
 import LanguageCard from "../components/exchange/LanguageCard";
-import UserContainer from "../Utils/state/userContainer";
-import strings from "../Utils/data/strings";
+import UserContainer from "../utils/state/userContainer";
+import strings from "../utils/data/strings";
 import Loading from "../components/common/Loading";
 
 const ContentContainer = styled.div`
