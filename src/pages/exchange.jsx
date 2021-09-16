@@ -9,6 +9,7 @@ import LanguageCard from "../components/exchange/LanguageCard";
 import UserContainer from "../utils/state/userContainer";
 import strings from "../utils/data/strings";
 import Loading from "../components/common/Loading";
+import { useRouter } from "next/router";
 
 const ContentContainer = styled.div`
   display: flex;
@@ -58,6 +59,7 @@ const SectionTitleContainer = styled.div`
 
 const Home = () => {
   const { user, loading } = UserContainer.useContainer();
+  const router = useRouter();
 
   useEffect(() => {
     if (!user && !loading) {
