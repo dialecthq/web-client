@@ -177,7 +177,7 @@ export const signInWithGoogle = () => {
   const provider = new firebase.auth.GoogleAuthProvider();
   firebase
     .auth()
-    .signInWithRedirect(provider)
+    .signInWithPopup(provider)
     .then((result) => {
       const { additionalUserInfo, user } = result;
       const username = uniqueNamesGenerator({

@@ -6,6 +6,13 @@ import Image from "next/image";
 
 import SignIn from "../common/SignIn";
 import SignUp from "../common/SignUp";
+import { loadStripe } from "@stripe/stripe-js";
+
+import axios from "axios";
+
+const stripePromise = loadStripe(
+  process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
+);
 
 const Container = styled.div`
   width: 100%;
@@ -280,7 +287,16 @@ const PricingSection = () => {
                     <BulletText>Early access to new features</BulletText>
                   </Bullet>
                 </Bullets>
-                <Button block type="primary" style={{ height: 40 }}>
+                <Button
+                  block
+                  type="primaty"
+                  style={{ height: 40 }}
+                  onClick={async () => {
+                    const response = await axios.post("/api/checkout_sessions");
+                    const { url } = response.data;
+                    window.open(url);
+                  }}
+                >
                   Try 30 Days Free
                 </Button>
               </InfoSection>
