@@ -43,6 +43,7 @@ async function handler(req, res) {
               tokens: 10,
               languages,
               stripe_id: session.customer,
+              subscription_id: session.subscription,
             };
             const docRef = await fire
               .firestore()
