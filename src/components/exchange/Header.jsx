@@ -1,17 +1,17 @@
-import React, { useState } from "react";
-import styled from "styled-components";
-import { FaBars, FaQuestion, FaSignOutAlt, FaUser } from "react-icons/fa";
-import { Popover, Divider, Menu, Button, Skeleton } from "antd";
-import { useRouter } from "next/router";
-import { Cross as Hamburger } from "hamburger-react";
-import Image from "next/image";
-import Logo from "../../../public/logo.svg";
-import User from "../../utils/state/userContainer";
-import HeaderLogo from "../common/HeaderLogo";
-import Coin from "../../../public/token.svg";
-import Avatar from "../common/Avatar";
-import strings from "../../utils/data/strings";
-import { logout } from "../../utils/apis/UserAPI";
+import React, { useState } from "react"
+import styled from "styled-components"
+import { FaBars, FaQuestion, FaSignOutAlt, FaUser } from "react-icons/fa"
+import { Popover, Divider, Menu, Button, Skeleton } from "antd"
+import { useRouter } from "next/router"
+import { Cross as Hamburger } from "hamburger-react"
+import Image from "next/image"
+import Logo from "../../../public/logo.svg"
+import User from "../../utils/state/userContainer"
+import HeaderLogo from "../common/HeaderLogo"
+import Coin from "../../../public/token.svg"
+import Avatar from "../common/Avatar"
+import strings from "../../utils/data/strings"
+import { logout } from "../../utils/apis/UserAPI"
 
 const NavContainer = styled.div`
   display: flex;
@@ -23,7 +23,7 @@ const NavContainer = styled.div`
   position: fixed;
   width: 100%;
   top: 0;
-`;
+`
 
 const NavWrapper = styled.div`
   display: flex;
@@ -33,7 +33,7 @@ const NavWrapper = styled.div`
   max-width: 1200px;
   padding-left: 18px;
   padding-right: 18px;
-`;
+`
 
 const NavContent = styled.div`
   justify-content: center;
@@ -44,7 +44,7 @@ const NavContent = styled.div`
   @media screen and (max-width: 768px) {
     display: ${(p) => (p.mobile ? "flex" : "none")};
   }
-`;
+`
 
 const AvatarIMG = styled.div`
   border-radius: 36px;
@@ -56,7 +56,7 @@ const AvatarIMG = styled.div`
   :hover {
     cursor: pointer;
   }
-`;
+`
 
 const MenuIcon = styled(FaBars)`
   height: 24px;
@@ -69,7 +69,7 @@ const MenuIcon = styled(FaBars)`
   @media screen and (min-width: 769px) {
     display: none;
   }
-`;
+`
 
 const ProfilePopoverContainer = styled.div`
   display: flex;
@@ -77,7 +77,7 @@ const ProfilePopoverContainer = styled.div`
   align-items: flex-start;
   justify-content: center;
   padding: 12px 0px;
-`;
+`
 
 const Username = styled.p`
   font-size: 0.9em;
@@ -87,12 +87,12 @@ const Username = styled.p`
   display: flex;
   justify-content: center;
   align-items: center;
-`;
+`
 
 const Emph = styled.span`
   font-weight: 500;
   color: #1c1c1c1c;
-`;
+`
 
 const MenuItem = styled(Menu.Item)`
   display: flex;
@@ -101,7 +101,7 @@ const MenuItem = styled(Menu.Item)`
   :hover {
     background: #efefef;
   }
-`;
+`
 
 const MenuModal = styled.div`
   flex-direction: column;
@@ -125,13 +125,13 @@ const MenuModal = styled.div`
   @media screen and (min-width: 769px) {
     top: calc(-100vh);
   }
-`;
+`
 
 const ButtonText = styled.span`
   font-weight: 500;
   font-size: 1.2em;
   color: ${(p) => (p.white ? "#fff" : "inherit")};
-`;
+`
 
 const MenuButton = styled.div`
   width: 100%;
@@ -146,7 +146,7 @@ const MenuButton = styled.div`
     opacity: 0.7;
     cursor: pointer;
   }
-`;
+`
 
 const MenuContent = styled.div`
   width: 100%;
@@ -157,7 +157,7 @@ const MenuContent = styled.div`
   flex-direction: column;
   border-bottom: 1px solid #d4d4d4;
   padding-bottom: 20px;
-`;
+`
 
 const TokenContainer = styled.div`
   display: flex;
@@ -169,13 +169,13 @@ const TokenContainer = styled.div`
   border-radius: 10px;
   height: 40px;
   margin-right: 10px;
-`;
+`
 
 const Header = () => {
-  const { user } = User.useContainer();
-  const router = useRouter();
-  const [ppOpen, setPPOpen] = useState(false);
-  const [menuVisible, setMenuVisible] = useState(false);
+  const { user } = User.useContainer()
+  const router = useRouter()
+  const [ppOpen, setPPOpen] = useState(false)
+  const [menuVisible, setMenuVisible] = useState(false)
 
   const profilePopover = (
     <ProfilePopoverContainer style={{ minWidth: 200 }}>
@@ -200,9 +200,6 @@ const Header = () => {
         <Skeleton />
       )}
       <Menu style={{ width: "100%" }}>
-        <MenuItem icon={<FaQuestion />} key="help">
-          {strings.help.capitalize()}
-        </MenuItem>
         <MenuItem
           icon={<FaUser />}
           key="profile"
@@ -210,8 +207,8 @@ const Header = () => {
             window.scrollTo({
               top: 0,
               behavior: "smooth",
-            });
-            router.push("/profile");
+            })
+            router.push("/profile")
           }}
         >
           {strings.profile.capitalize()}
@@ -220,15 +217,15 @@ const Header = () => {
           key="sign-out"
           icon={<FaSignOutAlt />}
           onClick={() => {
-            logout();
-            router.push("/");
+            logout()
+            router.push("/")
           }}
         >
           {strings.signOut.capitalize()}
         </MenuItem>
       </Menu>
     </ProfilePopoverContainer>
-  );
+  )
 
   return (
     <>
@@ -294,16 +291,8 @@ const Header = () => {
         )}
         <MenuButton
           onClick={() => {
-            setMenuVisible(false);
-            router.push("/about");
-          }}
-        >
-          <ButtonText>{strings.help.capitalize()}</ButtonText>
-        </MenuButton>
-        <MenuButton
-          onClick={() => {
-            setMenuVisible(false);
-            router.push("/profile");
+            setMenuVisible(false)
+            router.push("/profile")
           }}
           style={{ marginBottom: 50 }}
         >
@@ -320,7 +309,7 @@ const Header = () => {
                 height: 60,
               }}
               onClick={() => {
-                setMenuVisible(false);
+                setMenuVisible(false)
               }}
             >
               <ButtonText>{strings.logIn.capitalize()}</ButtonText>
@@ -334,7 +323,7 @@ const Header = () => {
               }}
               type="primary"
               onClick={() => {
-                setMenuVisible(false);
+                setMenuVisible(false)
               }}
             >
               <ButtonText>{strings.getStarted.capitalize()}</ButtonText>
@@ -350,9 +339,9 @@ const Header = () => {
               flexDirection: "row-reverse",
             }}
             onClick={() => {
-              setMenuVisible(false);
-              logout();
-              router.push("/");
+              setMenuVisible(false)
+              logout()
+              router.push("/")
             }}
           >
             <ButtonText>{strings.signOut.capitalize()}</ButtonText>
@@ -360,7 +349,7 @@ const Header = () => {
         )}
       </MenuModal>
     </>
-  );
-};
+  )
+}
 
-export default Header;
+export default Header

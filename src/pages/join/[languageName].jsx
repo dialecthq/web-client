@@ -1,19 +1,14 @@
 /* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable max-len */
 /* eslint-disable react/prop-types */
-import React, { useEffect, useState } from "react";
-import styled, { keyframes } from "styled-components";
-import {
-  LiveKitRoom,
-  AudioRenderer,
-  ControlsView,
-  useParticipant,
-} from "livekit-react";
+import React, { useEffect, useState } from "react"
+import styled, { keyframes } from "styled-components"
+import { LiveKitRoom, AudioRenderer, ControlsView, useParticipant } from "livekit-react"
 
-import { createLocalTracks } from "livekit-client";
-import userContainer from "../../utils/state/userContainer";
-import strings from "../../utils/data/strings";
-import { useRouter } from "next/router";
+import { createLocalTracks } from "livekit-client"
+import userContainer from "../../utils/state/userContainer"
+import strings from "../../utils/data/strings"
+import { useRouter } from "next/router"
 
 import {
   checkWaitingRoom,
@@ -22,19 +17,19 @@ import {
   joinRoom,
   checkNative,
   checkTokens,
-  getRoom,
-} from "../../utils/apis/RoomAPI";
-import ServerDown from "../../../public/server_down.svg";
-import rooms from "../../utils/data/rooms";
+  getRoom
+} from "../../utils/apis/RoomAPI"
+import ServerDown from "../../../public/server_down.svg"
+import rooms from "../../utils/data/rooms"
 
-import Waiting from "../../components/common/Waiting";
-import Error from "../../components/common/Error";
-import fire from "../../utils/fire";
-import Participant from "../../components/exchange/rooms/Participant";
-import RoomHeader from "../../components/exchange/rooms/RoomHeader";
-import Controls from "../../components/exchange/rooms/Controls";
+import Waiting from "../../components/common/Waiting"
+import Error from "../../components/common/Error"
+import fire from "../../utils/fire"
+import Participant from "../../components/exchange/rooms/Participant"
+import RoomHeader from "../../components/exchange/rooms/RoomHeader"
+import Controls from "../../components/exchange/rooms/Controls"
 
-const url = "ws://localhost:7880";
+const url = "wss://dialect-livekit.fly.dev:443"
 
 const StageContainer = styled.div`
   display: flex;
@@ -45,7 +40,7 @@ const StageContainer = styled.div`
   background: var(--dark-background);
   padding: 10px 24px;
   position: relative;
-`;
+`
 
 const StageCenter = styled.div`
   display: flex;
@@ -58,7 +53,7 @@ const StageCenter = styled.div`
   @media screen and (max-width: 959px) {
     justify-content: space-around;
   }
-`;
+`
 
 const StageDiv = styled.div`
   height: 100vh;
@@ -66,24 +61,24 @@ const StageDiv = styled.div`
   @media screen and (max-width: 959px) {
     min-height: 200px;
   }
-`;
+`
 
 // renderStage prepares the layout of the stage using subcomponents. Feel free to
 // modify as you see fit. It uses the built-in ParticipantView component in this
 // example; you may use a custom component instead.
 function renderStage({ roomState }) {
-  const { room, participants, audioTracks, isConnecting, error } = roomState;
+  const { room, participants, audioTracks, isConnecting, error } = roomState
 
   if (isConnecting) {
-    return <Waiting message={` 🔗 ${strings.connectingToYourPartner} ...`} />;
+    return <Waiting message={` 🔗 ${strings.connectingToYourPartner} ...`} />
   }
   if (error) {
-    return <Error errorMessage={error.message} imgLink={ServerDown} />;
+    return <Error errorMessage={error.message} imgLink={ServerDown} />
   }
   if (!room) {
-    return <Error errorMessage="room closed" imgLink={ServerDown} />;
+    return <Error errorMessage="room closed" imgLink={ServerDown} />
   }
-  console.log("participants", participants);
+  console.log("participants", participants)
 
   return (
     <StageContainer>
@@ -98,46 +93,46 @@ function renderStage({ roomState }) {
       </StageCenter>
       <Controls room={room} participants={participants} />
     </StageContainer>
-  );
+  )
 }
 
 async function handleConnected(room) {
   const tracks = await createLocalTracks({
     audio: true,
-    video: false,
-  });
+    video: false
+  })
   tracks.forEach((track) => {
-    room.localParticipant.publishTrack(track);
-  });
+    room.localParticipant.publishTrack(track)
+  })
 }
 
 export default function RoomComponent() {
-  const [token, setToken] = useState(null);
-  const [waiting, setWaiting] = useState(true);
-  const [error, setError] = useState(null);
-  const { user } = userContainer.useContainer();
-  const router = useRouter();
+  const [token, setToken] = useState(null)
+  const [waiting, setWaiting] = useState(true)
+  const [error, setError] = useState(null)
+  const { user } = userContainer.useContainer()
+  const router = useRouter()
 
   useEffect(() => {
     if (!user) {
-      router.push("/");
+      router.push("/")
     }
-  }, [user]);
+  }, [user])
 
   useEffect(async () => {
-    const { languageName } = router.query;
-    const language = rooms.filter((e) => e.value === languageName)[0];
+    const { languageName } = router.query
+    const language = rooms.filter((e) => e.value === languageName)[0]
     if (!language) {
-      setError(strings.couldNotFindRequestedLanguage);
-      return null;
+      setError(strings.couldNotFindRequestedLanguage)
+      return null
     }
 
-    const isNative = await checkNative(user, language);
+    const isNative = await checkNative(user, language)
     if (!isNative) {
-      const tokens = await checkTokens(user);
+      const tokens = await checkTokens(user)
       if (!tokens) {
-        setWaiting(false);
-        return null;
+        setWaiting(false)
+        return null
       }
     }
 
@@ -147,45 +142,50 @@ export default function RoomComponent() {
       .where("active", "==", true)
       .where("participants", "array-contains", user.uid)
       .onSnapshot(async (querySnapshot) => {
-        setWaiting(true);
-        let roomID = querySnapshot.docs[0]?.id || null;
+        setWaiting(true)
+        let roomID
+        if (querySnapshot.docs[0]) {
+          roomID = querySnapshot.docs[0].id
+        } else {
+          roomID = null
+        }
+
         if (!roomID) {
-          const partnerID = await checkWaitingRoom(user, language);
+          const partnerID = await checkWaitingRoom(user, language)
           if (!partnerID) {
-            addToWaitingRoom(user, language);
-            setToken(null);
+            addToWaitingRoom(user, language)
+            setToken(null)
           } else {
-            roomID = await createRoom([user.uid, partnerID], language);
+            roomID = await createRoom([user.uid, partnerID], language)
             if (!roomID) {
-              setToken(null);
+              setToken(null)
             } else {
-              const newTokenResult = await joinRoom(user, language, roomID);
+              const newTokenResult = await joinRoom(user, language, roomID)
               if (!newTokenResult.data.token) {
-                setToken(null);
+                setToken(null)
               } else {
-                setWaiting(false);
-                setToken(newTokenResult.data.token);
+                setWaiting(false)
+                setToken(newTokenResult.data.token)
               }
             }
           }
         } else {
-          const newTokenResult = await joinRoom(user, language, roomID);
+          const newTokenResult = await joinRoom(user, language, roomID)
           if (!newTokenResult.data.token) {
-            setToken(null);
+            setToken(null)
           } else {
-            setWaiting(false);
-            setToken(newTokenResult.data.token);
+            setWaiting(false)
+            setToken(newTokenResult.data.token)
           }
         }
-      });
-    return () => subscriber();
-  }, []);
+      })
+    return () => subscriber()
+  }, [])
 
-  if (error) return <Error errorMessage={error} imgLink={ServerDown} />;
+  if (error) return <Error errorMessage={error} imgLink={ServerDown} />
 
-  if (waiting) return <Waiting message={`🔎 ${strings.lookingForPartner}`} />;
-  if (!token)
-    return <Error errorMessage="No token beyond" imgLink={ServerDown} />;
+  if (waiting) return <Waiting message={`🔎 ${strings.lookingForPartner}`} />
+  if (!token) return <Error errorMessage="No token beyond" imgLink={ServerDown} />
 
   return (
     <StageDiv>
@@ -194,9 +194,9 @@ export default function RoomComponent() {
         token={token}
         stageRenderer={renderStage}
         onConnected={(room) => {
-          handleConnected(room);
+          handleConnected(room)
         }}
       />
     </StageDiv>
-  );
+  )
 }

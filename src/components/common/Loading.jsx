@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from 'react'
-import styled from 'styled-components'
-import { Progress } from 'antd'
-import HeaderLogo from './HeaderLogo'
+import React, { useEffect, useState } from "react"
+import styled from "styled-components"
+import { Progress } from "antd"
+import HeaderLogo from "./HeaderLogo"
+import { Oval } from "@agney/react-loading"
 
 const LoadingContainer = styled.div`
   height: 100vh;
@@ -31,12 +32,7 @@ const Loading = () => {
     <LoadingContainer>
       <LoadingWrapper>
         <HeaderLogo />
-        <Progress
-          strokeColor="#81FDE3"
-          percent={loaded}
-          showInfo={false}
-          style={{ marginTop: 20 }}
-        />
+        <Oval color="#81FDE3" width={48} style={{ marginTop: 20 }} />
       </LoadingWrapper>
     </LoadingContainer>
   )
