@@ -1,10 +1,9 @@
-/* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable max-len */
 /* eslint-disable react/prop-types */
 import React, { useEffect, useState } from "react"
 import styled, { keyframes } from "styled-components"
 import { LiveKitRoom, AudioRenderer, ControlsView, useParticipant } from "livekit-react"
-
+import Seo from "../../components/seo/Seo"
 import { createLocalTracks } from "livekit-client"
 import userContainer from "../../utils/state/userContainer"
 import strings from "../../utils/data/strings"
@@ -184,11 +183,24 @@ export default function RoomComponent() {
 
   if (error) return <Error errorMessage={error} imgLink={ServerDown} />
 
-  if (waiting) return <Waiting message={`🔎 ${strings.lookingForPartner}`} />
+  if (waiting)
+    return (
+      <>
+        <Seo
+          title={`Exchange - Learn a new language today`}
+          description="Give the gift of language."
+        />
+        <Waiting message={`🔎 ${strings.lookingForPartner}`} />
+      </>
+    )
   if (!token) return <Error errorMessage="No token beyond" imgLink={ServerDown} />
 
   return (
     <StageDiv>
+      <Seo
+        title={`Exchange - Learn a new language today`}
+        description="Give the gift of language."
+      />
       <LiveKitRoom
         url={url}
         token={token}

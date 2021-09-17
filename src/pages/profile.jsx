@@ -1,34 +1,35 @@
 /* eslint-disable no-nested-ternary */
 /* eslint-disable jsx-a11y/img-redundant-alt */
 /* eslint-disable max-len */
-import React, { useState, useEffect } from "react";
-import styled from "styled-components";
-import { Button, Input, Form, Select, Upload, message, Popconfirm } from "antd";
-import { FaPen, FaTrash, FaUpload, FaArrowLeft } from "react-icons/fa";
-import { Helmet } from "react-helmet";
-import { IoLanguage } from "react-icons/io5";
-import { useRouter } from "next/router";
-import Avatar from "../components/common/Avatar";
-import User from "../utils/state/userContainer";
-import countryOptions from "../utils/data/CountryOptions";
-import rooms from "../utils/data/rooms";
-import timezoneOptions from "../utils/data/TimezoneOptions";
-import levelOptions from "../utils/data/levelOptions";
-import Level from "../components/common/Level";
-import Edit from "../components/common/Edit";
-import Page from "../components/exchange/Page";
-import { years, months, getDays } from "../utils/data/dateOptions";
-import fire from "../utils/fire";
-import Logo from "../../public/logo.svg";
-import strings from "../utils/data/strings";
+import React, { useState, useEffect } from "react"
+import styled from "styled-components"
+import { Button, Input, Form, Select, Upload, message, Popconfirm } from "antd"
+import { FaPen, FaTrash, FaUpload, FaArrowLeft } from "react-icons/fa"
+import { Helmet } from "react-helmet"
+import { IoLanguage } from "react-icons/io5"
+import { useRouter } from "next/router"
+import Avatar from "../components/common/Avatar"
+import User from "../utils/state/userContainer"
+import countryOptions from "../utils/data/CountryOptions"
+import rooms from "../utils/data/rooms"
+import timezoneOptions from "../utils/data/TimezoneOptions"
+import levelOptions from "../utils/data/levelOptions"
+import Level from "../components/common/Level"
+import Edit from "../components/common/Edit"
+import Page from "../components/exchange/Page"
+import { years, months, getDays } from "../utils/data/dateOptions"
+import fire from "../utils/fire"
+import Logo from "../../public/logo.svg"
+import strings from "../utils/data/strings"
+import Seo from "../components/seo/Seo"
 
 import {
   removeAvatarURL,
   uploadAvatarUrl,
   validate,
   deleteLanguage,
-  getUser,
-} from "../utils/apis/UserAPI";
+  getUser
+} from "../utils/apis/UserAPI"
 
 const HeaderContainer = styled.div`
   display: flex;
@@ -36,14 +37,14 @@ const HeaderContainer = styled.div`
   border-bottom: 1px solid #efefef;
   margin-bottom: 30px;
   justify-content: space-between;
-`;
+`
 
 const TitleContainer = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
   margin-bottom: 40px;
-`;
+`
 
 const ContentContainer = styled.div`
   display: flex;
@@ -52,7 +53,7 @@ const ContentContainer = styled.div`
   align-items: center;
   margin-bottom: 20px;
   width: 100%;
-`;
+`
 
 const ContentRow = styled.div`
   display: flex;
@@ -60,7 +61,7 @@ const ContentRow = styled.div`
   align-items: flex-start;
   width: 100%;
   margin-bottom: 20px;
-`;
+`
 
 const ItemRow = styled.div`
   display: flex;
@@ -73,21 +74,21 @@ const ItemRow = styled.div`
     justify-content: center;
     align-items: flex-start;
   }
-`;
+`
 
 const Title = styled.p`
   font-size: 2.5em;
   font-weight: 600;
   color: var(--text-color);
   margin-bottom: 0px;
-`;
+`
 
 const HeaderTitle = styled.p`
   font-size: 1.3em;
   font-weight: 600;
   color: var(--text-color);
   margin-bottom: 0px;
-`;
+`
 
 const InfoTitle = styled.p`
   font-weight: 500;
@@ -95,7 +96,7 @@ const InfoTitle = styled.p`
   color: var(--text-color);
   min-width: 150px;
   margin-right: 10px;
-`;
+`
 
 const InfoContent = styled.p`
   font-weight: 400;
@@ -105,12 +106,12 @@ const InfoContent = styled.p`
   flex-wrap: wrap;
   overflow: hidden;
   padding-right: 25px;
-`;
+`
 
 const FormItem = styled(Form.Item)`
   width: 100%;
   margin-right: 10px;
-`;
+`
 
 const PenIcon = styled(FaPen)`
   color: var(--text-color);
@@ -119,7 +120,7 @@ const PenIcon = styled(FaPen)`
     cursor: pointer;
     opacity: 0.6;
   }
-`;
+`
 
 const GarbageIcon = styled(FaTrash)`
   color: var(--error-red);
@@ -127,14 +128,14 @@ const GarbageIcon = styled(FaTrash)`
     cursor: pointer;
     opacity: 0.7;
   }
-`;
+`
 
 const PictureContainer = styled.div`
   display: flex;
   width: 100%;
   justify-content: flex-start;
   align-items: center;
-`;
+`
 
 const PictureActionContainer = styled.div`
   display: flex;
@@ -142,49 +143,45 @@ const PictureActionContainer = styled.div`
   align-items: flex-start;
   flex-direction: column;
   margin-left: 50px;
-`;
+`
 
 const Subtitle = styled.p`
   font-size: 1.2em;
   font-weight: 400;
   color: #1c1c1c;
   opacity: 0.7;
-`;
+`
 
 const AddLanguageContainer = styled.div`
   width: 100%;
   display: flex;
   justify-content: flex-start;
   align-items: center;
-`;
+`
 
 const Profile = () => {
-  const [editing, setEditing] = useState("");
-  const [inputYear, setInputYear] = useState(2002);
-  const [inputMonth, setInputMonth] = useState(1);
-  const { user, setUser } = User.useContainer();
-  const router = useRouter();
+  const [editing, setEditing] = useState("")
+  const [inputYear, setInputYear] = useState(2002)
+  const [inputMonth, setInputMonth] = useState(1)
+  const { user, setUser } = User.useContainer()
+  const router = useRouter()
 
   useEffect(() => {
     if (!user) {
-      router.replace("/");
+      router.replace("/")
     }
-  }, [user]);
+  }, [user])
 
   return (
     <Page>
-      <Helmet>
-        <title>
-          🧘 {strings.profile.capitalize()} - @{`${user?.username}`}
-        </title>
-      </Helmet>
+      <Seo title="Profile - Learn a new language today" description="Give the gift of language." />
       <TitleContainer>
         <div>
           <Button
             style={{ marginBottom: 20 }}
             icon={<FaArrowLeft style={{ marginRight: 5 }} />}
             onClick={() => {
-              router.push("/exchange");
+              router.push("/exchange")
             }}
           >
             {strings.back}
@@ -207,22 +204,20 @@ const Profile = () => {
               showUploadList={false}
               beforeUpload={(file) => {
                 if (file.type !== "image/png" && file.type !== "image/jpeg") {
-                  message.error(strings.isNotJPGPNG);
+                  message.error(strings.isNotJPGPNG)
                 }
                 return file.type === "image/png" || file.type === "image/jpeg"
                   ? true
-                  : Upload.LIST_IGNORE;
+                  : Upload.LIST_IGNORE
               }}
               customRequest={async ({ file, onSuccess, onError }) => {
-                await uploadAvatarUrl(user, file, onSuccess, onError);
-                const userRef = await getUser();
-                setUser(userRef.data());
+                await uploadAvatarUrl(user, file, onSuccess, onError)
+                const userRef = await getUser()
+                setUser(userRef.data())
               }}
             >
               <Button icon={<FaUpload style={{ marginRight: 5 }} />}>
-                {user?.avatarURL
-                  ? strings.change.capitalize()
-                  : strings.upload.capitalize()}
+                {user?.avatarURL ? strings.change.capitalize() : strings.upload.capitalize()}
               </Button>
             </Upload>
             {user?.avatarURL ? (
@@ -231,9 +226,9 @@ const Profile = () => {
                 icon={<FaTrash style={{ marginRight: 5 }} />}
                 danger
                 onClick={async () => {
-                  await removeAvatarURL();
-                  const userRef = await getUser();
-                  setUser(userRef.data());
+                  await removeAvatarURL()
+                  const userRef = await getUser()
+                  setUser(userRef.data())
                 }}
               >
                 {strings.removeAvatar}
@@ -252,10 +247,7 @@ const Profile = () => {
             {editing !== "name" ? (
               <InfoContent>{user?.name}</InfoContent>
             ) : (
-              <Edit
-                setEditing={setEditing}
-                initialValues={{ name: user?.name }}
-              >
+              <Edit setEditing={setEditing} initialValues={{ name: user?.name }}>
                 <FormItem
                   name="name"
                   validateTrigger="onBlur"
@@ -269,7 +261,7 @@ const Profile = () => {
           {!editing && (
             <PenIcon
               onClick={() => {
-                setEditing("name");
+                setEditing("name")
               }}
             />
           )}
@@ -280,10 +272,7 @@ const Profile = () => {
             {editing !== "username" ? (
               <InfoContent>{user?.username}</InfoContent>
             ) : (
-              <Edit
-                setEditing={setEditing}
-                initialValues={{ username: user?.username }}
-              >
+              <Edit setEditing={setEditing} initialValues={{ username: user?.username }}>
                 <FormItem
                   name="username"
                   validateTrigger="onBlur"
@@ -291,8 +280,8 @@ const Profile = () => {
                     { required: true, message: strings.pleaseInputUsername },
                     {
                       validator: (_, value) => validate(_, value, "username"),
-                      message: strings.usernameAlreadyInUse,
-                    },
+                      message: strings.usernameAlreadyInUse
+                    }
                   ]}
                 >
                   <Input />
@@ -303,7 +292,7 @@ const Profile = () => {
           {!editing && (
             <PenIcon
               onClick={() => {
-                setEditing("username");
+                setEditing("username")
               }}
             />
           )}
@@ -314,10 +303,7 @@ const Profile = () => {
             {editing !== "bio" ? (
               <InfoContent>{user?.bio || strings.noBio}</InfoContent>
             ) : (
-              <Edit
-                setEditing={setEditing}
-                initialValues={{ bio: user?.bio || "" }}
-              >
+              <Edit setEditing={setEditing} initialValues={{ bio: user?.bio || "" }}>
                 <FormItem
                   name="bio"
                   validateTrigger="onBlur"
@@ -331,7 +317,7 @@ const Profile = () => {
           {!editing && (
             <PenIcon
               onClick={() => {
-                setEditing("bio");
+                setEditing("bio")
               }}
             />
           )}
@@ -351,7 +337,7 @@ const Profile = () => {
                 initialValues={{
                   year: user?.dob.year || 2002,
                   month: user?.dob.month || 1,
-                  day: user?.dob.day || 1,
+                  day: user?.dob.day || 1
                 }}
               >
                 <FormItem name="day">
@@ -362,22 +348,14 @@ const Profile = () => {
                   </Select>
                 </FormItem>
                 <FormItem name="month">
-                  <Select
-                    showSearch
-                    placeholder={strings.selectAMonth}
-                    onChange={setInputMonth}
-                  >
+                  <Select showSearch placeholder={strings.selectAMonth} onChange={setInputMonth}>
                     {months.map((month) => (
                       <Select.Option key={month}>{month}</Select.Option>
                     ))}
                   </Select>
                 </FormItem>
                 <FormItem name="year">
-                  <Select
-                    showSearch
-                    placeholder={strings.selectAYear}
-                    onChange={setInputYear}
-                  >
+                  <Select showSearch placeholder={strings.selectAYear} onChange={setInputYear}>
                     {years.map((year) => (
                       <Select.Option key={year}>{year}</Select.Option>
                     ))}
@@ -389,7 +367,7 @@ const Profile = () => {
           {!editing && (
             <PenIcon
               onClick={() => {
-                setEditing("dob");
+                setEditing("dob")
               }}
             />
           )}
@@ -403,20 +381,14 @@ const Profile = () => {
               <Edit
                 setEditing={setEditing}
                 initialValues={{
-                  gender: user?.gender || strings.other.capitalize(),
+                  gender: user?.gender || strings.other.capitalize()
                 }}
               >
                 <FormItem name="gender">
                   <Select showSearch placeholder={strings.selectAGender}>
-                    <Select.Option key="Male">
-                      {strings.male.capitalize()}
-                    </Select.Option>
-                    <Select.Option key="Female">
-                      {strings.female.capitalize()}
-                    </Select.Option>
-                    <Select.Option key="Other">
-                      {strings.other.capitalize()}
-                    </Select.Option>
+                    <Select.Option key="Male">{strings.male.capitalize()}</Select.Option>
+                    <Select.Option key="Female">{strings.female.capitalize()}</Select.Option>
+                    <Select.Option key="Other">{strings.other.capitalize()}</Select.Option>
                   </Select>
                 </FormItem>
               </Edit>
@@ -425,7 +397,7 @@ const Profile = () => {
           {!editing && (
             <PenIcon
               onClick={() => {
-                setEditing("gender");
+                setEditing("gender")
               }}
             />
           )}
@@ -435,24 +407,22 @@ const Profile = () => {
             <InfoTitle>{strings.from.capitalize()}</InfoTitle>
             {editing !== "country" ? (
               <InfoContent>
-                {countryOptions.filter((e) => e.key === user?.country)[0]
-                  ?.value || strings.notSpecified}
+                {countryOptions.filter((e) => e.key === user?.country)[0]?.value ||
+                  strings.notSpecified}
               </InfoContent>
             ) : (
               <Edit
                 setEditing={setEditing}
                 initialValues={{
                   country:
-                    countryOptions.filter((e) => e.key === user?.country)[0]
-                      ?.value || strings.notSpecified,
+                    countryOptions.filter((e) => e.key === user?.country)[0]?.value ||
+                    strings.notSpecified
                 }}
               >
                 <FormItem name="country">
                   <Select showSearch placeholder={strings.selectACountry}>
                     {countryOptions.map((country) => (
-                      <Select.Option key={country.value}>
-                        {country.value}
-                      </Select.Option>
+                      <Select.Option key={country.value}>{country.value}</Select.Option>
                     ))}
                   </Select>
                 </FormItem>
@@ -462,7 +432,7 @@ const Profile = () => {
           {!editing && (
             <PenIcon
               onClick={() => {
-                setEditing("country");
+                setEditing("country")
               }}
             />
           )}
@@ -472,24 +442,22 @@ const Profile = () => {
             <InfoTitle>{strings.livingIn.capitalize()}</InfoTitle>
             {editing !== "living" ? (
               <InfoContent>
-                {countryOptions.filter((e) => e.key === user?.living)[0]
-                  ?.value || strings.notSpecified}
+                {countryOptions.filter((e) => e.key === user?.living)[0]?.value ||
+                  strings.notSpecified}
               </InfoContent>
             ) : (
               <Edit
                 setEditing={setEditing}
                 initialValues={{
                   country:
-                    countryOptions.filter((e) => e.key === user?.living)[0]
-                      ?.value || strings.notSpecified,
+                    countryOptions.filter((e) => e.key === user?.living)[0]?.value ||
+                    strings.notSpecified
                 }}
               >
                 <FormItem name="living">
                   <Select showSearch placeholder={strings.selectACountry}>
                     {countryOptions.map((country) => (
-                      <Select.Option key={country.value}>
-                        {country.value}
-                      </Select.Option>
+                      <Select.Option key={country.value}>{country.value}</Select.Option>
                     ))}
                   </Select>
                 </FormItem>
@@ -499,7 +467,7 @@ const Profile = () => {
           {!editing && (
             <PenIcon
               onClick={() => {
-                setEditing("living");
+                setEditing("living")
               }}
             />
           )}
@@ -509,16 +477,16 @@ const Profile = () => {
             <InfoTitle>{strings.timezone.capitalize()}</InfoTitle>
             {editing !== "timezone" ? (
               <InfoContent>
-                {timezoneOptions.filter((e) => e.key === user?.timezone)[0]
-                  ?.text || strings.notSpecified}
+                {timezoneOptions.filter((e) => e.key === user?.timezone)[0]?.text ||
+                  strings.notSpecified}
               </InfoContent>
             ) : (
               <Edit
                 setEditing={setEditing}
                 initialValues={{
                   timezone:
-                    timezoneOptions.filter((e) => e.key === user?.timezone)[0]
-                      ?.value || strings.notSpecified,
+                    timezoneOptions.filter((e) => e.key === user?.timezone)[0]?.value ||
+                    strings.notSpecified
                 }}
               >
                 <FormItem name="timezone">
@@ -536,7 +504,7 @@ const Profile = () => {
           {!editing && (
             <PenIcon
               onClick={() => {
-                setEditing("timezone");
+                setEditing("timezone")
               }}
             />
           )}
@@ -554,9 +522,7 @@ const Profile = () => {
                 <ItemRow>
                   <InfoTitle>
                     {strings[
-                      rooms
-                        .filter((e) => e.key === language.key)[0]
-                        .value.toLowerCase()
+                      rooms.filter((e) => e.key === language.key)[0].value.toLowerCase()
                     ].capitalize() || strings.noLanguage.capitalize()}
                   </InfoTitle>
                   <Level level={language.level} />
@@ -564,7 +530,7 @@ const Profile = () => {
                 {!editing && (
                   <PenIcon
                     onClick={() => {
-                      setEditing(language.key);
+                      setEditing(language.key)
                     }}
                   />
                 )}
@@ -576,22 +542,16 @@ const Profile = () => {
                 setEditing={setEditing}
                 initialValues={{
                   language:
-                    strings[
-                      rooms
-                        .filter((e) => e.key === language.key)[0]
-                        .value.toLowerCase()
-                    ] || strings.notSpecified,
-                  level: levelOptions.filter((e) => e.key === language.level)[0]
-                    .value,
+                    strings[rooms.filter((e) => e.key === language.key)[0].value.toLowerCase()] ||
+                    strings.notSpecified,
+                  level: levelOptions.filter((e) => e.key === language.level)[0].value
                 }}
               >
                 <FormItem name="language">
                   <Select showSearch placeholder="Select a language">
                     {rooms.map((languageOption) => (
                       <Select.Option key={languageOption.value}>
-                        {strings[
-                          languageOption.value.toLowerCase()
-                        ].capitalize()}
+                        {strings[languageOption.value.toLowerCase()].capitalize()}
                       </Select.Option>
                     ))}
                   </Select>
@@ -599,9 +559,7 @@ const Profile = () => {
                 <FormItem name="level">
                   <Select showSearch placeholder="Select a level">
                     {levelOptions.map((level) => (
-                      <Select.Option key={level.value}>
-                        {level.value}
-                      </Select.Option>
+                      <Select.Option key={level.value}>{level.value}</Select.Option>
                     ))}
                   </Select>
                 </FormItem>
@@ -609,19 +567,15 @@ const Profile = () => {
                   title="Are you sure you want to delete this language?"
                   placement="topLeft"
                   onConfirm={() => {
-                    deleteLanguage(user, language.key);
-                    setEditing(null);
-                    message.success("Successfully deleted language");
+                    deleteLanguage(user, language.key)
+                    setEditing(null)
+                    message.success("Successfully deleted language")
                   }}
                   okText="Yes"
                   cancelText="No"
                   icon={null}
                 >
-                  <GarbageIcon
-                    size={24}
-                    color="#e86461"
-                    style={{ marginBottom: 24 }}
-                  />
+                  <GarbageIcon size={24} color="#e86461" style={{ marginBottom: 24 }} />
                 </Popconfirm>
               </Edit>
             )
@@ -631,7 +585,7 @@ const Profile = () => {
             <Button
               icon={<IoLanguage style={{ marginRight: 5 }} />}
               onClick={() => {
-                setEditing("new");
+                setEditing("new")
               }}
             >
               {strings.addLanguage}
@@ -654,9 +608,7 @@ const Profile = () => {
               <FormItem name="level">
                 <Select showSearch placeholder={strings.selectALevel}>
                   {levelOptions.map((level) => (
-                    <Select.Option key={level.value}>
-                      {level.value}
-                    </Select.Option>
+                    <Select.Option key={level.value}>{level.value}</Select.Option>
                   ))}
                 </Select>
               </FormItem>
@@ -665,7 +617,7 @@ const Profile = () => {
         </AddLanguageContainer>
       </ContentContainer>
     </Page>
-  );
-};
+  )
+}
 
-export default Profile;
+export default Profile

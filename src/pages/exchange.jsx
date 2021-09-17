@@ -1,15 +1,16 @@
 /* eslint-disable max-len */
-import React, { useEffect } from "react";
-import styled from "styled-components";
-import { Helmet } from "react-helmet";
-import { Skeleton } from "antd";
-import Page from "../components/exchange/Page";
-import rooms from "../utils/data/rooms";
-import LanguageCard from "../components/exchange/LanguageCard";
-import UserContainer from "../utils/state/userContainer";
-import strings from "../utils/data/strings";
-import Loading from "../components/common/Loading";
-import { useRouter } from "next/router";
+import React, { useEffect } from "react"
+import styled from "styled-components"
+import { Helmet } from "react-helmet"
+import { Skeleton } from "antd"
+import Page from "../components/exchange/Page"
+import rooms from "../utils/data/rooms"
+import LanguageCard from "../components/exchange/LanguageCard"
+import UserContainer from "../utils/state/userContainer"
+import strings from "../utils/data/strings"
+import Loading from "../components/common/Loading"
+import { useRouter } from "next/router"
+import Seo from "../components/seo/Seo"
 
 const ContentContainer = styled.div`
   display: flex;
@@ -19,7 +20,7 @@ const ContentContainer = styled.div`
   align-items: center;
   margin-bottom: 20px;
   width: 100%;
-`;
+`
 
 const TitleContainer = styled.div`
   display: flex;
@@ -28,25 +29,25 @@ const TitleContainer = styled.div`
   justify-content: center;
   align-items: flex-start;
   margin-bottom: 50px;
-`;
+`
 const Title = styled.p`
   font-size: 2em;
   font-weight: 700;
   color: #1c1c1c;
   margin-bottom: 5px;
-`;
+`
 
 const SubTitle = styled.p`
   font-size: 1.2em;
   font-weight: 400;
   color: #1c1c1c70;
-`;
+`
 
 const SectionTitle = styled.p`
   font-size: 1.6em;
   font-weight: 600;
   color: #1c1c1c;
-`;
+`
 
 const SectionTitleContainer = styled.div`
   display: flex;
@@ -55,33 +56,30 @@ const SectionTitleContainer = styled.div`
   justify-content: center;
   align-items: flex-start;
   margin-bottom: 30px;
-`;
+`
 
 const Home = () => {
-  const { user, loading } = UserContainer.useContainer();
-  const router = useRouter();
+  const { user, loading } = UserContainer.useContainer()
+  const router = useRouter()
 
   useEffect(() => {
     if (!user && !loading) {
-      router.replace("/");
+      router.replace("/")
     }
-  }, [user]);
+  }, [user])
 
   if (loading) {
-    return <Loading />;
+    return <Loading />
   }
 
-  const langIsNative = (key) =>
-    user.languages.some((e) => e.key === key && e.level === 7);
+  const langIsNative = (key) => user.languages.some((e) => e.key === key && e.level === 7)
 
   return (
     <Page>
-      <Helmet>
-        <title>
-          💬
-          {strings.exchange}
-        </title>
-      </Helmet>
+      <Seo
+        title={`Exchange - Learn a new language today`}
+        description="Give the gift of language."
+      />
       <TitleContainer>
         <Title>{strings.welcomeToDialect}</Title>
         <SubTitle>
@@ -98,9 +96,7 @@ const Home = () => {
       </SectionTitleContainer>
       <ContentContainer>
         {user ? (
-          rooms
-            .filter((e) => langIsNative(e.key))
-            .map((room) => <LanguageCard room={room} />)
+          rooms.filter((e) => langIsNative(e.key)).map((room) => <LanguageCard room={room} />)
         ) : (
           <Skeleton />
         )}
@@ -115,15 +111,13 @@ const Home = () => {
       </SectionTitleContainer>
       <ContentContainer>
         {user ? (
-          rooms
-            .filter((e) => !langIsNative(e.key))
-            .map((room) => <LanguageCard room={room} />)
+          rooms.filter((e) => !langIsNative(e.key)).map((room) => <LanguageCard room={room} />)
         ) : (
           <Skeleton />
         )}
       </ContentContainer>
     </Page>
-  );
-};
+  )
+}
 
-export default Home;
+export default Home
