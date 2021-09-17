@@ -1,7 +1,3 @@
-import Cors from "Cors"
-const cors = Cors({
-  methods: ["GET", "HEAD"]
-})
 import fire from "../../utils/fire"
 
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY)
