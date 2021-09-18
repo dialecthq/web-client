@@ -1,9 +1,9 @@
-import React, { useState } from "react";
-import styled from "styled-components";
-import { Button } from "antd";
-import strings from "../../../utils/data/strings";
-import SignUp from "./SignUp";
-import SignIn from "./SignIn";
+import React, { useState, useEffect } from "react"
+import styled from "styled-components"
+import { Button } from "antd"
+import strings from "../../../utils/data/strings"
+import SignUp from "./SignUp"
+import SignIn from "./SignIn"
 
 const Container = styled.div`
   width: 100%;
@@ -13,7 +13,7 @@ const Container = styled.div`
   padding: 8px 24px;
   margin-top: 24px;
   background-color: #fcfdff;
-`;
+`
 const Wrapper = styled.div`
   width: 90%;
   padding: 24px;
@@ -23,7 +23,7 @@ const Wrapper = styled.div`
   justify-content: center;
   align-items: center;
   border-radius: 20px;
-`;
+`
 
 const Title = styled.p`
   font-size: 2.8em;
@@ -35,7 +35,7 @@ const Title = styled.p`
     font-size: 1.9em;
     text-align: center;
   }
-`;
+`
 
 const Subtitle = styled.div`
   margin-top: 5px;
@@ -48,15 +48,16 @@ const Subtitle = styled.div`
   @media screen and (max-width: 768px) {
     font-size: 1.3em;
   }
-`;
+`
 
 const Emphasized = styled.span`
   color: #45ffe9;
-`;
+`
 
 const CallToAction = () => {
-  const [signInVisible, setSignInVisible] = useState(false);
-  const [signUpVisible, setSignUpVisible] = useState(false);
+  const [signInVisible, setSignInVisible] = useState(false)
+  const [signUpVisible, setSignUpVisible] = useState(false)
+
   return (
     <>
       <Container>
@@ -67,7 +68,7 @@ const CallToAction = () => {
             type="primary"
             style={{ marginTop: 30, height: 50, width: 120 }}
             onClick={() => {
-              setSignUpVisible(true);
+              setSignUpVisible(true)
             }}
           >
             {strings.getStarted.capitalize()}
@@ -85,7 +86,7 @@ const CallToAction = () => {
         setSignInVisible={setSignInVisible}
       />
     </>
-  );
-};
+  )
+}
 
-export default CallToAction;
+export default CallToAction

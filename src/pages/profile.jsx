@@ -22,6 +22,7 @@ import fire from "../utils/fire"
 import Logo from "../../public/logo.svg"
 import strings from "../utils/data/strings"
 import Seo from "../components/seo/Seo"
+import LanguageContainer from "../utils/state/languageContainer"
 
 import {
   removeAvatarURL,
@@ -165,6 +166,11 @@ const Profile = () => {
   const [inputMonth, setInputMonth] = useState(1)
   const { user, setUser } = User.useContainer()
   const router = useRouter()
+  const { language } = LanguageContainer.useContainer()
+
+  useEffect(() => {
+    strings.setLanguage(language)
+  }, [language])
 
   useEffect(() => {
     if (!user) {
