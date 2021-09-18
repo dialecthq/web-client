@@ -1,5 +1,5 @@
 /* eslint-disable max-len */
-import React, { useState, useRef } from "react"
+import React, { useState, useRef, useEffect } from "react"
 import styled from "styled-components"
 
 import Footer from "../components/landing/common/Footer"

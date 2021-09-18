@@ -117,9 +117,7 @@ const Footer = () => {
           <Select
             style={{ width: 150, marginTop: 30 }}
             suffixIcon={FaGlobe}
-            defaultValue={strings[
-              rooms.filter((e) => e.code.includes(language))[0].value
-            ].capitalize()}
+            defaultValue={strings.selectALanguage}
             onChange={changeLanguage}
           >
             {rooms.map((room) => (

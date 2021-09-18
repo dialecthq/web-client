@@ -23,7 +23,6 @@ const Background = styled.div`
 
 const App = () => {
   const { language } = LanguageContainer.useContainer()
-
   useEffect(() => {
     strings.setLanguage(language)
   }, [language])
