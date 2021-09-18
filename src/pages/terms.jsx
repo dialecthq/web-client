@@ -4,6 +4,8 @@ import Header from "../components/landing/common/Header"
 import Content from "../components/landing/tos/Content"
 import CallToAction from "../components/landing/common/CallToAction"
 import Seo from "../components/seo/Seo"
+import LanguageContainer from "../utils/state/languageContainer"
+import strings from "../utils/data/strings"
 
 const TOS = () => (
   <>

@@ -7,6 +7,7 @@ import Page from "../components/exchange/Page"
 import rooms from "../utils/data/rooms"
 import LanguageCard from "../components/exchange/LanguageCard"
 import UserContainer from "../utils/state/userContainer"
+import LanguageContainer from "../utils/state/languageContainer"
 import strings from "../utils/data/strings"
 import Loading from "../components/common/Loading"
 import { useRouter } from "next/router"
@@ -60,6 +61,7 @@ const SectionTitleContainer = styled.div`
 
 const Home = () => {
   const { user, loading } = UserContainer.useContainer()
+  const { language } = LanguageContainer.useContainer()
   const router = useRouter()
 
   useEffect(() => {
@@ -67,6 +69,10 @@ const Home = () => {
       router.replace("/")
     }
   }, [user])
+
+  useEffect(() => {
+    strings.setLanguage(language)
+  }, [language])
 
   if (loading) {
     return <Loading />

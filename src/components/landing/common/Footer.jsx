@@ -1,11 +1,11 @@
-import React from "react";
-import styled from "styled-components";
-import { Select } from "antd";
-import { FaGlobe } from "react-icons/fa";
-import rooms from "../../../utils/data/rooms";
-import strings from "../../../utils/data/strings";
-import LanguageContainer from "../../../utils/state/languageContainer";
-import HeaderLogo from "../../common/HeaderLogo";
+import React from "react"
+import styled from "styled-components"
+import { Select } from "antd"
+import { FaGlobe } from "react-icons/fa"
+import rooms from "../../../utils/data/rooms"
+import strings from "../../../utils/data/strings"
+import LanguageContainer from "../../../utils/state/languageContainer"
+import HeaderLogo from "../../common/HeaderLogo"
 
 const Container = styled.div`
   width: 100%;
@@ -15,7 +15,7 @@ const Container = styled.div`
   padding: 50px 24px;
   background: #ffffff;
   z-index: 5;
-`;
+`
 
 const Wrapper = styled.div`
   width: 100%;
@@ -25,7 +25,7 @@ const Wrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-`;
+`
 
 const Section = styled.div`
   display: flex;
@@ -37,31 +37,31 @@ const Section = styled.div`
     margin-bottom: 30px;
     align-items: center;
   }
-`;
+`
 
 const BottomSection = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-`;
+`
 
 const SectionTitle = styled.p`
   font-weight: 500;
   color: #1c1c1c;
   margin-bottom: 10px;
-`;
+`
 
 const SectionLink = styled.a`
   color: #1c1c1c80;
   font-weight: 400;
-`;
+`
 
 const SmallText = styled.p`
   color: #1c1c1c80;
   font-weight: 400;
   font-size: 0.8em;
-`;
+`
 
 const SectionContainer = styled.div`
   width: 100%;
@@ -74,14 +74,15 @@ const SectionContainer = styled.div`
     flex-direction: column;
     align-items: center;
   }
-`;
+`
 
 const Footer = () => {
-  const { setLanguage } = LanguageContainer.useContainer();
+  const { language, setLanguage } = LanguageContainer.useContainer()
   const changeLanguage = (language) => {
-    setLanguage(language);
-    strings.setLanguage(language);
-  };
+    window.localStorage.setItem("language", language)
+    setLanguage(language)
+    strings.setLanguage(language)
+  }
 
   return (
     <Container>
@@ -89,13 +90,10 @@ const Footer = () => {
         <SectionContainer>
           <Section>
             <SectionTitle>{strings.general.capitalize()}</SectionTitle>
-            <SectionLink href="/about">
-              {strings.about.capitalize()}
-            </SectionLink>
-            <SectionLink href="/pricing">
+            <SectionLink href="/about">{strings.about.capitalize()}</SectionLink>
+            {/* <SectionLink href="/pricing">
               {strings.pricing.capitalize()}
-            </SectionLink>
-            <SectionLink href="/blog">{strings.blog.capitalize()}</SectionLink>
+            </SectionLink> */}
           </Section>
           <Section>
             <SectionTitle>{strings.aboutDialect.capitalize()}</SectionTitle>
@@ -108,28 +106,20 @@ const Footer = () => {
           </Section>
           <Section>
             <SectionTitle>{strings.legal.capitalize()}</SectionTitle>
-            <SectionLink href="/privacy">
-              {strings.privacyPolicy.capitalize()}
-            </SectionLink>
-            <SectionLink href="/terms">
-              {strings.termsOfService.capitalize()}
-            </SectionLink>
+            <SectionLink href="/privacy">{strings.privacyPolicy.capitalize()}</SectionLink>
+            <SectionLink href="/terms">{strings.termsOfService.capitalize()}</SectionLink>
           </Section>
         </SectionContainer>
         <BottomSection>
           <HeaderLogo />
           <SmallText style={{ marginTop: 20 }}>{strings.madeWith}</SmallText>
-          <SmallText>
-            {strings.copyright.capitalize()} 2021 Dialect Technology Inc.
-          </SmallText>
+          <SmallText>{strings.copyright.capitalize()} 2021 Dialect Technology Inc.</SmallText>
           <Select
             style={{ width: 150, marginTop: 30 }}
             suffixIcon={FaGlobe}
-            defaultValue={
-              rooms.filter((e) =>
-                strings.getInterfaceLanguage().includes(e.code)
-              )[0].value
-            }
+            defaultValue={strings[
+              rooms.filter((e) => e.code.includes(language))[0].value
+            ].capitalize()}
             onChange={changeLanguage}
           >
             {rooms.map((room) => (
@@ -141,6 +131,6 @@ const Footer = () => {
         </BottomSection>
       </Wrapper>
     </Container>
-  );
-};
-export default Footer;
+  )
+}
+export default Footer
