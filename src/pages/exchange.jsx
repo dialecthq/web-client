@@ -68,13 +68,13 @@ const Home = () => {
     if (!user && !loading) {
       router.replace("/")
     }
-  }, [user])
+  }, [user, loading])
 
   useEffect(() => {
     strings.setLanguage(language)
   }, [language])
 
-  if (loading) {
+  if (loading || !user) {
     return <Loading />
   }
 

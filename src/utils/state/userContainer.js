@@ -21,6 +21,8 @@ function useUser() {
       return
     }
 
+    if (user) return
+
     setLoading(true)
     const userRef = await fire.firestore().collection("users").doc(authState.uid).get()
     if (userRef.data().subscription_id) {

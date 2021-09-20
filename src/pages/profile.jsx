@@ -23,6 +23,7 @@ import Logo from "../../public/logo.svg"
 import strings from "../utils/data/strings"
 import Seo from "../components/seo/Seo"
 import LanguageContainer from "../utils/state/languageContainer"
+import Loading from "../components/common/Loading"
 
 import {
   removeAvatarURL,
@@ -164,19 +165,22 @@ const Profile = () => {
   const [editing, setEditing] = useState("")
   const [inputYear, setInputYear] = useState(2002)
   const [inputMonth, setInputMonth] = useState(1)
-  const { user, setUser } = User.useContainer()
+  const { user, setUser, loading } = User.useContainer()
   const router = useRouter()
   const { language } = LanguageContainer.useContainer()
+  useEffect(() => {
+    if (!user && !loading) {
+      router.replace("/")
+    }
+  }, [user, loading])
 
   useEffect(() => {
     strings.setLanguage(language)
   }, [language])
 
-  useEffect(() => {
-    if (!user) {
-      router.replace("/")
-    }
-  }, [user])
+  if (loading || !user) {
+    return <Loading />
+  }
 
   return (
     <Page>
