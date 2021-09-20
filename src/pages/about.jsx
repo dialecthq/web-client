@@ -18,12 +18,6 @@ const Background = styled.div`
 `
 
 const App = () => {
-  const { language } = LanguageContainer.useContainer()
-
-  useEffect(() => {
-    strings.setLanguage(language)
-  }, [language])
-
   return (
     <div style={{ background: "#fff" }}>
       <Seo title={`About - Learn a new language today`} description="Give the gift of language." />

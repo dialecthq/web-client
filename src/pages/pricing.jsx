@@ -18,12 +18,6 @@ const Background = styled.div`
 `
 
 const Pricing = () => {
-  const { language } = LanguageContainer.useContainer()
-
-  useEffect(() => {
-    strings.setLanguage(language)
-  }, [language])
-
   return (
     <Background>
       <Seo title="Pricing - Learn a new language today" description="Give the gift of language." />

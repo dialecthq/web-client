@@ -167,20 +167,12 @@ const Profile = () => {
   const [inputMonth, setInputMonth] = useState(1)
   const { user, setUser, loading } = User.useContainer()
   const router = useRouter()
-  const { language } = LanguageContainer.useContainer()
+
   useEffect(() => {
     if (!user && !loading) {
       router.replace("/")
     }
   }, [user, loading])
-
-  useEffect(() => {
-    strings.setLanguage(language)
-  }, [language])
-
-  if (loading || !user) {
-    return <Loading />
-  }
 
   return (
     <Page>

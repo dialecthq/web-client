@@ -8,6 +8,7 @@ import strings from "../utils/data/strings"
 import HeaderLogo from "../components/common/HeaderLogo"
 import Image from "next/image"
 import { Rate as StarRate, Button, Input } from "antd"
+import rateUser from "../utils/apis/RoomAPI"
 
 const Container = styled.div`
   height: 100vh;
@@ -44,6 +45,7 @@ const Rate = () => {
   const { language } = LanguageContainer.useContainer()
   const [stars, setStars] = useState(5)
   const [text, setText] = useState("")
+  const [buttonLoading, setButtonLoading] = useState(false)
   const router = useRouter()
 
   useEffect(() => {
@@ -51,10 +53,6 @@ const Rate = () => {
       router.replace("/")
     }
   }, [user, loading])
-
-  useEffect(() => {
-    strings.setLanguage(language)
-  }, [language])
 
   useEffect(() => {
     if (!router.query.id && !loading) {
@@ -86,7 +84,15 @@ const Rate = () => {
           autoSize={{ minRows: 3, maxRows: 5 }}
           style={{ marginTop: 20 }}
         />
-        <Button type="primary" block style={{ height: 50, marginTop: 30 }}>
+        <Button
+          type="primary"
+          block
+          style={{ height: 50, marginTop: 30 }}
+          loading={buttonLoading}
+          onClick={() => {
+            rateUser(router.query.id, user, stars, setButtonLoading)
+          }}
+        >
           Submit Rating
         </Button>
       </Wrapper>

@@ -70,14 +70,6 @@ const Home = () => {
     }
   }, [user, loading])
 
-  useEffect(() => {
-    strings.setLanguage(language)
-  }, [language])
-
-  if (loading || !user) {
-    return <Loading />
-  }
-
   const langIsNative = (key) => user.languages.some((e) => e.key === key && e.level === 7)
 
   return (
