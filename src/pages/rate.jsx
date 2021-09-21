@@ -8,7 +8,7 @@ import strings from "../utils/data/strings"
 import HeaderLogo from "../components/common/HeaderLogo"
 import Image from "next/image"
 import { Rate as StarRate, Button, Input } from "antd"
-import rateUser from "../utils/apis/RoomAPI"
+import { rateUser } from "../utils/apis/RoomAPI"
 
 const Container = styled.div`
   height: 100vh;
@@ -61,7 +61,11 @@ const Rate = () => {
   }, [])
 
   if (loading || !user) {
-    return <Loading />
+    return (
+      <>
+        <Loading />
+      </>
+    )
   }
 
   return (
@@ -89,8 +93,11 @@ const Rate = () => {
           block
           style={{ height: 50, marginTop: 30 }}
           loading={buttonLoading}
-          onClick={() => {
-            rateUser(router.query.id, user, stars, setButtonLoading)
+          onClick={async () => {
+            setButtonLoading(true)
+            await rateUser(router.query.id, user, stars)
+            setButtonLoading(false)
+            router.push("/exchange")
           }}
         >
           Submit Rating

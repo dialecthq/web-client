@@ -4,6 +4,7 @@ import fire from "utils/fire"
 import firebase from "firebase"
 import { v4 as uuid } from "uuid"
 import User from "utils/state/userContainer"
+import rooms from "utils/data/rooms"
 
 export const checkNative = (user, language) =>
   user.languages.filter((e) => e.key === language.key && e.level > 5).length > 0
@@ -40,7 +41,7 @@ export const createRoom = async (participants, language) => {
   const roomID = uuid()
   const startTime = new Date()
   const endTime = new Date()
-  endTime.setSeconds(startTime.getSeconds() + 180)
+  endTime.setSeconds(startTime.getSeconds() + 10)
   try {
     await fire.firestore().collection("audio-rooms").doc(roomID).set({
       active: true,
@@ -150,8 +151,7 @@ export const addToken = async (user) =>
       tokens: firebase.firestore.FieldValue.increment(1)
     })
 
-export const rateUser = (roomID, user, stars, setLoading) => {
-  setLoading(true)
+export const rateUser = (roomID, user, stars) => {
   fire
     .firestore()
     .collection("audio-rooms")
@@ -167,7 +167,7 @@ export const rateUser = (roomID, user, stars, setLoading) => {
         .then((userDocument) => {
           const rooms = userDocument.data().rooms ? userDocument.data().rooms : 0
           const currentRating = userDocument.data().rating ? userDocument.data().rating : 0
-          const newRating = (currentRating * (rooms - 1) + rating) / rooms
+          const newRating = (currentRating * (rooms - 1) + stars) / rooms
           fire
             .firestore()
             .collection("users")
@@ -176,30 +176,11 @@ export const rateUser = (roomID, user, stars, setLoading) => {
               rating: newRating
             })
             .then(() => {
-              fire
-                .firestore()
-                .collection("users")
-                .doc(fire.auth().currentUser.uid)
-                .update({
-                  unfinished: ""
-                })
-                .then(() => {
-                  setLoading(false)
-                })
-                .catch(() => {
-                  setLoading(false)
-                })
-            })
-            .catch(() => {
-              setLoading(false)
+              fire.firestore().collection("users").doc(fire.auth().currentUser.uid).update({
+                unfinished: ""
+              })
             })
         })
-        .catch(() => {
-          setLoading(false)
-        })
-    })
-    .catch(() => {
-      setLoading(false)
     })
 }
 
@@ -213,4 +194,20 @@ export const finishRoom = async (room) => {
       rooms: firebase.firestore.FieldValue.increment(1),
       unfinished: room.name
     })
+}
+
+export const joinLoadingRoom = async (languageName, user) => {
+  const language = rooms.filter((e) => e.value === languageName)[0]
+  if (!language) {
+    return null
+  }
+
+  const isNative = await checkNative(user, language)
+  if (!isNative) {
+    const tokens = await checkTokens(user)
+    if (tokens == 0) {
+      return null
+    }
+  }
+  return true
 }

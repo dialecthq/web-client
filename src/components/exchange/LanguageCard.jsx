@@ -8,7 +8,7 @@ import firebase from "firebase"
 import Image from "next/image"
 import UserContainer from "../../utils/state/userContainer"
 import fire from "../../utils/fire"
-import { checkTokens, checkNative } from "../../utils/apis/RoomAPI"
+import { checkTokens, checkNative, joinLoadingRoom } from "../../utils/apis/RoomAPI"
 
 import strings from "../../utils/data/strings"
 import { getUser } from "../../utils/apis/UserAPI"
@@ -250,19 +250,11 @@ const LanguageCard = ({ room }) => {
   return (
     <CardContainer
       onClick={async () => {
-        if (visible) return
-        const isNative = await checkNative(user, room)
-        if (!isNative) {
-          const tokens = await checkTokens(user)
-          if (!tokens) {
-            router.push("/pricing")
-          }
-        }
-
         if (user.languages.filter((e) => e.key === room.key).length > 0) {
-          router.push({
-            pathname: `/join/${room.value}`
-          })
+          const joinLoadingRoomRef = await joinLoadingRoom(room.value, user)
+          if (joinLoadingRoomRef) {
+            router.push(`/join?language=${JSON.stringify(room)}`)
+          }
         } else {
           setVisible(true)
         }
