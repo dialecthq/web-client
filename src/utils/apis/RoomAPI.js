@@ -180,7 +180,16 @@ export const rateUser = (roomID, user, stars) => {
                 unfinished: ""
               })
             })
+            .catch((err) => {
+              console.log(err)
+            })
         })
+        .catch((err) => {
+          console.log(err)
+        })
+    })
+    .catch((err) => {
+      console.log(err)
     })
 }
 

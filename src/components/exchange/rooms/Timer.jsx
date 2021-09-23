@@ -56,6 +56,7 @@ const Timer = ({ room }) => {
     {
       expiryTimestamp: time,
       onExpire: async () => {
+        console.log(isNative)
         setLoading(true)
         if (!isNative) {
           await spendToken(user)

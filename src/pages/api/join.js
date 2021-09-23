@@ -9,7 +9,8 @@ const join = async (req, res) => {
 
   const meta = {
     user: user,
-    roomMeta: roomMeta.data()
+    roomMeta: roomMeta.data(),
+    isNative
   }
   const at = new AccessToken(process.env.LIVEKIT_API_KEY, process.env.LIVEKIT_SECRET_KEY, {
     identity: user.uid,
