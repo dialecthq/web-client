@@ -68,15 +68,7 @@ const Home = () => {
     if (!user && !loading) {
       router.replace("/")
     }
-  }, [user])
-
-  useEffect(() => {
-    strings.setLanguage(language)
-  }, [language])
-
-  if (loading) {
-    return <Loading />
-  }
+  }, [user, loading])
 
   const langIsNative = (key) => user.languages.some((e) => e.key === key && e.level === 7)
 
