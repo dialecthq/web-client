@@ -41,7 +41,7 @@ export const createRoom = async (participants, language) => {
   const roomID = uuid()
   const startTime = new Date()
   const endTime = new Date()
-  endTime.setSeconds(startTime.getSeconds() + 10)
+  endTime.setSeconds(startTime.getSeconds() + 120)
   try {
     await fire.firestore().collection("audio-rooms").doc(roomID).set({
       active: true,

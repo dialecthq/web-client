@@ -4,12 +4,13 @@ import { useRouter } from "next/router"
 import UserContainer from "../utils/state/userContainer"
 import fire from "../utils/fire"
 import { checkWaitingRoom, addToWaitingRoom, createRoom, joinRoom } from "../utils/apis/RoomAPI"
+import rooms from "../utils/data/rooms"
 
 const Join = () => {
   const router = useRouter()
   const { user } = UserContainer.useContainer()
-  let { language } = router.query
-  language = JSON.parse(language)
+  const { id } = router.query
+  const language = rooms.filter((e) => e.key === parseInt(id, 10))[0]
   useEffect(() => {
     const subscriber = fire
       .firestore()

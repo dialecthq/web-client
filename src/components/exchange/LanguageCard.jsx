@@ -253,7 +253,7 @@ const LanguageCard = ({ room }) => {
         if (user.languages.filter((e) => e.key === room.key).length > 0) {
           const joinLoadingRoomRef = await joinLoadingRoom(room.value, user)
           if (joinLoadingRoomRef) {
-            router.push(`/join?language=${JSON.stringify(room)}`)
+            router.push(`/join?id=${room.key}`)
           }
         } else {
           setVisible(true)
