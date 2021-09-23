@@ -56,7 +56,6 @@ const Timer = ({ room }) => {
     {
       expiryTimestamp: time,
       onExpire: async () => {
-        setLoading(true)
         if (!isNative) {
           await spendToken(user)
         } else {
@@ -66,16 +65,11 @@ const Timer = ({ room }) => {
         const userRef = await getUser()
         setUser(userRef.data())
         await leaveRoom(user, room)
-        setLoading(false)
         router.push(`/rate?id=${room.name}`)
       }
     },
     []
   )
-
-  if (loading) {
-    return <Loading />
-  }
 
   return (
     <Container>

@@ -3,10 +3,10 @@
 import React, { useEffect, useState } from "react"
 import styled, { keyframes } from "styled-components"
 import { LiveKitRoom, AudioRenderer, ControlsView, useParticipant } from "livekit-react"
-import Seo from "../../components/seo/Seo"
+import Seo from "../components/seo/Seo"
 import { createLocalTracks } from "livekit-client"
-import userContainer from "../../utils/state/userContainer"
-import strings from "../../utils/data/strings"
+import userContainer from "../utils/state/userContainer"
+import strings from "../utils/data/strings"
 import { useRouter } from "next/router"
 
 import {
@@ -17,16 +17,16 @@ import {
   checkNative,
   checkTokens,
   getRoom
-} from "../../utils/apis/RoomAPI"
-import ServerDown from "../../../public/server_down.svg"
-import rooms from "../../utils/data/rooms"
+} from "../utils/apis/RoomAPI"
+import ServerDown from "../../public/server_down.svg"
+import rooms from "../utils/data/rooms"
 
-import Waiting from "../../components/common/Waiting"
-import Error from "../../components/common/Error"
-import fire from "../../utils/fire"
-import Participant from "../../components/exchange/rooms/Participant"
-import RoomHeader from "../../components/exchange/rooms/RoomHeader"
-import Controls from "../../components/exchange/rooms/Controls"
+import Waiting from "../components/common/Waiting"
+import Error from "../components/common/Error"
+import fire from "../utils/fire"
+import Participant from "../components/exchange/rooms/Participant"
+import RoomHeader from "../components/exchange/rooms/RoomHeader"
+import Controls from "../components/exchange/rooms/Controls"
 
 const url = "wss://dialect-livekit.fly.dev:443"
 
@@ -77,7 +77,6 @@ function renderStage({ roomState }) {
   if (!room) {
     return <Error errorMessage="room closed" imgLink={ServerDown} />
   }
-  console.log("participants", participants)
 
   return (
     <StageContainer>
@@ -106,93 +105,13 @@ async function handleConnected(room) {
 }
 
 export default function RoomComponent() {
-  const [token, setToken] = useState(null)
-  const [waiting, setWaiting] = useState(true)
   const [error, setError] = useState(null)
   const { user } = userContainer.useContainer()
   const router = useRouter()
-
-  useEffect(() => {
-    if (!user) {
-      router.push("/")
-    }
-  }, [user])
-
-  useEffect(async () => {
-    const { languageName } = router.query
-    const language = rooms.filter((e) => e.value === languageName)[0]
-    if (!language) {
-      setError(strings.couldNotFindRequestedLanguage)
-      return null
-    }
-
-    const isNative = await checkNative(user, language)
-    if (!isNative) {
-      const tokens = await checkTokens(user)
-      if (!tokens) {
-        setWaiting(false)
-        return null
-      }
-    }
-
-    const subscriber = fire
-      .firestore()
-      .collection("audio-rooms")
-      .where("active", "==", true)
-      .where("participants", "array-contains", user.uid)
-      .onSnapshot(async (querySnapshot) => {
-        setWaiting(true)
-        let roomID
-        if (querySnapshot.docs[0]) {
-          roomID = querySnapshot.docs[0].id
-        } else {
-          roomID = null
-        }
-
-        if (!roomID) {
-          const partnerID = await checkWaitingRoom(user, language)
-          if (!partnerID) {
-            addToWaitingRoom(user, language)
-            setToken(null)
-          } else {
-            roomID = await createRoom([user.uid, partnerID], language)
-            if (!roomID) {
-              setToken(null)
-            } else {
-              const newTokenResult = await joinRoom(user, language, roomID)
-              if (!newTokenResult.data.token) {
-                setToken(null)
-              } else {
-                setWaiting(false)
-                setToken(newTokenResult.data.token)
-              }
-            }
-          }
-        } else {
-          const newTokenResult = await joinRoom(user, language, roomID)
-          if (!newTokenResult.data.token) {
-            setToken(null)
-          } else {
-            setWaiting(false)
-            setToken(newTokenResult.data.token)
-          }
-        }
-      })
-    return () => subscriber()
-  }, [])
+  const { token } = router.query
 
   if (error) return <Error errorMessage={error} imgLink={ServerDown} />
 
-  if (waiting)
-    return (
-      <>
-        <Seo
-          title={`Exchange - Learn a new language today`}
-          description="Give the gift of language."
-        />
-        <Waiting message={`🔎 ${strings.lookingForPartner}`} />
-      </>
-    )
   if (!token) return <Error errorMessage="No token beyond" imgLink={ServerDown} />
 
   return (
