@@ -34,6 +34,12 @@ function useUser() {
       }
     }
 
+    if (typeof window !== undefined) {
+      window.analytics.identify(userRef.data().uid, {
+        ...userRef.data()
+      })
+    }
+
     setUser(userRef.data())
     setLoading(false)
   }
