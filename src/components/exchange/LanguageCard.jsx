@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import { Button, Modal, Form, Select } from "antd"
 import styled from "styled-components"
 import { FaUserAlt } from "react-icons/fa"
@@ -9,6 +9,7 @@ import Image from "next/image"
 import UserContainer from "../../utils/state/userContainer"
 import fire from "../../utils/fire"
 import { checkTokens, checkNative } from "../../utils/apis/RoomAPI"
+import { getNum } from "../../utils/apis/WaitingAPI"
 
 import strings from "../../utils/data/strings"
 import { getUser } from "../../utils/apis/UserAPI"
@@ -247,6 +248,14 @@ const LanguageCard = ({ room }) => {
   const router = useRouter()
   const { user, setUser } = UserContainer.useContainer()
   const [visible, setVisible] = useState(false)
+  const [num, setNum] = useState(0)
+  const [loading, setLoading] = useState(false)
+
+  useEffect(async () => {
+    const numba = await getNum(room.value, room.key)
+    setNum(numba)
+  })
+
   return (
     <CardContainer
       onClick={async () => {
@@ -276,10 +285,9 @@ const LanguageCard = ({ room }) => {
               {strings[room.value.toLowerCase() + "N"].capitalize()}
             </CardTitle>
           </CardPeople>
-
           <CardPeople>
             <FaUserAlt size={16} opacity={0.9} />
-            <CardNum>{Math.ceil(Math.random() * 100)}</CardNum>
+            <CardNum>{num}</CardNum>
           </CardPeople>
         </CardContent>
       </CardWrapper>
