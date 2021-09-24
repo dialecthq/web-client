@@ -8,11 +8,29 @@ import Loading from "../components/common/Loading"
 import fire from "../utils/fire"
 import strings from "../utils/data/strings"
 import { useRouter } from "next/router"
+import Script from "next/script"
+import * as snippet from "@segment/snippet"
 
 function Wrapper({ Component, pageProps }) {
   const { user, loading } = UserContainer.useContainer()
   const { language } = LanguageContainer.useContainer()
   const router = useRouter()
+
+  useEffect(() => {
+    router.events.on("routeChangeComplete", (url) => {
+      if (typeof window !== undefined) {
+        window.analytics.page(url)
+      }
+    })
+
+    return () => {
+      router.events.on("routeChangeComplete", (url) => {
+        if (typeof window !== undefined) {
+          window.analytics.page(url)
+        }
+      })
+    }
+  }, [])
 
   useEffect(() => {
     strings.setLanguage(language)
@@ -31,7 +49,11 @@ function Wrapper({ Component, pageProps }) {
     return <Loading />
   }
 
-  return <Component {...pageProps} />
+  return (
+    <>
+      <Component {...pageProps} />
+    </>
+  )
 }
 
 function MyApp({ Component, pageProps }) {
