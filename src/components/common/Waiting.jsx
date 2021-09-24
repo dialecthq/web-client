@@ -63,6 +63,29 @@ const HeaderWrapper = styled.div`
 const Loading = ({ message }) => {
   const router = useRouter()
   const { user } = UserContainer.useContainer()
+  useEffect(() => {
+    window.addEventListener("beforeunload", alertUser)
+    window.addEventListener("unload", () => handleEndWaiting(true))
+    router.events.on("routeChangeStart", () => handleEndWaiting(false))
+    return () => {
+      window.removeEventListener("beforeunload", alertUser)
+      window.removeEventListener("unload", () => handleEndWaiting(true))
+      router.events.on("routeChangeStart", () => handleEndWaiting(false))
+      handleEndWaiting()
+    }
+  }, [])
+
+  const alertUser = (e) => {
+    e.preventDefault()
+    e.returnValue = ""
+  }
+
+  const handleEndWaiting = async (route) => {
+    leaveWaitingRoom(user)
+    if (!route) return
+    router.push("/exchange")
+  }
+
   return (
     <LoadingContainer>
       <HeaderContainer>

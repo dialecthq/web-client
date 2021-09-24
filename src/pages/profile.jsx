@@ -568,8 +568,10 @@ const Profile = () => {
                 <Popconfirm
                   title="Are you sure you want to delete this language?"
                   placement="topLeft"
-                  onConfirm={() => {
-                    deleteLanguage(user, language.key)
+                  onConfirm={async () => {
+                    await deleteLanguage(user, language.key)
+                    const userRef = await getUser()
+                    setUser(userRef.data())
                     setEditing(null)
                     message.success("Successfully deleted language")
                   }}
