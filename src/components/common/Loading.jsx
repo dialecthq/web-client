@@ -23,15 +23,10 @@ const LoadingWrapper = styled.div`
 `
 
 const Loading = () => {
-  const [loaded, setLoaded] = useState(0)
-  useEffect(() => {
-    setLoaded(100)
-  })
-
   return (
     <LoadingContainer>
       <LoadingWrapper>
-        <HeaderLogo />
+        <HeaderLogo unclickable />
         <Oval color="#81FDE3" width={48} style={{ marginTop: 20 }} />
       </LoadingWrapper>
     </LoadingContainer>

@@ -9,7 +9,7 @@ const HeaderLogo = styled.div`
   align-items: center;
 
   :hover {
-    cursor: pointer;
+    cursor: ${(p) => (p.unclickable ? "none" : "pointer")};
   }
 `
 
@@ -18,17 +18,19 @@ const Text = styled(Image)`
   margin-left: 5px;
 `
 
-export default ({ light }) => {
+export default ({ light, unclickable }) => {
   const router = useRouter()
   return (
     <HeaderLogo
       onClick={() => {
+        if (unclickable) return
         window.scrollTo({
           top: 0,
           behavior: "smooth"
         })
         router.push("/")
       }}
+      unclickable={unclickable}
     >
       {light ? (
         <Image src="/logo-white.svg" height={54} width={144} alt="logo" />
