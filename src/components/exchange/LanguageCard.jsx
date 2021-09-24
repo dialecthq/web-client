@@ -259,19 +259,11 @@ const LanguageCard = ({ room }) => {
   return (
     <CardContainer
       onClick={async () => {
-        if (visible) return
-        const isNative = await checkNative(user, room)
-        if (!isNative) {
-          const tokens = await checkTokens(user)
-          if (!tokens) {
-            router.push("/pricing")
-          }
-        }
-
         if (user.languages.filter((e) => e.key === room.key).length > 0) {
-          router.push({
-            pathname: `/join/${room.value}`
-          })
+          const joinLoadingRoomRef = await joinLoadingRoom(room.value, user)
+          if (joinLoadingRoomRef) {
+            router.push(`/join?id=${room.key}`)
+          }
         } else {
           setVisible(true)
         }

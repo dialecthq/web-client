@@ -1,13 +1,13 @@
-import React from "react";
-import styled from "styled-components";
-import { FaArrowLeft } from "react-icons/fa";
-import { ThreeDots } from "@agney/react-loading";
-import { Button } from "antd";
-import { useRouter } from "next/router";
-import HeaderLogo from "./HeaderLogo";
-import { leaveWaitingRoom } from "../../utils/apis/RoomAPI";
-import UserContainer from "../../utils/state/userContainer";
-import strings from "../../utils/data/strings";
+import React from "react"
+import styled from "styled-components"
+import { FaArrowLeft } from "react-icons/fa"
+import { ThreeDots } from "@agney/react-loading"
+import { Button } from "antd"
+import { useRouter } from "next/router"
+import HeaderLogo from "./HeaderLogo"
+import { leaveWaitingRoom } from "../../utils/apis/RoomAPI"
+import UserContainer from "../../utils/state/userContainer"
+import strings from "../../utils/data/strings"
 
 const LoadingContainer = styled.div`
   height: 100vh;
@@ -17,7 +17,7 @@ const LoadingContainer = styled.div`
   align-items: center;
   background: var(--dark-background);
   color: var(--text-color);
-`;
+`
 
 const LoadingWrapper = styled.div`
   display: flex;
@@ -26,7 +26,7 @@ const LoadingWrapper = styled.div`
   align-items: center;
   padding: 18px;
   min-width: 200px;
-`;
+`
 
 const Text = styled.p`
   font-size: 1.3em;
@@ -36,7 +36,7 @@ const Text = styled.p`
   margin-bottom: 0px;
   text-align: center;
   letter-spacing: 0.05em;
-`;
+`
 
 const HeaderContainer = styled.div`
   position: absolute;
@@ -49,7 +49,7 @@ const HeaderContainer = styled.div`
   justify-content: center;
   align-items: center;
   padding: 10px;
-`;
+`
 
 const HeaderWrapper = styled.div`
   width: 100%;
@@ -58,11 +58,11 @@ const HeaderWrapper = styled.div`
   align-items: center;
   max-width: 1200px;
   padding: 8px 24px;
-`;
+`
 
 const Loading = ({ message }) => {
-  const router = useRouter();
-  const { user } = UserContainer.useContainer();
+  const router = useRouter()
+  const { user } = UserContainer.useContainer()
   return (
     <LoadingContainer>
       <HeaderContainer>
@@ -71,8 +71,8 @@ const Loading = ({ message }) => {
             style={{ marginRight: 20 }}
             icon={<FaArrowLeft style={{ marginRight: 5 }} />}
             onClick={async () => {
-              leaveWaitingRoom(user);
-              router.push("/exchange");
+              leaveWaitingRoom(user)
+              router.push("/exchange")
             }}
           >
             {strings.back.capitalize()}
@@ -85,7 +85,7 @@ const Loading = ({ message }) => {
         <Text>{message}</Text>
       </LoadingWrapper>
     </LoadingContainer>
-  );
-};
+  )
+}
 
-export default Loading;
+export default Loading

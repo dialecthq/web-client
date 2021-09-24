@@ -138,10 +138,6 @@ const Header = () => {
     return listener
   })
 
-  // useEffect(() => {
-  //   strings.setLanguage(language)
-  // }, [language])
-
   return (
     <>
       <Container scrollState={scrollState}>
