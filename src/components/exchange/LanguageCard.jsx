@@ -8,7 +8,7 @@ import firebase from "firebase"
 import Image from "next/image"
 import UserContainer from "../../utils/state/userContainer"
 import fire from "../../utils/fire"
-import { checkTokens, checkNative } from "../../utils/apis/RoomAPI"
+import { checkTokens, checkNative, joinLoadingRoom } from "../../utils/apis/RoomAPI"
 import { getNum } from "../../utils/apis/WaitingAPI"
 
 import strings from "../../utils/data/strings"

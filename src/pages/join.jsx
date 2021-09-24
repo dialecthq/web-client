@@ -3,7 +3,13 @@ import { useEffect } from "react"
 import { useRouter } from "next/router"
 import UserContainer from "../utils/state/userContainer"
 import fire from "../utils/fire"
-import { checkWaitingRoom, addToWaitingRoom, createRoom, joinRoom } from "../utils/apis/RoomAPI"
+import {
+  checkWaitingRoom,
+  addToWaitingRoom,
+  createRoom,
+  joinRoom,
+  leaveWaitingRoom
+} from "../utils/apis/RoomAPI"
 import rooms from "../utils/data/rooms"
 
 const Join = () => {
@@ -11,6 +17,30 @@ const Join = () => {
   const { user } = UserContainer.useContainer()
   const { id } = router.query
   const language = rooms.filter((e) => e.key === parseInt(id, 10))[0]
+
+  useEffect(() => {
+    window.addEventListener("beforeunload", alertUser)
+    window.addEventListener("unload", () => handleEndWaiting(true))
+    router.events.on("routeChangeStart", () => handleEndWaiting(false))
+    return () => {
+      window.removeEventListener("beforeunload", alertUser)
+      window.removeEventListener("unload", () => handleEndWaiting(true))
+      router.events.on("routeChangeStart", () => handleEndWaiting(false))
+      handleEndWaiting()
+    }
+  }, [])
+
+  const alertUser = (e) => {
+    e.preventDefault()
+    e.returnValue = ""
+  }
+
+  const handleEndWaiting = async (route) => {
+    leaveWaitingRoom(user)
+    if (!route) return
+    router.push("/exchange")
+  }
+
   useEffect(() => {
     const subscriber = fire
       .firestore()
