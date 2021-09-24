@@ -7,6 +7,7 @@
     "@agney/react-loading": "^0.1.2",
     "@babel/core": "^7.15.5",
     "@babel/register": "^7.15.3",
+    "@segment/snippet": "^4.15.3",
     "@stripe/react-stripe-js": "^1.4.1",
     "@stripe/stripe-js": "^1.17.1",
     "@testing-library/jest-dom": "^5.12.0",
