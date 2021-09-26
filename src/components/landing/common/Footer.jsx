@@ -6,6 +6,7 @@ import rooms from "../../../utils/data/rooms"
 import strings from "../../../utils/data/strings"
 import LanguageContainer from "../../../utils/state/languageContainer"
 import HeaderLogo from "../../common/HeaderLogo"
+import Link from "next/link"
 
 const Container = styled.div`
   width: 100%;
@@ -90,10 +91,12 @@ const Footer = () => {
         <SectionContainer>
           <Section>
             <SectionTitle>{strings.general.capitalize()}</SectionTitle>
-            <SectionLink href="/about">{strings.about.capitalize()}</SectionLink>
-            {/* <SectionLink href="/pricing">
+            <Link href="/about" passHref>
+              <SectionLink>{strings.about.capitalize()}</SectionLink>
+              {/* <SectionLink href="/pricing">
               {strings.pricing.capitalize()}
             </SectionLink> */}
+            </Link>
           </Section>
           <Section>
             <SectionTitle>{strings.aboutDialect.capitalize()}</SectionTitle>
@@ -106,8 +109,12 @@ const Footer = () => {
           </Section>
           <Section>
             <SectionTitle>{strings.legal.capitalize()}</SectionTitle>
-            <SectionLink href="/privacy">{strings.privacyPolicy.capitalize()}</SectionLink>
-            <SectionLink href="/terms">{strings.termsOfService.capitalize()}</SectionLink>
+            <Link href="/privacy" passHref>
+              <SectionLink href="/privacy">{strings.privacyPolicy.capitalize()}</SectionLink>
+            </Link>
+            <Link href="/terms" passHref>
+              <SectionLink href="/terms">{strings.termsOfService.capitalize()}</SectionLink>
+            </Link>
           </Section>
         </SectionContainer>
         <BottomSection>

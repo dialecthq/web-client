@@ -11,6 +11,7 @@ import LanguageContainer from "../../../utils/state/languageContainer"
 import { logout } from "../../../utils/apis/UserAPI"
 import SignIn from "./SignIn"
 import SignUp from "./SignUp"
+import Link from "next/link"
 
 import fire from "../../../utils/fire"
 
@@ -37,21 +38,11 @@ const Wrapper = styled.div`
   align-items: center;
 `
 
-const Link = styled.a`
+const TextLink = styled.a`
   color: #1c1c1c;
   font-size: 1em;
   font-weight: 500;
   margin-left: 20px;
-
-  :hover {
-    opacity: 0.8;
-  }
-`
-const LogInText = styled.a`
-  color: #1c1c1c;
-  font-size: 1em;
-  font-weight: 500;
-  margin-right: 15px;
 
   :hover {
     opacity: 0.8;
@@ -145,8 +136,8 @@ const Header = () => {
           <HeaderSection desktop mobile>
             <HeaderLogo />
             <HeaderSection desktop>
-              <Link href="/about" style={{ marginLeft: 40 }}>
-                {strings.about.capitalize()}
+              <Link href="/about" passHref>
+                <TextLink style={{ marginLeft: 40 }}>{strings.about.capitalize()}</TextLink>
               </Link>
               {/* <Link href="/about">{strings.blog.uncapitalize()}</Link> */}
               {/* <Link href="/pricing">{strings.pricing.uncapitalize()}</Link> */}

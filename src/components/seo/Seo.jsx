@@ -7,7 +7,7 @@ const Meta = ({ title, description }) => (
     <meta name="og:title" property="og:title" content={title} />
     <meta name="og:description" property="og:description" content={description} />
     <meta property="og:site_name" content="dialect" />
-    <meta property="og:url" content="https://dialect.so" />
+    <meta property="og:url" content="https://www.dialect.so" />
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
