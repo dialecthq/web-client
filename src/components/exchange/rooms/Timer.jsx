@@ -61,10 +61,10 @@ const Timer = ({ room }) => {
         } else {
           await addToken(user)
         }
-        await finishRoom(room)
+        await finishRoom(room.name)
         const userRef = await getUser()
         setUser(userRef.data())
-        await leaveRoom(user, room)
+        await leaveRoom(room)
         router.push(`/rate?id=${room.name}`)
       }
     },

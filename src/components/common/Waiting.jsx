@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useEffect } from "react"
 import styled from "styled-components"
 import { FaArrowLeft } from "react-icons/fa"
 import { ThreeDots } from "@agney/react-loading"

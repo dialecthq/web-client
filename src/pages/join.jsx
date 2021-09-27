@@ -11,6 +11,7 @@ import {
   leaveWaitingRoom
 } from "../utils/apis/RoomAPI"
 import rooms from "../utils/data/rooms"
+import axios from "axios"
 
 const Join = () => {
   const router = useRouter()
@@ -66,6 +67,11 @@ const Join = () => {
               const newTokenResult = await joinRoom(user, language, roomID)
               if (!newTokenResult.data.token) {
               } else {
+                axios.post("/api/set_timer", {
+                  user: { ...user },
+                  roomID,
+                  language: { ...language }
+                })
                 router.push(`/room?token=${newTokenResult.data.token}`)
               }
             }
@@ -75,6 +81,11 @@ const Join = () => {
           if (!newTokenResult.data.token) {
             console.log("nope")
           } else {
+            axios.post("/api/set_timer", {
+              user: { ...user },
+              roomID,
+              language: { ...language }
+            })
             router.push(`/room?token=${newTokenResult.data.token}`)
           }
         }

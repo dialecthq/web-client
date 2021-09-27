@@ -111,10 +111,9 @@ export const joinRoom = async (user, language, roomID) => {
   })
 }
 
-export const leaveRoom = async (user, room) => {
+export const leaveRoom = async (room) => {
   room.disconnect()
-  const roomID = room.name
-  return fire.firestore().collection("audio-rooms").doc(roomID).update({
+  return fire.firestore().collection("audio-rooms").doc(room.name).update({
     active: false
   })
 }
@@ -130,9 +129,8 @@ export const spendToken = async (user) =>
 
 export const leaveRoomEarly = async (user, room) => {
   room.disconnect()
-  const roomID = room.name
   await spendToken(user)
-  return fire.firestore().collection("audio-rooms").doc(roomID).update({
+  return fire.firestore().collection("audio-rooms").doc(room.name).update({
     active: false
   })
 }
@@ -193,7 +191,7 @@ export const rateUser = (roomID, user, stars) => {
     })
 }
 
-export const finishRoom = async (room) => {
+export const finishRoom = async (name) => {
   fire
     .firestore()
     .collection("users")
@@ -201,7 +199,7 @@ export const finishRoom = async (room) => {
     .update({
       karma: firebase.firestore.FieldValue.increment(1),
       rooms: firebase.firestore.FieldValue.increment(1),
-      unfinished: room.name
+      unfinished: name
     })
 }
 

@@ -164,7 +164,7 @@ const AddLanguage = ({ setVisible, user, language, setUser }) => {
     setUser(userRef.data())
 
     router.push({
-      pathname: `/join/${language.value}`
+      pathname: `/join?id=${language.key}`
     })
     setVisible(false)
     setLoading(false)

@@ -1,10 +1,10 @@
-import React from "react";
-import styled from "styled-components";
-import { BiDoorOpen } from "react-icons/bi";
-import { useRouter } from "next/router";
-import { leaveRoomEarly } from "../../../utils/apis/RoomAPI";
-import { getUser } from "../../../utils/apis/UserAPI";
-import UserContainer from "../../../utils/state/userContainer";
+import React from "react"
+import styled from "styled-components"
+import { BiDoorOpen } from "react-icons/bi"
+import { useRouter } from "next/router"
+import { leaveRoomEarly } from "../../../utils/apis/RoomAPI"
+import { getUser } from "../../../utils/apis/UserAPI"
+import UserContainer from "../../../utils/state/userContainer"
 
 const Container = styled.div`
   width: 48px;
@@ -20,23 +20,23 @@ const Container = styled.div`
     cursor: pointer;
     opacity: 0.8;
   }
-`;
+`
 
 const LeaveButton = ({ room }) => {
-  const router = useRouter();
-  const { user, setUser } = UserContainer.useContainer();
+  const router = useRouter()
+  const { user, setUser } = UserContainer.useContainer()
   return (
     <Container
       onClick={async () => {
-        await leaveRoomEarly(user, room);
-        const userRef = await getUser();
-        setUser(userRef.data());
-        router.push("/exchange");
+        await leaveRoomEarly(user, room)
+        const userRef = await getUser()
+        setUser(userRef.data())
+        router.push("/exchange")
       }}
     >
       <BiDoorOpen size={24} color="#fff" />
     </Container>
-  );
-};
+  )
+}
 
-export default LeaveButton;
+export default LeaveButton
