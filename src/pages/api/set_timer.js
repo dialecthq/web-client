@@ -17,19 +17,18 @@ const svc = new RoomServiceClient(
 const set_timer = async (req, res) => {
   if (req.method === "POST") {
     const { user, roomID, language } = req.body
-    console.log("language", language)
     const isNative = checkNative(user, language)
-    setTimeout(async () => {
-      console.log("existing rooms", data)
-      if (!isNative) {
-        await spendToken(user)
-      } else {
-        await addToken(user)
-      }
-      await finishRoom(roomName)
-      await leaveRoom(user, room)
-      res.status(200).json({ completed: true })
-    }, 10000)
+    console.log("YEO", roomID)
+    setTimeout(() => {
+      svc.deleteRoom(roomID).then(async () => {
+        if (!isNative) {
+          await spendToken(user)
+        } else {
+          await addToken(user)
+        }
+        await finishRoom(roomID)
+      })
+    }, 5000)
   } else {
     res.setHeader("Allow", "POST")
     res.status(405).end("Method Not Allowed")

@@ -54,19 +54,7 @@ const Timer = ({ room }) => {
   time.setTime(roomMeta.endTime)
   const { seconds, minutes } = useTimer(
     {
-      expiryTimestamp: time,
-      onExpire: async () => {
-        if (!isNative) {
-          await spendToken(user)
-        } else {
-          await addToken(user)
-        }
-        await finishRoom(room.name)
-        const userRef = await getUser()
-        setUser(userRef.data())
-        await leaveRoom(room)
-        router.push(`/rate?id=${room.name}`)
-      }
+      expiryTimestamp: time
     },
     []
   )
