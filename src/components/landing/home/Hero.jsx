@@ -47,7 +47,7 @@ const Subtitle = styled.p`
   font-weight: 500;
   color: #1c1c1c;
   opacity: 0.6;
-  max-width: 600px;
+  max-width: 700px;
   text-align: center;
 
   @media screen and (max-width: 768px) {

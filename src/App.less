@@ -2,10 +2,40 @@
 @import "~livekit-react/dist/index.css";
 @import "~react-aspect-ratio/aspect-ratio.css";
 
+@font-face {
+  font-family: "HKGrotesk";
+  src: url("/fonts/HKGrotesk/HKGrotesk-Regular.ttf");
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "HKGrotesk";
+  src: url("/fonts/HKGrotesk/HKGrotesk-Medium.ttf");
+  font-style: medium;
+  font-weight: 500;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "HKGrotesk";
+  src: url("/fonts/HKGrotesk/HKGrotesk-SemiBold.ttf");
+  font-style: bold;
+  font-weight: 600;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "HKGrotesk";
+  src: url("/fonts/HKGrotesk/HKGrotesk-Bold.ttf");
+  font-style: bold;
+  font-weight: 700;
+  font-display: swap;
+}
+
 body {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial,
-    "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
-    "Noto Color Emoji";
+  font-family: "HKGrotesk", arial, sans-serif;
   // --dark-background: #020117;
   // --layer-background: #251B3D;
   // --error-red: #e86461;
@@ -72,3 +102,5 @@ p {
 .ant-popover-message-title {
   padding-left: 8px;
 }
+
+
