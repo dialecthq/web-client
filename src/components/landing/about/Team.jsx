@@ -1,8 +1,8 @@
-import React, { useState } from "react"
-import styled, { keyframes } from "styled-components"
-import { FaTwitter, FaLinkedin } from "react-icons/fa"
-import Image from "next/image"
-import strings from "../../../utils/data/strings"
+import React, { useState } from "react";
+import styled, { keyframes } from "styled-components";
+import { FaTwitter, FaLinkedin } from "react-icons/fa";
+import Image from "next/image";
+import strings from "../../../utils/data/strings";
 
 const Animation = keyframes`
   from {
@@ -12,7 +12,7 @@ const Animation = keyframes`
   to {
     opacity: 0.8;
   }
-`
+`;
 
 const Container = styled.div`
   width: 100%;
@@ -20,7 +20,7 @@ const Container = styled.div`
   justify-content: center;
   align-items: center;
   padding: 8px 24px;
-`
+`;
 
 const Wrapper = styled.div`
   width: 100%;
@@ -30,7 +30,7 @@ const Wrapper = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-`
+`;
 
 const Title = styled.p`
   font-size: 2.8em;
@@ -42,7 +42,7 @@ const Title = styled.p`
   @media screen and (max-width: 768px) {
     font-size: 1.9em;
   }
-`
+`;
 
 const TeamContainer = styled.div`
   display: flex;
@@ -60,8 +60,9 @@ const TeamContainer = styled.div`
   @media screen and (max-width: 768px) {
     flex-wrap: nowrap;
     overflow-x: scroll;
+    justify-content: flex-start;
   }
-`
+`;
 
 const TeamMember = styled.div`
   display: flex;
@@ -70,13 +71,13 @@ const TeamMember = styled.div`
   align-items: flex-start;
   margin-right: 15px;
   margin-top: 15px;
-`
+`;
 
 const TeamImage = styled.img`
   object-fit: contain;
   border-radius: 20px;
   width: 180px;
-`
+`;
 
 const Overlay = styled.div`
   display: flex;
@@ -95,27 +96,27 @@ const Overlay = styled.div`
   left: 0;
   transition: 0.2s opacity ease-in-out;
   z-index: 4;
-`
+`;
 
 const OverlayWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
-`
+`;
 
 const ProfileText = styled.p`
   font-size: 1.2em;
   font-weight: 600;
   color: #fff;
-`
+`;
 
 const IconRow = styled.div`
   margin-top: 20px;
   display: flex;
   justify-content: center;
   align-items: center;
-`
+`;
 
 const Icon = styled.div`
   display: flex;
@@ -131,7 +132,7 @@ const Icon = styled.div`
   :hover {
     cursor: pointer;
   }
-`
+`;
 
 const NameP = styled.div`
   font-size: 1.4em;
@@ -143,34 +144,57 @@ const NameP = styled.div`
   @media screen and (max-width: 768px) {
     font-size: 1em;
   }
-`
+`;
 
 const ImgWrap = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
   position: relative;
-`
+`;
 
-const TeamMemberDiv = ({ Name, Image }) => {
-  const [hover, setHover] = useState(false)
+const LanguageWrapper = styled.div`
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  border-radius: 20px;
+  height: 30px;
+  padding: 10px;
+  background: #f8fafc;
+  border: 1px solid #d4d4d4;
+  margin-top: 10px;
+`;
+
+const LanguageTitle = styled.p`
+  font-size: 1em;
+  font-weight: 500;
+  color: #1c1c1c95;
+`;
+
+const TeamMemberDiv = ({ name, image, learning, speaks }) => {
+  const [hover, setHover] = useState(false);
   return (
     <TeamMember>
-      <ImgWrap onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)}>
+      <ImgWrap
+        onMouseEnter={() => setHover(true)}
+        onMouseLeave={() => setHover(false)}
+      >
         <Overlay hover={hover}>
           <OverlayWrapper>
             <ProfileText>{strings.profiles.capitalize()}</ProfileText>
             <IconRow>
               <Icon
                 onClick={() => {
-                  window.open("https://twitter.com/ryanbrwr", "_blank").focus()
+                  window.open("https://twitter.com/ryanbrwr", "_blank").focus();
                 }}
               >
                 <FaTwitter style={{ marginRight: 5 }} />
               </Icon>
               <Icon
                 onClick={() => {
-                  window.open("https://linkedin.com/in/ryanbrwr", "_blank").focus()
+                  window
+                    .open("https://linkedin.com/in/ryanbrwr", "_blank")
+                    .focus();
                 }}
               >
                 <FaLinkedin />
@@ -178,21 +202,56 @@ const TeamMemberDiv = ({ Name, Image }) => {
             </IconRow>
           </OverlayWrapper>
         </Overlay>
-        <TeamImage src="/ROSE14.jpg" alt="logo" />
+        <TeamImage src={image} alt="logo" />
       </ImgWrap>
-      <NameP>Ryan Brewer</NameP>
+      <NameP>{name}</NameP>
+      <LanguageWrapper>
+        <LanguageTitle>Speaks</LanguageTitle>
+        {speaks.map((flag) => {
+          return (
+            <img
+              height={18}
+              src={`/flags/${flag}.svg`}
+              style={{ marginLeft: 5 }}
+            />
+          );
+        })}
+      </LanguageWrapper>
+      <LanguageWrapper>
+        <LanguageTitle>Learning</LanguageTitle>
+        {learning.map((flag) => {
+          return (
+            <img
+              height={18}
+              src={`/flags/${flag}.svg`}
+              style={{ marginLeft: 5 }}
+            />
+          );
+        })}
+      </LanguageWrapper>
     </TeamMember>
-  )
-}
+  );
+};
 
 const Team = () => (
   <Container>
     <Wrapper>
       <TeamContainer>
-        <TeamMemberDiv />
+        <TeamMemberDiv
+          name="Ryan Brewer"
+          image="/headshot.jpg"
+          speaks={["usa"]}
+          learning={["netherlands", "china"]}
+        />
+        <TeamMemberDiv
+          name="Anthony Morales"
+          image="/anthony.jpg"
+          speaks={["usa", "spain"]}
+          learning={["france"]}
+        />
       </TeamContainer>
     </Wrapper>
   </Container>
-)
+);
 
-export default Team
+export default Team;
