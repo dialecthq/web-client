@@ -6,7 +6,7 @@ const AvatarContainer = styled.div`
   width: ${(p) => `${p.size}px`};
   height: ${(p) => `${p.size}px`};
   border-radius: ${(p) => `${p.size}px`};
-  background-color: #f8fafc;
+  background-color: #fff;
   overflow: hidden;
   display: flex;
   justify-content: center;
