@@ -1,6 +1,10 @@
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 import FeedHeader from "./FeedHeader";
 import FeedInput from "./FeedInput";
+import FeedPost from "./FeedPost";
+import FeedLoading from "./FeedLoading";
+import axios from "axios";
 
 const FeedContainer = styled.div`
   display: flex;
@@ -21,12 +25,85 @@ const FeedWrapper = styled.div`
   overflow-y: scroll;
 `;
 
+const post = {
+  author: {
+    avatarURL:
+      "https://firebasestorage.googleapis.com/v0/b/langi-a36fc.appspot.com/o/RdgXkVr9hvcdZJJMOF51jQGEh292%2Fprofile.png?alt=media&token=2cd96793-8fb6-4af2-8317-b55285aad9d8",
+    bio: "hellohello",
+    country: 215,
+    email: "ryanbrew13@gmail.com",
+    karma: 32,
+    languages: [
+      {
+        key: 1,
+        level: 7,
+      },
+      {
+        key: 2,
+        level: 2,
+      },
+    ],
+    living: 142,
+    name: "Ryan Brewer",
+    rating: 4.932608695652174,
+    rooms: 32,
+    tokens: 20,
+    uid: "RdgXkVr9hvcdZJJMOF51jQGEh292",
+    unfinished: "",
+    username: "ryanbrew13",
+  },
+  content: `Simple startup strategy...\n
+  1. Build a fun culture\n
+  2. Build a fun culture\n
+  3. Build a fun culture\n
+  4. Build a fun culture\n
+  5. Build a fun culture`,
+  dateCreated: 1633615754024,
+  likers: {},
+  uid: "273307de-3725-4546-a604-d8632c525b1a",
+};
+
 const Feed = () => {
+  const [posts, setPosts] = useState([]);
+  const [last, setLast] = useState("");
+  const [loading, setLoading] = useState(false);
+  const getPosts = () => {
+    setLoading(true);
+    axios
+      .get("/api/community/get_posts", {
+        params: {
+          last: last,
+        },
+      })
+      .then((data) => {
+        setLoading(false);
+        setPosts([...posts, ...data.data.posts]);
+        setLast(data.data.last);
+      });
+  };
+
+  useEffect(() => {
+    getPosts();
+  }, []);
   return (
     <FeedContainer>
       <FeedWrapper>
         <FeedHeader />
         <FeedInput />
+        {!loading ? (
+          posts.map((post) => {
+            return (
+              <FeedPost
+                key={post.uid}
+                post={post}
+                posts={posts}
+                setPosts={setPosts}
+              />
+            );
+          })
+        ) : (
+          <FeedLoading />
+        )}
       </FeedWrapper>
     </FeedContainer>
   );

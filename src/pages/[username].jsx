@@ -1,16 +1,10 @@
-/* eslint-disable max-len */
-import React, { useEffect } from "react";
-import styled from "styled-components";
-import { Helmet } from "react-helmet";
-import { Skeleton } from "antd";
-import Page from "../components/exchange/Page";
-import rooms from "../utils/data/rooms";
-import UserContainer from "../utils/state/userContainer";
-import LanguageContainer from "../utils/state/languageContainer";
-import strings from "../utils/data/strings";
-import Loading from "../components/common/Loading";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import Seo from "../components/seo/Seo";
+import styled from "styled-components";
+import axios from "axios";
+
+import { Helmet } from "react-helmet";
+import UserContainer from "../utils/state/userContainer";
 
 import Nav from "../components/community/Nav/Nav";
 import Feed from "../components/community/Feed/Feed";
@@ -46,26 +40,38 @@ const Info = styled.div`
   }
 `;
 
-const Home = () => {
-  const { user, loading } = UserContainer.useContainer();
-  const { language } = LanguageContainer.useContainer();
+const Profile = styled.div`
+  display: flex;
+  flex: 2;
+`;
+
+const Post = () => {
+  const [profile, setProfile] = useState("");
+  const [loading, setLoading] = useState(false);
   const router = useRouter();
+  const { username } = router.query;
 
   useEffect(() => {
-    if (!user && !loading) {
-      router.replace("/");
-    }
-  }, [user, loading]);
+    axios
+      .get("/api/community/query_user", {
+        params: {
+          username: username,
+        },
+      })
+      .then((data) => {
+        setProfile(data.data.user);
+      });
+  }, []);
 
   return (
     <Container>
       <Wrapper>
         <Nav />
-        <Feed />
+        <Profile>{profile.uid}</Profile>
         <Info />
       </Wrapper>
     </Container>
   );
 };
 
-export default Home;
+export default Post;

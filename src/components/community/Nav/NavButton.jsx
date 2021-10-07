@@ -30,14 +30,17 @@ const NavButtonTitle = styled.p`
 `;
 
 const IconContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
   svg {
     color: #000;
   }
 `;
 
-const NavButton = ({ icon, activeIcon, name, active }) => {
+const NavButton = ({ icon, activeIcon, name, active, href }) => {
   return (
-    <Link href={`/${name.toLowerCase()}`} passHref>
+    <Link href={href} passHref>
       <NavButtonContainer>
         <IconContainer>{active ? activeIcon : icon}</IconContainer>
         <NavButtonTitle active={active}>{name}</NavButtonTitle>

@@ -65,7 +65,7 @@ const ProfileButton = () => {
   const { user } = UserContainer.useContainer();
   return (
     <NavButtonContainer>
-      <Avatar />
+      <Avatar user={user} size={48} />
       <InfoContainer>
         <Name>{user.name}</Name>
         <Username>@{user.username}</Username>

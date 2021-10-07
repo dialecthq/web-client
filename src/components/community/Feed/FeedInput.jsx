@@ -1,8 +1,10 @@
+import { useState } from "react";
 import styled from "styled-components";
 import { Input } from "antd";
 import UserContainer from "../../../utils/state/userContainer";
 import Avatar from "../../common/Avatar";
 import PostButton from "./PostButton";
+import axios from "axios";
 
 const FeedInputContainer = styled.div`
   display: flex;
@@ -14,22 +16,37 @@ const FeedInputContainer = styled.div`
 `;
 
 const InputWrapper = styled.div`
-  width: 100%;
+  flex: 1;
   display: flex;
   flex-direction: column;
-  margin-left: 20px;
+  padding-left: 20px;
   justify-content: center;
   align-items: flex-end;
 `;
 
 const FeedInput = () => {
   const { user } = UserContainer.useContainer();
+  const [content, setContent] = useState("");
   return (
     <FeedInputContainer>
-      <Avatar user={user} size={54} />
+      <Avatar user={user} size={64} />
       <InputWrapper>
-        <Input.TextArea placeholder="What's on your mind?" autosize />
-        <PostButton title="Post" style={{ marginTop: 12 }} />
+        <Input.TextArea
+          value={content}
+          onChange={(e) => setContent(e.target.value)}
+          placeholder="What's on your mind?"
+          autosize
+        />
+        <PostButton
+          title="Post"
+          style={{ marginTop: 12 }}
+          onClick={() => {
+            axios.post("/api/community/post", {
+              user: user,
+              postContent: content,
+            });
+          }}
+        />
       </InputWrapper>
     </FeedInputContainer>
   );

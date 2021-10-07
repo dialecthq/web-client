@@ -3,6 +3,7 @@ import styled from "styled-components";
 import NavButton from "./NavButton";
 import PrimaryButton from "./PrimaryButton";
 import ProfileButton from "./ProfileButton";
+import UserContainer from "../../../utils/state/userContainer";
 import { useRouter } from "next/router";
 
 import {
@@ -12,6 +13,10 @@ import {
   HiOutlineBell,
   HiMail,
   HiOutlineMail,
+  HiUser,
+  HiOutlineUser,
+  HiLightningBolt,
+  HiOutlineLightningBolt,
 } from "react-icons/hi";
 
 const NavContainer = styled.div`
@@ -21,17 +26,10 @@ const NavContainer = styled.div`
   flex: 0.75;
   height: 100%;
   min-height: 100vh;
-  padding: 8px;
   justify-content: flex-start;
   align-items: flex-end;
-  padding-right: 24px;
 
-  border-right: 0.5px solid #d4d4d470;
-  positionm: fixed;
-  top: 0;
-  bottom: 0;
-  right: 0;
-  left: 0;
+  position: relative;
   @media screen and (max-width: 1260px) {
     width: 100px !important;
     min-width: 100px;
@@ -54,6 +52,11 @@ const NavWrapper = styled.div`
   align-items: flex-start;
   flex: 1;
   overflow-y: scroll;
+  position: fixed;
+  border-right: 0.5px solid #d4d4d470;
+  padding-right: 24px;
+  padding: 8px;
+  z-index: 6;
 
   @media screen and (max-width: 1260px) {
     align-items: center;
@@ -82,7 +85,8 @@ const SpaceWrap = styled.div`
 
 const Nav = () => {
   const router = useRouter();
-  console.log(router.pathname);
+
+  const { user } = UserContainer.useContainer();
   return (
     <NavContainer>
       <NavWrapper>
@@ -95,18 +99,35 @@ const Nav = () => {
               icon={<HiOutlineHome size={24} />}
               activeIcon={<HiHome size={24} />}
               active={router.pathname === "/home"}
+              href="/home"
             />
             <NavButton
               name="Notifications"
               icon={<HiOutlineBell size={24} />}
               activeIcon={<HiBell size={24} />}
               active={router.pathname === "/notifications"}
+              href="/notifications"
             />
             <NavButton
               name="Messages"
               icon={<HiOutlineMail size={24} />}
               activeIcon={<HiMail size={24} />}
               active={router.pathname === "/messages"}
+              href="/messages"
+            />
+            <NavButton
+              name="Profile"
+              icon={<HiOutlineUser size={24} />}
+              activeIcon={<HiUser size={24} />}
+              active={router.query.username === user.username}
+              href={`/${user.username}`}
+            />
+            <NavButton
+              name="Conversations"
+              icon={<HiOutlineLightningBolt size={24} />}
+              activeIcon={<HiLightningBolt size={24} />}
+              active={router.pathname === "/conversations"}
+              href="/conversations"
             />
             <PrimaryButton
               title="Post"
