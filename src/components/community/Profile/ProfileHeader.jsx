@@ -1,4 +1,6 @@
 import styled from "styled-components";
+import { HiArrowNarrowLeft } from "react-icons/hi";
+import Link from "next/link";
 
 const FeedHeaderContainer = styled.div`
   width: 100%;
@@ -9,7 +11,7 @@ const FeedHeaderContainer = styled.div`
 
 const FeedHeaderWrapper = styled.div`
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   padding: 24px;
   align-items: center;
   height: 80px;
@@ -35,13 +37,33 @@ const HeaderTitle = styled.p`
   font-size: 1.4em;
   font-weight: 600;
   color: #000;
+  margin-left: 24px;
 `;
 
-const FeedHeader = () => {
+const Icon = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 8px;
+  border-radius: 32px;
+
+  :hover: {
+    background-color: #00000030;
+  }
+`;
+
+const FeedHeader = ({ profile }) => {
   return (
     <FeedHeaderContainer>
       <FeedHeaderWrapper>
-        <HeaderTitle>Home</HeaderTitle>
+        <Link href="/home" passHref>
+          <a>
+            <Icon>
+              <HiArrowNarrowLeft size={24} color="#000000" />
+            </Icon>
+          </a>
+        </Link>
+        <HeaderTitle>{profile.name}</HeaderTitle>
       </FeedHeaderWrapper>
     </FeedHeaderContainer>
   );

@@ -70,7 +70,7 @@ const ProfileButton = () => {
         <Name>{user.name}</Name>
         <Username>@{user.username}</Username>
       </InfoContainer>
-      <Icon size={18} color="#000" />;
+      <Icon size={18} color="#000" />
     </NavButtonContainer>
   );
 };

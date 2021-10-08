@@ -6,6 +6,7 @@ import PostButton from "./PostButton";
 import axios from "axios";
 import { HiOutlineChat, HiOutlineHeart, HiOutlineShare } from "react-icons/hi";
 import UserContainer from "../../../utils/state/userContainer";
+import Link from "next/link";
 
 const FeedPostContainer = styled.div`
   display: flex;
@@ -35,6 +36,7 @@ const FeedContentWrap = styled.div`
   justify-content: flex-start;
   align-items: flex-start;
   margin-left: 20px;
+  width: calc(100% - 64px);
 `;
 
 const FeedPostInfoWrap = styled.div`
@@ -142,7 +144,11 @@ const FeedPost = ({ post, setPosts, posts }) => {
   return (
     <FeedPostContainer>
       <FeedPostWrapper>
-        <Avatar user={post.author} size={64} />
+        <Link href={`/${post.author.username}`} passHref>
+          <a>
+            <Avatar user={post.author} size={64} hoverAction />
+          </a>
+        </Link>
         <FeedContentWrap>
           <FeedPostInfoWrap>
             <PostAuthor>{post.author.name}</PostAuthor>

@@ -8,6 +8,7 @@ import UserContainer from "../utils/state/userContainer";
 
 import Nav from "../components/community/Nav/Nav";
 import Feed from "../components/community/Feed/Feed";
+import Profile from "../components/community/Profile/Profile";
 
 const Container = styled.div`
   display: flex;
@@ -40,11 +41,6 @@ const Info = styled.div`
   }
 `;
 
-const Profile = styled.div`
-  display: flex;
-  flex: 2;
-`;
-
 const Post = () => {
   const [profile, setProfile] = useState("");
   const [loading, setLoading] = useState(false);
@@ -52,6 +48,7 @@ const Post = () => {
   const { username } = router.query;
 
   useEffect(() => {
+    setLoading(true);
     axios
       .get("/api/community/query_user", {
         params: {
@@ -60,6 +57,7 @@ const Post = () => {
       })
       .then((data) => {
         setProfile(data.data.user);
+        setLoading(false);
       });
   }, []);
 
@@ -67,7 +65,7 @@ const Post = () => {
     <Container>
       <Wrapper>
         <Nav />
-        <Profile>{profile.uid}</Profile>
+        <Profile profile={profile} loading={loading} />
         <Info />
       </Wrapper>
     </Container>

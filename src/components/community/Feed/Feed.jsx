@@ -22,7 +22,6 @@ const FeedWrapper = styled.div`
   justify-content: flex-start;
   align-items: center;
   width: 100%;
-  overflow-y: scroll;
 `;
 
 const post = {

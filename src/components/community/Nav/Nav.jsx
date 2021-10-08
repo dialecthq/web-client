@@ -36,7 +36,7 @@ const NavContainer = styled.div`
     max-width: 100px;
     justify-content: flex-start;
     align-items: center;
-    padding-right: 8px;
+    padding: 0px;
   }
 
   @media screen and (max-width: 500px) {
@@ -51,7 +51,7 @@ const NavWrapper = styled.div`
   justify-content: space-between;
   align-items: flex-start;
   flex: 1;
-  overflow-y: scroll;
+  overflow-y: auto;
   position: fixed;
   border-right: 0.5px solid #d4d4d470;
   padding-right: 24px;
@@ -60,6 +60,8 @@ const NavWrapper = styled.div`
 
   @media screen and (max-width: 1260px) {
     align-items: center;
+    padding: 0px;
+    padding-top: 8px;
   }
 `;
 

@@ -11,6 +11,11 @@ const AvatarContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  transition: 0.2s opacity ease-in-out;
+
+  :hover {
+    opacity: ${(p) => (p.hoverAction ? 0.8 : 1)};
+  }
 `;
 const AvatarImg = styled.img`
   object-fit: contain;
@@ -18,14 +23,14 @@ const AvatarImg = styled.img`
   height: ${(p) => `${parseInt(p.size * 1.3, 10)}px`};
 `;
 
-const AvatarComponent = ({ user, size }) => {
+const AvatarComponent = ({ user, size, hoverAction }) => {
   const { avatarURL, uid } = { ...user };
   return avatarURL ? (
-    <AvatarContainer size={size}>
+    <AvatarContainer size={size} hoverAction={hoverAction}>
       <AvatarImg size={size} src={avatarURL || ""} />
     </AvatarContainer>
   ) : (
-    <AvatarContainer size={size}>
+    <AvatarContainer size={size} hoverAction={hoverAction}>
       <Avatar
         size={size}
         name={uid}

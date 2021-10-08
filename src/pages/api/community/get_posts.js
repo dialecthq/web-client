@@ -29,6 +29,7 @@ async function handler(req, res) {
               last = temp.dateCreated;
               if (i === querySnapshot.docs.length - 1) {
                 console.log("HELLLLLL");
+                posts.sort((a, b) => b.dateCreated - a.dateCreated);
                 resolve();
               }
             })
