@@ -46,20 +46,20 @@ const FeedPostInfoWrap = styled.div`
 `;
 
 const PostAuthor = styled.p`
-  font-size: 1em;
-  font-weight: 600;
+  font-size: 1.1em;
+  font-weight: 700;
   margin-right: 4px;
 `;
 
 const PostUsername = styled.p`
-  font-size: 1em;
+  font-size: 1.1em;
   font-weight: 400;
   color: #00000080;
 `;
 
 const Content = styled.p`
-  font-size: 1.1em;
-  font-weight: 500;
+  font-size: 1.2em;
+  font-weight: 400;
   margin-top: 4px;
   white-space: pre-line;
 `;
@@ -146,7 +146,7 @@ const FeedPost = ({ post, setPosts, posts }) => {
       <FeedPostWrapper>
         <Link href={`/${post.author.username}`} passHref>
           <a>
-            <Avatar user={post.author} size={64} hoverAction />
+            <Avatar user={post.author} size={48} hoverAction />
           </a>
         </Link>
         <FeedContentWrap>

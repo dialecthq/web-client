@@ -29,7 +29,7 @@ const FeedInput = () => {
   const [content, setContent] = useState("");
   return (
     <FeedInputContainer>
-      <Avatar user={user} size={64} />
+      <Avatar user={user} size={48} />
       <InputWrapper>
         <Input.TextArea
           value={content}
