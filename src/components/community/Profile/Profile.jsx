@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { Oval } from "@agney/react-loading";
 import ProfileHeader from "./ProfileHeader";
 import ProfileHero from "./ProfileHero";
+import ProfileFeed from "./ProfileFeed";
 
 const FeedContainer = styled.div`
   display: flex;
@@ -33,10 +34,11 @@ const Profile = ({ profile, loading }) => {
   return (
     <FeedContainer>
       <FeedWrapper>
-        {!loading ? (
+        {profile ? (
           <>
             <ProfileHeader profile={profile} />
             <ProfileHero profile={profile} />
+            <ProfileFeed profile={profile} />
           </>
         ) : (
           <LoadingContainer>

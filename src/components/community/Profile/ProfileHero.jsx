@@ -9,8 +9,8 @@ import {
   HiOutlineFingerPrint,
   HiOutlineAcademicCap,
 } from "react-icons/hi";
-import rooms from "../../../utils/data/rooms";
-import countryOptions from "../../../utils/data/CountryOptions";
+import * as languages from "../../../utils/data/languages.json";
+import * as countries from "../../../utils/data/countries.json";
 
 const ProfileHeroContainer = styled.div`
   display: flex;
@@ -88,6 +88,18 @@ const Info = styled.p`
   font-size: 1em;
 `;
 
+const FollowerText = styled.p`
+  font-weight: 400;
+  font-size: 1.1em;
+  color: #00000080;
+`;
+
+const FollowerCount = styled.p`
+  font-weight: 700;
+  font-size: 1.1em;
+  color: ;
+`;
+
 const levels = {
   1: "A1",
   2: "A2",
@@ -120,9 +132,7 @@ const ProfileHero = ({ profile }) => {
               color="#00000080"
               style={{ marginRight: 4 }}
             />
-            <Info>
-              {countryOptions.filter((e) => e.key == profile.country)[0].value}
-            </Info>
+            <Info>{countries[profile.country]}</Info>
           </ProfileItem>
           <ProfileItem>
             <HiOutlineLocationMarker
@@ -130,9 +140,7 @@ const ProfileHero = ({ profile }) => {
               color="#00000080"
               style={{ marginRight: 4 }}
             />
-            <Info>
-              {countryOptions.filter((e) => e.key == profile.living)[0].value}
-            </Info>
+            <Info>{countries[profile.living]}</Info>
           </ProfileItem>
           {profile.languages.map((language) => {
             return (
@@ -143,16 +151,21 @@ const ProfileHero = ({ profile }) => {
                   style={{ marginRight: 4 }}
                 />
                 <Info style={{ marginRight: 8 }}>
-                  {`${rooms.filter((e) => e.key == language.key)[0].value} · ${
-                    levels[language.level]
-                  }`}
+                  {`${languages[language.key]} · ${levels[language.level]}`}
                 </Info>
               </ProfileItem>
             );
           })}
         </Row>
         <Row>
-          <p>Followers: {profile.followers ? profile.followers.length : 0}</p>
+          <FollowerCount style={{ marginRight: 8 }}>
+            {profile.followers ? profile.followers.length : 0}
+          </FollowerCount>
+          <FollowerText style={{ marginRight: 16 }}>Followers</FollowerText>
+          <FollowerCount style={{ marginRight: 8 }}>
+            {profile.following ? profile.following.length : 0}
+          </FollowerCount>
+          <FollowerText>Following</FollowerText>
         </Row>
       </ProfileHeroWrapper>
     </ProfileHeroContainer>
