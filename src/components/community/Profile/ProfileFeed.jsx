@@ -29,7 +29,7 @@ const ProfileFeed = ({ profile }) => {
   }, []);
   return (
     <>
-      {posts ? (
+      {!loading ? (
         posts.map((post) => {
           return (
             <FeedPost

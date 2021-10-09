@@ -1,8 +1,11 @@
 import styled from "styled-components";
+import axios from "axios";
 import { HiArrowNarrowLeft, HiOutlineTranslate } from "react-icons/hi";
 import Link from "next/link";
 import Avatar from "../../common/Avatar";
 import FollowButton from "./FollowButton";
+import UnfollowButton from "./UnfollowButton";
+import EditButton from "./EditButton";
 import {
   HiOutlineLocationMarker,
   HiOutlineHome,
@@ -11,6 +14,8 @@ import {
 } from "react-icons/hi";
 import * as languages from "../../../utils/data/languages.json";
 import * as countries from "../../../utils/data/countries.json";
+import UserContainer from "../../../utils/state/userContainer";
+import { useState } from "react";
 
 const ProfileHeroContainer = styled.div`
   display: flex;
@@ -111,6 +116,28 @@ const levels = {
 };
 
 const ProfileHero = ({ profile }) => {
+  const { user } = UserContainer.useContainer();
+  const isMyAccount = profile.uid === user.uid;
+  const [isFollowing, setIsFollowing] = useState(
+    profile.followers ? profile.followers.includes(user.uid) : false
+  );
+  const [followers, setFollowers] = useState(
+    profile.followers ? profile.followers.length : 0
+  );
+
+  const follow = () => {
+    axios.post("/api/community/follow", { profile, user }).then(() => {
+      setIsFollowing(true);
+      setFollowers(followers + 1);
+    });
+  };
+
+  const unfollow = () => {
+    axios.post("/api/community/unfollow", { profile, user }).then(() => {
+      setIsFollowing(false);
+      setFollowers(followers - 1);
+    });
+  };
   return (
     <ProfileHeroContainer>
       <ProfileHeroWrapper>
@@ -120,7 +147,13 @@ const ProfileHero = ({ profile }) => {
             <Name>{profile.name}</Name>
             <Username>@{profile.username}</Username>
           </Col>
-          <FollowButton title="Follow" onClick={() => console.log("clicked")} />
+          {isMyAccount ? (
+            <EditButton title="Edit" />
+          ) : isFollowing ? (
+            <UnfollowButton title="Unfollow" onClick={() => unfollow()} />
+          ) : (
+            <FollowButton title="Follow" onClick={() => follow()} />
+          )}
         </SpaceRow>
         <Col>
           <Bio>{profile.bio}</Bio>
@@ -158,9 +191,7 @@ const ProfileHero = ({ profile }) => {
           })}
         </Row>
         <Row>
-          <FollowerCount style={{ marginRight: 8 }}>
-            {profile.followers ? profile.followers.length : 0}
-          </FollowerCount>
+          <FollowerCount style={{ marginRight: 8 }}>{followers}</FollowerCount>
           <FollowerText style={{ marginRight: 16 }}>Followers</FollowerText>
           <FollowerCount style={{ marginRight: 8 }}>
             {profile.following ? profile.following.length : 0}
