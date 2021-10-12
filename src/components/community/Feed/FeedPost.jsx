@@ -49,6 +49,7 @@ const PostAuthor = styled.p`
   font-size: 1.1em;
   font-weight: 700;
   margin-right: 4px;
+  color: #000;
 `;
 
 const PostUsername = styled.p`
@@ -62,6 +63,7 @@ const Content = styled.p`
   font-weight: 400;
   margin-top: 4px;
   white-space: pre-line;
+  color: #000;
 `;
 
 const ActionBarContainer = styled.div`
@@ -142,52 +144,56 @@ const FeedPost = ({ post, setPosts, posts }) => {
   };
 
   return (
-    <FeedPostContainer>
-      <FeedPostWrapper>
-        <Link href={`/${post.author.username}`} passHref>
-          <a>
-            <Avatar user={post.author} size={48} hoverAction />
-          </a>
-        </Link>
-        <FeedContentWrap>
-          <FeedPostInfoWrap>
-            <PostAuthor>{post.author.name}</PostAuthor>
-            <PostUsername>@{post.author.username}</PostUsername>
-          </FeedPostInfoWrap>
-          <Content>{post.content}</Content>
-          <ActionBarContainer>
-            <ClickContentContainer hoverColor="#00E0FF">
-              <Icon hoverColor="#00E0FF">
-                <HiOutlineChat size={24} color="#00000080" />
-              </Icon>
-            </ClickContentContainer>
+    <Link href={`/${post.author.username}/${post.uid}`}>
+      <a style={{ width: "100%" }}>
+        <FeedPostContainer>
+          <FeedPostWrapper>
+            <Link href={`/${post.author.username}`} passHref>
+              <a>
+                <Avatar user={post.author} size={48} hoverAction />
+              </a>
+            </Link>
+            <FeedContentWrap>
+              <FeedPostInfoWrap>
+                <PostAuthor>{post.author.name}</PostAuthor>
+                <PostUsername>@{post.author.username}</PostUsername>
+              </FeedPostInfoWrap>
+              <Content>{post.content}</Content>
+              <ActionBarContainer>
+                <ClickContentContainer hoverColor="#00E0FF">
+                  <Icon hoverColor="#00E0FF">
+                    <HiOutlineChat size={24} color="#00000080" />
+                  </Icon>
+                </ClickContentContainer>
 
-            <ClickContentContainer hoverColor="#FF00E5">
-              <Icon
-                hoverColor="#FF00E5"
-                liked={liked}
-                onClick={() => {
-                  if (!liked) {
-                    likePost();
-                  } else {
-                    unlikePost();
-                  }
-                }}
-              >
-                <HiOutlineHeart size={24} color="#00000080" liked={liked} />
-              </Icon>
-              <Data>{likes}</Data>
-            </ClickContentContainer>
+                <ClickContentContainer hoverColor="#FF00E5">
+                  <Icon
+                    hoverColor="#FF00E5"
+                    liked={liked}
+                    onClick={() => {
+                      if (!liked) {
+                        likePost();
+                      } else {
+                        unlikePost();
+                      }
+                    }}
+                  >
+                    <HiOutlineHeart size={24} color="#00000080" liked={liked} />
+                  </Icon>
+                  <Data>{likes}</Data>
+                </ClickContentContainer>
 
-            <ClickContentContainer hoverColor="#00FF38">
-              <Icon hoverColor="#00FF38">
-                <HiOutlineShare size={24} color="#00000080" />
-              </Icon>
-            </ClickContentContainer>
-          </ActionBarContainer>
-        </FeedContentWrap>
-      </FeedPostWrapper>
-    </FeedPostContainer>
+                <ClickContentContainer hoverColor="#00FF38">
+                  <Icon hoverColor="#00FF38">
+                    <HiOutlineShare size={24} color="#00000080" />
+                  </Icon>
+                </ClickContentContainer>
+              </ActionBarContainer>
+            </FeedContentWrap>
+          </FeedPostWrapper>
+        </FeedPostContainer>
+      </a>
+    </Link>
   );
 };
 

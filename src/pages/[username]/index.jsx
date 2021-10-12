@@ -4,11 +4,11 @@ import styled from "styled-components";
 import axios from "axios";
 
 import { Helmet } from "react-helmet";
-import UserContainer from "../utils/state/userContainer";
+import UserContainer from "../../utils/state/userContainer";
 
-import Nav from "../components/community/Nav/Nav";
-import Feed from "../components/community/Feed/Feed";
-import Profile from "../components/community/Profile/Profile";
+import Nav from "../../components/community/Nav/Nav";
+import Feed from "../../components/community/Feed/Feed";
+import Profile from "../../components/community/Profile/Profile";
 
 const Container = styled.div`
   display: flex;

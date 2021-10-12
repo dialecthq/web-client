@@ -52,7 +52,7 @@ const Icon = styled.div`
   }
 `;
 
-const FeedHeader = ({ profile }) => {
+const FeedHeader = () => {
   return (
     <FeedHeaderContainer>
       <FeedHeaderWrapper>
@@ -63,7 +63,7 @@ const FeedHeader = ({ profile }) => {
             </Icon>
           </a>
         </Link>
-        <HeaderTitle>{profile.name}</HeaderTitle>
+        <HeaderTitle>Post</HeaderTitle>
       </FeedHeaderWrapper>
     </FeedHeaderContainer>
   );
