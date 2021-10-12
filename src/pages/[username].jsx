@@ -41,35 +41,42 @@ const Info = styled.div`
   }
 `;
 
-const Post = () => {
-  const [profile, setProfile] = useState("");
-  const [loading, setLoading] = useState(false);
-  const router = useRouter();
-  const { username } = router.query;
-
-  useEffect(() => {
-    setLoading(true);
-    axios
-      .get("/api/community/query_user", {
-        params: {
-          username: username,
-        },
-      })
-      .then((data) => {
-        setProfile(data.data.user);
-        setLoading(false);
-      });
-  }, []);
+const Post = ({ profile }) => {
+  const loading = !profile;
 
   return (
     <Container>
       <Wrapper>
         <Nav />
-        <Profile profile={profile} loading={loading} />
+        <Profile profile={profile} loading={false} />
         <Info />
       </Wrapper>
     </Container>
   );
 };
+
+export async function getServerSideProps(context) {
+  const { username } = context.params;
+  const result = await axios.get(
+    "http://localhost:3000/api/community/query_user",
+    {
+      params: {
+        username: username,
+      },
+    }
+  );
+
+  if (!result) {
+    return {
+      notFound: true,
+    };
+  }
+
+  return {
+    props: {
+      profile: result.data.user,
+    }, // will be passed to the page component as props
+  };
+}
 
 export default Post;
