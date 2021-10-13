@@ -12,16 +12,28 @@ generator client {
 
 model User {
   id String @id @default(uuid())
-  name String
-  username String
-  bio String
-  countryFrom Int
-  countryLivingIn Int
-  languages Language[]
+  name String?
+  username String @unique
+  bio String?
+  countryFrom Int?
+  countryLivingIn Int?
+  languageKeys Int[]
+  languageLevels Int[]
+  posts Post[]
+  email String @unique
+  avatar String?
+
+  @@map("users")
 }
 
-enum Language {
-  key
-  value
+model Post {
+  id String @id @default(uuid())
+  body String
+  authorId String
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @default(now()) @map("updated_at")
+  author User @relation(fields: [authorId], references: [id])
+
+  @@map("tweets")
 }
 
