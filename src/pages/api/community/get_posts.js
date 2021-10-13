@@ -5,7 +5,6 @@ import axios from "axios";
 async function handler(req, res) {
   let posts = [];
   let last = req.query.last;
-  console.log(req.query);
   fire
     .firestore()
     .collection("posts")
@@ -25,11 +24,30 @@ async function handler(req, res) {
             })
             .then((data) => {
               temp.author = data.data.user;
-              posts.push(temp);
+              var replyAuthor = null;
+              if (temp.replyTo) {
+                fire
+                  .firestore()
+                  .collection("users")
+                  .doc(temp.replyTo.author)
+                  .get()
+                  .then((doc) => {
+                    temp.replyAuthor = { ...doc.data() };
+                    posts.push(temp);
+                  })
+                  .catch((err) => {
+                    console.log(err);
+                    reject();
+                  });
+              } else {
+                posts.push(temp);
+              }
+
               last = temp.dateCreated;
               if (i === querySnapshot.docs.length - 1) {
                 console.log("HELLLLLL");
                 posts.sort((a, b) => b.dateCreated - a.dateCreated);
+                console.log(posts);
                 resolve();
               }
             })

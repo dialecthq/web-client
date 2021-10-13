@@ -115,6 +115,7 @@ const Data = styled.p`
 `;
 
 const FeedPost = ({ post, setPosts, posts }) => {
+  console.log(post.rep);
   const { user } = UserContainer.useContainer();
   const [likes, setLikes] = useState(post.likers.length || 0);
   const [liked, setLiked] = useState(post.likers.some((e) => e === user.uid));
@@ -158,6 +159,7 @@ const FeedPost = ({ post, setPosts, posts }) => {
                 <PostAuthor>{post.author.name}</PostAuthor>
                 <PostUsername>@{post.author.username}</PostUsername>
               </FeedPostInfoWrap>
+              {`replying to @${post.replyTo ? post.replyTo.author.uid : "hi"}`}
               <Content>{post.content}</Content>
               <ActionBarContainer>
                 <ClickContentContainer hoverColor="#00E0FF">

@@ -9,8 +9,8 @@ const ButtonContainer = styled.div`
   border-radius: 40px;
   transition: 0.2s all ease-in-out;
   padding: 6px;
-  padding-left: 12px;
-  padding-right: 12px;
+  padding-left: 16px;
+  padding-right: 16px;
   margin-bottom: 8px;
   border-radius: 40px;
 
