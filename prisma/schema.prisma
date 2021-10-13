@@ -23,6 +23,11 @@ model User {
   posts Post[]
   email String @unique
   avatar String?
+  followers User[] @relation("followers")
+  followersRelation User[] @relation("followers")
+  following User[] @relation("following")
+  followingRelation User[] @relation("following")
+  likes Post[] @relation("likes")
 }
 
 model Post {
@@ -32,5 +37,6 @@ model Post {
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now())
   author User @relation(fields: [authorId], references: [id])
+  likes User[] @relation("likes")
 }
 
