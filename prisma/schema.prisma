@@ -22,8 +22,6 @@ model User {
   posts Post[]
   email String @unique
   avatar String?
-
-  @@map("users")
 }
 
 model Post {
@@ -33,7 +31,5 @@ model Post {
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @default(now()) @map("updated_at")
   author User @relation(fields: [authorId], references: [id])
-
-  @@map("tweets")
 }
 
