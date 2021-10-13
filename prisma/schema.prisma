@@ -24,9 +24,7 @@ model User {
   email String @unique
   avatar String?
   followers User[] @relation("followers")
-  followersRelation User[] @relation("followers")
-  following User[] @relation("following")
-  followingRelation User[] @relation("following")
+  following User[] @relation("followers")
   likes Post[] @relation("likes")
 }
 
