@@ -9,3 +9,19 @@ datasource db {
 generator client {
   provider = "prisma-client-js"
 }
+
+model User {
+  id String @id @default(uuid())
+  name String
+  username String
+  bio String
+  countryFrom Int
+  countryLivingIn Int
+  languages Language[]
+}
+
+enum Language {
+  key
+  value
+}
+
