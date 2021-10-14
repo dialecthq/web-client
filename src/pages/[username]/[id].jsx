@@ -64,7 +64,7 @@ export async function getServerSideProps(context) {
     }
   );
 
-  if (!result.data.post) {
+  if (!result.data) {
     console.log(result.data);
     return {
       notFound: true,
@@ -73,7 +73,7 @@ export async function getServerSideProps(context) {
 
   return {
     props: {
-      post: result.data.post,
+      post: result.data,
     }, // will be passed to the page component as props
   };
 }

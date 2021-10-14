@@ -8,19 +8,19 @@ const ProfileFeed = ({ profile }) => {
   const [posts, setPosts] = useState([]);
   const [last, setLast] = useState("");
   const [loading, setLoading] = useState(false);
+  console.log(profile.id);
   const getPosts = () => {
     setLoading(true);
     axios
       .get("/api/community/get_user_posts", {
         params: {
-          last: last,
-          uid: profile.uid,
+          id: profile.id,
         },
       })
       .then((data) => {
         setLoading(false);
-        setPosts([...posts, ...data.data.posts]);
-        setLast(data.data.last);
+        setPosts([...posts, ...data.data]);
+        setLast(data.data || null);
       });
   };
 

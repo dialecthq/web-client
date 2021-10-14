@@ -115,14 +115,16 @@ const Data = styled.p`
 `;
 
 const FeedPost = ({ post, setPosts, posts }) => {
-  console.log(post.rep);
   const { user } = UserContainer.useContainer();
   const [likes, setLikes] = useState(post.likes.length || 0);
-  const [liked, setLiked] = useState(post.likes.some((e) => e === user.id));
+  const [liked, setLiked] = useState(post.likes.some((e) => e.id === user.id));
 
   const likePost = () => {
     axios
-      .post("/api/community/like_post", { user, post })
+      .post("/api/community/like_post", {
+        userId: user.id,
+        postId: post.id,
+      })
       .then((data) => {
         console.log(data);
       })
@@ -134,7 +136,10 @@ const FeedPost = ({ post, setPosts, posts }) => {
 
   const unlikePost = () => {
     axios
-      .post("/api/community/unlike_post", { user, post })
+      .post("/api/community/unlike_post", {
+        userId: user.id,
+        postId: post.id,
+      })
       .then((data) => {
         console.log(data);
       })
@@ -171,7 +176,8 @@ const FeedPost = ({ post, setPosts, posts }) => {
                   <Icon
                     hoverColor="#FF00E5"
                     liked={liked}
-                    onClick={() => {
+                    onClick={(e) => {
+                      e.preventDefault();
                       if (!liked) {
                         likePost();
                       } else {

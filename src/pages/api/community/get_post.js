@@ -1,33 +1,24 @@
 import fire from "../../../utils/fire";
 import axios from "axios";
+import prisma from "../../../utils/prisma";
 
 async function handler(req, res) {
   const { uid } = req.query;
-  fire
-    .firestore()
-    .collection("posts")
-    .doc(uid)
-    .get()
-    .then((document) => {
-      let temp = document.data();
-      axios
-        .get("http://localhost:3000/api/community/get_user", {
-          params: {
-            uid: temp.author,
-          },
-        })
-        .then((data) => {
-          temp.author = data.data.user;
-          res.status(200).json({ post: temp });
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    })
-    .catch((err) => {
-      console.log(err);
-      res.status(500).json({ message: err });
-    });
+  const post = await prisma.post.findUnique({
+    where: {
+      id: uid,
+    },
+    include: {
+      likes: true,
+      author: true,
+    },
+  });
+
+  if (!post) {
+    res.status(500);
+    return;
+  }
+  res.status(200).json(post);
 }
 
 export default handler;

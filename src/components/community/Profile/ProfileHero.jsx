@@ -175,7 +175,7 @@ const ProfileHero = ({ profile }) => {
             />
             <Info>{countries[profile.living]}</Info>
           </ProfileItem>
-          {profile.languages.map((language) => {
+          {profile.languageKeys.map((languageKey, i) => {
             return (
               <ProfileItem>
                 <HiOutlineTranslate
@@ -184,7 +184,9 @@ const ProfileHero = ({ profile }) => {
                   style={{ marginRight: 4 }}
                 />
                 <Info style={{ marginRight: 8 }}>
-                  {`${languages[language.key]} · ${levels[language.level]}`}
+                  {`${languages[languageKey]} · ${
+                    levels[profile.languageLevels[i]]
+                  }`}
                 </Info>
               </ProfileItem>
             );

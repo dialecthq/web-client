@@ -74,7 +74,7 @@ export async function getServerSideProps(context) {
 
   return {
     props: {
-      profile: result.data.user,
+      profile: result.data,
     }, // will be passed to the page component as props
   };
 }
