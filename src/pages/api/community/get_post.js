@@ -11,6 +11,9 @@ async function handler(req, res) {
     include: {
       likes: true,
       author: true,
+      replies: true,
+      replyTo: true,
+      likes: true,
     },
   });
 

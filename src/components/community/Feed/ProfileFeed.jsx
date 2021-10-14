@@ -27,12 +27,18 @@ const ProfileFeed = ({ profile }) => {
   useEffect(() => {
     getPosts();
   }, []);
-
   return (
     <>
       {!loading ? (
         posts.map((post) => {
-          return <FeedPost key={post.id} initialPost={post} />;
+          return (
+            <FeedPost
+              key={post.id}
+              initialPost={post}
+              posts={posts}
+              setPosts={setPosts}
+            />
+          );
         })
       ) : (
         <FeedLoading />

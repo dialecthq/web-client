@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { Input } from "antd";
 import Avatar from "../../common/Avatar";
@@ -7,6 +7,7 @@ import axios from "axios";
 import { HiOutlineChat, HiOutlineHeart, HiOutlineShare } from "react-icons/hi";
 import UserContainer from "../../../utils/state/userContainer";
 import Link from "next/link";
+import FeedLoading from "../../community/Feed/FeedLoading";
 
 const FeedPostContainer = styled.div`
   display: flex;
@@ -114,10 +115,72 @@ const Data = styled.p`
   color: #00000080;
 `;
 
-const FeedPost = ({ post, setPosts, posts }) => {
+const ReplyTo = styled.p`
+  font-size: 1em;
+  font-weight: 500;
+  color: #00000080;
+`;
+
+const FeedPost = ({ initialPost, redirect }) => {
   const { user } = UserContainer.useContainer();
-  const [likes, setLikes] = useState(post.likes.length || 0);
-  const [liked, setLiked] = useState(post.likes.some((e) => e.id === user.id));
+  const [post, setPost] = useState(initialPost);
+  const [loading, setLoading] = useState(true);
+  const [likes, setLikes] = useState(0);
+  const [liked, setLiked] = useState(false);
+
+  useEffect(async () => {
+    console.log(initialPost);
+    if (redirect) {
+      const newPost = await axios.get("/api/community/get_post", {
+        params: {
+          uid: initialPost.id,
+        },
+      });
+      const tempPost = newPost.data;
+
+      if (!tempPost) {
+        return;
+      }
+
+      if (tempPost.replyTo.length > 0) {
+        const author = await axios.get("/api/user/get_user", {
+          params: {
+            id: tempPost.replyTo[0].authorId,
+          },
+        });
+
+        if (!author) {
+          return;
+        }
+
+        tempPost.replyTo[0].author = author.data;
+      }
+
+      setPost(tempPost);
+      setLikes(tempPost.likes.length);
+      setLiked(tempPost.likes.some((e) => e.id === user.id));
+      setLoading(false);
+    } else {
+      const tempPost = post;
+      if (tempPost.replyTo ? tempPost.replyTo.length > 0 : false) {
+        const author = await axios.get("/api/user/get_user", {
+          params: {
+            id: tempPost.replyTo[0].authorId,
+          },
+        });
+
+        if (!author) {
+          return;
+        }
+
+        tempPost.replyTo[0].author = author.data;
+      }
+      setPost(tempPost);
+      setLikes(post.likes.length);
+      setLiked(post.likes.some((e) => e.id === user.id));
+      setLoading(false);
+    }
+  }, []);
 
   const likePost = () => {
     axios
@@ -149,59 +212,83 @@ const FeedPost = ({ post, setPosts, posts }) => {
       });
   };
 
-  return (
-    <Link href={`/${post.author.username}/${post.id}`}>
-      <a style={{ width: "100%" }}>
-        <FeedPostContainer>
-          <FeedPostWrapper>
-            <Link href={`/${post.author.username}`} passHref>
-              <a>
-                <Avatar user={post.avatar} size={48} hoverAction />
-              </a>
-            </Link>
-            <FeedContentWrap>
-              <FeedPostInfoWrap>
-                <PostAuthor>{post.author.name}</PostAuthor>
-                <PostUsername>@{post.author.username}</PostUsername>
-              </FeedPostInfoWrap>
-              <Content>{post.body}</Content>
-              <ActionBarContainer>
-                <ClickContentContainer hoverColor="#00E0FF">
-                  <Icon hoverColor="#00E0FF">
-                    <HiOutlineChat size={24} color="#00000080" />
-                  </Icon>
-                </ClickContentContainer>
+  if (!loading) {
+    return (
+      <Link
+        href={`/${
+          post.replyTo[0]
+            ? post.replyTo[0].author.username
+            : post.author.username
+        }/${post.replyTo[0] ? post.replyTo[0].id : post.id}`}
+      >
+        <a style={{ width: "100%" }}>
+          <FeedPostContainer>
+            <FeedPostWrapper>
+              <Link href={`/${post.author.username}`} passHref>
+                <a>
+                  <Avatar user={post.author} size={48} hoverAction />
+                </a>
+              </Link>
+              <FeedContentWrap>
+                <FeedPostInfoWrap>
+                  <PostAuthor>{post.author.name}</PostAuthor>
+                  <PostUsername>@{post.author.username}</PostUsername>
+                </FeedPostInfoWrap>
+                {post.replyTo ? (
+                  post.replyTo.length > 0 ? (
+                    <ReplyTo>
+                      replying to{" "}
+                      <span style={{ color: "blue" }}>
+                        @{post.replyTo[0].author.username}
+                      </span>
+                    </ReplyTo>
+                  ) : null
+                ) : null}
+                <Content>{post.body}</Content>
+                <ActionBarContainer>
+                  <ClickContentContainer hoverColor="#00E0FF">
+                    <Icon hoverColor="#00E0FF">
+                      <HiOutlineChat size={24} color="#00000080" />
+                    </Icon>
+                  </ClickContentContainer>
 
-                <ClickContentContainer hoverColor="#FF00E5">
-                  <Icon
-                    hoverColor="#FF00E5"
-                    liked={liked}
-                    onClick={(e) => {
-                      e.preventDefault();
-                      if (!liked) {
-                        likePost();
-                      } else {
-                        unlikePost();
-                      }
-                    }}
-                  >
-                    <HiOutlineHeart size={24} color="#00000080" liked={liked} />
-                  </Icon>
-                  <Data>{likes}</Data>
-                </ClickContentContainer>
+                  <ClickContentContainer hoverColor="#FF00E5">
+                    <Icon
+                      hoverColor="#FF00E5"
+                      liked={liked}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        if (!liked) {
+                          likePost();
+                        } else {
+                          unlikePost();
+                        }
+                      }}
+                    >
+                      <HiOutlineHeart
+                        size={24}
+                        color="#00000080"
+                        liked={liked}
+                      />
+                    </Icon>
+                    <Data>{likes}</Data>
+                  </ClickContentContainer>
 
-                <ClickContentContainer hoverColor="#00FF38">
-                  <Icon hoverColor="#00FF38">
-                    <HiOutlineShare size={24} color="#00000080" />
-                  </Icon>
-                </ClickContentContainer>
-              </ActionBarContainer>
-            </FeedContentWrap>
-          </FeedPostWrapper>
-        </FeedPostContainer>
-      </a>
-    </Link>
-  );
+                  <ClickContentContainer hoverColor="#00FF38">
+                    <Icon hoverColor="#00FF38">
+                      <HiOutlineShare size={24} color="#00000080" />
+                    </Icon>
+                  </ClickContentContainer>
+                </ActionBarContainer>
+              </FeedContentWrap>
+            </FeedPostWrapper>
+          </FeedPostContainer>
+        </a>
+      </Link>
+    );
+  } else {
+    return <FeedLoading />;
+  }
 };
 
 export default FeedPost;

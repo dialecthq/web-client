@@ -25,59 +25,16 @@ const FeedWrapper = styled.div`
 `;
 
 const Status = ({ post }) => {
-  const [replies, setReplies] = useState([]);
-  const [last, setLast] = useState("");
-  const [loading, setLoading] = useState(false);
-
-  const getPosts = () => {
-    console.log(post.replies);
-    setLoading(true);
-    axios
-      .post("/api/community/get_replies", {
-        replies: post.replies,
-      })
-      .then((data) => {
-        console.log(1);
-        setLoading(false);
-        if (data.data.posts) {
-          setReplies([...replies, ...data.data.posts]);
-          setLast(data.data.last);
-        } else {
-          return;
-        }
-      })
-      .catch(() => {
-        setLoading(false);
-        console.log("2");
-      });
-  };
-
-  useEffect(() => {
-    if (post.replies ? post.replies.length > 0 : false) {
-      getPosts();
-    }
-  }, []);
-
+  console.log(post, "post");
   return (
     <FeedContainer>
       <FeedWrapper>
         <PostHeader />
-        <FeedPost post={post} />
+        <FeedPost initialPost={post} />
         <StatusInput post={post} />
-        {!loading ? (
-          replies.map((reply) => {
-            return (
-              <FeedPost
-                key={reply.uid}
-                post={reply}
-                posts={replies}
-                setPosts={setReplies}
-              />
-            );
-          })
-        ) : (
-          <FeedLoading />
-        )}
+        {post.replies.map((reply) => {
+          return <FeedPost key={reply.id} initialPost={reply} redirect />;
+        })}
       </FeedWrapper>
     </FeedContainer>
   );

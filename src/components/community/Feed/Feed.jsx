@@ -92,14 +92,7 @@ const Feed = () => {
         <FeedInput />
         {!loading ? (
           posts.map((post) => {
-            return (
-              <FeedPost
-                key={post.id}
-                post={post}
-                posts={posts}
-                setPosts={setPosts}
-              />
-            );
+            return <FeedPost key={post.id} initialPost={post} />;
           })
         ) : (
           <FeedLoading />
