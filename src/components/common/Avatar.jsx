@@ -24,16 +24,16 @@ const AvatarImg = styled.img`
 `;
 
 const AvatarComponent = ({ user, size, hoverAction }) => {
-  const { avatarURL, uid } = { ...user };
-  return avatarURL ? (
+  const { avatar, id } = { ...user };
+  return avatar ? (
     <AvatarContainer size={size} hoverAction={hoverAction}>
-      <AvatarImg size={size} src={avatarURL || ""} />
+      <AvatarImg size={size} src={avatar || ""} />
     </AvatarContainer>
   ) : (
     <AvatarContainer size={size} hoverAction={hoverAction}>
       <Avatar
         size={size}
-        name={uid}
+        name={id}
         variant="marble"
         colors={["#1DFF00", "#FFFC00", "#FF009F", "#00CCFF", "#00FFDA"]}
       />
