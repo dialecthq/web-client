@@ -17,11 +17,12 @@ async function handler(req, res) {
   });
 
   if (!user) {
-    console.log("no user found");
+    res.status(500);
+    return;
   }
 
-  console.log(user.following);
   res.status(200).json(user);
+  return;
 }
 
 export default handler;
