@@ -1,29 +1,49 @@
 /* eslint-disable max-len */
 /* eslint-disable react/prop-types */
-import React, { useState } from "react"
-import styled from "styled-components"
-import { Modal, Button, Input, Tooltip, Divider, Select, Form, Steps } from "antd"
-import { IoAt, IoLockClosedOutline, IoMailOutline, IoPersonOutline } from "react-icons/io5"
-import { AiOutlineEye } from "react-icons/ai"
-import { FcGoogle } from "react-icons/fc"
-import { useRouter } from "next/router"
-import { register, signInWithGoogle, validate } from "../../../utils/apis/UserAPI"
+import React, { useState } from "react";
+import styled from "styled-components";
+import {
+  Modal,
+  Button,
+  Input,
+  Tooltip,
+  Divider,
+  Select,
+  Form,
+  Steps,
+} from "antd";
+import {
+  IoAt,
+  IoLockClosedOutline,
+  IoMailOutline,
+  IoPersonOutline,
+} from "react-icons/io5";
+import { AiOutlineEye } from "react-icons/ai";
+import { FcGoogle } from "react-icons/fc";
+import { useRouter } from "next/router";
+import {
+  register,
+  signInWithGoogle,
+  validate,
+} from "../../../utils/apis/UserAPI";
+
+import axios from "axios";
 
 // Data objects
-import countryOptions from "../../../utils/data/CountryOptions"
-import timezoneOptions from "../../../utils/data/TimezoneOptions"
-import rooms from "../../../utils/data/rooms"
+import countryOptions from "../../../utils/data/CountryOptions";
+import timezoneOptions from "../../../utils/data/TimezoneOptions";
+import rooms from "../../../utils/data/rooms";
 
 // Containers
-import User from "../../../utils/state/userContainer"
-import strings from "../../../utils/data/strings"
+import User from "../../../utils/state/userContainer";
+import strings from "../../../utils/data/strings";
 
 const TabContent = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-`
+`;
 
 const AuthModal = styled(Modal)`
   width: 425px !important;
@@ -31,18 +51,18 @@ const AuthModal = styled(Modal)`
   @media screen and (max-width: 768px) {
     width: 100% !important;
   }
-`
+`;
 
 const ButtonText = styled.span`
   font-weight: 600;
   letter-spacing: 0.5px;
-`
+`;
 
 const AuthLink = styled.a`
   font-size: 14px;
   font-weight: 500;
   vertical-align: middle;
-`
+`;
 
 const Text = styled.p`
   font-weight: 500;
@@ -51,7 +71,7 @@ const Text = styled.p`
   vertical-align: middle;
   margin-bottom: 0px;
   text-align: center;
-`
+`;
 
 const SmallText = styled.p`
   font-size: 10px;
@@ -59,14 +79,14 @@ const SmallText = styled.p`
   font-weight: 600;
   vertical-align: middle;
   margin-bottom: 0px;
-`
+`;
 
 const OauthContainer = styled.div`
   padding: 20px;
   display: flex;
   justify-content: center;
   align-items: center;
-`
+`;
 
 const TermsContainer = styled.div`
   display: flex;
@@ -74,13 +94,13 @@ const TermsContainer = styled.div`
   justify-content: center;
   align-items: center;
   width: 100%;
-`
+`;
 
 const Terms = styled.p`
   font-size: 12px;
   font-weight: 400;
   width: 100%;
-`
+`;
 
 const IconButton = styled.div`
   width: 100%;
@@ -94,17 +114,17 @@ const IconButton = styled.div`
     cursor: pointer;
     opacity: 0.7;
   }
-`
+`;
 
 const SignInText = styled.p`
   font-weight: 600;
   font-size: 14px;
-`
+`;
 
 const Label = styled.p`
   font-size: 14px;
   font-weight: 400;
-`
+`;
 
 const FormRow = styled.div`
   display: flex;
@@ -112,7 +132,7 @@ const FormRow = styled.div`
   align-items: center;
   width: 100%;
   margin-bottom: 25px;
-`
+`;
 
 const FluencyButton = styled.div`
   display: flex;
@@ -128,70 +148,71 @@ const FluencyButton = styled.div`
     border: 1px solid #9c77ff;
     color: #9c77ff;
   }
-`
+`;
 
 const FluencyButtonText = styled.p`
   margin-bottom: 0px;
   font-size: 12px;
   font-weight: 600;
-`
+`;
 
 const SignUp = ({ visible, setVisible, setSignInVisible }) => {
-  const [page, setPage] = useState(0)
-  const [tempUser, setTempUser] = useState(null)
-  const [loading, setLoading] = useState(false)
-  const [level, setLevel] = useState(1)
+  const [page, setPage] = useState(0);
+  const [tempUser, setTempUser] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [level, setLevel] = useState(1);
 
-  const { user } = User.useContainer()
-  const router = useRouter()
+  const { user } = User.useContainer();
+  const router = useRouter();
 
   const onFinishPage1 = (values) => {
     setTempUser({
       name: values.name,
       email: values.email,
       password: values.password,
-      username: values.username
-    })
-    setPage(1)
-  }
+      username: values.username,
+    });
+    setPage(1);
+  };
 
   const onFinishPage2 = (values) => {
     const newTempUser = {
       ...tempUser,
-      languages: [
-        { key: rooms.filter((e) => e.value === values.target)[0].key, level },
-        {
-          key: rooms.filter((e) => e.value === values.native)[0].key,
-          level: 7
-        }
+      languageKeys: [
+        rooms.filter((e) => e.value === values.target)[0].key,
+        rooms.filter((e) => e.value === values.native)[0].key,
       ],
-      country: countryOptions.filter((e) => e.value === values.country)[0].key,
-      timezone: timezoneOptions.filter((e) => e.value === values.timezone)[0].key
-    }
-    setLoading(true)
-    register(newTempUser)
+      languageLevels: [level, 7],
+      countryFrom: countryOptions.filter((e) => e.value === values.country)[0]
+        .key,
+    };
+    setLoading(true);
+    axios
+      .post("/api/user/register", {
+        ...newTempUser,
+      })
       .then(() => {
-        setVisible(false)
-        setPage(0)
-        setLoading(false)
-        setTempUser(null)
-        router.push("/exchange")
+        setVisible(false);
+        setPage(0);
+        setLoading(false);
+        setTempUser(null);
+        router.push("/exchange");
       })
       .catch((error) => {
-        console.log(error)
-        setLoading(false)
-      })
-  }
+        console.log(error);
+        setLoading(false);
+      });
+  };
 
   const onFinishFailed = (errorInfo) => {
-    console.log("Failed:", errorInfo)
-  }
+    console.log("Failed:", errorInfo);
+  };
 
   return (
     <AuthModal
       visible={visible}
       onCancel={() => {
-        setVisible(false)
+        setVisible(false);
       }}
       title={strings.register.capitalize()}
       footer={null}
@@ -228,8 +249,8 @@ const SignUp = ({ visible, setVisible, setSignInVisible }) => {
                 { type: "email", message: strings.pleaseInputValidEmail },
                 {
                   validator: (_, value) => validate(_, value, "email"),
-                  message: strings.emailAlreadyInUse
-                }
+                  message: strings.emailAlreadyInUse,
+                },
               ]}
               style={{ marginBottom: 25 }}
             >
@@ -246,8 +267,8 @@ const SignUp = ({ visible, setVisible, setSignInVisible }) => {
                 { required: true, message: strings.pleaseInputUsername },
                 {
                   validator: (_, value) => validate(_, value, "username"),
-                  message: strings.usernameAlreadyInUse
-                }
+                  message: strings.usernameAlreadyInUse,
+                },
               ]}
               style={{ marginBottom: 25 }}
             >
@@ -276,7 +297,12 @@ const SignUp = ({ visible, setVisible, setSignInVisible }) => {
               />
             </Form.Item>
             <Form.Item style={{ marginBottom: 20 }}>
-              <Button type="primary" block htmlType="submit" style={{ height: 40 }}>
+              <Button
+                type="primary"
+                block
+                htmlType="submit"
+                style={{ height: 40 }}
+              >
                 <ButtonText>{strings.continue.capitalize()}</ButtonText>
               </Button>
             </Form.Item>
@@ -285,8 +311,8 @@ const SignUp = ({ visible, setVisible, setSignInVisible }) => {
               <AuthLink
                 style={{ marginLeft: 5 }}
                 onClick={() => {
-                  setVisible(false)
-                  setSignInVisible(true)
+                  setVisible(false);
+                  setSignInVisible(true);
                 }}
               >
                 {strings.signIn}
@@ -298,7 +324,7 @@ const SignUp = ({ visible, setVisible, setSignInVisible }) => {
             <OauthContainer>
               <IconButton
                 onClick={() => {
-                  signInWithGoogle()
+                  signInWithGoogle();
                 }}
               >
                 <FcGoogle height={36} style={{ marginRight: 10 }} />
@@ -323,7 +349,9 @@ const SignUp = ({ visible, setVisible, setSignInVisible }) => {
 
             <Form.Item
               name="target"
-              rules={[{ required: true, message: strings.pleaseInputTargetLanguage }]}
+              rules={[
+                { required: true, message: strings.pleaseInputTargetLanguage },
+              ]}
             >
               <Select
                 placeholder={strings.targetLanguage.capitalize()}
@@ -341,41 +369,51 @@ const SignUp = ({ visible, setVisible, setSignInVisible }) => {
               <FluencyButton
                 active={level === 1}
                 onClick={() => {
-                  setLevel(1)
+                  setLevel(1);
                 }}
               >
-                <FluencyButtonText>{strings.beginner.capitalize()}</FluencyButtonText>
+                <FluencyButtonText>
+                  {strings.beginner.capitalize()}
+                </FluencyButtonText>
               </FluencyButton>
               <FluencyButton
                 active={level === 2}
                 onClick={() => {
-                  setLevel(2)
+                  setLevel(2);
                 }}
               >
-                <FluencyButtonText>{strings.elementary.capitalize()}</FluencyButtonText>
+                <FluencyButtonText>
+                  {strings.elementary.capitalize()}
+                </FluencyButtonText>
               </FluencyButton>
               <FluencyButton
                 active={level === 3}
                 onClick={() => {
-                  setLevel(3)
+                  setLevel(3);
                 }}
               >
-                <FluencyButtonText>{strings.intermediate.capitalize()}</FluencyButtonText>
+                <FluencyButtonText>
+                  {strings.intermediate.capitalize()}
+                </FluencyButtonText>
               </FluencyButton>
               <FluencyButton
                 active={level === 5}
                 onClick={() => {
-                  setLevel(5)
+                  setLevel(5);
                 }}
               >
-                <FluencyButtonText>{strings.advanced.capitalize()}</FluencyButtonText>
+                <FluencyButtonText>
+                  {strings.advanced.capitalize()}
+                </FluencyButtonText>
               </FluencyButton>
             </FormRow>
 
             <Label>{strings.nativeLanguage}</Label>
             <Form.Item
               name="native"
-              rules={[{ required: true, message: strings.pleaseInputNativeLanguage }]}
+              rules={[
+                { required: true, message: strings.pleaseInputNativeLanguage },
+              ]}
             >
               <Select
                 placeholder={strings.nativeLanguage.capitalize()}
@@ -393,44 +431,40 @@ const SignUp = ({ visible, setVisible, setSignInVisible }) => {
             <Label>{strings.countryRegion}</Label>
             <Form.Item
               name="country"
-              rules={[{ required: true, message: strings.pleaseInputCountryRegion }]}
-            >
-              <Select placeholder={strings.countryRegion} showSearch style={{ width: "100%" }}>
-                {countryOptions.map((country) => (
-                  <Select.Option value={country.value}>{country.value}</Select.Option>
-                ))}
-              </Select>
-            </Form.Item>
-            <Label>{strings.timezone.capitalize()}</Label>
-            <Form.Item
-              name="timezone"
-              rules={[{ required: true, message: strings.pleaseInputTimezone }]}
+              rules={[
+                { required: true, message: strings.pleaseInputCountryRegion },
+              ]}
             >
               <Select
-                placeholder={strings.timezone.capitalize()}
+                placeholder={strings.countryRegion}
                 showSearch
                 style={{ width: "100%" }}
               >
-                {timezoneOptions.map((timezone) => (
-                  <Select.Option value={timezone.value}>
-                    {`${timezone.value} - ${timezone.text}`}
+                {countryOptions.map((country) => (
+                  <Select.Option value={country.value}>
+                    {country.value}
                   </Select.Option>
                 ))}
               </Select>
             </Form.Item>
+
             <FormRow style={{ marginTop: 50 }}>
-              <Form.Item style={{ marginBottom: 20, width: "100%", paddingRight: 5 }}>
+              <Form.Item
+                style={{ marginBottom: 20, width: "100%", paddingRight: 5 }}
+              >
                 <Button
                   block
                   style={{ height: 40 }}
                   onClick={() => {
-                    setPage(0)
+                    setPage(0);
                   }}
                 >
                   <ButtonText>{strings.back.capitalize()}</ButtonText>
                 </Button>
               </Form.Item>
-              <Form.Item style={{ marginBottom: 20, width: "100%", paddingLeft: 5 }}>
+              <Form.Item
+                style={{ marginBottom: 20, width: "100%", paddingLeft: 5 }}
+              >
                 <Button
                   type="primary"
                   block
@@ -449,6 +483,6 @@ const SignUp = ({ visible, setVisible, setSignInVisible }) => {
         </TabContent>
       )}
     </AuthModal>
-  )
-}
-export default SignUp
+  );
+};
+export default SignUp;

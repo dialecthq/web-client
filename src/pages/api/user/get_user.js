@@ -7,11 +7,12 @@ async function handler(req, res) {
   let { id } = req.query;
   const user = await prisma.user.findUnique({
     where: {
-      id: "bab4acfd-aa15-4a9a-b94e-e30d3ef673c5",
+      id: id,
     },
     include: {
       following: true,
       followers: true,
+      likedPosts: true,
     },
   });
 

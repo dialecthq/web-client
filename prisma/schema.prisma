@@ -12,7 +12,7 @@ generator client {
 }
 
 model User {
-  id String @id @default(uuid())
+  id String @id
   name String?
   username String @unique
   bio String?
@@ -25,7 +25,8 @@ model User {
   avatar String?
   followers User[] @relation("followers")
   following User[] @relation("followers")
-  likes Post[] @relation("likes")
+  likedPosts Post[] @relation("likes")
+  tokens Int
 }
 
 model Post {
