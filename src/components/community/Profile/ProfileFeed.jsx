@@ -33,7 +33,7 @@ const ProfileFeed = ({ profile }) => {
         posts.map((post) => {
           return (
             <FeedPost
-              key={post.uid}
+              key={post.id}
               post={post}
               posts={posts}
               setPosts={setPosts}

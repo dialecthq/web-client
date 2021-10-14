@@ -117,8 +117,8 @@ const Data = styled.p`
 const FeedPost = ({ post, setPosts, posts }) => {
   console.log(post.rep);
   const { user } = UserContainer.useContainer();
-  const [likes, setLikes] = useState(post.likers.length || 0);
-  const [liked, setLiked] = useState(post.likers.some((e) => e === user.uid));
+  const [likes, setLikes] = useState(post.likes.length || 0);
+  const [liked, setLiked] = useState(post.likes.some((e) => e === user.id));
 
   const likePost = () => {
     axios
@@ -145,13 +145,13 @@ const FeedPost = ({ post, setPosts, posts }) => {
   };
 
   return (
-    <Link href={`/${post.author.username}/${post.uid}`}>
+    <Link href={`/${post.author.username}/${post.id}`}>
       <a style={{ width: "100%" }}>
         <FeedPostContainer>
           <FeedPostWrapper>
             <Link href={`/${post.author.username}`} passHref>
               <a>
-                <Avatar user={post.author} size={48} hoverAction />
+                <Avatar user={post.avatar} size={48} hoverAction />
               </a>
             </Link>
             <FeedContentWrap>
@@ -159,8 +159,7 @@ const FeedPost = ({ post, setPosts, posts }) => {
                 <PostAuthor>{post.author.name}</PostAuthor>
                 <PostUsername>@{post.author.username}</PostUsername>
               </FeedPostInfoWrap>
-              {`replying to @${post.replyTo ? post.replyTo.author.uid : "hi"}`}
-              <Content>{post.content}</Content>
+              <Content>{post.body}</Content>
               <ActionBarContainer>
                 <ClickContentContainer hoverColor="#00E0FF">
                   <Icon hoverColor="#00E0FF">

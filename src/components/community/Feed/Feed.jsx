@@ -75,8 +75,9 @@ const Feed = () => {
         },
       })
       .then((data) => {
+        console.log(data, "yer");
         setLoading(false);
-        setPosts([...posts, ...data.data.posts]);
+        setPosts([...posts, ...data.data]);
         setLast(data.data.last);
       });
   };
@@ -93,7 +94,7 @@ const Feed = () => {
           posts.map((post) => {
             return (
               <FeedPost
-                key={post.uid}
+                key={post.id}
                 post={post}
                 posts={posts}
                 setPosts={setPosts}

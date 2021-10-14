@@ -9,43 +9,6 @@ import fire from "../fire";
 import strings from "../data/strings";
 import rooms from "../data/rooms";
 
-export const getUser = () =>
-  fire.firestore().collection("users").doc(fire.auth().currentUser.uid).get();
-
-export const register = (newUser) => {
-  const result = new Promise((resolve, reject) => {
-    fire
-      .auth()
-      .createUserWithEmailAndPassword(newUser.email, newUser.password)
-      .then((userCredential) => {
-        fire
-          .firestore()
-          .collection("users")
-          .doc(userCredential.user.uid)
-          .set({
-            uid: userCredential.user.uid,
-            name: newUser.name,
-            email: newUser.email,
-            languages: newUser.languages,
-            country: newUser.country,
-            timezone: newUser.timezone,
-            username: newUser.username,
-            tokens: 10,
-          })
-          .then((data) => {
-            resolve(data);
-          })
-          .catch((error) => {
-            reject(error);
-          });
-      })
-      .catch((error) => {
-        reject(error);
-      });
-  });
-
-  return result;
-};
 export const validate = (_, value, field) => {
   const result = new Promise((resolve, reject) => {
     if (!value) {

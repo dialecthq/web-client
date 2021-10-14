@@ -42,8 +42,8 @@ const FeedInput = () => {
           style={{ marginTop: 12 }}
           onClick={() => {
             axios.post("/api/community/post", {
-              user: user,
-              postContent: content,
+              authorId: user.id,
+              body: content,
             });
           }}
         />
