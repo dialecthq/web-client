@@ -24,7 +24,7 @@ async function handler(req, res) {
 
     const user = await prisma.user.create({
       data: {
-        id: userCredential.user.id,
+        id: userCredential.user.uid,
         name: name,
         email: email,
         languageKeys: languageKeys,
