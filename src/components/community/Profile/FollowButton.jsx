@@ -7,9 +7,9 @@ const ButtonContainer = styled.div`
   align-items: center;
   background-color: #000;
   transition: 0.2s all ease-in-out;
-  padding: 8px;
-  padding-left: 16px;
-  padding-right: 16px;
+  padding: 6px;
+  padding-left: 12px;
+  padding-right: 12px;
   margin-bottom: 12px;
   border-radius: 32px;
 

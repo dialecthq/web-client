@@ -16,6 +16,7 @@ import * as languages from "../../../utils/data/languages.json";
 import * as countries from "../../../utils/data/countries.json";
 import UserContainer from "../../../utils/state/userContainer";
 import { useState } from "react";
+import EditModal from "./EditModal";
 
 const ProfileHeroContainer = styled.div`
   display: flex;
@@ -117,13 +118,14 @@ const levels = {
 
 const ProfileHero = ({ profile }) => {
   const { user } = UserContainer.useContainer();
-  const isMyAccount = profile.uid === user.uid;
+  const isMyAccount = profile.id === user.id;
   const [isFollowing, setIsFollowing] = useState(
     profile.followers ? profile.followers.includes(user.uid) : false
   );
   const [followers, setFollowers] = useState(
     profile.followers ? profile.followers.length : 0
   );
+  const [modalVisible, setModalVisible] = useState(false);
 
   const follow = () => {
     axios.post("/api/community/follow", { profile, user }).then(() => {
@@ -148,7 +150,7 @@ const ProfileHero = ({ profile }) => {
             <Username>@{profile.username}</Username>
           </Col>
           {isMyAccount ? (
-            <EditButton title="Edit" />
+            <EditButton title="Edit" onClick={() => setModalVisible(true)} />
           ) : isFollowing ? (
             <UnfollowButton title="Unfollow" onClick={() => unfollow()} />
           ) : (
@@ -201,6 +203,7 @@ const ProfileHero = ({ profile }) => {
           <FollowerText>Following</FollowerText>
         </Row>
       </ProfileHeroWrapper>
+      <EditModal visible={modalVisible} setVisible={setModalVisible} />
     </ProfileHeroContainer>
   );
 };

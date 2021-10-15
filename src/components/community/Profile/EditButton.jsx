@@ -7,21 +7,21 @@ const ButtonContainer = styled.div`
   align-items: center;
   background-color: #fff;
   transition: 0.2s all ease-in-out;
-  padding: 8px;
-  padding-left: 16px;
-  padding-right: 16px;
+  padding: 6px;
+  padding-left: 12px;
+  padding-right: 12px;
   margin-bottom: 12px;
   border-radius: 32px;
   border: 1.5px solid #000;
 
   :hover {
     cursor: pointer;
-    opacity: 0.8;
+    opacity: 0.6;
   }
 `;
 
 const ButtonTitle = styled.p`
-  font-size: 1.1em;
+  font-size: 1em;
   font-weight: 600;
   color: #000;
 `;
