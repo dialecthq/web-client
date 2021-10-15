@@ -40,15 +40,20 @@ const HeaderTitle = styled.p`
   margin-left: 24px;
 `;
 
-const Icon = styled.div`
+const IconButton = styled.div`
+  padding: 4px;
+  border-radius: 32px;
+  height: 32px;
+  width: 32px;
+  background-color: #fff;
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 8px;
-  border-radius: 32px;
+  transition: 0.2s all ease-in-out;
 
-  :hover: {
-    background-color: #00000030;
+  :hover {
+    background-color: #d4d4d4 !important;
+    cursor: pointer;
   }
 `;
 
@@ -58,9 +63,9 @@ const FeedHeader = () => {
       <FeedHeaderWrapper>
         <Link href="/home" passHref>
           <a>
-            <Icon>
+            <IconButton>
               <HiArrowNarrowLeft size={24} color="#000000" />
-            </Icon>
+            </IconButton>
           </a>
         </Link>
         <HeaderTitle>Post</HeaderTitle>

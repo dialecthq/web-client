@@ -161,22 +161,26 @@ const ProfileHero = ({ profile }) => {
           <Bio>{profile.bio}</Bio>
         </Col>
         <Row style={{ marginBottom: 12 }}>
-          <ProfileItem>
-            <HiOutlineHome
-              size={18}
-              color="#00000080"
-              style={{ marginRight: 4 }}
-            />
-            <Info>{countries[profile.country]}</Info>
-          </ProfileItem>
-          <ProfileItem>
-            <HiOutlineLocationMarker
-              size={18}
-              color="#00000080"
-              style={{ marginRight: 4 }}
-            />
-            <Info>{countries[profile.living]}</Info>
-          </ProfileItem>
+          {profile.countryFrom ? (
+            <ProfileItem>
+              <HiOutlineHome
+                size={18}
+                color="#00000080"
+                style={{ marginRight: 4 }}
+              />
+              <Info>{countries[profile.countryFrom]}</Info>
+            </ProfileItem>
+          ) : null}
+          {profile.countryLivingIn ? (
+            <ProfileItem>
+              <HiOutlineLocationMarker
+                size={18}
+                color="#00000080"
+                style={{ marginRight: 4 }}
+              />
+              <Info>{countries[profile.countryLivingIn]}</Info>
+            </ProfileItem>
+          ) : null}
           {profile.languageKeys.map((languageKey, i) => {
             return (
               <ProfileItem>
@@ -203,7 +207,11 @@ const ProfileHero = ({ profile }) => {
           <FollowerText>Following</FollowerText>
         </Row>
       </ProfileHeroWrapper>
-      <EditModal visible={modalVisible} setVisible={setModalVisible} />
+      <EditModal
+        visible={modalVisible}
+        setVisible={setModalVisible}
+        profile={profile}
+      />
     </ProfileHeroContainer>
   );
 };
