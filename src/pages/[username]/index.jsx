@@ -43,12 +43,16 @@ const Info = styled.div`
 
 const Post = ({ profile }) => {
   const loading = !profile;
+  const { user, setUser } = UserContainer.useContainer();
 
   return (
     <Container>
       <Wrapper>
         <Nav />
-        <Profile profile={profile} loading={false} />
+        <Profile
+          profile={user.id === profile.id ? user : profile}
+          loading={false}
+        />
         <Info />
       </Wrapper>
     </Container>

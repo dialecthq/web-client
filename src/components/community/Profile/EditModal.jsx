@@ -12,6 +12,7 @@ import Avatar from "../../common/Avatar";
 import { FaUpload, FaTrash } from "react-icons/fa";
 import UserContainer from "../../../utils/state/userContainer";
 import axios from "axios";
+import { useRouter } from "next/router";
 
 const EdModal = styled(Modal)`
   .ant-modal-close {
@@ -79,12 +80,14 @@ const BodyWrap = styled.div`
 `;
 
 const BodyWrapRow = styled.div`
-  display: flex;
+  display: ${(p) => (p.hidden ? "none" : "flex")};
   flex-direction: row;
   justify-content: flex-start;
   align-items: center;
   width: 100%;
   margin-bottom: 16px;
+
+  d
 `;
 
 const Label = styled.p`
@@ -118,7 +121,9 @@ const EditModal = ({ visible, setVisible, profile }) => {
   );
   const [languageKeys, setLanguageKeys] = useState(profile.languageKeys);
   const [languageLevels, setLanguageLevels] = useState(profile.languageLevels);
+  const [hidden, setHidden] = useState([]);
   const { user, setUser } = UserContainer.useContainer();
+  const router = useRouter();
 
   const save = async () => {
     const newUser = await axios.post("/api/user/edit", {
@@ -142,6 +147,7 @@ const EditModal = ({ visible, setVisible, profile }) => {
         <HeaderItem>
           <IconButton
             onClick={() => {
+              setHidden([]);
               setVisible(false);
             }}
           >
@@ -257,9 +263,9 @@ const EditModal = ({ visible, setVisible, profile }) => {
         </BodyWrap>
         <BodyWrap>
           <Label>Languages</Label>
-          {profile.languageKeys.map((languageKey, i) => {
+          {languageKeys.map((languageKey, i) => {
             return (
-              <BodyWrapRow>
+              <BodyWrapRow hidden={hidden.includes(i)} key={languageKey}>
                 <Select
                   defaultValue={profile.languageKeys[i]}
                   style={{ width: "100%", marginRight: 12 }}
@@ -296,9 +302,35 @@ const EditModal = ({ visible, setVisible, profile }) => {
                     );
                   })}
                 </Select>
+                <IconButton
+                  style={{ marginLeft: 8 }}
+                  onClick={() => {
+                    console.log(languageKeys);
+                    let tempLanguageKeys = languageKeys;
+                    tempLanguageKeys.splice(i, 1);
+                    console.log(tempLanguageKeys);
+                    let tempLanguageLevels = languageLevels;
+                    tempLanguageLevels.splice(i, 1);
+                    setLanguageKeys(tempLanguageKeys);
+                    setLanguageLevels(tempLanguageLevels);
+                  }}
+                >
+                  <FaTrash size={24} color="FF758E" />
+                </IconButton>
               </BodyWrapRow>
             );
           })}
+        </BodyWrap>
+        <BodyWrap>
+          <Button
+            title="Add a new language"
+            onClick={() => {
+              setLanguageKeys([...languageKeys, 0]);
+              setLanguageLevels([...languageLevels, 0]);
+            }}
+          >
+            Add a new language
+          </Button>
         </BodyWrap>
       </BodyContent>
     </EdModal>
