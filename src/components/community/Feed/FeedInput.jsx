@@ -24,27 +24,33 @@ const InputWrapper = styled.div`
   align-items: flex-end;
 `;
 
-const FeedInput = () => {
+const FeedInput = ({ style, onGo }) => {
   const { user } = UserContainer.useContainer();
   const [content, setContent] = useState("");
   return (
-    <FeedInputContainer>
+    <FeedInputContainer style={style}>
       <Avatar user={user} size={48} />
       <InputWrapper>
         <Input.TextArea
           value={content}
           onChange={(e) => setContent(e.target.value)}
           placeholder="What's on your mind?"
-          autosize
+          autoSize={{ minRows: 3, maxRows: 5 }}
+          maxLength={500}
+          bordered={false}
+          style={{ fontSize: 18 }}
         />
         <PostButton
           title="Post"
           style={{ marginTop: 12 }}
-          onClick={() => {
-            axios.post("/api/community/post", {
+          onClick={async () => {
+            const post = await axios.post("/api/community/post", {
               authorId: user.id,
               body: content,
             });
+            if (onGo) {
+              onGo();
+            }
           }}
         />
       </InputWrapper>

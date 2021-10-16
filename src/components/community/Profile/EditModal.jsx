@@ -13,6 +13,8 @@ import { FaUpload, FaTrash } from "react-icons/fa";
 import UserContainer from "../../../utils/state/userContainer";
 import axios from "axios";
 import { useRouter } from "next/router";
+import { v4 as uuid } from "uuid";
+import fire from "../../../utils/fire";
 
 const EdModal = styled(Modal)`
   .ant-modal-close {
@@ -121,24 +123,33 @@ const EditModal = ({ visible, setVisible, profile }) => {
   );
   const [languageKeys, setLanguageKeys] = useState(profile.languageKeys);
   const [languageLevels, setLanguageLevels] = useState(profile.languageLevels);
+  const [avatar, setAvatar] = useState(profile.avatar);
   const [hidden, setHidden] = useState([]);
+  const [avatarProfile, setAvatarProfile] = useState(profile);
   const { user, setUser } = UserContainer.useContainer();
   const router = useRouter();
 
-  const save = async () => {
-    const newUser = await axios.post("/api/user/edit", {
-      userId: profile.id,
-      name,
-      username,
-      bio,
-      countryFrom,
-      countryLivingIn,
-      languageKeys,
-      languageLevels,
-    });
+  console.log(languageKeys, "top");
 
-    setUser(newUser.data);
-    setVisible(false);
+  const save = async () => {
+    const zeroKey = languageKeys.indexOf(0) == -1;
+    const zeroLevel = languageLevels.indexOf(0) == -1;
+    if (zeroLevel && zeroKey) {
+      const newUser = await axios.post("/api/user/edit", {
+        userId: profile.id,
+        name,
+        username,
+        bio,
+        countryFrom,
+        countryLivingIn,
+        languageKeys,
+        languageLevels,
+        avatar,
+      });
+
+      setUser(newUser.data);
+      setVisible(false);
+    }
   };
 
   return (
@@ -165,7 +176,7 @@ const EditModal = ({ visible, setVisible, profile }) => {
       </Header>
       <BodyContent>
         <PictureContainer>
-          <Avatar size={96} user={profile} />
+          <Avatar size={96} user={avatarProfile} />
           <PictureActionContainer>
             <Upload
               showUploadList={false}
@@ -178,27 +189,45 @@ const EditModal = ({ visible, setVisible, profile }) => {
                   : Upload.LIST_IGNORE;
               }}
               customRequest={async ({ file, onSuccess, onError }) => {
-                // await uploadAvatarUrl(user, file, onSuccess, onError)
-                // const userRef = await getUser()
-                // setUser(userRef.data())
+                const storage = fire.storage();
+                const metadata = {
+                  contentType: file.type,
+                };
+                const storageRef = await storage.ref();
+                const imgFile = storageRef.child(`${profile.id}/${uuid()}.png`);
+
+                const image = await imgFile.put(file, metadata);
+
+                if (!image) {
+                  res.status(500);
+                  return;
+                }
+
+                const avatarUrl = await imgFile.getDownloadURL();
+                console.log(avatarUrl);
+                const tempAvatarProfile = { ...avatarProfile };
+                tempAvatarProfile.avatar = avatarUrl;
+                setAvatarProfile(tempAvatarProfile);
+                setAvatar(avatarUrl);
               }}
             >
               <Button icon={<FaUpload style={{ marginRight: 5 }} />}>
-                {profile.avatar ? "Change" : "Upload"}
+                {avatar ? "Change" : "Upload"}
               </Button>
             </Upload>
-            {profile.avatar ? (
+            {avatar ? (
               <Button
                 style={{ marginTop: 10 }}
                 icon={<FaTrash style={{ marginRight: 5 }} />}
                 danger
                 onClick={async () => {
-                  //   await removeAvatarURL();
-                  //   const userRef = await getUser();
-                  //   setUser(userRef.data());
+                  let tempAvatarProfile = { ...avatarProfile };
+                  tempAvatarProfile.avatar = null;
+                  setAvatarProfile(tempAvatarProfile);
+                  setAvatar(null);
                 }}
               >
-                {strings.removeAvatar}
+                Remove avatar
               </Button>
             ) : null}
           </PictureActionContainer>
@@ -209,6 +238,7 @@ const EditModal = ({ visible, setVisible, profile }) => {
             defaultValue={profile.name}
             value={name}
             onChange={(e) => setName(e.target.value)}
+            maxLength={50}
           />
         </BodyWrap>
         <BodyWrap>
@@ -217,14 +247,17 @@ const EditModal = ({ visible, setVisible, profile }) => {
             defaultValue={profile.username}
             value={username}
             onChange={(e) => setUsername(e.target.value)}
+            max-length={18}
           />
         </BodyWrap>
         <BodyWrap>
           <Label>Bio</Label>
-          <Input
+          <Input.TextArea
             defaultValue={profile.bio}
             value={bio}
             onChange={(e) => setBio(e.target.value)}
+            autoSize={{ minRows: 3, maxRows: 5 }}
+            maxLength={180}
           />
         </BodyWrap>
         <BodyWrap>
@@ -264,8 +297,9 @@ const EditModal = ({ visible, setVisible, profile }) => {
         <BodyWrap>
           <Label>Languages</Label>
           {languageKeys.map((languageKey, i) => {
+            const uid = uuid();
             return (
-              <BodyWrapRow hidden={hidden.includes(i)} key={languageKey}>
+              <BodyWrapRow key={uid} hidden={hidden.includes(uid)}>
                 <Select
                   defaultValue={profile.languageKeys[i]}
                   style={{ width: "100%", marginRight: 12 }}
@@ -305,14 +339,15 @@ const EditModal = ({ visible, setVisible, profile }) => {
                 <IconButton
                   style={{ marginLeft: 8 }}
                   onClick={() => {
-                    console.log(languageKeys);
-                    let tempLanguageKeys = languageKeys;
-                    tempLanguageKeys.splice(i, 1);
-                    console.log(tempLanguageKeys);
-                    let tempLanguageLevels = languageLevels;
-                    tempLanguageLevels.splice(i, 1);
-                    setLanguageKeys(tempLanguageKeys);
-                    setLanguageLevels(tempLanguageLevels);
+                    if (languageKeys.length > 1) {
+                      let tempLanguageKeys = languageKeys;
+                      tempLanguageKeys.splice(i, 1);
+                      let tempLanguageLevels = languageLevels;
+                      tempLanguageLevels.splice(i, 1);
+                      setLanguageKeys(tempLanguageKeys);
+                      setLanguageLevels(tempLanguageLevels);
+                      setHidden([...hidden, uid]);
+                    }
                   }}
                 >
                   <FaTrash size={24} color="FF758E" />
@@ -325,8 +360,10 @@ const EditModal = ({ visible, setVisible, profile }) => {
           <Button
             title="Add a new language"
             onClick={() => {
-              setLanguageKeys([...languageKeys, 0]);
-              setLanguageLevels([...languageLevels, 0]);
+              if (!languageKeys.includes(0) && !languageLevels.includes(0)) {
+                setLanguageKeys([...languageKeys, 0]);
+                setLanguageLevels([...languageLevels, 0]);
+              }
             }}
           >
             Add a new language

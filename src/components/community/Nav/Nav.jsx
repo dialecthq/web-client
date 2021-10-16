@@ -5,6 +5,8 @@ import PrimaryButton from "./PrimaryButton";
 import ProfileButton from "./ProfileButton";
 import UserContainer from "../../../utils/state/userContainer";
 import { useRouter } from "next/router";
+import PostModal from "./PostModal";
+import { useState } from "react";
 
 import {
   HiHome,
@@ -87,6 +89,7 @@ const SpaceWrap = styled.div`
 
 const Nav = () => {
   const router = useRouter();
+  const [visible, setVisible] = useState(false);
 
   const { user } = UserContainer.useContainer();
   return (
@@ -134,6 +137,9 @@ const Nav = () => {
             <PrimaryButton
               title="Post"
               style={{ width: "100%", marginTop: 20 }}
+              onClick={() => {
+                setVisible(true);
+              }}
             />
           </NavButtonContainer>
         </SpaceWrap>
@@ -141,6 +147,7 @@ const Nav = () => {
           <ProfileButton />
         </SpaceWrap>
       </NavWrapper>
+      <PostModal visible={visible} setVisible={setVisible} />
     </NavContainer>
   );
 };

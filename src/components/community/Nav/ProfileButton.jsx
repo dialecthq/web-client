@@ -47,12 +47,13 @@ const InfoContainer = styled.div`
 const Name = styled.p`
   font-size: 1.2em;
   font-weight: 600;
+  line-height: 10px;
 `;
 
 const Username = styled.p`
   font-size: 1em;
   font-weight: 400;
-  color: #00080;
+  color: #dac9c9870;
 `;
 
 const Icon = styled(HiDotsHorizontal)`

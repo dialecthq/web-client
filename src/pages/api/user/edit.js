@@ -12,6 +12,7 @@ async function handler(req, res) {
       countryLivingIn,
       languageKeys,
       languageLevels,
+      avatar,
     } = req.body;
 
     const user = await prisma.user.update({
@@ -27,6 +28,7 @@ async function handler(req, res) {
         countryFrom: countryFrom,
         countryLivingIn: countryLivingIn,
         username: username,
+        avatar: avatar,
       },
     });
 

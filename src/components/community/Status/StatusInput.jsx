@@ -35,7 +35,10 @@ const FeedInput = ({ post }) => {
           value={content}
           onChange={(e) => setContent(e.target.value)}
           placeholder="Post your reply"
-          autosize
+          autoSize={{ minRows: 3, maxRows: 5 }}
+          maxLength={500}
+          bordered={false}
+          style={{ fontSize: 18 }}
         />
         <PostButton
           title="Post"
