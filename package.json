@@ -26,6 +26,7 @@
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "firebase": "^8.6.2",
+    "framer-motion": "^4.1.17",
     "fs": "^0.0.1-security",
     "hamburger-react": "^2.4.1",
     "less": "^2.7.3",

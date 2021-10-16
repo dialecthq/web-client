@@ -8,6 +8,8 @@ import { HiOutlineChat, HiOutlineHeart, HiOutlineShare } from "react-icons/hi";
 import UserContainer from "../../../utils/state/userContainer";
 import Link from "next/link";
 import FeedLoading from "../../community/Feed/FeedLoading";
+import * as months from "../../../utils/data/months.json";
+import { AnimatePresence, motion } from "framer-motion";
 
 const FeedPostContainer = styled.div`
   display: flex;
@@ -121,15 +123,31 @@ const ReplyTo = styled.p`
   color: #00000080;
 `;
 
+const formatDate = (date) => {
+  let dateOb = new Date(date);
+  var diffMs = new Date() - dateOb; // milliseconds between now & Christmas
+  var diffDays = Math.floor(diffMs / 86400000); // days
+  var diffHrs = Math.floor((diffMs % 86400000) / 3600000); // hours
+  var diffMins = Math.round(((diffMs % 86400000) % 3600000) / 60000);
+
+  if (diffDays > 0) {
+    return `${months[dateOb.getMonth()]} ${dateOb.getDate()}`;
+  } else if (diffHrs > 0) {
+    return `${diffHrs}h`;
+  } else if (diffMins > 0) {
+    return `${diffMins}m`;
+  }
+};
+
 const FeedPost = ({ initialPost, redirect }) => {
   const { user } = UserContainer.useContainer();
   const [post, setPost] = useState(initialPost);
   const [loading, setLoading] = useState(true);
   const [likes, setLikes] = useState(0);
   const [liked, setLiked] = useState(false);
+  const [time, setTime] = useState(formatDate(initialPost.createdAt));
 
   useEffect(async () => {
-    console.log(initialPost);
     if (redirect) {
       const newPost = await axios.get("/api/community/get_post", {
         params: {
@@ -182,6 +200,8 @@ const FeedPost = ({ initialPost, redirect }) => {
     }
   }, []);
 
+  console.log(formatDate(post.createdAt));
+
   const likePost = () => {
     axios
       .post("/api/community/like_post", {
@@ -214,80 +234,89 @@ const FeedPost = ({ initialPost, redirect }) => {
 
   if (!loading) {
     return (
-      <Link
-        href={`/${
-          post.replyTo[0]
-            ? post.replyTo[0].author.username
-            : post.author.username
-        }/${post.replyTo[0] ? post.replyTo[0].id : post.id}`}
-      >
-        <a style={{ width: "100%" }}>
-          <FeedPostContainer>
-            <FeedPostWrapper>
-              <Link href={`/${post.author.username}`} passHref>
-                <a>
-                  <Avatar user={post.author} size={48} hoverAction />
-                </a>
-              </Link>
-              <FeedContentWrap>
-                <FeedPostInfoWrap>
-                  <PostAuthor>{post.author.name}</PostAuthor>
-                  <PostUsername>@{post.author.username}</PostUsername>
-                </FeedPostInfoWrap>
-                {post.replyTo ? (
-                  post.replyTo.length > 0 ? (
-                    <ReplyTo>
-                      replying to{" "}
-                      <span style={{ color: "blue" }}>
-                        @{post.replyTo[0].author.username}
-                      </span>
-                    </ReplyTo>
-                  ) : null
-                ) : null}
-                <Content>{post.body}</Content>
-                <ActionBarContainer>
-                  <ClickContentContainer hoverColor="#00E0FF">
-                    <Icon hoverColor="#00E0FF">
-                      <HiOutlineChat size={24} color="#00000080" />
-                    </Icon>
-                  </ClickContentContainer>
+      <AnimatePresence>
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          style={{ width: "100%" }}
+        >
+          <Link
+            href={`/${
+              post.replyTo[0]
+                ? post.replyTo[0].author.username
+                : post.author.username
+            }/${post.replyTo[0] ? post.replyTo[0].id : post.id}`}
+          >
+            <a style={{ width: "100%" }}>
+              <FeedPostContainer>
+                <FeedPostWrapper>
+                  <Link href={`/${post.author.username}`} passHref>
+                    <a>
+                      <Avatar user={post.author} size={48} hoverAction />
+                    </a>
+                  </Link>
+                  <FeedContentWrap>
+                    <FeedPostInfoWrap>
+                      <PostAuthor>{post.author.name}</PostAuthor>
+                      <PostUsername>{`@${post.author.username} · ${time}`}</PostUsername>
+                    </FeedPostInfoWrap>
+                    {post.replyTo ? (
+                      post.replyTo.length > 0 ? (
+                        <ReplyTo>
+                          replying to{" "}
+                          <span style={{ color: "blue" }}>
+                            @{post.replyTo[0].author.username}
+                          </span>
+                        </ReplyTo>
+                      ) : null
+                    ) : null}
+                    <Content>{post.body}</Content>
+                    <ActionBarContainer>
+                      <ClickContentContainer hoverColor="#00E0FF">
+                        <Icon hoverColor="#00E0FF">
+                          <HiOutlineChat size={24} color="#00000080" />
+                        </Icon>
+                      </ClickContentContainer>
 
-                  <ClickContentContainer hoverColor="#FF00E5">
-                    <Icon
-                      hoverColor="#FF00E5"
-                      liked={liked}
-                      onClick={(e) => {
-                        e.preventDefault();
-                        if (!liked) {
-                          likePost();
-                        } else {
-                          unlikePost();
-                        }
-                      }}
-                    >
-                      <HiOutlineHeart
-                        size={24}
-                        color="#00000080"
-                        liked={liked}
-                      />
-                    </Icon>
-                    <Data>{likes}</Data>
-                  </ClickContentContainer>
+                      <ClickContentContainer hoverColor="#FF00E5">
+                        <Icon
+                          hoverColor="#FF00E5"
+                          liked={liked}
+                          onClick={(e) => {
+                            e.preventDefault();
+                            if (!liked) {
+                              likePost();
+                            } else {
+                              unlikePost();
+                            }
+                          }}
+                        >
+                          <HiOutlineHeart
+                            size={24}
+                            color="#00000080"
+                            liked={liked}
+                          />
+                        </Icon>
+                        <Data>{likes}</Data>
+                      </ClickContentContainer>
 
-                  <ClickContentContainer hoverColor="#00FF38">
-                    <Icon hoverColor="#00FF38">
-                      <HiOutlineShare size={24} color="#00000080" />
-                    </Icon>
-                  </ClickContentContainer>
-                </ActionBarContainer>
-              </FeedContentWrap>
-            </FeedPostWrapper>
-          </FeedPostContainer>
-        </a>
-      </Link>
+                      <ClickContentContainer hoverColor="#00FF38">
+                        <Icon hoverColor="#00FF38">
+                          <HiOutlineShare size={24} color="#00000080" />
+                        </Icon>
+                      </ClickContentContainer>
+                    </ActionBarContainer>
+                  </FeedContentWrap>
+                </FeedPostWrapper>
+              </FeedPostContainer>
+            </a>
+          </Link>
+        </motion.div>
+      </AnimatePresence>
     );
   } else {
-    return <FeedLoading />;
+    return null;
   }
 };
 

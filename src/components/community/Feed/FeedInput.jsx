@@ -35,7 +35,7 @@ const FeedInput = ({ style, onGo }) => {
           value={content}
           onChange={(e) => setContent(e.target.value)}
           placeholder="What's on your mind?"
-          autoSize={{ minRows: 3, maxRows: 5 }}
+          autoSize={{ minRows: 2, maxRows: 4 }}
           maxLength={500}
           bordered={false}
           style={{ fontSize: 18 }}
