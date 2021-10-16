@@ -27,6 +27,8 @@ model User {
   following User[] @relation("followers")
   likedPosts Post[] @relation("likes")
   tokens Int
+  notifications Notification[] @relation("notifications")
+  actions Notification[] @relation("actions")
 }
 
 model Post {
@@ -41,3 +43,12 @@ model Post {
   replyTo Post[] @relation("replies")
 }
 
+model Notification {
+  id String @id @default(uuid()) @unique
+  type String
+  createdAt DateTime @default(now())
+  notifyingUser User[] @relation("notifications")
+  actionAuthor User[] @relation("actions")
+  actionAuthorId String
+  actionAuthorUsername String
+}
