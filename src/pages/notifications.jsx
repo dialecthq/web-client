@@ -11,6 +11,7 @@ import strings from "../utils/data/strings";
 import Loading from "../components/common/Loading";
 import { useRouter } from "next/router";
 import Seo from "../components/seo/Seo";
+import Notifications from "../components/community/Notifications/Notifications";
 
 import Nav from "../components/community/Nav/Nav";
 
@@ -55,21 +56,11 @@ const Info = styled.div`
 `;
 
 const Home = () => {
-  const { user, loading } = UserContainer.useContainer();
-  const { language } = LanguageContainer.useContainer();
-  const router = useRouter();
-
-  useEffect(() => {
-    if (!user && !loading) {
-      router.replace("/");
-    }
-  }, [user, loading]);
-
   return (
     <Container>
       <Wrapper>
         <Nav />
-        <Feed />
+        <Notifications />
         <Info />
       </Wrapper>
     </Container>

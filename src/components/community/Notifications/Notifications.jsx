@@ -1,6 +1,10 @@
 import styled from "styled-components";
-import { Oval } from "@agney/react-loading";
 import NotificationsHeader from "./NotificationsHeader";
+import { useState, useEffect } from "react";
+import axios from "axios";
+import UserContainer from "../../../utils/state/userContainer";
+import Notification from "./Notification";
+import FeedLoading from "../Feed/FeedLoading";
 
 const FeedContainer = styled.div`
   display: flex;
@@ -20,27 +24,39 @@ const FeedWrapper = styled.div`
   width: 100%;
 `;
 
-const LoadingContainer = styled.div`
-  height: 100%;
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
+const Profile = () => {
+  const [notifications, setNotifications] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const { user } = UserContainer.useContainer();
 
-const Profile = ({ notifications, loading }) => {
+  useEffect(async () => {
+    const result = await axios.get(
+      "http://localhost:3000/api/user/get_notifications",
+      {
+        params: {
+          userId: user.id,
+        },
+      }
+    );
+    if (!result.data) {
+      setLoading(false);
+      return;
+    }
+
+    setNotifications(result.data);
+    setLoading(false);
+  }, []);
+
   return (
     <FeedContainer>
       <FeedWrapper>
-        {notifications ? (
-          <>
-            <NotificationsHeader />
-            {/* <NotificationsFeed notifications={notifications}/> */}
-          </>
+        <NotificationsHeader />
+        {!loading ? (
+          notifications.map((notification) => {
+            return <Notification initialPost={notification} />;
+          })
         ) : (
-          <LoadingContainer>
-            <Oval color="#4F3FF0" width={48} />
-          </LoadingContainer>
+          <FeedLoading />
         )}
       </FeedWrapper>
     </FeedContainer>
