@@ -50,5 +50,6 @@ model Notification {
   notifyingUser User[] @relation("notifications")
   actionAuthor User[] @relation("actions")
   actionAuthorId String
-  actionAuthorUsername String
+  actionAuthorName String
+  body String?
 }
