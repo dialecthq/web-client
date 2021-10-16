@@ -207,6 +207,7 @@ const FeedPost = ({ initialPost, redirect }) => {
       .post("/api/community/like_post", {
         userId: user.id,
         postId: post.id,
+        authorId: post.authorId,
       })
       .then((data) => {
         console.log(data);

@@ -5,7 +5,7 @@ import prisma from "../../../utils/prisma";
 
 async function handler(req, res) {
   if (req.method === "POST") {
-    let { postId, userId } = req.body;
+    let { postId, userId, authorId } = req.body;
     console.log(postId);
     const newPost = await prisma.post.update({
       where: {
@@ -24,6 +24,30 @@ async function handler(req, res) {
       res.status(500);
       return;
     }
+
+    const notification = await prisma.notification.create({
+      data: {
+        type: "like",
+        notifyingUser: {
+          connect: {
+            id: authorId,
+          },
+        },
+        notifyingUserId: authorId,
+        actionAuthor: {
+          connect: {
+            id: userId,
+          },
+        },
+        actionAuthorId: userId,
+      },
+    });
+
+    if (!notification) {
+      res.status(500);
+      return;
+    }
+
     res.status(200).json(newPost);
     return;
   } else {
