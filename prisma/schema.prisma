@@ -51,6 +51,5 @@ model Notification {
   notifyingUserId String
   actionAuthor User[] @relation("actions")
   actionAuthorId String
-  actionAuthorName String
   body String?
 }
