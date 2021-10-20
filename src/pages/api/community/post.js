@@ -4,7 +4,7 @@ import prisma from "../../../utils/prisma";
 
 async function handler(req, res) {
   if (req.method === "POST") {
-    const { body, authorId } = req.body;
+    const { body, authorId, language } = req.body;
     console.log(body, authorId);
     const post = await prisma.post.create({
       data: {

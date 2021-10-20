@@ -32,7 +32,7 @@ const ProfileFeed = ({ profile }) => {
     <>
       {!loading ? (
         posts.map((post) => {
-          return <FeedPost key={post.id} initialPost={post} redirect />;
+          return <FeedPost key={post.id} initialPost={post} redirect flag />;
         })
       ) : (
         <FeedLoading />

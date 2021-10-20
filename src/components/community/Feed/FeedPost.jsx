@@ -10,6 +10,7 @@ import Link from "next/link";
 import FeedLoading from "../../community/Feed/FeedLoading";
 import * as months from "../../../utils/data/months.json";
 import { AnimatePresence, motion } from "framer-motion";
+import rooms from "../../../utils/data/rooms";
 
 const FeedPostContainer = styled.div`
   display: flex;
@@ -136,10 +137,12 @@ const formatDate = (date) => {
     return `${diffHrs}h`;
   } else if (diffMins > 0) {
     return `${diffMins}m`;
+  } else {
+    return `now`;
   }
 };
 
-const FeedPost = ({ initialPost, redirect }) => {
+const FeedPost = ({ initialPost, redirect, flag }) => {
   const { user } = UserContainer.useContainer();
   const [post, setPost] = useState(initialPost);
   const [loading, setLoading] = useState(true);
@@ -262,6 +265,16 @@ const FeedPost = ({ initialPost, redirect }) => {
                     <FeedPostInfoWrap>
                       <PostAuthor>{post.author.name}</PostAuthor>
                       <PostUsername>{`@${post.author.username} · ${time}`}</PostUsername>
+                      {flag && (
+                        <img
+                          src={`${
+                            rooms.filter((e) => e.key === post.language)[0].flag
+                          }`}
+                          height={18}
+                          width={18}
+                          style={{ marginLeft: 8 }}
+                        />
+                      )}
                     </FeedPostInfoWrap>
                     {post.replyTo ? (
                       post.replyTo.length > 0 ? (

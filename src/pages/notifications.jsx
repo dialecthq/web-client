@@ -30,7 +30,7 @@ const Wrapper = styled.div`
   width: 100%;
   flex-direction: row;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
 `;
 
 const Feed = styled.div`

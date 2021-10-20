@@ -48,7 +48,7 @@ const Selection = styled(Select)`
     align-items: center;
   }
 
-  width: 120px;
+  width: 160px;
 `;
 
 const SelectionOption = styled(Selection.Option)`
@@ -70,10 +70,17 @@ const FeedHeader = ({ language, setLanguage }) => {
               <SelectionOption
                 key={room.key}
                 value={room.key}
-                style={{ display: "flex", flexDirection: "row" }}
+                style={{
+                  display: "flex",
+                  flexDirection: "row",
+                  paddingTop: 12,
+                  paddingBottom: 12,
+                }}
               >
-                <img src={room.flag} height={18} width={18} />
-                <p style={{ marginLeft: 8 }}>{languages[room.key]}</p>
+                <img src={room.flag} height={20} width={20} />
+                <p style={{ marginLeft: 8, fontSize: 18 }}>
+                  {languages[room.key]}
+                </p>
               </SelectionOption>
             );
           })}
