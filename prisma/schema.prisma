@@ -41,6 +41,7 @@ model Post {
   likes User[] @relation("likes")
   replies Post[] @relation("replies")
   replyTo Post[] @relation("replies")
+  language Int
 }
 
 model Notification {

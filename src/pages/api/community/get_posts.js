@@ -4,9 +4,13 @@ import axios from "axios";
 import prisma from "../../../utils/prisma";
 
 async function handler(req, res) {
+  const { language } = req.query;
   const posts = await prisma.post.findMany({
     orderBy: {
       createdAt: "desc",
+    },
+    where: {
+      language: language,
     },
     include: {
       likes: true,

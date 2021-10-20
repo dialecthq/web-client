@@ -208,6 +208,7 @@ const FeedPost = ({ initialPost, redirect }) => {
         userId: user.id,
         postId: post.id,
         authorId: post.authorId,
+        body: post.body,
       })
       .then((data) => {
         console.log(data);

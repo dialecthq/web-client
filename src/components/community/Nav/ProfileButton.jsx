@@ -52,8 +52,8 @@ const Name = styled.p`
 
 const Username = styled.p`
   font-size: 1em;
-  font-weight: 400;
-  color: #dac9c9870;
+  font-weight: 500;
+  color: #00000080;
 `;
 
 const Icon = styled(HiDotsHorizontal)`

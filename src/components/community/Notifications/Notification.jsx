@@ -8,6 +8,7 @@ import Link from "next/link";
 import FeedLoading from "../../community/Feed/FeedLoading";
 import * as months from "../../../utils/data/months.json";
 import { AnimatePresence, motion } from "framer-motion";
+import { HiHeart, HiUser, HiReply } from "react-icons/hi";
 
 const FeedPostContainer = styled.div`
   display: flex;
@@ -15,7 +16,7 @@ const FeedPostContainer = styled.div`
   align-items: flex-start;
   flex-direction: column;
   width: 100%;
-  padding: 24px;
+  padding: 16px;
   border-bottom: 1px solid #d4d4d480;
   transition: 0.2s all ease-in-out;
   :hover {
@@ -79,6 +80,7 @@ const ActionBarContainer = styled.div`
 
 const Icon = styled.div`
   padding: 4px;
+  margin-top: -8.5px;
   border-radius: 36px;
 
   height: 36px;
@@ -156,17 +158,35 @@ const FeedPost = ({ initialPost }) => {
             <a style={{ width: "100%" }}>
               <FeedPostContainer>
                 <FeedPostWrapper>
-                  <Link href={`/${post.author.username}`} passHref>
-                    <a>
-                      <Avatar user={post.author} size={48} hoverAction />
-                    </a>
-                  </Link>
+                  {post.type === "like" ? (
+                    <HiHeart size={48} color="#FF00E590" />
+                  ) : post.type === "follow" ? (
+                    <HiUser size={48} color="#00E0FF90" />
+                  ) : post.type === "reply" ? (
+                    <HiReply size={48} color="#00FF3890" />
+                  ) : null}
+
                   <FeedContentWrap>
-                    <FeedPostInfoWrap>
-                      <PostAuthor>{post.author.name}</PostAuthor>
-                      <PostUsername>{`@${post.author.username}`}</PostUsername>
-                    </FeedPostInfoWrap>
-                    <Content>{`${post.author.name} liked your post`}</Content>
+                    <Avatar size={48} user={post.author} />
+                    <PostAuthor style={{ marginTop: 8 }}>
+                      {post.author.name}
+                      <span
+                        style={{
+                          color: "#00000080",
+                          fontWeight: 400,
+                          marginLeft: 4,
+                        }}
+                      >
+                        {post.type === "like"
+                          ? "liked your post"
+                          : post.type === "follow"
+                          ? "followed you"
+                          : post.type === "reply"
+                          ? "replied to your post"
+                          : null}
+                      </span>
+                    </PostAuthor>
+                    {post.body && <Content>{post.body}</Content>}
                   </FeedContentWrap>
                 </FeedPostWrapper>
               </FeedPostContainer>

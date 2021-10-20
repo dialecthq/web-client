@@ -1,4 +1,8 @@
 import styled from "styled-components";
+import { Select } from "antd";
+import * as languages from "../../../utils/data/languages.json";
+import rooms from "../../../utils/data/rooms";
+import UserContainer from "../../../utils/state/userContainer";
 
 const FeedHeaderContainer = styled.div`
   width: 100%;
@@ -37,11 +41,43 @@ const HeaderTitle = styled.p`
   color: #000;
 `;
 
-const FeedHeader = () => {
+const Selection = styled(Select)`
+  .ant-select-selection-item {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+  }
+
+  width: 120px;
+`;
+
+const SelectionOption = styled(Selection.Option)`
+  .ant-select-item-option-content {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+  }
+`;
+
+const FeedHeader = ({ language, setLanguage }) => {
   return (
     <FeedHeaderContainer>
       <FeedHeaderWrapper>
         <HeaderTitle>Home</HeaderTitle>
+        <Selection defaultValue={language}>
+          {rooms.map((room) => {
+            return (
+              <SelectionOption
+                key={room.key}
+                value={room.key}
+                style={{ display: "flex", flexDirection: "row" }}
+              >
+                <img src={room.flag} height={18} width={18} />
+                <p style={{ marginLeft: 8 }}>{langauges[room.key]}</p>
+              </SelectionOption>
+            );
+          })}
+        </Selection>
       </FeedHeaderWrapper>
     </FeedHeaderContainer>
   );

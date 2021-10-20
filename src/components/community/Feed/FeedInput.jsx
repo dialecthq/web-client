@@ -24,7 +24,7 @@ const InputWrapper = styled.div`
   align-items: flex-end;
 `;
 
-const FeedInput = ({ style, onGo }) => {
+const FeedInput = ({ style, onGo, language }) => {
   const { user } = UserContainer.useContainer();
   const [content, setContent] = useState("");
   return (
@@ -47,6 +47,7 @@ const FeedInput = ({ style, onGo }) => {
             const post = await axios.post("/api/community/post", {
               authorId: user.id,
               body: content,
+              language: language,
             });
             if (onGo) {
               onGo();

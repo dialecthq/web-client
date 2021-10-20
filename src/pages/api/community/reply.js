@@ -4,11 +4,12 @@ import prisma from "../../../utils/prisma";
 
 async function handler(req, res) {
   if (req.method === "POST") {
-    const { body, authorId, postId } = req.body;
+    const { body, authorId, postId, originalAuthorId, language } = req.body;
     console.log(authorId, postId, body);
     const replyPost = await prisma.post.create({
       data: {
         body: body,
+        language: language,
         author: {
           connect: {
             id: authorId,
@@ -36,6 +37,30 @@ async function handler(req, res) {
     });
 
     if (!updatedPost) {
+      res.status(500);
+      return;
+    }
+
+    const notification = await prisma.notification.create({
+      data: {
+        type: "reply",
+        notifyingUser: {
+          connect: {
+            id: originalAuthorId,
+          },
+        },
+        notifyingUserId: originalAuthorId,
+        actionAuthor: {
+          connect: {
+            id: authorId,
+          },
+        },
+        actionAuthorId: authorId,
+        body: body,
+      },
+    });
+
+    if (!notification) {
       res.status(500);
       return;
     }

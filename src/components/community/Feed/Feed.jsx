@@ -5,6 +5,7 @@ import FeedInput from "./FeedInput";
 import FeedPost from "./FeedPost";
 import FeedLoading from "./FeedLoading";
 import axios from "axios";
+import UserContainer from "../../../utils/state/userContainer";
 
 const FeedContainer = styled.div`
   display: flex;
@@ -63,15 +64,22 @@ const post = {
 };
 
 const Feed = () => {
+  const { user } = UserContainer.useContainer();
+  const nativeIndex = user.languageLevels.indexOf(7);
   const [posts, setPosts] = useState([]);
   const [last, setLast] = useState("");
   const [loading, setLoading] = useState(false);
+  const [language, setLanguage] = useState(
+    user.languageKeys[user.languageLevels.indexOf(7)]
+  );
+
   const getPosts = () => {
     setLoading(true);
     axios
       .get("/api/community/get_posts", {
         params: {
           last: last,
+          language: language,
         },
       })
       .then((data) => {
@@ -84,12 +92,13 @@ const Feed = () => {
 
   useEffect(() => {
     getPosts();
-  }, []);
+  }, [language]);
+
   return (
     <FeedContainer>
       <FeedWrapper>
-        <FeedHeader />
-        <FeedInput />
+        <FeedHeader language={language} setLanguage={setLanguage} />
+        <FeedInput language={language} />
         {!loading ? (
           posts.map((post) => {
             return <FeedPost key={post.id} initialPost={post} />;

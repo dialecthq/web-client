@@ -48,6 +48,8 @@ const FeedInput = ({ post }) => {
               authorId: user.id,
               body: content,
               postId: post.id,
+              originalAuthorId: post.authorId,
+              language: post.language,
             });
           }}
         />

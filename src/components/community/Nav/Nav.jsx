@@ -113,13 +113,13 @@ const Nav = () => {
               active={router.pathname === "/notifications"}
               href="/notifications"
             />
-            <NavButton
+            {/* <NavButton
               name="Messages"
               icon={<HiOutlineMail size={24} />}
               activeIcon={<HiMail size={24} />}
               active={router.pathname === "/messages"}
               href="/messages"
-            />
+            /> */}
             <NavButton
               name="Profile"
               icon={<HiOutlineUser size={24} />}

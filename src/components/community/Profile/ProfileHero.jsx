@@ -120,7 +120,7 @@ const ProfileHero = ({ profile }) => {
   const { user } = UserContainer.useContainer();
   const isMyAccount = profile.id === user.id;
   const [isFollowing, setIsFollowing] = useState(
-    profile.followers ? profile.followers.includes(user.uid) : false
+    profile.followers ? profile.followers.some((e) => e.id === user.id) : false
   );
   const [followers, setFollowers] = useState(
     profile.followers ? profile.followers.length : 0
