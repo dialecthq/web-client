@@ -24,20 +24,38 @@ const InputWrapper = styled.div`
   align-items: flex-end;
 `;
 
+const CorrectionTitle = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin-bottom: 8px;
+`;
+
+const ReplyTo = styled.p`
+  font-size: 1em;
+  font-weight: 500;
+  color: #00000080;
+`;
 const FeedInput = ({ post }) => {
   const { user } = UserContainer.useContainer();
-  const [content, setContent] = useState("");
+  const [content, setContent] = useState(post.body);
   return (
     <FeedInputContainer>
       <Avatar user={user} size={48} />
       <InputWrapper>
+        <CorrectionTitle>
+          <ReplyTo>
+            correcting{" "}
+            <span style={{ color: "blue" }}>@{post.author.username}</span>
+          </ReplyTo>
+        </CorrectionTitle>
         <Input.TextArea
           value={content}
           onChange={(e) => setContent(e.target.value)}
           placeholder="Post your reply"
-          autoSize={{ minRows: 3, maxRows: 5 }}
+          autoSize={{ minRows: 3 }}
           maxLength={500}
-          bordered={false}
           style={{ fontSize: 18 }}
         />
         <PostButton

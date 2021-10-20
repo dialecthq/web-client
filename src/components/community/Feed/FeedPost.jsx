@@ -11,6 +11,7 @@ import FeedLoading from "../../community/Feed/FeedLoading";
 import * as months from "../../../utils/data/months.json";
 import { AnimatePresence, motion } from "framer-motion";
 import rooms from "../../../utils/data/rooms";
+import ReactDiffViewer from "react-diff-viewer";
 
 const FeedPostContainer = styled.div`
   display: flex;
@@ -32,6 +33,7 @@ const FeedPostWrapper = styled.div`
   display: flex;
   justify-content: flex-start;
   align-items: flex-start;
+  width: 100%;
 `;
 
 const FeedContentWrap = styled.div`
@@ -65,7 +67,6 @@ const PostUsername = styled.p`
 const Content = styled.p`
   font-size: 1.2em;
   font-weight: 400;
-  margin-top: 4px;
   white-space: pre-line;
   color: #000;
 `;
@@ -278,15 +279,29 @@ const FeedPost = ({ initialPost, redirect, flag }) => {
                     </FeedPostInfoWrap>
                     {post.replyTo ? (
                       post.replyTo.length > 0 ? (
-                        <ReplyTo>
-                          replying to{" "}
-                          <span style={{ color: "blue" }}>
-                            @{post.replyTo[0].author.username}
-                          </span>
-                        </ReplyTo>
-                      ) : null
+                        <>
+                          <ReplyTo style={{ marginBottom: 8 }}>
+                            correcting{" "}
+                            <span style={{ color: "blue" }}>
+                              @{post.replyTo[0].author.username}
+                            </span>
+                          </ReplyTo>
+                          {post.replyTo[0].body != post.body ? (
+                            <ReactDiffViewer
+                              oldValue={post.replyTo[0].body}
+                              newValue={post.body}
+                              splitView={false}
+                              styles={{ width: "100%", marginTop: 4 }}
+                            />
+                          ) : (
+                            <Content>{post.body}</Content>
+                          )}
+                        </>
+                      ) : (
+                        <Content>{post.body}</Content>
+                      )
                     ) : null}
-                    <Content>{post.body}</Content>
+
                     <ActionBarContainer>
                       <ClickContentContainer hoverColor="#00E0FF">
                         <Icon hoverColor="#00E0FF">
