@@ -9,6 +9,7 @@ async function handler(req, res) {
     const post = await prisma.post.create({
       data: {
         body: body,
+        language: language,
         author: {
           connect: {
             id: authorId,

@@ -10,7 +10,7 @@ async function handler(req, res) {
       createdAt: "desc",
     },
     where: {
-      language: language,
+      language: parseInt(language, 10),
     },
     include: {
       likes: true,

@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE "Post" ADD COLUMN     "language" INTEGER NOT NULL DEFAULT 1;

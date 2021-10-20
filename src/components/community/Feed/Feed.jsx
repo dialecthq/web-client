@@ -78,14 +78,13 @@ const Feed = () => {
     axios
       .get("/api/community/get_posts", {
         params: {
-          last: last,
           language: language,
         },
       })
       .then((data) => {
         console.log(data, "yer");
         setLoading(false);
-        setPosts([...posts, ...data.data]);
+        setPosts([...data.data]);
         setLast(data.data.last);
       });
   };

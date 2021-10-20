@@ -64,7 +64,7 @@ const FeedHeader = ({ language, setLanguage }) => {
     <FeedHeaderContainer>
       <FeedHeaderWrapper>
         <HeaderTitle>Home</HeaderTitle>
-        <Selection defaultValue={language}>
+        <Selection defaultValue={language} onChange={(e) => setLanguage(e)}>
           {rooms.map((room) => {
             return (
               <SelectionOption
@@ -73,7 +73,7 @@ const FeedHeader = ({ language, setLanguage }) => {
                 style={{ display: "flex", flexDirection: "row" }}
               >
                 <img src={room.flag} height={18} width={18} />
-                <p style={{ marginLeft: 8 }}>{langauges[room.key]}</p>
+                <p style={{ marginLeft: 8 }}>{languages[room.key]}</p>
               </SelectionOption>
             );
           })}
