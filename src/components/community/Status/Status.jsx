@@ -25,14 +25,14 @@ const FeedWrapper = styled.div`
 `;
 
 const Status = ({ post }) => {
-  console.log(post, "post");
+  const [replys, setReplys] = useState(post.replies);
   return (
     <FeedContainer>
       <FeedWrapper>
         <PostHeader />
         <FeedPost initialPost={post} />
-        <StatusInput post={post} />
-        {post.replies.map((reply) => {
+        <StatusInput post={post} posts={replys} setPosts={setReplys} />
+        {replys.map((reply) => {
           return <FeedPost key={reply.id} initialPost={reply} />;
         })}
       </FeedWrapper>

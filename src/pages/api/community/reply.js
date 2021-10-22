@@ -1,6 +1,7 @@
 import fire from "../../../utils/fire";
 import { v4 as uuid } from "uuid";
 import prisma from "../../../utils/prisma";
+import axios from "axios";
 
 async function handler(req, res) {
   if (req.method === "POST") {
@@ -41,31 +42,46 @@ async function handler(req, res) {
       return;
     }
 
-    const notification = await prisma.notification.create({
-      data: {
-        type: "reply",
-        notifyingUser: {
-          connect: {
-            id: originalAuthorId,
+    if (authorId !== originalAuthorId) {
+      const notification = await prisma.notification.create({
+        data: {
+          type: "reply",
+          notifyingUser: {
+            connect: {
+              id: originalAuthorId,
+            },
           },
-        },
-        notifyingUserId: originalAuthorId,
-        actionAuthor: {
-          connect: {
-            id: authorId,
+          notifyingUserId: originalAuthorId,
+          actionAuthor: {
+            connect: {
+              id: authorId,
+            },
           },
+          actionAuthorId: authorId,
+          body: body,
         },
-        actionAuthorId: authorId,
-        body: body,
-      },
-    });
+      });
 
-    if (!notification) {
+      if (!notification) {
+        res.status(500);
+        return;
+      }
+    }
+
+    const newPost = await axios.get(
+      "http://localhost:3000/api/community/get_post",
+      {
+        params: { uid: replyPost.id },
+      }
+    );
+
+    if (!newPost) {
       res.status(500);
       return;
     }
 
-    res.status(200).json(replyPost);
+    res.status(200).json(newPost.data);
+    return;
   } else {
     res.setHeader("Allow", "POST");
     res.status(405).end("Method Not Allowed");

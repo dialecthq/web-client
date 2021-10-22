@@ -97,7 +97,7 @@ const Feed = () => {
     <FeedContainer>
       <FeedWrapper>
         <FeedHeader language={language} setLanguage={setLanguage} />
-        <FeedInput language={language} />
+        <FeedInput language={language} setPosts={setPosts} posts={posts} />
         {!loading ? (
           posts.map((post) => {
             return <FeedPost key={post.id} initialPost={post} />;

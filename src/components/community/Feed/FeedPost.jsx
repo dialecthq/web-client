@@ -148,8 +148,10 @@ const FeedPost = ({ initialPost, redirect, flag }) => {
   const { user } = UserContainer.useContainer();
   const [post, setPost] = useState(initialPost);
   const [loading, setLoading] = useState(true);
-  const [likes, setLikes] = useState(post.likes.length);
-  const [liked, setLiked] = useState(post.likes.some((e) => e.id === user.id));
+  const [likes, setLikes] = useState(post.likes ? post.likes.length : 0);
+  const [liked, setLiked] = useState(
+    post.likes ? post.likes.some((e) => e.id === user.id) : false
+  );
   const [time, setTime] = useState(formatDate(initialPost.createdAt));
   const [profilePopoverVisible, setProfilePopoverVisible] = useState(false);
 
@@ -217,7 +219,7 @@ const FeedPost = ({ initialPost, redirect, flag }) => {
                     }
                     title={null}
                   >
-                    <a>
+                    <a href={`/${post.author.username}`}>
                       <Avatar user={post.author} size={48} hoverAction />
                     </a>
                   </Popover>

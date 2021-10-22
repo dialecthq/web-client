@@ -24,27 +24,29 @@ async function handler(req, res) {
       return;
     }
 
-    const notification = await prisma.notification.create({
-      data: {
-        type: "follow",
-        notifyingUser: {
-          connect: {
-            id: profile.id,
+    if (profile.id !== user.id) {
+      const notification = await prisma.notification.create({
+        data: {
+          type: "follow",
+          notifyingUser: {
+            connect: {
+              id: profile.id,
+            },
           },
-        },
-        notifyingUserId: profile.id,
-        actionAuthor: {
-          connect: {
-            id: user.id,
+          notifyingUserId: profile.id,
+          actionAuthor: {
+            connect: {
+              id: user.id,
+            },
           },
+          actionAuthorId: user.id,
         },
-        actionAuthorId: user.id,
-      },
-    });
+      });
 
-    if (!notification) {
-      res.status(500);
-      return;
+      if (!notification) {
+        res.status(500);
+        return;
+      }
     }
 
     res.status(200).json(newUser);

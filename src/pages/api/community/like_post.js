@@ -25,28 +25,30 @@ async function handler(req, res) {
       return;
     }
 
-    const notification = await prisma.notification.create({
-      data: {
-        type: "like",
-        notifyingUser: {
-          connect: {
-            id: authorId,
+    if (userId !== authorId) {
+      const notification = await prisma.notification.create({
+        data: {
+          type: "like",
+          notifyingUser: {
+            connect: {
+              id: authorId,
+            },
           },
-        },
-        notifyingUserId: authorId,
-        actionAuthor: {
-          connect: {
-            id: userId,
+          notifyingUserId: authorId,
+          actionAuthor: {
+            connect: {
+              id: userId,
+            },
           },
+          actionAuthorId: userId,
+          body: body,
         },
-        actionAuthorId: userId,
-        body: body,
-      },
-    });
+      });
 
-    if (!notification) {
-      res.status(500);
-      return;
+      if (!notification) {
+        res.status(500);
+        return;
+      }
     }
 
     res.status(200).json(newPost);

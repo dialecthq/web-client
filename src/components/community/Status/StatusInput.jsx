@@ -37,7 +37,7 @@ const ReplyTo = styled.p`
   font-weight: 500;
   color: #00000080;
 `;
-const FeedInput = ({ post }) => {
+const FeedInput = ({ post, posts, setPosts }) => {
   const { user } = UserContainer.useContainer();
   const [content, setContent] = useState(post.body);
   return (
@@ -61,14 +61,19 @@ const FeedInput = ({ post }) => {
         <PostButton
           title="Post"
           style={{ marginTop: 12 }}
-          onClick={() => {
-            axios.post("http://localhost:3000/api/community/reply", {
-              authorId: user.id,
-              body: content,
-              postId: post.id,
-              originalAuthorId: post.authorId,
-              language: post.language,
-            });
+          onClick={async () => {
+            const newPost = await axios.post(
+              "http://localhost:3000/api/community/reply",
+              {
+                authorId: user.id,
+                body: content,
+                postId: post.id,
+                originalAuthorId: post.authorId,
+                language: post.language,
+              }
+            );
+            setPosts([newPost.data, ...posts]);
+            setContent("");
           }}
         />
       </InputWrapper>
