@@ -14,10 +14,23 @@ async function handler(req, res) {
     },
     include: {
       likes: true,
-      author: true,
-      replyTo: true,
+      author: {
+        include: {
+          followers: true,
+          following: true,
+        },
+      },
+      replyTo: {
+        include: {
+          author: {
+            include: {
+              followers: true,
+              following: true,
+            },
+          },
+        },
+      },
       replies: true,
-      likes: true,
     },
   });
 
@@ -25,7 +38,6 @@ async function handler(req, res) {
     res.status(500);
     return;
   }
-
   res.status(200).json(posts);
 }
 

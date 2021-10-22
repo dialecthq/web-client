@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
-import { Input } from "antd";
+import { Input, Popover } from "antd";
 import Avatar from "../../common/Avatar";
 import PostButton from "./PostButton";
 import axios from "axios";
@@ -12,6 +12,7 @@ import * as months from "../../../utils/data/months.json";
 import { AnimatePresence, motion } from "framer-motion";
 import rooms from "../../../utils/data/rooms";
 import ReactDiffViewer from "react-diff-viewer";
+import ProfilePopover from "./ProfilePopover";
 
 const FeedPostContainer = styled.div`
   display: flex;
@@ -147,64 +148,14 @@ const FeedPost = ({ initialPost, redirect, flag }) => {
   const { user } = UserContainer.useContainer();
   const [post, setPost] = useState(initialPost);
   const [loading, setLoading] = useState(true);
-  const [likes, setLikes] = useState(0);
-  const [liked, setLiked] = useState(false);
+  const [likes, setLikes] = useState(post.likes.length);
+  const [liked, setLiked] = useState(post.likes.some((e) => e.id === user.id));
   const [time, setTime] = useState(formatDate(initialPost.createdAt));
+  const [profilePopoverVisible, setProfilePopoverVisible] = useState(false);
 
   useEffect(async () => {
-    if (redirect) {
-      const newPost = await axios.get("/api/community/get_post", {
-        params: {
-          uid: initialPost.id,
-        },
-      });
-      const tempPost = newPost.data;
-
-      if (!tempPost) {
-        return;
-      }
-
-      if (tempPost.replyTo.length > 0) {
-        const author = await axios.get("/api/user/get_user", {
-          params: {
-            id: tempPost.replyTo[0].authorId,
-          },
-        });
-
-        if (!author) {
-          return;
-        }
-
-        tempPost.replyTo[0].author = author.data;
-      }
-
-      setPost(tempPost);
-      setLikes(tempPost.likes.length);
-      setLiked(tempPost.likes.some((e) => e.id === user.id));
-      setLoading(false);
-    } else {
-      const tempPost = post;
-      if (tempPost.replyTo ? tempPost.replyTo.length > 0 : false) {
-        const author = await axios.get("/api/user/get_user", {
-          params: {
-            id: tempPost.replyTo[0].authorId,
-          },
-        });
-
-        if (!author) {
-          return;
-        }
-
-        tempPost.replyTo[0].author = author.data;
-      }
-      setPost(tempPost);
-      setLikes(post.likes.length);
-      setLiked(post.likes.some((e) => e.id === user.id));
-      setLoading(false);
-    }
+    setLoading(false);
   }, []);
-
-  console.log(formatDate(post.createdAt));
 
   const likePost = () => {
     axios
@@ -249,19 +200,28 @@ const FeedPost = ({ initialPost, redirect, flag }) => {
         >
           <Link
             href={`/${
-              post.replyTo[0]
+              post.replyTo.length > 0
                 ? post.replyTo[0].author.username
                 : post.author.username
-            }/${post.replyTo[0] ? post.replyTo[0].id : post.id}`}
+            }/${post.replyTo.length > 0 ? post.replyTo[0].id : post.id}`}
           >
             <a style={{ width: "100%" }}>
               <FeedPostContainer>
                 <FeedPostWrapper>
-                  <Link href={`/${post.author.username}`} passHref>
+                  <Popover
+                    content={
+                      <ProfilePopover
+                        profile={post.author}
+                        onCancel={() => setProfilePopoverVisible(false)}
+                      />
+                    }
+                    title={null}
+                  >
                     <a>
                       <Avatar user={post.author} size={48} hoverAction />
                     </a>
-                  </Link>
+                  </Popover>
+
                   <FeedContentWrap>
                     <FeedPostInfoWrap>
                       <PostAuthor>{post.author.name}</PostAuthor>
@@ -277,30 +237,28 @@ const FeedPost = ({ initialPost, redirect, flag }) => {
                         />
                       )}
                     </FeedPostInfoWrap>
-                    {post.replyTo ? (
-                      post.replyTo.length > 0 ? (
-                        <>
-                          <ReplyTo style={{ marginBottom: 8 }}>
-                            correcting{" "}
-                            <span style={{ color: "blue" }}>
-                              @{post.replyTo[0].author.username}
-                            </span>
-                          </ReplyTo>
-                          {post.replyTo[0].body != post.body ? (
-                            <ReactDiffViewer
-                              oldValue={post.replyTo[0].body}
-                              newValue={post.body}
-                              splitView={false}
-                              styles={{ width: "100%", marginTop: 4 }}
-                            />
-                          ) : (
-                            <Content>{post.body}</Content>
-                          )}
-                        </>
-                      ) : (
-                        <Content>{post.body}</Content>
-                      )
-                    ) : null}
+                    {post.replyTo.length > 0 ? (
+                      <>
+                        <ReplyTo style={{ marginBottom: 8 }}>
+                          correcting{" "}
+                          <span style={{ color: "blue" }}>
+                            @{post.replyTo[0].author.username}
+                          </span>
+                        </ReplyTo>
+                        {post.replyTo[0].body != post.body ? (
+                          <ReactDiffViewer
+                            oldValue={post.replyTo[0].body}
+                            newValue={post.body}
+                            splitView={false}
+                            styles={{ width: "100%", marginTop: 4 }}
+                          />
+                        ) : (
+                          <Content>{post.body}</Content>
+                        )}
+                      </>
+                    ) : (
+                      <Content>{post.body}</Content>
+                    )}
 
                     <ActionBarContainer>
                       <ClickContentContainer hoverColor="#00E0FF">

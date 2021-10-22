@@ -14,8 +14,18 @@ async function handler(req, res) {
     },
     include: {
       likes: true,
-      author: true,
+      author: {
+        include: {
+          followers: true,
+          following: true,
+        },
+      },
       replies: true,
+      replyTo: {
+        include: {
+          author: true,
+        },
+      },
     },
   });
 

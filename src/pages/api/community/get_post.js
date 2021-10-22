@@ -10,10 +10,33 @@ async function handler(req, res) {
     },
     include: {
       likes: true,
-      author: true,
-      replies: true,
-      replyTo: true,
-      likes: true,
+      author: {
+        include: {
+          followers: true,
+          following: true,
+        },
+      },
+      replies: {
+        include: {
+          likes: true,
+          author: {
+            include: {
+              followers: true,
+              followers: true,
+            },
+          },
+          replyTo: {
+            include: {
+              author: true,
+            },
+          },
+        },
+      },
+      replyTo: {
+        include: {
+          author: true,
+        },
+      },
     },
   });
 

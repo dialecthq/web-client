@@ -33,7 +33,7 @@ const Status = ({ post }) => {
         <FeedPost initialPost={post} />
         <StatusInput post={post} />
         {post.replies.map((reply) => {
-          return <FeedPost key={reply.id} initialPost={reply} redirect />;
+          return <FeedPost key={reply.id} initialPost={reply} />;
         })}
       </FeedWrapper>
     </FeedContainer>
