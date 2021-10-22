@@ -18,13 +18,9 @@ const FeedHeaderWrapper = styled.div`
   border-bottom: 1px solid #d4d4d480;
   background-color: #fff;
   position: fixed;
-  width: calc(100vw * 0.5333333333333);
+  width: calc(100vw * 2 / 2.75);
 
   @media screen and (max-width: 1260px) {
-    width: calc((100vw - 100px) * 0.666666666666667);
-  }
-
-  @media screen and (max-width: 959px) {
     width: calc(100vw - 100px);
   }
 

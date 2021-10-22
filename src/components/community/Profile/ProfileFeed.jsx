@@ -3,29 +3,36 @@ import { useState, useEffect } from "react";
 import FeedPost from "../Feed/FeedPost";
 import FeedLoading from "../Feed/FeedLoading";
 import axios from "axios";
+import GetPosts from "../Feed/GetMorePosts";
 
 const ProfileFeed = ({ profile }) => {
   const [posts, setPosts] = useState([]);
-  const [last, setLast] = useState("");
+  const [last, setLast] = useState(0);
   const [loading, setLoading] = useState(false);
-  console.log(profile.id);
-  const getPosts = () => {
-    setLoading(true);
+
+  const getPosts = (reload) => {
+    if (reload) {
+      setLoading(true);
+    }
     axios
       .get("/api/community/get_user_posts", {
         params: {
           id: profile.id,
+          last: last,
         },
       })
       .then((data) => {
-        setLoading(false);
+        if (reload) {
+          setLoading(false);
+        }
+
         setPosts([...posts, ...data.data]);
-        setLast(data.data || null);
+        setLast(last + data.data.length);
       });
   };
 
   useEffect(() => {
-    getPosts();
+    getPosts(true);
   }, []);
 
   return (
@@ -37,6 +44,7 @@ const ProfileFeed = ({ profile }) => {
       ) : (
         <FeedLoading />
       )}
+      {!loading && <GetPosts getPosts={() => getPosts()} />}
     </>
   );
 };

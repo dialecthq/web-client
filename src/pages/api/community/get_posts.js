@@ -4,13 +4,18 @@ import axios from "axios";
 import prisma from "../../../utils/prisma";
 
 async function handler(req, res) {
-  const { language } = req.query;
+  const { language, last } = req.query;
   const posts = await prisma.post.findMany({
+    skip: parseInt(last, 10),
+    take: 5,
     orderBy: {
       createdAt: "desc",
     },
     where: {
       language: parseInt(language, 10),
+      replyTo: {
+        none: {},
+      },
     },
     include: {
       likes: true,
@@ -20,16 +25,7 @@ async function handler(req, res) {
           following: true,
         },
       },
-      replyTo: {
-        include: {
-          author: {
-            include: {
-              followers: true,
-              following: true,
-            },
-          },
-        },
-      },
+      replyTo: true,
       replies: true,
     },
   });

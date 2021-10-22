@@ -53,7 +53,6 @@ const Post = ({ profile }) => {
           profile={user.id === profile.id ? user : profile}
           loading={false}
         />
-        <Info />
       </Wrapper>
     </Container>
   );

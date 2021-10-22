@@ -3,6 +3,7 @@ import prisma from "../../../utils/prisma";
 async function handler(req, res) {
   const { userId } = req.query;
   const notifications = await prisma.notification.findMany({
+    take: 20,
     where: {
       notifyingUserId: userId,
     },

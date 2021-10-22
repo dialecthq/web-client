@@ -24,7 +24,16 @@ const InputWrapper = styled.div`
   align-items: flex-end;
 `;
 
-const FeedInput = ({ style, onGo, language, setPosts, posts }) => {
+const FeedInput = ({
+  style,
+  onGo,
+  language,
+  setPosts,
+  posts,
+  last,
+  setLast,
+  modal,
+}) => {
   const { user } = UserContainer.useContainer();
   const [content, setContent] = useState("");
   return (
@@ -49,9 +58,10 @@ const FeedInput = ({ style, onGo, language, setPosts, posts }) => {
               body: content,
               language: language,
             });
-            if (post.data) {
+            if (!modal && post.data) {
               setPosts([post.data, ...posts]);
               setContent("");
+              setLast(last + 1);
             }
             if (onGo) {
               onGo();

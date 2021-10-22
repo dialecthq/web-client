@@ -4,6 +4,7 @@ import FeedHeader from "./FeedHeader";
 import FeedInput from "./FeedInput";
 import FeedPost from "./FeedPost";
 import FeedLoading from "./FeedLoading";
+import GetMorePosts from "./GetMorePosts";
 import axios from "axios";
 import UserContainer from "../../../utils/state/userContainer";
 
@@ -67,37 +68,52 @@ const Feed = () => {
   const { user } = UserContainer.useContainer();
   const nativeIndex = user.languageLevels.indexOf(7);
   const [posts, setPosts] = useState([]);
-  const [last, setLast] = useState("");
+  const [last, setLast] = useState(0);
   const [loading, setLoading] = useState(false);
   const [language, setLanguage] = useState(
     user.languageKeys[user.languageLevels.indexOf(7)]
   );
 
-  const getPosts = () => {
-    setLoading(true);
+  const getPosts = (change, reload) => {
+    if (reload) {
+      setLoading(true);
+    }
     axios
       .get("/api/community/get_posts", {
         params: {
           language: language,
+          last: change ? 0 : last,
         },
       })
       .then((data) => {
-        console.log(data, "yer");
-        setLoading(false);
-        setPosts([...data.data]);
-        setLast(data.data.last);
+        if (reload) {
+          setLoading(false);
+        }
+        if (change) {
+          setPosts([...data.data]);
+          setLast(5);
+        } else {
+          setPosts([...posts, ...data.data]);
+          setLast(last + data.data.length);
+        }
       });
   };
 
   useEffect(() => {
-    getPosts();
+    getPosts(true, true);
   }, [language]);
 
   return (
     <FeedContainer>
       <FeedWrapper>
         <FeedHeader language={language} setLanguage={setLanguage} />
-        <FeedInput language={language} setPosts={setPosts} posts={posts} />
+        <FeedInput
+          language={language}
+          setPosts={setPosts}
+          posts={posts}
+          last={last}
+          setLast={setLast}
+        />
         {!loading ? (
           posts.map((post) => {
             return <FeedPost key={post.id} initialPost={post} />;
@@ -105,6 +121,7 @@ const Feed = () => {
         ) : (
           <FeedLoading />
         )}
+        {!loading && <GetMorePosts getPosts={() => getPosts()} />}
       </FeedWrapper>
     </FeedContainer>
   );

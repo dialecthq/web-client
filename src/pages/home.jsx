@@ -11,6 +11,7 @@ import strings from "../utils/data/strings";
 import Loading from "../components/common/Loading";
 import { useRouter } from "next/router";
 import Seo from "../components/seo/Seo";
+import Info from "../components/community/Info/Info";
 
 import Nav from "../components/community/Nav/Nav";
 import Feed from "../components/community/Feed/Feed";
@@ -33,19 +34,6 @@ const Wrapper = styled.div`
   align-items: flex-start;
 `;
 
-const Info = styled.div`
-  display: flex;
-  flex-direction: column;
-  background-color: lime;
-  flex: 1;
-  height: 100%;
-  min-height: 100vh;
-
-  @media screen and (max-width: 959px) {
-    display: none;
-  }
-`;
-
 const Home = () => {
   const { user, loading } = UserContainer.useContainer();
   const { language } = LanguageContainer.useContainer();
@@ -62,7 +50,7 @@ const Home = () => {
       <Wrapper>
         <Nav />
         <Feed />
-        <Info />
+        {/* <Info /> */}
       </Wrapper>
     </Container>
   );

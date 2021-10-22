@@ -2,6 +2,9 @@ import styled from "styled-components";
 import UserContainer from "../../../utils/state/userContainer";
 import Avatar from "../../common/Avatar";
 import { HiDotsHorizontal, HiOutlineDotsHorizontal } from "react-icons/hi";
+import { Popover } from "antd";
+import { useRouter } from "next/router";
+import axios from "axios";
 
 const NavButtonContainer = styled.div`
   display: flex;
@@ -62,17 +65,51 @@ const Icon = styled(HiDotsHorizontal)`
   }
 `;
 
+const LogoutButton = styled.div`
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  width: 150px;
+  transition: 0.2s all ease-in-out;
+  padding: 8px;
+  border-radius: 10px;
+
+  :hover {
+    cursor: pointer;
+    background-color: #d4d4d480;
+  }
+`;
+
+const LogoutText = styled.p`
+  font-size: 1.1em;
+  font-weight: 500;
+`;
+
 const ProfileButton = () => {
-  const { user } = UserContainer.useContainer();
+  const { user, setUser } = UserContainer.useContainer();
+  const router = useRouter();
   return (
-    <NavButtonContainer>
-      <Avatar user={user} size={48} />
-      <InfoContainer>
-        <Name>{user.name}</Name>
-        <Username>@{user.username}</Username>
-      </InfoContainer>
-      <Icon size={18} color="#000" />
-    </NavButtonContainer>
+    <Popover
+      content={
+        <LogoutButton
+          onClick={async () => {
+            router.push("/logout");
+          }}
+        >
+          <LogoutText>Logout @{user.username}</LogoutText>
+        </LogoutButton>
+      }
+      title={null}
+    >
+      <NavButtonContainer>
+        <Avatar user={user} size={48} />
+        <InfoContainer>
+          <Name>{user.name}</Name>
+          <Username>@{user.username}</Username>
+        </InfoContainer>
+        <Icon size={18} color="#000" />
+      </NavButtonContainer>
+    </Popover>
   );
 };
 

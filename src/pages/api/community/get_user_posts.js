@@ -4,8 +4,10 @@ import axios from "axios";
 import prisma from "../../../utils/prisma";
 
 async function handler(req, res) {
-  const { id } = req.query;
+  const { id, last } = req.query;
   const posts = await prisma.post.findMany({
+    skip: parseInt(last, 10),
+    take: 5,
     where: {
       authorId: id,
     },

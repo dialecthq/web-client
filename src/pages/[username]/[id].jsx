@@ -47,7 +47,6 @@ const Post = ({ post }) => {
       <Wrapper>
         <Nav />
         <Status post={post} />
-        <Info />
       </Wrapper>
     </Container>
   );

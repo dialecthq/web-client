@@ -6,7 +6,7 @@ import ProfileButton from "./ProfileButton";
 import UserContainer from "../../../utils/state/userContainer";
 import { useRouter } from "next/router";
 import PostModal from "./PostModal";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import {
   HiHome,
@@ -56,14 +56,15 @@ const NavWrapper = styled.div`
   overflow-y: auto;
   position: fixed;
   border-right: 0.5px solid #d4d4d470;
-  padding-right: 24px;
+
   padding: 8px;
+  padding-right: 24px !important;
   z-index: 6;
 
   @media screen and (max-width: 1260px) {
     align-items: center;
-    padding: 0px;
-    padding-top: 8px;
+    padding: 0px !important;
+    padding-top: 8px !important;
   }
 `;
 
@@ -91,7 +92,8 @@ const Nav = () => {
   const router = useRouter();
   const [visible, setVisible] = useState(false);
 
-  const { user } = UserContainer.useContainer();
+  const { user, loading } = UserContainer.useContainer();
+
   return (
     <NavContainer>
       <NavWrapper>

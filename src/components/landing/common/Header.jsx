@@ -1,19 +1,19 @@
-import React, { useState, useEffect } from "react"
-import styled from "styled-components"
+import React, { useState, useEffect } from "react";
+import styled from "styled-components";
 
-import { Button } from "antd"
-import { Cross as Hamburger } from "hamburger-react"
-import { useRouter } from "next/router"
-import UserContainer from "../../../utils/state/userContainer"
-import HeaderLogo from "../../common/HeaderLogo"
-import strings from "../../../utils/data/strings"
-import LanguageContainer from "../../../utils/state/languageContainer"
-import { logout } from "../../../utils/apis/UserAPI"
-import SignIn from "./SignIn"
-import SignUp from "./SignUp"
-import Link from "next/link"
+import { Button } from "antd";
+import { Cross as Hamburger } from "hamburger-react";
+import { useRouter } from "next/router";
+import UserContainer from "../../../utils/state/userContainer";
+import HeaderLogo from "../../common/HeaderLogo";
+import strings from "../../../utils/data/strings";
+import LanguageContainer from "../../../utils/state/languageContainer";
+import { logout } from "../../../utils/apis/UserAPI";
+import SignIn from "./SignIn";
+import SignUp from "./SignUp";
+import Link from "next/link";
 
-import fire from "../../../utils/fire"
+import fire from "../../../utils/fire";
 
 const Container = styled.div`
   width: 100%;
@@ -27,7 +27,7 @@ const Container = styled.div`
   z-index: 5;
   transition: 0.15s all ease-out;
   border-bottom: ${(p) => (p.scrollState ? "1px solid #d4d4d4" : "none")};
-`
+`;
 
 const Wrapper = styled.div`
   width: 100%;
@@ -36,7 +36,7 @@ const Wrapper = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-`
+`;
 
 const TextLink = styled.a`
   color: #1c1c1c;
@@ -47,7 +47,7 @@ const TextLink = styled.a`
   :hover {
     opacity: 0.8;
   }
-`
+`;
 
 const HeaderSection = styled.div`
   justify-content: center;
@@ -58,7 +58,7 @@ const HeaderSection = styled.div`
   @media screen and (max-width: 768px) {
     display: ${(p) => (p.mobile ? "flex" : "none")};
   }
-`
+`;
 
 const MenuModal = styled.div`
   flex-direction: column;
@@ -82,13 +82,13 @@ const MenuModal = styled.div`
   @media screen and (min-width: 769px) {
     top: -1000px;
   }
-`
+`;
 
 const ButtonText = styled.span`
   font-weight: 500;
   font-size: 1.2em;
   color: ${(p) => (p.white ? "#fff" : "inherit")};
-`
+`;
 
 const MenuButton = styled.div`
   width: 100%;
@@ -103,31 +103,31 @@ const MenuButton = styled.div`
     opacity: 0.7;
     cursor: pointer;
   }
-`
+`;
 
 const Header = () => {
-  const { user } = UserContainer.useContainer()
-  const { language, setLanguage } = LanguageContainer.useContainer()
-  const router = useRouter()
+  const { user } = UserContainer.useContainer();
+  const { language, setLanguage } = LanguageContainer.useContainer();
+  const router = useRouter();
 
-  const [signInVisible, setSignInVisible] = useState(false)
-  const [signUpVisible, setSignUpVisible] = useState(false)
-  const [menuVisible, setMenuVisible] = useState(false)
-  const [scrollState, setScrollState] = useState(false)
+  const [signInVisible, setSignInVisible] = useState(false);
+  const [signUpVisible, setSignUpVisible] = useState(false);
+  const [menuVisible, setMenuVisible] = useState(false);
+  const [scrollState, setScrollState] = useState(false);
 
   useEffect(() => {
     const listener = document.addEventListener("scroll", (e) => {
-      const scrolled = document.scrollingElement.scrollTop
+      const scrolled = document.scrollingElement.scrollTop;
       if (scrolled >= 85) {
         if (scrollState !== true) {
-          setScrollState(true)
+          setScrollState(true);
         }
       } else if (scrollState !== false) {
-        setScrollState(false)
+        setScrollState(false);
       }
-    })
-    return listener
-  })
+    });
+    return listener;
+  });
 
   return (
     <>
@@ -137,23 +137,25 @@ const Header = () => {
             <HeaderLogo />
             <HeaderSection desktop>
               <Link href="/about" passHref>
-                <TextLink style={{ marginLeft: 40 }}>{strings.about.capitalize()}</TextLink>
+                <TextLink style={{ marginLeft: 40 }}>
+                  {strings.about.capitalize()}
+                </TextLink>
               </Link>
               {/* <Link href="/about">{strings.blog.uncapitalize()}</Link> */}
               {/* <Link href="/pricing">{strings.pricing.uncapitalize()}</Link> */}
             </HeaderSection>
           </HeaderSection>
           <HeaderSection desktop>
-            {!fire.auth().currentUser ? (
+            {!user ? (
               <>
                 <Button
                   style={{
                     display: "flex",
                     flexDirection: "row-reverse",
-                    marginRight: 10
+                    marginRight: 10,
                   }}
                   onClick={() => {
-                    setSignInVisible(true)
+                    setSignInVisible(true);
                   }}
                 >
                   {strings.logIn.capitalize()}
@@ -161,11 +163,11 @@ const Header = () => {
                 <Button
                   style={{
                     display: "flex",
-                    flexDirection: "row-reverse"
+                    flexDirection: "row-reverse",
                   }}
                   type="primary"
                   onClick={() => {
-                    setSignUpVisible(true)
+                    setSignUpVisible(true);
                   }}
                 >
                   {strings.getStarted.capitalize()}
@@ -177,10 +179,10 @@ const Header = () => {
                   style={{
                     display: "flex",
                     flexDirection: "row-reverse",
-                    marginRight: 10
+                    marginRight: 10,
                   }}
                   onClick={() => {
-                    logout()
+                    logout();
                   }}
                 >
                   {strings.signOut.capitalize()}
@@ -189,10 +191,10 @@ const Header = () => {
                   type="primary"
                   style={{
                     display: "flex",
-                    flexDirection: "row-reverse"
+                    flexDirection: "row-reverse",
                   }}
                   onClick={() => {
-                    router.push("/exchange")
+                    router.push("/exchange");
                   }}
                 >
                   {strings.exchange.capitalize()}
@@ -214,26 +216,26 @@ const Header = () => {
           onClick={() => {
             window.scrollTo({
               top: 0,
-              behavior: "smooth"
-            })
-            setMenuVisible(false)
-            router.push("/about")
+              behavior: "smooth",
+            });
+            setMenuVisible(false);
+            router.push("/about");
           }}
         >
           <ButtonText>{strings.about.capitalize()}</ButtonText>
         </MenuButton>
         <MenuButton
           onClick={() => {
-            setMenuVisible(false)
-            router.push("/about")
+            setMenuVisible(false);
+            router.push("/about");
           }}
         >
           <ButtonText>{strings.blog.capitalize()}</ButtonText>
         </MenuButton>
         <MenuButton
           onClick={() => {
-            setMenuVisible(false)
-            router.push("/about")
+            setMenuVisible(false);
+            router.push("/about");
           }}
           style={{ marginBottom: 50 }}
         >
@@ -247,11 +249,11 @@ const Header = () => {
                 display: "flex",
                 flexDirection: "row-reverse",
                 marginBottom: 20,
-                height: 60
+                height: 60,
               }}
               onClick={() => {
-                setMenuVisible(false)
-                setSignInVisible(true)
+                setMenuVisible(false);
+                setSignInVisible(true);
               }}
             >
               <ButtonText>{strings.logIn.capitalize()}</ButtonText>
@@ -261,12 +263,12 @@ const Header = () => {
               style={{
                 display: "flex",
                 flexDirection: "row-reverse",
-                height: 60
+                height: 60,
               }}
               type="primary"
               onClick={() => {
-                setMenuVisible(false)
-                setSignUpVisible(true)
+                setMenuVisible(false);
+                setSignUpVisible(true);
               }}
             >
               <ButtonText>{strings.getStarted.capitalize()}</ButtonText>
@@ -280,11 +282,11 @@ const Header = () => {
                 height: 60,
                 display: "flex",
                 flexDirection: "row-reverse",
-                marginBottom: 20
+                marginBottom: 20,
               }}
               onClick={() => {
-                setMenuVisible(false)
-                logout()
+                setMenuVisible(false);
+                logout();
               }}
             >
               <ButtonText>{strings.signOut.capitalize()}</ButtonText>
@@ -295,11 +297,11 @@ const Header = () => {
               style={{
                 height: 60,
                 display: "flex",
-                flexDirection: "row-reverse"
+                flexDirection: "row-reverse",
               }}
               onClick={() => {
-                setMenuVisible(false)
-                router.push("/exchange")
+                setMenuVisible(false);
+                router.push("/exchange");
               }}
             >
               <ButtonText>{strings.exchange.capitalize()}</ButtonText>
@@ -318,7 +320,7 @@ const Header = () => {
         setSignUpVisible={setSignUpVisible}
       />
     </>
-  )
-}
+  );
+};
 
-export default Header
+export default Header;

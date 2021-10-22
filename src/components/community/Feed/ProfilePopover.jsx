@@ -10,7 +10,7 @@ const Container = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 100%;
+  max-width: 200px;
 `;
 
 const Wrapper = styled.div`
@@ -63,18 +63,18 @@ const Bio = styled.p`
   margin-top: 24px;
   margin-bottom: 12px;
   font-weight: 400;
-  font-size: 1.1em;
+  font-size: 0.9em;
 `;
 
 const FollowerText = styled.p`
   font-weight: 400;
-  font-size: 1.1em;
+  font-size: 0.9em;
   color: #00000080;
 `;
 
 const FollowerCount = styled.p`
   font-weight: 700;
-  font-size: 1.1em;
+  font-size: 0.9em;
   color: ;
 `;
 

@@ -132,7 +132,10 @@ const PostModal = ({ visible, setVisible }) => {
         <BodyWrap>
           <FeedInput
             style={{ padding: 0, border: "none" }}
-            onGo={() => setVisible(false)}
+            onGo={() => {
+              setVisible(false);
+            }}
+            modal={true}
             language={language}
           />
         </BodyWrap>

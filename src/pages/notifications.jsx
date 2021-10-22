@@ -33,35 +33,12 @@ const Wrapper = styled.div`
   align-items: flex-start;
 `;
 
-const Feed = styled.div`
-  display: flex;
-  flex-direction: column;
-  background-color: yellow;
-  flex: 2;
-  height: 100%;
-  min-height: 100vh;
-`;
-
-const Info = styled.div`
-  display: flex;
-  flex-direction: column;
-  background-color: lime;
-  flex: 1;
-  height: 100%;
-  min-height: 100vh;
-
-  @media screen and (max-width: 959px) {
-    display: none;
-  }
-`;
-
 const Home = () => {
   return (
     <Container>
       <Wrapper>
         <Nav />
         <Notifications />
-        <Info />
       </Wrapper>
     </Container>
   );
