@@ -43,14 +43,17 @@ const Home = () => {
     if (!user && !loading) {
       router.replace("/");
     }
-  }, [user, loading]);
+  });
+
+  if (!user) {
+    return null;
+  }
 
   return (
     <Container>
       <Wrapper>
         <Nav />
         <Feed />
-        {/* <Info /> */}
       </Wrapper>
     </Container>
   );

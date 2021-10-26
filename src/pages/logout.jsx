@@ -3,13 +3,13 @@ import { useEffect } from "react";
 import axios from "axios";
 import { useRouter } from "next/router";
 import UserContainer from "../utils/state/userContainer";
+import fire from "../utils/fire";
 
 const Logout = () => {
   const router = useRouter();
   const { user, setUser } = UserContainer.useContainer();
   useEffect(async () => {
-    await axios.post("/api/user/logout");
-    setUser(null);
+    fire.auth().signOut();
     router.push("/");
   });
   return <Loading />;

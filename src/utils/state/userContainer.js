@@ -21,6 +21,7 @@ function useUser() {
   const [premium, setPremium] = useState(false);
 
   const authStateChanged = async (authState) => {
+    console.log(authState);
     if (!authState) {
       setUser(null);
       setLoading(false);
@@ -42,7 +43,12 @@ function useUser() {
       });
     }
 
-    setUser(data);
+    if (data) {
+      setUser(data);
+    } else {
+      setUser(null);
+    }
+
     setLoading(false);
   };
 

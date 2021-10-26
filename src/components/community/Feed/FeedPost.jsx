@@ -13,6 +13,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import rooms from "../../../utils/data/rooms";
 import ReactDiffViewer from "react-diff-viewer";
 import ProfilePopover from "./ProfilePopover";
+import { useRouter } from "next/router";
 
 const FeedPostContainer = styled.div`
   display: flex;
@@ -146,6 +147,7 @@ const formatDate = (date) => {
 
 const FeedPost = ({ initialPost, redirect, flag }) => {
   const { user } = UserContainer.useContainer();
+  const router = useRouter();
   const [post, setPost] = useState(initialPost);
   const [loading, setLoading] = useState(true);
   const [likes, setLikes] = useState(post.likes ? post.likes.length : 0);
@@ -200,108 +202,103 @@ const FeedPost = ({ initialPost, redirect, flag }) => {
           exit={{ opacity: 0 }}
           style={{ width: "100%" }}
         >
-          <Link
-            href={`/${
-              post.replyTo.length > 0
-                ? post.replyTo[0].author.username
-                : post.author.username
-            }/${post.replyTo.length > 0 ? post.replyTo[0].id : post.id}`}
+          <FeedPostContainer
+            onClick={() =>
+              router.push(
+                `/${
+                  post.replyTo.length > 0
+                    ? post.replyTo[0].author.username
+                    : post.author.username
+                }/${post.replyTo.length > 0 ? post.replyTo[0].id : post.id}`
+              )
+            }
           >
-            <a style={{ width: "100%" }}>
-              <FeedPostContainer>
-                <FeedPostWrapper>
-                  <Popover
-                    content={
-                      <ProfilePopover
-                        profile={post.author}
-                        onCancel={() => setProfilePopoverVisible(false)}
-                      />
-                    }
-                    title={null}
-                  >
-                    <a href={`/${post.author.username}`}>
-                      <Avatar user={post.author} size={48} hoverAction />
-                    </a>
-                  </Popover>
+            <FeedPostWrapper>
+              <Popover
+                content={
+                  <ProfilePopover
+                    profile={post.author}
+                    onCancel={() => setProfilePopoverVisible(false)}
+                  />
+                }
+                title={null}
+              >
+                <a href={`/${post.author.username}`}>
+                  <Avatar user={post.author} size={48} hoverAction />
+                </a>
+              </Popover>
 
-                  <FeedContentWrap>
-                    <FeedPostInfoWrap>
-                      <PostAuthor>{post.author.name}</PostAuthor>
-                      <PostUsername>{`@${post.author.username} · ${time}`}</PostUsername>
-                      {flag && (
-                        <img
-                          src={`${
-                            rooms.filter((e) => e.key === post.language)[0].flag
-                          }`}
-                          height={18}
-                          width={18}
-                          style={{ marginLeft: 8 }}
-                        />
-                      )}
-                    </FeedPostInfoWrap>
-                    {post.replyTo.length > 0 ? (
-                      <>
-                        <ReplyTo style={{ marginBottom: 8 }}>
-                          correcting{" "}
-                          <span style={{ color: "blue" }}>
-                            @{post.replyTo[0].author.username}
-                          </span>
-                        </ReplyTo>
-                        {post.replyTo[0].body != post.body ? (
-                          <ReactDiffViewer
-                            oldValue={post.replyTo[0].body}
-                            newValue={post.body}
-                            splitView={false}
-                            styles={{ width: "100%", marginTop: 4 }}
-                          />
-                        ) : (
-                          <Content>{post.body}</Content>
-                        )}
-                      </>
+              <FeedContentWrap>
+                <FeedPostInfoWrap>
+                  <PostAuthor>{post.author.name}</PostAuthor>
+                  <PostUsername>{`@${post.author.username} · ${time}`}</PostUsername>
+                  {flag && (
+                    <img
+                      src={`${
+                        rooms.filter((e) => e.key === post.language)[0].flag
+                      }`}
+                      height={18}
+                      width={18}
+                      style={{ marginLeft: 8 }}
+                    />
+                  )}
+                </FeedPostInfoWrap>
+                {post.replyTo.length > 0 ? (
+                  <>
+                    <ReplyTo style={{ marginBottom: 8 }}>
+                      correcting{" "}
+                      <span style={{ color: "blue" }}>
+                        @{post.replyTo[0].author.username}
+                      </span>
+                    </ReplyTo>
+                    {post.replyTo[0].body != post.body ? (
+                      <ReactDiffViewer
+                        oldValue={post.replyTo[0].body}
+                        newValue={post.body}
+                        splitView={false}
+                        styles={{ width: "100%", marginTop: 4 }}
+                      />
                     ) : (
                       <Content>{post.body}</Content>
                     )}
+                  </>
+                ) : (
+                  <Content>{post.body}</Content>
+                )}
 
-                    <ActionBarContainer>
-                      <ClickContentContainer hoverColor="#00E0FF">
-                        <Icon hoverColor="#00E0FF">
-                          <HiOutlineChat size={24} color="#00000080" />
-                        </Icon>
-                      </ClickContentContainer>
+                <ActionBarContainer>
+                  <ClickContentContainer hoverColor="#00E0FF">
+                    <Icon hoverColor="#00E0FF">
+                      <HiOutlineChat size={24} color="#00000080" />
+                    </Icon>
+                    {post.replies && <Data>{post.replies.length}</Data>}
+                  </ClickContentContainer>
 
-                      <ClickContentContainer hoverColor="#FF00E5">
-                        <Icon
-                          hoverColor="#FF00E5"
-                          liked={liked}
-                          onClick={(e) => {
-                            e.preventDefault();
-                            if (!liked) {
-                              likePost();
-                            } else {
-                              unlikePost();
-                            }
-                          }}
-                        >
-                          <HiOutlineHeart
-                            size={24}
-                            color="#00000080"
-                            liked={liked}
-                          />
-                        </Icon>
-                        <Data>{likes}</Data>
-                      </ClickContentContainer>
-
-                      <ClickContentContainer hoverColor="#00FF38">
-                        <Icon hoverColor="#00FF38">
-                          <HiOutlineShare size={24} color="#00000080" />
-                        </Icon>
-                      </ClickContentContainer>
-                    </ActionBarContainer>
-                  </FeedContentWrap>
-                </FeedPostWrapper>
-              </FeedPostContainer>
-            </a>
-          </Link>
+                  <ClickContentContainer hoverColor="#FF00E5">
+                    <Icon
+                      hoverColor="#FF00E5"
+                      liked={liked}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        if (!liked) {
+                          likePost();
+                        } else {
+                          unlikePost();
+                        }
+                      }}
+                    >
+                      <HiOutlineHeart
+                        size={24}
+                        color="#00000080"
+                        liked={liked}
+                      />
+                    </Icon>
+                    <Data>{likes}</Data>
+                  </ClickContentContainer>
+                </ActionBarContainer>
+              </FeedContentWrap>
+            </FeedPostWrapper>
+          </FeedPostContainer>
         </motion.div>
       </AnimatePresence>
     );

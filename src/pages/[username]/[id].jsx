@@ -42,6 +42,18 @@ const Info = styled.div`
 `;
 
 const Post = ({ post }) => {
+  const { user, loading } = UserContainer.useContainer();
+
+  useEffect(() => {
+    if (!user && !loading) {
+      router.replace("/");
+    }
+  });
+
+  if (!user) {
+    return null;
+  }
+
   return (
     <Container>
       <Wrapper>

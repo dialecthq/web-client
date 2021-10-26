@@ -1,10 +1,10 @@
-import React, { useState } from "react"
-import styled from "styled-components"
-import { Button } from "antd"
-import strings from "../../../utils/data/strings"
+import React, { useState } from "react";
+import styled from "styled-components";
+import { Button } from "antd";
+import strings from "../../../utils/data/strings";
 
-import SignIn from "../common/SignIn"
-import SignUp from "../common/SignUp"
+import SignIn from "../common/SignIn";
+import SignUp from "../common/SignUp";
 
 const Container = styled.div`
   width: 100%;
@@ -13,7 +13,7 @@ const Container = styled.div`
   align-items: center;
   padding: 8px 24px;
   padding-top: 160px;
-`
+`;
 
 const Wrapper = styled.div`
   width: 100%;
@@ -23,23 +23,32 @@ const Wrapper = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-`
+`;
 
 const HeroText = styled.p`
   font-size: 3.2em;
   color: #1c1c1c;
   font-weight: 700;
   text-align: center;
-`
+`;
 
 const Language = styled.span`
-  color: var(--dark-purple);
   font-weight: 700;
+  background: -webkit-linear-gradient(
+    left,
+    #45ff8f,
+    #45ffd2,
+    #45ffe9,
+    #45deff,
+    #45bcff
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 
   @media screen and (max-width: 768px) {
     font-size: 1em;
   }
-`
+`;
 
 const Subtitle = styled.p`
   margin-top: 15px;
@@ -54,7 +63,7 @@ const Subtitle = styled.p`
     font-size: 1.4em;
     max-width: 400px;
   }
-`
+`;
 
 const Mobile = styled.p`
   font-size: 3.2em;
@@ -65,12 +74,12 @@ const Mobile = styled.p`
   @media screen and (max-width: 768px) {
     font-size: 2em;
   }
-`
+`;
 
 const Hero = () => {
-  const [signInVisible, setSignInVisible] = useState(false)
-  const [signUpVisible, setSignUpVisible] = useState(false)
-  const arr = strings.theBest.split("HDHKA")
+  const [signInVisible, setSignInVisible] = useState(false);
+  const [signUpVisible, setSignUpVisible] = useState(false);
+  const arr = strings.theBest.split("HDHKA");
   return (
     <>
       <Container>
@@ -101,6 +110,6 @@ const Hero = () => {
         setSignUpVisible={setSignUpVisible}
       />
     </>
-  )
-}
-export default Hero
+  );
+};
+export default Hero;

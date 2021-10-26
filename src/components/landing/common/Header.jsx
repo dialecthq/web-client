@@ -12,7 +12,6 @@ import { logout } from "../../../utils/apis/UserAPI";
 import SignIn from "./SignIn";
 import SignUp from "./SignUp";
 import Link from "next/link";
-
 import fire from "../../../utils/fire";
 
 const Container = styled.div`
@@ -135,15 +134,11 @@ const Header = () => {
         <Wrapper>
           <HeaderSection desktop mobile>
             <HeaderLogo />
-            <HeaderSection desktop>
-              <Link href="/about" passHref>
-                <TextLink style={{ marginLeft: 40 }}>
-                  {strings.about.capitalize()}
-                </TextLink>
-              </Link>
-              {/* <Link href="/about">{strings.blog.uncapitalize()}</Link> */}
-              {/* <Link href="/pricing">{strings.pricing.uncapitalize()}</Link> */}
-            </HeaderSection>
+            <Link href="/about" passHref>
+              <TextLink style={{ marginRight: 40 }}>
+                {strings.about.capitalize()}
+              </TextLink>
+            </Link>
           </HeaderSection>
           <HeaderSection desktop>
             {!user ? (
@@ -153,10 +148,12 @@ const Header = () => {
                     display: "flex",
                     flexDirection: "row-reverse",
                     marginRight: 10,
+                    fontWeight: "600",
                   }}
                   onClick={() => {
                     setSignInVisible(true);
                   }}
+                  type="text"
                 >
                   {strings.logIn.capitalize()}
                 </Button>
@@ -184,20 +181,9 @@ const Header = () => {
                   onClick={() => {
                     logout();
                   }}
+                  type="text"
                 >
                   {strings.signOut.capitalize()}
-                </Button>
-                <Button
-                  type="primary"
-                  style={{
-                    display: "flex",
-                    flexDirection: "row-reverse",
-                  }}
-                  onClick={() => {
-                    router.push("/exchange");
-                  }}
-                >
-                  {strings.exchange.capitalize()}
                 </Button>
               </>
             )}

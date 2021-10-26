@@ -37,6 +37,15 @@ import rooms from "../../../utils/data/rooms";
 // Containers
 import User from "../../../utils/state/userContainer";
 import strings from "../../../utils/data/strings";
+import firebase from "firebase";
+import fire from "../../../utils/fire";
+
+import {
+  uniqueNamesGenerator,
+  adjectives,
+  colors,
+  animals,
+} from "unique-names-generator";
 
 const TabContent = styled.div`
   display: flex;
@@ -323,8 +332,43 @@ const SignUp = ({ visible, setVisible, setSignInVisible }) => {
             </Divider>
             <OauthContainer>
               <IconButton
-                onClick={() => {
-                  signInWithGoogle();
+                onClick={async () => {
+                  const provider = new firebase.auth.GoogleAuthProvider();
+                  fire
+                    .auth()
+                    .signInWithPopup(provider)
+                    .then(async (result) => {
+                      const { additionalUserInfo, user } = result;
+                      const username = uniqueNamesGenerator({
+                        dictionaries: [adjectives, colors, animals],
+                        separator: "-",
+                        length: 3,
+                      });
+                      const inferredNativeLanguage = rooms.filter((e) =>
+                        strings.getLanguage().includes(e.code)
+                      )[0];
+                      const languageKeys = [inferredNativeLanguage.key];
+                      const languageLevels = [7];
+                      if (additionalUserInfo.isNewUser) {
+                        const newUser = await axios.post(
+                          "/api/user/sign_in_with_google",
+                          {
+                            id: user.uid,
+                            name: additionalUserInfo.profile.name,
+                            username: username,
+                            email: user.email,
+                            tokens: 10,
+                            languageLevels: languageLevels,
+                            languageKeys: languageKeys,
+                          }
+                        );
+                        setUser(newUser.data);
+                      }
+                      router.push("/home");
+                    })
+                    .catch((error) => {
+                      console.log(error.message);
+                    });
                 }}
               >
                 <FcGoogle height={36} style={{ marginRight: 10 }} />

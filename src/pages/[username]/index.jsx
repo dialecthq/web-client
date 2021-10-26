@@ -42,17 +42,24 @@ const Info = styled.div`
 `;
 
 const Post = ({ profile }) => {
-  const loading = !profile;
-  const { user, setUser } = UserContainer.useContainer();
+  const { user, setUser, loading } = UserContainer.useContainer();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (!user && !loading) {
+      router.replace("/");
+    }
+  });
+
+  if (!user) {
+    return null;
+  }
 
   return (
     <Container>
       <Wrapper>
         <Nav />
-        <Profile
-          profile={user.id === profile.id ? user : profile}
-          loading={false}
-        />
+        <Profile profile={user.id === profile.id ? user : profile} />
       </Wrapper>
     </Container>
   );
