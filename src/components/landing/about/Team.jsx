@@ -60,7 +60,6 @@ const TeamContainer = styled.div`
   @media screen and (max-width: 768px) {
     flex-wrap: nowrap;
     overflow-x: scroll;
-    justify-content: flex-start;
   }
 `;
 
@@ -161,7 +160,6 @@ const LanguageWrapper = styled.div`
   height: 30px;
   padding: 10px;
   background: #f8fafc;
-  border: 1px solid #d4d4d4;
   margin-top: 10px;
 `;
 
@@ -243,12 +241,12 @@ const Team = () => (
           speaks={["usa"]}
           learning={["netherlands", "china"]}
         />
-        <TeamMemberDiv
+        {/* <TeamMemberDiv
           name="Anthony Morales"
           image="/anthony.jpg"
           speaks={["usa", "spain"]}
           learning={["france"]}
-        />
+        /> */}
       </TeamContainer>
     </Wrapper>
   </Container>

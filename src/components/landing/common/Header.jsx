@@ -8,7 +8,6 @@ import UserContainer from "../../../utils/state/userContainer";
 import HeaderLogo from "../../common/HeaderLogo";
 import strings from "../../../utils/data/strings";
 import LanguageContainer from "../../../utils/state/languageContainer";
-import { logout } from "../../../utils/apis/UserAPI";
 import SignIn from "./SignIn";
 import SignUp from "./SignUp";
 import Link from "next/link";
@@ -179,7 +178,7 @@ const Header = () => {
                     marginRight: 10,
                   }}
                   onClick={() => {
-                    logout();
+                    router.push("/logout");
                   }}
                   type="text"
                 >
@@ -210,15 +209,15 @@ const Header = () => {
         >
           <ButtonText>{strings.about.capitalize()}</ButtonText>
         </MenuButton>
-        <MenuButton
+        {/* <MenuButton
           onClick={() => {
             setMenuVisible(false);
             router.push("/about");
           }}
         >
           <ButtonText>{strings.blog.capitalize()}</ButtonText>
-        </MenuButton>
-        <MenuButton
+        </MenuButton> */}
+        {/* <MenuButton
           onClick={() => {
             setMenuVisible(false);
             router.push("/about");
@@ -226,7 +225,7 @@ const Header = () => {
           style={{ marginBottom: 50 }}
         >
           <ButtonText>{strings.pricing.capitalize()}</ButtonText>
-        </MenuButton>
+        </MenuButton> */}
         {!user ? (
           <>
             <Button
@@ -276,21 +275,6 @@ const Header = () => {
               }}
             >
               <ButtonText>{strings.signOut.capitalize()}</ButtonText>
-            </Button>
-            <Button
-              type="primary"
-              block
-              style={{
-                height: 60,
-                display: "flex",
-                flexDirection: "row-reverse",
-              }}
-              onClick={() => {
-                setMenuVisible(false);
-                router.push("/exchange");
-              }}
-            >
-              <ButtonText>{strings.exchange.capitalize()}</ButtonText>
             </Button>
           </>
         )}

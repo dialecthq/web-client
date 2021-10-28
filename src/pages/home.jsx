@@ -3,7 +3,6 @@ import React, { useEffect } from "react";
 import styled from "styled-components";
 import { Helmet } from "react-helmet";
 import { Skeleton } from "antd";
-import Page from "../components/exchange/Page";
 import rooms from "../utils/data/rooms";
 import UserContainer from "../utils/state/userContainer";
 import LanguageContainer from "../utils/state/languageContainer";

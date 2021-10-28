@@ -21,11 +21,6 @@ import {
 import { AiOutlineEye } from "react-icons/ai";
 import { FcGoogle } from "react-icons/fc";
 import { useRouter } from "next/router";
-import {
-  register,
-  signInWithGoogle,
-  validate,
-} from "../../../utils/apis/UserAPI";
 
 import axios from "axios";
 
@@ -215,6 +210,14 @@ const SignUp = ({ visible, setVisible, setSignInVisible }) => {
 
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
+  };
+
+  const validate = async () => {
+    const Promise = new Promise((resolve, reject) => {
+      resolve(true);
+    });
+
+    return Promise;
   };
 
   return (

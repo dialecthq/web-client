@@ -89,18 +89,16 @@ const Popover = ({ profile }) => {
     profile.followers ? profile.followers.length : 0
   );
 
-  const follow = () => {
-    axios.post("/api/community/follow", { profile, user }).then(() => {
-      setIsFollowing(true);
-      setFollowers(followers + 1);
-    });
+  const follow = async () => {
+    setIsFollowing(true);
+    setFollowers(followers + 1);
+    await axios.post("/api/community/follow", { profile, user });
   };
 
-  const unfollow = () => {
-    axios.post("/api/community/unfollow", { profile, user }).then(() => {
-      setIsFollowing(false);
-      setFollowers(followers - 1);
-    });
+  const unfollow = async () => {
+    setIsFollowing(false);
+    setFollowers(followers - 1);
+    await axios.post("/api/community/unfollow", { profile, user });
   };
 
   return (

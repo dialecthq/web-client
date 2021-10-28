@@ -26,9 +26,10 @@ model User {
   followers User[] @relation("followers")
   following User[] @relation("followers")
   likedPosts Post[] @relation("likes")
-  tokens Int
+  tokens Int @default(10)
   notifications Notification[] @relation("notifications")
   actions Notification[] @relation("actions")
+  karma Int @default(0)
 }
 
 model Post {

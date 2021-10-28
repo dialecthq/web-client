@@ -12,7 +12,6 @@ import { useRouter } from "next/router";
 import fire from "../../../utils/fire";
 import User from "../../../utils/state/userContainer";
 import strings from "../../../utils/data/strings";
-import { signInWithGoogle, login } from "../../../utils/apis/UserAPI";
 import {
   uniqueNamesGenerator,
   adjectives,

@@ -129,13 +129,13 @@ const Nav = () => {
               active={router.query.username === user.username}
               href={`/${user.username}`}
             />
-            <NavButton
+            {/* <NavButton
               name="Conversations"
               icon={<HiOutlineLightningBolt size={24} />}
               activeIcon={<HiLightningBolt size={24} />}
               active={router.pathname === "/conversations"}
               href="/conversations"
-            />
+            /> */}
             <PrimaryButton
               title="Post"
               style={{ width: "100%", marginTop: 20 }}

@@ -195,36 +195,24 @@ const FeedPost = ({
     setLoading(false);
   }, []);
 
-  const likePost = () => {
-    axios
-      .post("/api/community/like_post", {
-        userId: user.id,
-        postId: post.id,
-        authorId: post.authorId,
-        body: post.body,
-      })
-      .then((data) => {
-        console.log(data);
-      })
-      .then((data) => {
-        setLiked(true);
-        setLikes(likes + 1);
-      });
+  const likePost = async () => {
+    setLiked(true);
+    setLikes(likes + 1);
+    await axios.post("/api/community/like_post", {
+      userId: user.id,
+      postId: post.id,
+      authorId: post.authorId,
+      body: post.body,
+    });
   };
 
-  const unlikePost = () => {
-    axios
-      .post("/api/community/unlike_post", {
-        userId: user.id,
-        postId: post.id,
-      })
-      .then((data) => {
-        console.log(data);
-      })
-      .then((data) => {
-        setLiked(false);
-        setLikes(likes - 1);
-      });
+  const unlikePost = async () => {
+    setLiked(false);
+    setLikes(likes - 1);
+    await axios.post("/api/community/unlike_post", {
+      userId: user.id,
+      postId: post.id,
+    });
   };
 
   if (!loading) {
