@@ -30,10 +30,22 @@ const Status = ({ post }) => {
     <FeedContainer>
       <FeedWrapper>
         <PostHeader />
-        <FeedPost initialPost={post} />
+        <FeedPost
+          initialPost={post}
+          posts={replys}
+          setPosts={setReplys}
+          redirectOnDelete
+        />
         <StatusInput post={post} posts={replys} setPosts={setReplys} />
         {replys.map((reply) => {
-          return <FeedPost key={reply.id} initialPost={reply} />;
+          return (
+            <FeedPost
+              key={reply.id}
+              initialPost={reply}
+              posts={replys}
+              setPosts={setReplys}
+            />
+          );
         })}
       </FeedWrapper>
     </FeedContainer>

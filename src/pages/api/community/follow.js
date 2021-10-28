@@ -1,6 +1,7 @@
 import fire from "../../../utils/fire";
 import firebase from "firebase";
 import { v4 as uuid } from "uuid";
+import prisma from "../../../utils/prisma";
 
 async function handler(req, res) {
   if (req.method === "POST") {

@@ -6,7 +6,6 @@ import axios from "axios";
 async function handler(req, res) {
   if (req.method === "POST") {
     const { body, authorId, postId, originalAuthorId, language } = req.body;
-    console.log(authorId, postId, body);
     const replyPost = await prisma.post.create({
       data: {
         body: body,

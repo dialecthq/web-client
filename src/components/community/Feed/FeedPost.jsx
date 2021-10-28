@@ -4,7 +4,13 @@ import { Input, Popover } from "antd";
 import Avatar from "../../common/Avatar";
 import PostButton from "./PostButton";
 import axios from "axios";
-import { HiOutlineChat, HiOutlineHeart, HiOutlineShare } from "react-icons/hi";
+import {
+  HiOutlineChat,
+  HiOutlineHeart,
+  HiOutlineShare,
+  HiDotsHorizontal,
+  HiOutlineTrash,
+} from "react-icons/hi";
 import UserContainer from "../../../utils/state/userContainer";
 import Link from "next/link";
 import FeedLoading from "../../community/Feed/FeedLoading";
@@ -49,8 +55,9 @@ const FeedContentWrap = styled.div`
 
 const FeedPostInfoWrap = styled.div`
   display: flex;
-  justify-content: flex-start;
+  justify-content: space-between;
   align-items: center;
+  width: 100%;
 `;
 
 const PostAuthor = styled.p`
@@ -94,7 +101,7 @@ const Icon = styled.div`
   justify-content: center;
   align-items: center;
   svg {
-    color: ${(p) => (p.liked ? `${p.hoverColor}90` : "#00000080")} !important;
+    color: ${(p) => p.liked && `${p.hoverColor}90`} !important;
     fill: ${(p) => (p.liked ? `${p.hoverColor}90` : "")} !important;
   }
 
@@ -127,6 +134,26 @@ const ReplyTo = styled.p`
   color: #00000080;
 `;
 
+const ButtonMenuWrapper = styled.div`
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+const ButtonMenu = styled.div`
+  width: 100%;
+  border-radius: 16px;
+  transition: 0.2s all ease-in-out;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 8px;
+
+  :hover {
+    cursor: pointer;
+  }
+`;
 const formatDate = (date) => {
   let dateOb = new Date(date);
   var diffMs = new Date() - dateOb; // milliseconds between now & Christmas
@@ -145,7 +172,14 @@ const formatDate = (date) => {
   }
 };
 
-const FeedPost = ({ initialPost, redirect, flag }) => {
+const FeedPost = ({
+  initialPost,
+  redirect,
+  flag,
+  posts,
+  setPosts,
+  redirectOnDelete,
+}) => {
   const { user } = UserContainer.useContainer();
   const router = useRouter();
   const [post, setPost] = useState(initialPost);
@@ -223,24 +257,70 @@ const FeedPost = ({ initialPost, redirect, flag }) => {
                 }
                 title={null}
               >
-                <a href={`/${post.author.username}`}>
+                <a
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    router.push(`/${post.author.username}`);
+                  }}
+                >
                   <Avatar user={post.author} size={48} hoverAction />
                 </a>
               </Popover>
 
               <FeedContentWrap>
                 <FeedPostInfoWrap>
-                  <PostAuthor>{post.author.name}</PostAuthor>
-                  <PostUsername>{`@${post.author.username} · ${time}`}</PostUsername>
-                  {flag && (
-                    <img
-                      src={`${
-                        rooms.filter((e) => e.key === post.language)[0].flag
-                      }`}
-                      height={18}
-                      width={18}
-                      style={{ marginLeft: 8 }}
-                    />
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                  >
+                    <PostAuthor>{post.author.name}</PostAuthor>
+                    <PostUsername>{`@${post.author.username} · ${time}`}</PostUsername>
+                    {flag && (
+                      <img
+                        src={`${
+                          rooms.filter((e) => e.key === post.language)[0].flag
+                        }`}
+                        height={18}
+                        width={18}
+                        style={{ marginLeft: 8 }}
+                      />
+                    )}
+                  </div>
+                  {post.author.id === user.id && (
+                    <Popover
+                      placement="left"
+                      content={
+                        <ButtonMenuWrapper>
+                          <ButtonMenu
+                            onClick={async (e) => {
+                              e.stopPropagation();
+                              await axios.post("/api/community/delete_post", {
+                                id: post.id,
+                              });
+                              if (redirectOnDelete) {
+                                router.push("/home");
+                              } else {
+                                setPosts(posts.filter((e) => e.id !== post.id));
+                              }
+                            }}
+                          >
+                            <HiOutlineTrash
+                              size={18}
+                              style={{ marginRight: 4 }}
+                            />
+                            <p>Delete Post</p>
+                          </ButtonMenu>
+                        </ButtonMenuWrapper>
+                      }
+                      title={null}
+                    >
+                      <Icon hoverColor="#000000">
+                        <HiDotsHorizontal size={24} />
+                      </Icon>
+                    </Popover>
                   )}
                 </FeedPostInfoWrap>
                 {post.replyTo.length > 0 ? (
@@ -279,7 +359,7 @@ const FeedPost = ({ initialPost, redirect, flag }) => {
                       hoverColor="#FF00E5"
                       liked={liked}
                       onClick={(e) => {
-                        e.preventDefault();
+                        e.stopPropagation();
                         if (!liked) {
                           likePost();
                         } else {

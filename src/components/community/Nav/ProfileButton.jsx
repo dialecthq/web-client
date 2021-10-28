@@ -76,13 +76,7 @@ const LogoutButton = styled.div`
 
   :hover {
     cursor: pointer;
-    background-color: #d4d4d480;
   }
-`;
-
-const LogoutText = styled.p`
-  font-size: 1.1em;
-  font-weight: 500;
 `;
 
 const ProfileButton = () => {
@@ -90,13 +84,14 @@ const ProfileButton = () => {
   const router = useRouter();
   return (
     <Popover
+      placement="right"
       content={
         <LogoutButton
           onClick={async () => {
             router.push("/logout");
           }}
         >
-          <LogoutText>Logout @{user.username}</LogoutText>
+          <p>Logout @{user.username}</p>
         </LogoutButton>
       }
       title={null}
