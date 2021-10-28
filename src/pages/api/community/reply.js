@@ -15,28 +15,15 @@ async function handler(req, res) {
             id: authorId,
           },
         },
-      },
-    });
-
-    if (!replyPost) {
-      res.status(500);
-      return;
-    }
-
-    const updatedPost = await prisma.post.update({
-      where: {
-        id: postId,
-      },
-      data: {
-        replies: {
+        replyTo: {
           connect: {
-            id: replyPost.id,
+            id: postId,
           },
         },
       },
     });
 
-    if (!updatedPost) {
+    if (!replyPost) {
       res.status(500);
       return;
     }
@@ -62,6 +49,22 @@ async function handler(req, res) {
       });
 
       if (!notification) {
+        res.status(500);
+        return;
+      }
+
+      const newUser = await prisma.user.update({
+        where: {
+          id: authorId,
+        },
+        data: {
+          karma: {
+            increment: 1,
+          },
+        },
+      });
+
+      if (!newUser) {
         res.status(500);
         return;
       }

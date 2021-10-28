@@ -212,14 +212,6 @@ const SignUp = ({ visible, setVisible, setSignInVisible }) => {
     console.log("Failed:", errorInfo);
   };
 
-  const validate = async () => {
-    const Promise = new Promise((resolve, reject) => {
-      resolve(true);
-    });
-
-    return Promise;
-  };
-
   return (
     <AuthModal
       visible={visible}
@@ -259,10 +251,10 @@ const SignUp = ({ visible, setVisible, setSignInVisible }) => {
               rules={[
                 { required: true, message: strings.pleaseInputEmail },
                 { type: "email", message: strings.pleaseInputValidEmail },
-                {
-                  validator: (_, value) => validate(_, value, "email"),
-                  message: strings.emailAlreadyInUse,
-                },
+                // {
+                //   validator: (_, value) => validate(_, value, "email"),
+                //   message: strings.emailAlreadyInUse,
+                // },
               ]}
               style={{ marginBottom: 25 }}
             >
@@ -278,7 +270,7 @@ const SignUp = ({ visible, setVisible, setSignInVisible }) => {
               rules={[
                 { required: true, message: strings.pleaseInputUsername },
                 {
-                  validator: (_, value) => validate(_, value, "username"),
+                  // validator: (_, value) => validate(_, value, "username"),
                   message: strings.usernameAlreadyInUse,
                 },
               ]}
