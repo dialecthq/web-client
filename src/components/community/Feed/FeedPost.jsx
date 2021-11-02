@@ -119,7 +119,7 @@ const ClickContentContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-right: 48px;
+  margin-right: 24px;
 `;
 
 const Data = styled.p`
@@ -228,10 +228,10 @@ const FeedPost = ({
             onClick={() =>
               router.push(
                 `/${
-                  post.replyTo.length > 0
+                  post.type === "reply"
                     ? post.replyTo[0].author.username
                     : post.author.username
-                }/${post.replyTo.length > 0 ? post.replyTo[0].id : post.id}`
+                }/${post.type === "reply" ? post.replyTo[0].id : post.id}`
               )
             }
           >
@@ -311,7 +311,7 @@ const FeedPost = ({
                     </Popover>
                   )}
                 </FeedPostInfoWrap>
-                {post.replyTo.length > 0 ? (
+                {post.type == "correction" ? (
                   <>
                     <ReplyTo style={{ marginBottom: 8 }}>
                       correcting{" "}
@@ -331,7 +331,17 @@ const FeedPost = ({
                     )}
                   </>
                 ) : (
-                  <Content>{post.body}</Content>
+                  <>
+                    {post.type === "reply" && (
+                      <ReplyTo style={{ marginBottom: 8 }}>
+                        replying to{" "}
+                        <span style={{ color: "blue" }}>
+                          @{post.replyTo[0].author.username}
+                        </span>
+                      </ReplyTo>
+                    )}
+                    <Content>{post.body}</Content>
+                  </>
                 )}
 
                 <ActionBarContainer>

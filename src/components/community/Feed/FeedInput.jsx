@@ -54,7 +54,7 @@ const FeedInput = ({
           style={{ marginTop: 12 }}
           onClick={async () => {
             const post = await axios.post("/api/community/post", {
-              authorId: user.id,
+              author: user,
               body: content,
               language: language,
             });

@@ -26,7 +26,7 @@ const Wrapper = styled.div`
 `;
 
 const HeroText = styled.p`
-  font-size: 3.2em;
+  font-size: 4.1em;
   color: #1c1c1c;
   font-weight: 700;
   text-align: center;
@@ -66,7 +66,7 @@ const Subtitle = styled.p`
 `;
 
 const Mobile = styled.p`
-  font-size: 3.2em;
+  font-size: 4.2em;
   color: #1c1c1c;
   font-weight: 700;
   text-align: center;

@@ -61,6 +61,9 @@ async function handler(req, res) {
           karma: {
             increment: 1,
           },
+          tokens: {
+            increment: 1,
+          },
         },
       });
 

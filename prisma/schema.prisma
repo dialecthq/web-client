@@ -43,6 +43,7 @@ model Post {
   replies Post[] @relation("replies")
   replyTo Post[] @relation("replies")
   language Int @default(1)
+  type String? @default("post")
 }
 
 model Notification {

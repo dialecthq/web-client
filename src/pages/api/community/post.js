@@ -5,38 +5,63 @@ import axios from "axios";
 
 async function handler(req, res) {
   if (req.method === "POST") {
-    const { body, authorId, language } = req.body;
-    console.log(body, authorId);
-    const post = await prisma.post.create({
-      data: {
-        body: body,
-        language: language,
-        author: {
-          connect: {
-            id: authorId,
+    const { body, author, language } = req.body;
+
+    if (author.tokens > 0) {
+      const updatedUser = await prisma.user.update({
+        where: {
+          id: author.id,
+        },
+        data: {
+          tokens: {
+            decrement: 1,
+          },
+          karma: {
+            increment: 1,
           },
         },
-      },
-    });
+      });
 
-    if (!post) {
-      res.status(500);
-      return;
-    }
-
-    const newPost = await axios.get(
-      "http://localhost:3000/api/community/get_post",
-      {
-        params: { uid: post.id },
+      if (!updatedUser) {
+        res.status(500);
+        return;
       }
-    );
 
-    if (!newPost) {
-      res.status(500);
+      const post = await prisma.post.create({
+        data: {
+          body: body,
+          language: language,
+          author: {
+            connect: {
+              id: author.id,
+            },
+          },
+        },
+      });
+
+      if (!post) {
+        res.status(500);
+        return;
+      }
+
+      const newPost = await axios.get(
+        "http://localhost:3000/api/community/get_post",
+        {
+          params: { uid: post.id },
+        }
+      );
+
+      if (!newPost) {
+        res.status(500);
+        return;
+      }
+
+      res.status(200).json(newPost.data);
       return;
     }
 
-    res.status(200).json(newPost.data);
+    res.status(500).json({ message: "no tokens" });
+    return;
   } else {
     res.setHeader("Allow", "POST");
     res.status(405).end("Method Not Allowed");
