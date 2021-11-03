@@ -13,9 +13,7 @@ async function handler(req, res) {
     },
     where: {
       language: parseInt(language, 10),
-      replyTo: {
-        none: {},
-      },
+      type: "post",
     },
     include: {
       likes: true,

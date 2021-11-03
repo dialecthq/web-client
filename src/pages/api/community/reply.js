@@ -5,9 +5,11 @@ import axios from "axios";
 
 async function handler(req, res) {
   if (req.method === "POST") {
-    const { body, authorId, postId, originalAuthorId, language } = req.body;
+    const { body, authorId, postId, originalAuthorId, language, type } =
+      req.body;
     const replyPost = await prisma.post.create({
       data: {
+        type: type,
         body: body,
         language: language,
         author: {

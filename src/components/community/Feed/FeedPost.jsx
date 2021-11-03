@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
-import { Input, Popover } from "antd";
+import { Input, Popover, Tooltip } from "antd";
 import Avatar from "../../common/Avatar";
 import PostButton from "./PostButton";
 import axios from "axios";
@@ -345,34 +345,37 @@ const FeedPost = ({
                 )}
 
                 <ActionBarContainer>
-                  <ClickContentContainer hoverColor="#00E0FF">
-                    <Icon hoverColor="#00E0FF">
-                      <HiOutlineChat size={24} color="#00000080" />
-                    </Icon>
-                    {post.replies && <Data>{post.replies.length}</Data>}
-                  </ClickContentContainer>
-
-                  <ClickContentContainer hoverColor="#FF00E5">
-                    <Icon
-                      hoverColor="#FF00E5"
-                      liked={liked}
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        if (!liked) {
-                          likePost();
-                        } else {
-                          unlikePost();
-                        }
-                      }}
-                    >
-                      <HiOutlineHeart
-                        size={24}
-                        color="#00000080"
+                  <Tooltip title="reply" placement="bottom">
+                    <ClickContentContainer hoverColor="#00E0FF">
+                      <Icon hoverColor="#00E0FF">
+                        <HiOutlineChat size={24} color="#00000080" />
+                      </Icon>
+                      {post.replies && <Data>{post.replies.length}</Data>}
+                    </ClickContentContainer>
+                  </Tooltip>
+                  <Tooltip title="like" placement="bottom">
+                    <ClickContentContainer hoverColor="#FF00E5">
+                      <Icon
+                        hoverColor="#FF00E5"
                         liked={liked}
-                      />
-                    </Icon>
-                    <Data>{likes}</Data>
-                  </ClickContentContainer>
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          if (!liked) {
+                            likePost();
+                          } else {
+                            unlikePost();
+                          }
+                        }}
+                      >
+                        <HiOutlineHeart
+                          size={24}
+                          color="#00000080"
+                          liked={liked}
+                        />
+                      </Icon>
+                      <Data>{likes}</Data>
+                    </ClickContentContainer>
+                  </Tooltip>
                 </ActionBarContainer>
               </FeedContentWrap>
             </FeedPostWrapper>
