@@ -7,50 +7,55 @@ async function handler(req, res) {
   if (req.method === "POST") {
     let { profile, user } = req.body;
 
-    const newUser = await prisma.user.update({
-      where: {
-        id: user.id,
-      },
-      data: {
-        following: {
-          connect: {
-            id: profile.id,
-          },
+    try {
+      const newUser = await prisma.user.update({
+        where: {
+          id: user.id,
         },
-      },
-    });
-
-    if (!newUser) {
-      res.status(500);
-      return;
-    }
-
-    if (profile.id !== user.id) {
-      const notification = await prisma.notification.create({
         data: {
-          type: "follow",
-          notifyingUser: {
+          following: {
             connect: {
               id: profile.id,
             },
           },
-          notifyingUserId: profile.id,
-          actionAuthor: {
-            connect: {
-              id: user.id,
-            },
-          },
-          actionAuthorId: user.id,
         },
       });
 
-      if (!notification) {
+      if (!newUser) {
         res.status(500);
         return;
       }
-    }
 
-    res.status(200).json(newUser);
+      if (profile.id !== user.id) {
+        const notification = await prisma.notification.create({
+          data: {
+            type: "follow",
+            notifyingUser: {
+              connect: {
+                id: profile.id,
+              },
+            },
+            notifyingUserId: profile.id,
+            actionAuthor: {
+              connect: {
+                id: user.id,
+              },
+            },
+            actionAuthorId: user.id,
+          },
+        });
+
+        if (!notification) {
+          res.status(500);
+          return;
+        }
+      }
+
+      res.status(200).json(newUser);
+    } catch (e) {
+      res.status(500).json(e);
+      return;
+    }
   } else {
     res.setHeader("Allow", "POST");
     res.status(405).end("Method Not Allowed");

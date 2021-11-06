@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
-import { Input, Popover, Tooltip } from "antd";
+import { Input, Popover, Tooltip, message } from "antd";
 import Avatar from "../../common/Avatar";
 import PostButton from "./PostButton";
 import axios from "axios";
@@ -11,6 +11,8 @@ import {
   HiDotsHorizontal,
   HiOutlineTrash,
 } from "react-icons/hi";
+
+import { FaTimesCircle } from "react-icons/fa";
 import UserContainer from "../../../utils/state/userContainer";
 import Link from "next/link";
 import FeedLoading from "../../community/Feed/FeedLoading";
@@ -285,13 +287,31 @@ const FeedPost = ({
                           <ButtonMenu
                             onClick={async (e) => {
                               e.stopPropagation();
-                              await axios.post("/api/community/delete_post", {
-                                id: post.id,
-                              });
-                              if (redirectOnDelete) {
-                                router.push("/home");
-                              } else {
-                                setPosts(posts.filter((e) => e.id !== post.id));
+                              try {
+                                const postDeleted = await axios.post(
+                                  "/api/community/delete_post",
+                                  {
+                                    id: post.id,
+                                  }
+                                );
+                                if (redirectOnDelete) {
+                                  router.push("/home");
+                                } else {
+                                  setPosts(
+                                    posts.filter((e) => e.id !== post.id)
+                                  );
+                                }
+                              } catch (e) {
+                                message.error({
+                                  content: "could not delete post",
+                                  icon: (
+                                    <FaTimesCircle
+                                      size={24}
+                                      color="#e86461"
+                                      style={{ marginRight: 10 }}
+                                    />
+                                  ),
+                                });
                               }
                             }}
                           >

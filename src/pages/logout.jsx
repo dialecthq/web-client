@@ -10,6 +10,7 @@ const Logout = () => {
   const { user, setUser } = UserContainer.useContainer();
   useEffect(async () => {
     fire.auth().signOut();
+    setUser(null);
     router.push("/");
   });
   return <Loading />;

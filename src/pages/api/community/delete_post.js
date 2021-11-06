@@ -7,13 +7,22 @@ async function handler(req, res) {
   if (req.method === "POST") {
     let { id } = req.body;
 
-    const deletedPost = await prisma.post.delete({
-      where: {
-        id: id,
-      },
-    });
+    try {
+      const deletedPost = await prisma.post.delete({
+        where: {
+          id: id,
+        },
+      });
 
-    res.status(200).json(deletedPost);
+      if (!deletedPost) {
+        res.status(500);
+        return;
+      }
+      res.status(200).json({ err: 1 });
+    } catch (e) {
+      res.status(500).json(e);
+      return;
+    }
   } else {
     res.setHeader("Allow", "POST");
     res.status(405).end("Method Not Allowed");

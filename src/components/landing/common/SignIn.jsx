@@ -119,11 +119,20 @@ const SignIn = ({ visible, setVisible, setSignUpVisible }) => {
 
   const onFinish = (values) => {
     setLoading(true);
-    login(values.email, values.password)
-      .then(() => {
+    fire
+      .auth()
+      .signInWithEmailAndPassword(values.email, values.password)
+      .then(async (userRef) => {
         setVisible(false);
         setLoading(false);
-        router.push("/exchange");
+        console.log(userRef);
+        const result = await axios.get("/api/user/get_user", {
+          params: {
+            id: userRef.user.uid,
+          },
+        });
+        setUser(result.data);
+        router.push("/home");
       })
       .catch((e) => {
         message.error({
@@ -318,6 +327,13 @@ const SignIn = ({ visible, setVisible, setSignUpVisible }) => {
                         }
                       );
                       setUser(newUser.data);
+                    } else {
+                      const result = await axios.get("/api/user/get_user", {
+                        params: {
+                          id: user.uid,
+                        },
+                      });
+                      setUser(result.data);
                     }
                     router.push("/home");
                   })

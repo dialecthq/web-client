@@ -25,7 +25,7 @@ const NavContainer = styled.div`
   display: flex;
   flex-direction: column;
   background-color: #fff;
-  flex: 0.75;
+  width: 300px;
   height: 100%;
   min-height: 100vh;
   justify-content: flex-start;

@@ -43,12 +43,6 @@ function useUser() {
       });
     }
 
-    if (data) {
-      setUser(data);
-    } else {
-      setUser(null);
-    }
-
     setLoading(false);
   };
 

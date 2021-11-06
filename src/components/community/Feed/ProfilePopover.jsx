@@ -5,6 +5,8 @@ import UserContainer from "../../../utils/state/userContainer";
 import axios from "axios";
 import UnfollowButton from "../Profile/UnfollowButton";
 import FollowButton from "../Profile/FollowButton";
+import { message } from "antd";
+import { FaTimesCircle } from "react-icons/fa";
 
 const Container = styled.div`
   display: flex;
@@ -92,7 +94,20 @@ const Popover = ({ profile }) => {
   const follow = async () => {
     setIsFollowing(true);
     setFollowers(followers + 1);
-    await axios.post("/api/community/follow", { profile, user });
+    try {
+      await axios.post("/api/community/follow", { profile, user });
+    } catch (e) {
+      message.error({
+        content: "could not follow user",
+        icon: (
+          <FaTimesCircle
+            size={24}
+            color="#e86461"
+            style={{ marginRight: 10 }}
+          />
+        ),
+      });
+    }
   };
 
   const unfollow = async () => {

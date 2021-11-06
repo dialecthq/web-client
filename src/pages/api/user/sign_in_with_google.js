@@ -25,8 +25,6 @@ async function handler(req, res) {
       },
     });
 
-    res.redirect("/home");
-
     res.status(200).json(user);
   } else {
     res.setHeader("Allow", "POST");

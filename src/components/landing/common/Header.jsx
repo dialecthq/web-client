@@ -104,7 +104,7 @@ const MenuButton = styled.div`
 `;
 
 const Header = () => {
-  const { user } = UserContainer.useContainer();
+  const { user, setUser } = UserContainer.useContainer();
   const { language, setLanguage } = LanguageContainer.useContainer();
   const router = useRouter();
 
@@ -271,7 +271,7 @@ const Header = () => {
               }}
               onClick={() => {
                 setMenuVisible(false);
-                logout();
+                router.push("/logout");
               }}
             >
               <ButtonText>{strings.signOut.capitalize()}</ButtonText>

@@ -166,7 +166,7 @@ const SignUp = ({ visible, setVisible, setSignInVisible }) => {
   const [loading, setLoading] = useState(false);
   const [level, setLevel] = useState(1);
 
-  const { user } = User.useContainer();
+  const { user, setUser } = User.useContainer();
   const router = useRouter();
 
   const onFinishPage1 = (values) => {
@@ -195,12 +195,14 @@ const SignUp = ({ visible, setVisible, setSignInVisible }) => {
       .post("/api/user/register", {
         ...newTempUser,
       })
-      .then(() => {
+      .then((result) => {
         setVisible(false);
         setPage(0);
         setLoading(false);
+        setUser(result.data);
         setTempUser(null);
-        router.push("/exchange");
+        console.log("1");
+        router.push("/home");
       })
       .catch((error) => {
         console.log(error);
@@ -358,6 +360,13 @@ const SignUp = ({ visible, setVisible, setSignInVisible }) => {
                           }
                         );
                         setUser(newUser.data);
+                      } else {
+                        const result = await axios.get("/api/user/get_user", {
+                          params: {
+                            id: user.uid,
+                          },
+                        });
+                        setUser(result.data);
                       }
                       router.push("/home");
                     })

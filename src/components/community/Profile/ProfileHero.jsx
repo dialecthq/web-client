@@ -17,6 +17,8 @@ import * as countries from "../../../utils/data/countries.json";
 import UserContainer from "../../../utils/state/userContainer";
 import { useState } from "react";
 import EditModal from "./EditModal";
+import { FaTimesCircle } from "react-icons/fa";
+import { message } from "antd";
 
 const ProfileHeroContainer = styled.div`
   display: flex;
@@ -130,7 +132,20 @@ const ProfileHero = ({ profile }) => {
   const follow = async () => {
     setIsFollowing(true);
     setFollowers(followers + 1);
-    await axios.post("/api/community/follow", { profile, user });
+    try {
+      await axios.post("/api/community/follow", { profile, user });
+    } catch (e) {
+      message.error({
+        content: "could not follow user",
+        icon: (
+          <FaTimesCircle
+            size={24}
+            color="#e86461"
+            style={{ marginRight: 10 }}
+          />
+        ),
+      });
+    }
   };
 
   const unfollow = async () => {
