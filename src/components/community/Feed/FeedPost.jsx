@@ -229,7 +229,7 @@ const FeedPost = ({
           <FeedPostContainer
             onClick={() =>
               router.push(
-                `/${
+                `/user/${
                   post.type === "reply"
                     ? post.replyTo[0].author.username
                     : post.author.username

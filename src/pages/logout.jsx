@@ -2,15 +2,13 @@ import Loading from "../components/common/Loading";
 import { useEffect } from "react";
 import axios from "axios";
 import { useRouter } from "next/router";
-import UserContainer from "../utils/state/userContainer";
 import fire from "../utils/fire";
+import { signOut } from "next-auth/react";
 
 const Logout = () => {
   const router = useRouter();
-  const { user, setUser } = UserContainer.useContainer();
   useEffect(async () => {
-    fire.auth().signOut();
-    setUser(null);
+    signOut();
     router.push("/");
   });
   return <Loading />;

@@ -15,6 +15,7 @@ function useLanguage() {
     strings.setLanguage(language)
   }, [language])
 
+
   const setLanguage = (input) => {
     if (typeof window != null) {
       window.localStorage.setItem("language", input)

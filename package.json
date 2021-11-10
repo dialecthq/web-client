@@ -7,7 +7,8 @@
     "@agney/react-loading": "^0.1.2",
     "@babel/core": "^7.15.5",
     "@babel/register": "^7.15.3",
-    "@prisma/client": "^3.2.1",
+    "@next-auth/prisma-adapter": "^0.5.2-next.19",
+    "@prisma/client": "^3.4.2",
     "@segment/snippet": "^4.15.3",
     "@stripe/react-stripe-js": "^1.4.1",
     "@stripe/stripe-js": "^1.17.1",
@@ -22,6 +23,7 @@
     "babel-plugin-import": "^1.13.3",
     "babel-plugin-inline-react-svg": "^2.0.1",
     "babel-preset-next": "^1.4.0",
+    "bcryptjs": "^2.4.3",
     "boring-avatars": "^1.5.8",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
@@ -35,6 +37,7 @@
     "livekit-server-api": "^0.4.5",
     "livekit-server-sdk": "^0.5.1",
     "next": "^11.1.2",
+    "next-auth": "^4.0.0-beta.6",
     "next-with-less": "^1.0.1",
     "nextjs-cors": "^2.0.0",
     "react": "^17.0.2",
@@ -87,6 +90,6 @@
     "eslint-plugin-react": "^7.24.0",
     "eslint-plugin-react-hooks": "^4.2.0",
     "postcss": "^7.0.36",
-    "prisma": "^3.2.1"
+    "prisma": "^3.4.2"
   }
 }

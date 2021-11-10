@@ -6,7 +6,7 @@ import FeedPost from "./FeedPost";
 import FeedLoading from "./FeedLoading";
 import GetMorePosts from "./GetMorePosts";
 import axios from "axios";
-import UserContainer from "../../../utils/state/userContainer";
+import { useSession } from "next-auth/react";
 
 const FeedContainer = styled.div`
   display: flex;
@@ -65,7 +65,7 @@ const post = {
 };
 
 const Feed = () => {
-  const { user } = UserContainer.useContainer();
+  const { data: session, status } = useSession();
   const nativeIndex = user.languageLevels.indexOf(7);
   const [posts, setPosts] = useState([]);
   const [last, setLast] = useState(0);

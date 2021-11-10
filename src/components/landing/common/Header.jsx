@@ -4,7 +4,8 @@ import styled from "styled-components";
 import { Button } from "antd";
 import { Cross as Hamburger } from "hamburger-react";
 import { useRouter } from "next/router";
-import UserContainer from "../../../utils/state/userContainer";
+import { useSession, getProviders, signOut } from "next-auth/react";
+
 import HeaderLogo from "../../common/HeaderLogo";
 import strings from "../../../utils/data/strings";
 import LanguageContainer from "../../../utils/state/languageContainer";
@@ -104,7 +105,7 @@ const MenuButton = styled.div`
 `;
 
 const Header = () => {
-  const { user, setUser } = UserContainer.useContainer();
+  const { data: session, status } = useSession();
   const { language, setLanguage } = LanguageContainer.useContainer();
   const router = useRouter();
 
@@ -127,6 +128,10 @@ const Header = () => {
     return listener;
   });
 
+  useEffect(() => {
+    console.log(status);
+  }, [status]);
+
   return (
     <>
       <Container scrollState={scrollState}>
@@ -140,7 +145,7 @@ const Header = () => {
             </Link>
           </HeaderSection>
           <HeaderSection desktop>
-            {!user ? (
+            {status == "unauthenticated" ? (
               <>
                 <Button
                   style={{
@@ -177,8 +182,10 @@ const Header = () => {
                     flexDirection: "row-reverse",
                     marginRight: 10,
                   }}
-                  onClick={() => {
-                    router.push("/logout");
+                  onClick={async () => {
+                    signOut({ redirect: false }).then((data) => {
+                      console.log(data);
+                    });
                   }}
                   type="text"
                 >
@@ -226,7 +233,7 @@ const Header = () => {
         >
           <ButtonText>{strings.pricing.capitalize()}</ButtonText>
         </MenuButton> */}
-        {!user ? (
+        {!status === "unauthenticated" ? (
           <>
             <Button
               block
@@ -271,7 +278,8 @@ const Header = () => {
               }}
               onClick={() => {
                 setMenuVisible(false);
-                router.push("/logout");
+                signOut();
+                // router.push("/logout");
               }}
             >
               <ButtonText>{strings.signOut.capitalize()}</ButtonText>

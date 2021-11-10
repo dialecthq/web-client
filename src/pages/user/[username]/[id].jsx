@@ -4,11 +4,11 @@ import styled from "styled-components";
 import axios from "axios";
 
 import { Helmet } from "react-helmet";
-import UserContainer from "../../utils/state/userContainer";
+import UserContainer from "../../../utils/state/userContainer";
 
-import Nav from "../../components/community/Nav/Nav";
-import Feed from "../../components/community/Feed/Feed";
-import Profile from "../../components/community/Profile/Profile";
+import Nav from "../../../components/community/Nav/Nav";
+import Feed from "../../../components/community/Feed/Feed";
+import Status from "../../../components/community/Status/Status";
 
 const Container = styled.div`
   display: flex;
@@ -41,42 +41,32 @@ const Info = styled.div`
   }
 `;
 
-const Post = ({ profile }) => {
-  const { user, setUser, loading } = UserContainer.useContainer();
-  const router = useRouter();
-
-  useEffect(() => {
-    if (!user && !loading) {
-      router.replace("/");
-    }
-  });
-
-  if (!user) {
-    return null;
-  }
+const Post = ({ post }) => {
+  const { user, loading } = UserContainer.useContainer();
 
   return (
     <Container>
       <Wrapper>
         <Nav />
-        <Profile profile={user.id === profile.id ? user : profile} />
+        <Status post={post} />
       </Wrapper>
     </Container>
   );
 };
 
 export async function getServerSideProps(context) {
-  const { username } = context.params;
+  const { id } = context.params;
   const result = await axios.get(
-    "http://localhost:3000/api/community/query_user",
+    "http://localhost:3000/api/community/get_post",
     {
       params: {
-        username: username,
+        uid: id,
       },
     }
   );
 
-  if (!result) {
+  if (!result.data) {
+    console.log(result.data);
     return {
       notFound: true,
     };
@@ -84,7 +74,7 @@ export async function getServerSideProps(context) {
 
   return {
     props: {
-      profile: result.data,
+      post: result.data,
     }, // will be passed to the page component as props
   };
 }

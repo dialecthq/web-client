@@ -154,7 +154,7 @@ const FeedPost = ({ initialPost }) => {
           exit={{ opacity: 0 }}
           style={{ width: "100%" }}
         >
-          <Link href={`/${post.author.username}`}>
+          <Link href={`/user/${post.author.username}`}>
             <a style={{ width: "100%" }}>
               <FeedPostContainer>
                 <FeedPostWrapper>

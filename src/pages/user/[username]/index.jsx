@@ -4,11 +4,11 @@ import styled from "styled-components";
 import axios from "axios";
 
 import { Helmet } from "react-helmet";
-import UserContainer from "../../utils/state/userContainer";
+import UserContainer from "../../../utils/state/userContainer";
 
-import Nav from "../../components/community/Nav/Nav";
-import Feed from "../../components/community/Feed/Feed";
-import Status from "../../components/community/Status/Status";
+import Nav from "../../../components/community/Nav/Nav";
+import Feed from "../../../components/community/Feed/Feed";
+import Profile from "../../../components/community/Profile/Profile";
 
 const Container = styled.div`
   display: flex;
@@ -41,42 +41,39 @@ const Info = styled.div`
   }
 `;
 
-const Post = ({ post }) => {
-  const { user, loading } = UserContainer.useContainer();
+const Post = ({ profile }) => {
+  const { user, setUser, loading } = UserContainer.useContainer();
+  const router = useRouter();
 
   useEffect(() => {
     if (!user && !loading) {
-      router.replace("/");
+      router.push("/");
     }
   });
-
-  if (!user) {
-    return null;
-  }
 
   return (
     <Container>
       <Wrapper>
         <Nav />
-        <Status post={post} />
+        <Profile profile={user.id === profile.id ? user : profile} />
       </Wrapper>
     </Container>
   );
 };
 
 export async function getServerSideProps(context) {
-  const { id } = context.params;
+  console.log(context);
+  const { username } = context.params;
   const result = await axios.get(
-    "http://localhost:3000/api/community/get_post",
+    "http://localhost:3000/api/community/query_user",
     {
       params: {
-        uid: id,
+        username: username,
       },
     }
   );
 
-  if (!result.data) {
-    console.log(result.data);
+  if (!result) {
     return {
       notFound: true,
     };
@@ -84,7 +81,7 @@ export async function getServerSideProps(context) {
 
   return {
     props: {
-      post: result.data,
+      profile: result.data,
     }, // will be passed to the page component as props
   };
 }

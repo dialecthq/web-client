@@ -127,7 +127,7 @@ const Nav = () => {
               icon={<HiOutlineUser size={24} />}
               activeIcon={<HiUser size={24} />}
               active={router.query.username === user.username}
-              href={`/${user.username}`}
+              href={`/user/${user.username}`}
             />
             {/* <NavButton
               name="Conversations"

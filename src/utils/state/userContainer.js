@@ -43,6 +43,10 @@ function useUser() {
       });
     }
 
+    if (data) {
+      setUser(data);
+    }
+
     setLoading(false);
   };
 

@@ -1,69 +1,48 @@
 /* eslint-disable react/jsx-props-no-spreading */
-import React, { useEffect, useState } from "react"
-import App from "next/app"
-import "../App.less"
-import LanguageContainer from "../utils/state/languageContainer"
-import UserContainer from "../utils/state/userContainer"
-import Loading from "../components/common/Loading"
-import fire from "../utils/fire"
-import strings from "../utils/data/strings"
-import { useRouter } from "next/router"
-import Script from "next/script"
-import * as snippet from "@segment/snippet"
+import React, { useEffect, useState } from "react";
+import "../App.less";
+import LanguageContainer from "../utils/state/languageContainer";
+import UserContainer from "../utils/state/userContainer";
+import Loading from "../components/common/Loading";
+import fire from "../utils/fire";
+import strings from "../utils/data/strings";
+import { useRouter } from "next/router";
+import Script from "next/script";
+import * as snippet from "@segment/snippet";
+import { SessionProvider } from "next-auth/react";
 
-function Wrapper({ Component, pageProps }) {
-  const { user, loading } = UserContainer.useContainer()
-  const { language } = LanguageContainer.useContainer()
-  const router = useRouter()
+export default function App({
+  Component,
+  pageProps: { session, ...pageProps },
+}) {
+  return (
+    <SessionProvider session={session}>
+      <LanguageContainer.Provider>
+        {Component.auth ? (
+          <Auth>
+            <Component {...pageProps} />
+          </Auth>
+        ) : (
+          <Component {...pageProps} />
+        )}
+      </LanguageContainer.Provider>
+    </SessionProvider>
+  );
+}
 
-  useEffect(() => {
-    router.events.on("routeChangeComplete", (url) => {
-      if (typeof window !== undefined) {
-        window.analytics.page(url)
-      }
-    })
+function Auth({ children }) {
+  const { data: session, status } = useSession();
+  const isUser = !!session?.user;
+  React.useEffect(() => {
+    if (status === "loading") return; // Do nothing while loading
+    if (!isUser) signIn(); // If not authenticated, force log in
+  }, [isUser, status]);
 
-    return () => {
-      router.events.on("routeChangeComplete", (url) => {
-        if (typeof window !== undefined) {
-          window.analytics.page(url)
-        }
-      })
-    }
-  }, [])
-
-  useEffect(() => {
-    strings.setLanguage(language)
-  }, [language])
-
-  useEffect(() => {
-    if (user) {
-      const { unfinished } = user
-      if (unfinished) {
-        router.replace(`/rate?id=${unfinished}`)
-      }
-    }
-  }, [user])
-
-  if (loading) {
-    return <Loading />
+  if (isUser) {
+    return children;
   }
 
-  return (
-    <>
-      <Component {...pageProps} />
-    </>
-  )
+  // Session is being fetched, or no user.
+  // If no user, useEffect() will redirect.
+  return <div>Loading...</div>;
 }
-
-function MyApp({ Component, pageProps }) {
-  return (
-    <LanguageContainer.Provider>
-      <UserContainer.Provider>
-        <Wrapper Component={Component} pageProps={pageProps} />
-      </UserContainer.Provider>
-    </LanguageContainer.Provider>
-  )
-}
-
-export default MyApp

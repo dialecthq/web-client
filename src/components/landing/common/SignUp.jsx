@@ -30,7 +30,7 @@ import timezoneOptions from "../../../utils/data/TimezoneOptions";
 import rooms from "../../../utils/data/rooms";
 
 // Containers
-import User from "../../../utils/state/userContainer";
+import { signIn, useSession } from "next-auth/react";
 import strings from "../../../utils/data/strings";
 import firebase from "firebase";
 import fire from "../../../utils/fire";
@@ -166,7 +166,7 @@ const SignUp = ({ visible, setVisible, setSignInVisible }) => {
   const [loading, setLoading] = useState(false);
   const [level, setLevel] = useState(1);
 
-  const { user, setUser } = User.useContainer();
+  const { data: session, status } = useSession();
   const router = useRouter();
 
   const onFinishPage1 = (values) => {
@@ -192,17 +192,21 @@ const SignUp = ({ visible, setVisible, setSignInVisible }) => {
     };
     setLoading(true);
     axios
-      .post("/api/user/register", {
+      .post("/api/auth/createUser", {
         ...newTempUser,
       })
       .then((result) => {
         setVisible(false);
         setPage(0);
         setLoading(false);
-        setUser(result.data);
         setTempUser(null);
-        console.log("1");
-        router.push("/home");
+        console.log(newTempUser);
+        // signIn("credentials", {
+        //   username: newTempUser.email,
+        //   password: newTempUser.password,
+        // }).then(() => {
+        //   router.push("/home");
+        // });
       })
       .catch((error) => {
         console.log(error);
@@ -359,14 +363,12 @@ const SignUp = ({ visible, setVisible, setSignInVisible }) => {
                             languageKeys: languageKeys,
                           }
                         );
-                        setUser(newUser.data);
                       } else {
                         const result = await axios.get("/api/user/get_user", {
                           params: {
                             id: user.uid,
                           },
                         });
-                        setUser(result.data);
                       }
                       router.push("/home");
                     })

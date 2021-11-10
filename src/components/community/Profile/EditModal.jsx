@@ -123,7 +123,7 @@ const EditModal = ({ visible, setVisible, profile }) => {
   );
   const [languageKeys, setLanguageKeys] = useState(profile.languageKeys);
   const [languageLevels, setLanguageLevels] = useState(profile.languageLevels);
-  const [avatar, setAvatar] = useState(profile.avatar);
+  const [avatar, setAvatar] = useState(profile.image);
   const [hidden, setHidden] = useState([]);
   const [avatarProfile, setAvatarProfile] = useState(profile);
   const { user, setUser } = UserContainer.useContainer();
@@ -206,7 +206,7 @@ const EditModal = ({ visible, setVisible, profile }) => {
                 const avatarUrl = await imgFile.getDownloadURL();
                 console.log(avatarUrl);
                 const tempAvatarProfile = { ...avatarProfile };
-                tempAvatarProfile.avatar = avatarUrl;
+                tempAvatarProfile.image = avatarUrl;
                 setAvatarProfile(tempAvatarProfile);
                 setAvatar(avatarUrl);
               }}
@@ -222,7 +222,7 @@ const EditModal = ({ visible, setVisible, profile }) => {
                 danger
                 onClick={async () => {
                   let tempAvatarProfile = { ...avatarProfile };
-                  tempAvatarProfile.avatar = null;
+                  tempAvatarProfile.image = null;
                   setAvatarProfile(tempAvatarProfile);
                   setAvatar(null);
                 }}
