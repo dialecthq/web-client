@@ -1,10 +1,10 @@
 import { useState } from "react";
 import styled from "styled-components";
 import { Input } from "antd";
-import UserContainer from "../../../utils/state/userContainer";
 import Avatar from "../../common/Avatar";
 import PostButton from "./PostButton";
 import axios from "axios";
+import { useUser } from "@auth0/nextjs-auth0";
 
 const FeedInputContainer = styled.div`
   display: flex;
@@ -34,11 +34,11 @@ const FeedInput = ({
   setLast,
   modal,
 }) => {
-  const { user } = UserContainer.useContainer();
+  const { user, isLoading, error } = useUser();
   const [content, setContent] = useState("");
   return (
     <FeedInputContainer style={style}>
-      <Avatar user={user} size={48} />
+      <Avatar user={user.app_metadata} size={48} />
       <InputWrapper>
         <Input.TextArea
           value={content}
@@ -54,7 +54,7 @@ const FeedInput = ({
           style={{ marginTop: 12 }}
           onClick={async () => {
             const post = await axios.post("/api/community/post", {
-              author: user,
+              author: session.user,
               body: content,
               language: language,
             });

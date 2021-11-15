@@ -6,7 +6,6 @@ import prisma from "../../../utils/prisma";
 async function handler(req, res) {
   if (req.method === "POST") {
     let { postId, userId, authorId, body } = req.body;
-    console.log(postId);
     const newPost = await prisma.post.update({
       where: {
         id: postId,

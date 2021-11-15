@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import UserContainer from "../../../utils/state/userContainer";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import Footer from "../../landing/common/Footer";
@@ -113,7 +112,6 @@ const IconButton = styled.div`
 const Info = () => {
   const router = useRouter();
 
-  const { user } = UserContainer.useContainer();
   return (
     <InfoContainer>
       <InfoHeader />

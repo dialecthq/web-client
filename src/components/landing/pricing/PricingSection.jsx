@@ -4,8 +4,8 @@ import { Button, Switch } from "antd";
 import { FaCheck, FaTimes } from "react-icons/fa";
 import Image from "next/image";
 
-import SignIn from "../common/SignIn";
-import SignUp from "../common/SignUp";
+// import SignIn from "../common/SignIn";
+// import SignUp from "../common/SignUp";
 import { loadStripe } from "@stripe/stripe-js";
 
 import axios from "axios";
@@ -304,7 +304,7 @@ const PricingSection = () => {
           </PriceContainer>
         </Wrapper>
       </Container>
-      <SignUp
+      {/* <SignUp
         visible={signUpVisible}
         setVisible={setSignUpVisible}
         setSignInVisible={setSignInVisible}
@@ -313,7 +313,7 @@ const PricingSection = () => {
         visible={signInVisible}
         setVisible={setSignInVisible}
         setSignUpVisible={setSignUpVisible}
-      />
+      /> */}
     </>
   );
 };

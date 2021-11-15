@@ -1,48 +1,63 @@
 /* eslint-disable react/jsx-props-no-spreading */
-import React, { useEffect, useState } from "react";
 import "../App.less";
 import LanguageContainer from "../utils/state/languageContainer";
 import UserContainer from "../utils/state/userContainer";
 import Loading from "../components/common/Loading";
-import fire from "../utils/fire";
-import strings from "../utils/data/strings";
-import { useRouter } from "next/router";
-import Script from "next/script";
 import * as snippet from "@segment/snippet";
-import { SessionProvider } from "next-auth/react";
+import { UserProvider, useUser } from "@auth0/nextjs-auth0";
+import { useEffect, useState } from "react";
+import { getUser } from "../utils/db";
+import axios from "axios";
 
-export default function App({
-  Component,
-  pageProps: { session, ...pageProps },
-}) {
+export default function App({ Component, pageProps }) {
   return (
-    <SessionProvider session={session}>
+    <UserProvider>
       <LanguageContainer.Provider>
-        {Component.auth ? (
-          <Auth>
+        <UserContainer.Provider>
+          <Wrap>
             <Component {...pageProps} />
-          </Auth>
-        ) : (
-          <Component {...pageProps} />
-        )}
+          </Wrap>
+        </UserContainer.Provider>
       </LanguageContainer.Provider>
-    </SessionProvider>
+    </UserProvider>
   );
 }
 
-function Auth({ children }) {
-  const { data: session, status } = useSession();
-  const isUser = !!session?.user;
-  React.useEffect(() => {
-    if (status === "loading") return; // Do nothing while loading
-    if (!isUser) signIn(); // If not authenticated, force log in
-  }, [isUser, status]);
+function Wrap({ children }) {
+  const { user, isLoading, error } = useUser();
+  const { stateUser, setStateUser } = UserContainer.useContainer();
+  const [loading, setLoading] = useState(false);
 
-  if (isUser) {
-    return children;
+  useEffect(async () => {
+    if (user && !isLoading && !stateUser) {
+      setLoading(true);
+      const result = await axios.get(`/api/user/ping?email=${user.email}`);
+      setStateUser(result.data);
+      setLoading(false);
+    } else if (!user && !isLoading && stateUser) {
+      setStateUser(null);
+    }
+  }, [user, isLoading]);
+
+  if (isLoading || loading) {
+    return <Loading />;
   }
-
-  // Session is being fetched, or no user.
-  // If no user, useEffect() will redirect.
-  return <div>Loading...</div>;
+  return <div>{children}</div>;
 }
+
+// function Auth({ children }) {
+//   const { data: session, status } = useSession();
+//   const isUser = !!session?.user;
+//   React.useEffect(() => {
+//     if (status === "loading") return; // Do nothing while loading
+//     if (!isUser) signIn(); // If not authenticated, force log in
+//   }, [isUser, status]);
+
+//   if (isUser) {
+//     return children;
+//   }
+
+//   // Session is being fetched, or no user.
+//   // If no user, useEffect() will redirect.
+//   return <div>Loading...</div>;
+// }

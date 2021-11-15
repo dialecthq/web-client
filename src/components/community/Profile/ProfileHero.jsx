@@ -14,7 +14,7 @@ import {
 } from "react-icons/hi";
 import * as languages from "../../../utils/data/languages.json";
 import * as countries from "../../../utils/data/countries.json";
-import UserContainer from "../../../utils/state/userContainer";
+import { useUser } from "@auth0/nextjs-auth0";
 import { useState } from "react";
 import EditModal from "./EditModal";
 import { FaTimesCircle } from "react-icons/fa";
@@ -119,10 +119,12 @@ const levels = {
 };
 
 const ProfileHero = ({ profile }) => {
-  const { user } = UserContainer.useContainer();
-  const isMyAccount = profile.id === user.id;
+  const { user, isLoading, error } = useUser();
+  const isMyAccount = profile.id === user.app_metadata.id;
   const [isFollowing, setIsFollowing] = useState(
-    profile.followers ? profile.followers.some((e) => e.id === user.id) : false
+    profile.followers
+      ? profile.followers.some((e) => e.id === user.app_metadata.id)
+      : false
   );
   const [followers, setFollowers] = useState(
     profile.followers ? profile.followers.length : 0
@@ -133,7 +135,10 @@ const ProfileHero = ({ profile }) => {
     setIsFollowing(true);
     setFollowers(followers + 1);
     try {
-      await axios.post("/api/community/follow", { profile, user });
+      await axios.post("/api/community/follow", {
+        profile,
+        user: user.app_metadata,
+      });
     } catch (e) {
       message.error({
         content: "could not follow user",
@@ -151,7 +156,10 @@ const ProfileHero = ({ profile }) => {
   const unfollow = async () => {
     setIsFollowing(false);
     setFollowers(followers - 1);
-    await axios.post("/api/community/unfollow", { profile, user });
+    await axios.post("/api/community/unfollow", {
+      profile,
+      user: user.app_metadata,
+    });
   };
   return (
     <ProfileHeroContainer>

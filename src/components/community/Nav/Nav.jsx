@@ -3,7 +3,7 @@ import styled from "styled-components";
 import NavButton from "./NavButton";
 import PrimaryButton from "./PrimaryButton";
 import ProfileButton from "./ProfileButton";
-import UserContainer from "../../../utils/state/userContainer";
+import { useUser } from "@auth0/nextjs-auth0";
 import { useRouter } from "next/router";
 import PostModal from "./PostModal";
 import { useEffect, useState } from "react";
@@ -92,7 +92,7 @@ const Nav = () => {
   const router = useRouter();
   const [visible, setVisible] = useState(false);
 
-  const { user, loading } = UserContainer.useContainer();
+  const { user, isLoading, error } = useUser();
 
   return (
     <NavContainer>
@@ -126,8 +126,8 @@ const Nav = () => {
               name="Profile"
               icon={<HiOutlineUser size={24} />}
               activeIcon={<HiUser size={24} />}
-              active={router.query.username === user.username}
-              href={`/user/${user.username}`}
+              active={router.query.username === user.app_metadata.username}
+              href={`/user/${user.app_metadata.username}`}
             />
             {/* <NavButton
               name="Conversations"

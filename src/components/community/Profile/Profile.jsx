@@ -31,7 +31,6 @@ const LoadingContainer = styled.div`
 `;
 
 const Profile = ({ profile, loading }) => {
-  console.log(profile);
   return (
     <FeedContainer>
       <FeedWrapper>

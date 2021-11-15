@@ -12,18 +12,15 @@ async function handler(req, res) {
       username,
       password,
     } = req.body;
-    console.log(req.body, "boidy");
     const pass = await hash(password, 12);
-    console.log(pass);
     const user = await prisma.user.create({
       data: {
         name: name,
         email: email,
-        languageKeys: languageKeys,
-        languageLevels: languageLevels,
+        languageKeys: [1, 3],
+        languageLevels: [7, 1],
         countryFrom: countryFrom,
         username: username,
-        pass: password,
       },
     });
 

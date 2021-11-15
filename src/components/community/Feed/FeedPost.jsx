@@ -13,7 +13,7 @@ import {
 } from "react-icons/hi";
 
 import { FaTimesCircle } from "react-icons/fa";
-import UserContainer from "../../../utils/state/userContainer";
+import { useUser } from "@auth0/nextjs-auth0";
 import Link from "next/link";
 import FeedLoading from "../../community/Feed/FeedLoading";
 import * as months from "../../../utils/data/months.json";
@@ -182,7 +182,7 @@ const FeedPost = ({
   setPosts,
   redirectOnDelete,
 }) => {
-  const { user } = UserContainer.useContainer();
+  const { user, isLoading, error } = useUser();
   const router = useRouter();
   const [post, setPost] = useState(initialPost);
   const [loading, setLoading] = useState(true);
@@ -201,7 +201,7 @@ const FeedPost = ({
     setLiked(true);
     setLikes(likes + 1);
     await axios.post("/api/community/like_post", {
-      userId: user.id,
+      userId: user.app_metadata.id,
       postId: post.id,
       authorId: post.authorId,
       body: post.body,
@@ -212,7 +212,7 @@ const FeedPost = ({
     setLiked(false);
     setLikes(likes - 1);
     await axios.post("/api/community/unlike_post", {
-      userId: user.id,
+      userId: user.app_metadata.id,
       postId: post.id,
     });
   };
@@ -279,7 +279,7 @@ const FeedPost = ({
                       />
                     )}
                   </div>
-                  {post.author.id === user.id && (
+                  {post.author.id === user.app_metadata.id && (
                     <Popover
                       placement="left"
                       content={

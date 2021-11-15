@@ -2,7 +2,6 @@ import styled from "styled-components";
 import { Select } from "antd";
 import * as languages from "../../../utils/data/languages.json";
 import rooms from "../../../utils/data/rooms";
-import UserContainer from "../../../utils/state/userContainer";
 
 const FeedHeaderContainer = styled.div`
   width: 100%;

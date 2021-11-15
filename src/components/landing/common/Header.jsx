@@ -4,13 +4,13 @@ import styled from "styled-components";
 import { Button } from "antd";
 import { Cross as Hamburger } from "hamburger-react";
 import { useRouter } from "next/router";
-import { useSession, getProviders, signOut } from "next-auth/react";
 
 import HeaderLogo from "../../common/HeaderLogo";
 import strings from "../../../utils/data/strings";
 import LanguageContainer from "../../../utils/state/languageContainer";
-import SignIn from "./SignIn";
-import SignUp from "./SignUp";
+import UserContainer from "../../../utils/state/userContainer";
+// import SignIn from "./SignIn";
+// import SignUp from "./SignUp";
 import Link from "next/link";
 import fire from "../../../utils/fire";
 
@@ -105,11 +105,11 @@ const MenuButton = styled.div`
 `;
 
 const Header = () => {
-  const { data: session, status } = useSession();
+  const { stateUser } = UserContainer.useContainer();
+  console.log("header user", stateUser);
   const { language, setLanguage } = LanguageContainer.useContainer();
   const router = useRouter();
 
-  const [signInVisible, setSignInVisible] = useState(false);
   const [signUpVisible, setSignUpVisible] = useState(false);
   const [menuVisible, setMenuVisible] = useState(false);
   const [scrollState, setScrollState] = useState(false);
@@ -128,10 +128,6 @@ const Header = () => {
     return listener;
   });
 
-  useEffect(() => {
-    console.log(status);
-  }, [status]);
-
   return (
     <>
       <Container scrollState={scrollState}>
@@ -145,7 +141,7 @@ const Header = () => {
             </Link>
           </HeaderSection>
           <HeaderSection desktop>
-            {status == "unauthenticated" ? (
+            {!stateUser ? (
               <>
                 <Button
                   style={{
@@ -155,7 +151,7 @@ const Header = () => {
                     fontWeight: "600",
                   }}
                   onClick={() => {
-                    setSignInVisible(true);
+                    router.push("/api/auth/login");
                   }}
                   type="text"
                 >
@@ -183,9 +179,7 @@ const Header = () => {
                     marginRight: 10,
                   }}
                   onClick={async () => {
-                    signOut({ redirect: false }).then((data) => {
-                      console.log(data);
-                    });
+                    router.push("/api/auth/logout");
                   }}
                   type="text"
                 >
@@ -233,7 +227,7 @@ const Header = () => {
         >
           <ButtonText>{strings.pricing.capitalize()}</ButtonText>
         </MenuButton> */}
-        {!status === "unauthenticated" ? (
+        {!stateUser ? (
           <>
             <Button
               block
@@ -245,7 +239,7 @@ const Header = () => {
               }}
               onClick={() => {
                 setMenuVisible(false);
-                setSignInVisible(true);
+                router.push("/api/auth/login");
               }}
             >
               <ButtonText>{strings.logIn.capitalize()}</ButtonText>
@@ -287,16 +281,6 @@ const Header = () => {
           </>
         )}
       </MenuModal>
-      <SignUp
-        visible={signUpVisible}
-        setVisible={setSignUpVisible}
-        setSignInVisible={setSignInVisible}
-      />
-      <SignIn
-        visible={signInVisible}
-        setVisible={setSignInVisible}
-        setSignUpVisible={setSignUpVisible}
-      />
     </>
   );
 };

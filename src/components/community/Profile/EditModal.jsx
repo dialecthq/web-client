@@ -10,7 +10,6 @@ import languageArray from "../../../utils/data/LanguageOptions";
 import levelsArray from "../../../utils/data/levelOptions";
 import Avatar from "../../common/Avatar";
 import { FaUpload, FaTrash } from "react-icons/fa";
-import UserContainer from "../../../utils/state/userContainer";
 import axios from "axios";
 import { useRouter } from "next/router";
 import { v4 as uuid } from "uuid";
@@ -126,10 +125,7 @@ const EditModal = ({ visible, setVisible, profile }) => {
   const [avatar, setAvatar] = useState(profile.image);
   const [hidden, setHidden] = useState([]);
   const [avatarProfile, setAvatarProfile] = useState(profile);
-  const { user, setUser } = UserContainer.useContainer();
   const router = useRouter();
-
-  console.log(languageKeys, "top");
 
   const save = async () => {
     const zeroKey = languageKeys.indexOf(0) == -1;
@@ -146,8 +142,6 @@ const EditModal = ({ visible, setVisible, profile }) => {
         languageLevels,
         avatar,
       });
-
-      setUser(newUser.data);
       setVisible(false);
     }
   };
@@ -204,7 +198,6 @@ const EditModal = ({ visible, setVisible, profile }) => {
                 }
 
                 const avatarUrl = await imgFile.getDownloadURL();
-                console.log(avatarUrl);
                 const tempAvatarProfile = { ...avatarProfile };
                 tempAvatarProfile.image = avatarUrl;
                 setAvatarProfile(tempAvatarProfile);
@@ -321,10 +314,8 @@ const EditModal = ({ visible, setVisible, profile }) => {
                   defaultValue={profile.languageLevels[i]}
                   style={{ width: "100%", marginLeft: 12 }}
                   onChange={(e) => {
-                    console.log(languageLevels);
                     let tempLanguageLevels = languageLevels;
                     tempLanguageLevels[i] = e;
-                    console.log(tempLanguageLevels);
                     setLanguageLevels(tempLanguageLevels);
                   }}
                 >

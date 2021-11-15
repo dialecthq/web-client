@@ -3,8 +3,8 @@ import styled from "styled-components";
 import { Button } from "antd";
 import strings from "../../../utils/data/strings";
 
-import SignIn from "../common/SignIn";
-import SignUp from "../common/SignUp";
+// import SignIn from "../common/SignIn";
+// import SignUp from "../common/SignUp";
 
 const Container = styled.div`
   width: 100%;
@@ -99,7 +99,7 @@ const Hero = () => {
           </Button>
         </Wrapper>
       </Container>
-      <SignUp
+      {/* <SignUp
         visible={signUpVisible}
         setVisible={setSignUpVisible}
         setSignInVisible={setSignInVisible}
@@ -108,7 +108,7 @@ const Hero = () => {
         visible={signInVisible}
         setVisible={setSignInVisible}
         setSignUpVisible={setSignUpVisible}
-      />
+      /> */}
     </>
   );
 };

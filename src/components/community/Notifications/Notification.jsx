@@ -3,7 +3,6 @@ import styled from "styled-components";
 import { Input } from "antd";
 import Avatar from "../../common/Avatar";
 import axios from "axios";
-import UserContainer from "../../../utils/state/userContainer";
 import Link from "next/link";
 import FeedLoading from "../../community/Feed/FeedLoading";
 import * as months from "../../../utils/data/months.json";
@@ -124,7 +123,6 @@ const ReplyTo = styled.p`
 `;
 
 const FeedPost = ({ initialPost }) => {
-  const { user } = UserContainer.useContainer();
   const [post, setPost] = useState(initialPost);
   const [loading, setLoading] = useState(true);
 

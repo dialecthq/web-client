@@ -4,7 +4,6 @@ import styled from "styled-components";
 import axios from "axios";
 
 import { Helmet } from "react-helmet";
-import UserContainer from "../../../utils/state/userContainer";
 
 import Nav from "../../../components/community/Nav/Nav";
 import Feed from "../../../components/community/Feed/Feed";
@@ -42,8 +41,6 @@ const Info = styled.div`
 `;
 
 const Post = ({ post }) => {
-  const { user, loading } = UserContainer.useContainer();
-
   return (
     <Container>
       <Wrapper>
@@ -66,7 +63,6 @@ export async function getServerSideProps(context) {
   );
 
   if (!result.data) {
-    console.log(result.data);
     return {
       notFound: true,
     };

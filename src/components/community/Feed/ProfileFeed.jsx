@@ -8,7 +8,6 @@ const ProfileFeed = ({ profile }) => {
   const [posts, setPosts] = useState([]);
   const [last, setLast] = useState("");
   const [loading, setLoading] = useState(false);
-  console.log(profile.id);
   const getPosts = () => {
     setLoading(true);
     axios

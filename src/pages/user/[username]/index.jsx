@@ -4,11 +4,14 @@ import styled from "styled-components";
 import axios from "axios";
 
 import { Helmet } from "react-helmet";
-import UserContainer from "../../../utils/state/userContainer";
+import { useUser } from "@auth0/nextjs-auth0";
 
 import Nav from "../../../components/community/Nav/Nav";
 import Feed from "../../../components/community/Feed/Feed";
 import Profile from "../../../components/community/Profile/Profile";
+import Loading from "../../../components/common/Loading";
+import { context } from "rc-image/lib/PreviewGroup";
+import FeedLoading from "../../../components/community/Feed/FeedLoading";
 
 const Container = styled.div`
   display: flex;
@@ -41,49 +44,55 @@ const Info = styled.div`
   }
 `;
 
-const Post = ({ profile }) => {
-  const { user, setUser, loading } = UserContainer.useContainer();
+const Post = () => {
+  const { user, isLoading, error } = useUser();
   const router = useRouter();
+  const { username } = router.query;
+  const [loading, setLoading] = useState(false);
+  const [profile, setProfile] = useState(null);
+
+  useEffect(async () => {
+    setLoading(true);
+    const result = await axios.get(
+      "http://localhost:3000/api/community/query_user",
+      {
+        params: {
+          username: username,
+        },
+      }
+    );
+    setLoading(true);
+    setProfile(result.data);
+  });
 
   useEffect(() => {
-    if (!user && !loading) {
+    if (!user && !isLoading) {
       router.push("/");
     }
   });
 
-  return (
-    <Container>
-      <Wrapper>
-        <Nav />
-        <Profile profile={user.id === profile.id ? user : profile} />
-      </Wrapper>
-    </Container>
-  );
-};
-
-export async function getServerSideProps(context) {
-  console.log(context);
-  const { username } = context.params;
-  const result = await axios.get(
-    "http://localhost:3000/api/community/query_user",
-    {
-      params: {
-        username: username,
-      },
-    }
-  );
-
-  if (!result) {
-    return {
-      notFound: true,
-    };
+  if (user && !isLoading) {
+    return (
+      <Container>
+        <Wrapper>
+          <Nav />
+          {profile ? (
+            <Profile
+              profile={
+                user.app_metadata.id === profile.id
+                  ? user.app_metadata
+                  : profile
+              }
+            />
+          ) : (
+            <FeedLoading />
+          )}
+        </Wrapper>
+      </Container>
+    );
+  } else {
+    return null;
   }
-
-  return {
-    props: {
-      profile: result.data,
-    }, // will be passed to the page component as props
-  };
-}
+};
 
 export default Post;

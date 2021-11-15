@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import Avatar from "../../common/Avatar";
 import { useState } from "react";
-import UserContainer from "../../../utils/state/userContainer";
+import { useUser } from "@auth0/nextjs-auth0";
 import axios from "axios";
 import UnfollowButton from "../Profile/UnfollowButton";
 import FollowButton from "../Profile/FollowButton";
@@ -81,11 +81,12 @@ const FollowerCount = styled.p`
 `;
 
 const Popover = ({ profile }) => {
-  console.log(profile.followers);
-  const { user } = UserContainer.useContainer();
-  const isMyAccount = profile.id === user.id;
+  const { user, isLoading, error } = useUser();
+  const isMyAccount = profile.id === user.app_metadata.id;
   const [isFollowing, setIsFollowing] = useState(
-    profile.followers ? profile.followers.some((e) => e.id === user.id) : false
+    profile.followers
+      ? profile.followers.some((e) => e.id === user.app_metadata.id)
+      : false
   );
   const [followers, setFollowers] = useState(
     profile.followers ? profile.followers.length : 0
@@ -95,7 +96,10 @@ const Popover = ({ profile }) => {
     setIsFollowing(true);
     setFollowers(followers + 1);
     try {
-      await axios.post("/api/community/follow", { profile, user });
+      await axios.post("/api/community/follow", {
+        profile,
+        user: user.app_metadata,
+      });
     } catch (e) {
       message.error({
         content: "could not follow user",
@@ -113,7 +117,10 @@ const Popover = ({ profile }) => {
   const unfollow = async () => {
     setIsFollowing(false);
     setFollowers(followers - 1);
-    await axios.post("/api/community/unfollow", { profile, user });
+    await axios.post("/api/community/unfollow", {
+      profile,
+      user: user.app_metadata,
+    });
   };
 
   return (

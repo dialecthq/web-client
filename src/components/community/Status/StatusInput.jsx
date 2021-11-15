@@ -1,7 +1,7 @@
 import { useState } from "react";
 import styled from "styled-components";
 import { Input, Tooltip } from "antd";
-import UserContainer from "../../../utils/state/userContainer";
+import { useUser } from "@auth0/nextjs-auth0";
 import Avatar from "../../common/Avatar";
 import PostButton from "../Feed/PostButton";
 import axios from "axios";
@@ -85,12 +85,12 @@ const RowGroup = styled.div`
 `;
 
 const FeedInput = ({ post, posts, setPosts }) => {
-  const { user } = UserContainer.useContainer();
+  const { user, isLoading, error } = useUser();
   const [content, setContent] = useState(post.body);
   const [type, setType] = useState("reply");
   return (
     <FeedInputContainer>
-      <Avatar user={user} size={48} />
+      <Avatar user={user.app_metadata} size={48} />
       <InputWrapper>
         <CorrectionTitle>
           <ReplyTo>
@@ -138,7 +138,7 @@ const FeedInput = ({ post, posts, setPosts }) => {
               const newPost = await axios.post(
                 "http://localhost:3000/api/community/reply",
                 {
-                  authorId: user.id,
+                  authorId: user.app_metadata.id,
                   body: content,
                   postId: post.id,
                   originalAuthorId: post.authorId,

@@ -1,10 +1,11 @@
 import styled from "styled-components";
-import UserContainer from "../../../utils/state/userContainer";
+import { useUser } from "@auth0/nextjs-auth0";
 import Avatar from "../../common/Avatar";
 import { HiDotsHorizontal, HiOutlineDotsHorizontal } from "react-icons/hi";
 import { Popover } from "antd";
 import { useRouter } from "next/router";
 import axios from "axios";
+import { signOut } from "next-auth/react";
 
 const NavButtonContainer = styled.div`
   display: flex;
@@ -80,7 +81,7 @@ const LogoutButton = styled.div`
 `;
 
 const ProfileButton = () => {
-  const { user, setUser } = UserContainer.useContainer();
+  const { user, isLoading, error } = useUser();
   const router = useRouter();
   return (
     <Popover
@@ -88,19 +89,19 @@ const ProfileButton = () => {
       content={
         <LogoutButton
           onClick={async () => {
-            router.push("/logout");
+            signOut({ redirect: "http://localhost:3000/" });
           }}
         >
-          <p>Logout @{user.username}</p>
+          <p>Logout @{user.app_metadata.username}</p>
         </LogoutButton>
       }
       title={null}
     >
       <NavButtonContainer>
-        <Avatar user={user} size={48} />
+        <Avatar user={user.app_metadata} size={48} />
         <InfoContainer>
-          <Name>{user.name}</Name>
-          <Username>@{user.username}</Username>
+          <Name>{user.app_metadata.name}</Name>
+          <Username>@{user.app_metadata.username}</Username>
         </InfoContainer>
         <Icon size={18} color="#000" />
       </NavButtonContainer>
