@@ -13,7 +13,7 @@ import {
 } from "react-icons/hi";
 
 import { FaTimesCircle } from "react-icons/fa";
-import { useUser } from "@auth0/nextjs-auth0";
+import UserContainer from "../../../utils/state/UserContainer";
 import Link from "next/link";
 import FeedLoading from "../../community/Feed/FeedLoading";
 import * as months from "../../../utils/data/months.json";
@@ -182,7 +182,7 @@ const FeedPost = ({
   setPosts,
   redirectOnDelete,
 }) => {
-  const { user, isLoading, error } = useUser();
+  const { user } = UserContainer.useContainer();
   const router = useRouter();
   const [post, setPost] = useState(initialPost);
   const [loading, setLoading] = useState(true);

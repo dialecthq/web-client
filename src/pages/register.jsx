@@ -9,6 +9,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import Page1 from "../components/landing/register/page1";
 import Page2 from "../components/landing/register/page2";
 import Page3 from "../components/landing/register/page3";
+import Page4 from "../components/landing/register/page4";
 
 const Container = styled.div`
   height: 100vh;
@@ -44,6 +45,8 @@ const Register = () => {
     password: null,
     targetLanguage: null,
     targetLanguageLevel: null,
+    nativeLanguage: null,
+    nativeLanguageLevel: 7,
   });
   return (
     <Container>
@@ -124,7 +127,7 @@ const Register = () => {
                 width: "100%",
               }}
             >
-              <p>2</p>
+              <Page4 setPage={setPage} info={info} setInfo={setInfo} />
             </motion.div>
           )}
         </AnimatePresence>

@@ -2,7 +2,7 @@ import styled from "styled-components";
 import NotificationsHeader from "./NotificationsHeader";
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { useUser } from "@auth0/nextjs-auth0";
+import UserContainer from "../../../utils/state/userContainer";
 import Notification from "./Notification";
 import FeedLoading from "../Feed/FeedLoading";
 
@@ -27,7 +27,7 @@ const FeedWrapper = styled.div`
 const Profile = () => {
   const [notifications, setNotifications] = useState([]);
   const [loading, setLoading] = useState(true);
-  const { user, isLoading, error } = useUser();
+  const { user } = UserContainer.useContainer();
 
   useEffect(async () => {
     const result = await axios.get(

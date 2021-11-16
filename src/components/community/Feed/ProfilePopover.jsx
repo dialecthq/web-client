@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import Avatar from "../../common/Avatar";
 import { useState } from "react";
-import { useUser } from "@auth0/nextjs-auth0";
+import UserContainer from "../../../utils/state/userContainer";
 import axios from "axios";
 import UnfollowButton from "../Profile/UnfollowButton";
 import FollowButton from "../Profile/FollowButton";
@@ -81,7 +81,7 @@ const FollowerCount = styled.p`
 `;
 
 const Popover = ({ profile }) => {
-  const { user, isLoading, error } = useUser();
+  const { user } = UserContainer.useContainer();
   const isMyAccount = profile.id === user.app_metadata.id;
   const [isFollowing, setIsFollowing] = useState(
     profile.followers

@@ -3,7 +3,7 @@ import styled from "styled-components";
 import NavButton from "./NavButton";
 import PrimaryButton from "./PrimaryButton";
 import ProfileButton from "./ProfileButton";
-import { useUser } from "@auth0/nextjs-auth0";
+import UserContainer from "../../../utils/state/userContainer";
 import { useRouter } from "next/router";
 import PostModal from "./PostModal";
 import { useEffect, useState } from "react";
@@ -92,7 +92,7 @@ const Nav = () => {
   const router = useRouter();
   const [visible, setVisible] = useState(false);
 
-  const { user, isLoading, error } = useUser();
+  const { user } = UserContainer.useContainer();
 
   return (
     <NavContainer>

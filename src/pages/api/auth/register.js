@@ -1,26 +1,30 @@
 import prisma from "../../../utils/prisma";
-import { hash } from "bcryptjs";
+import fire from "../../../utils/fire";
 
 async function handler(req, res) {
   if (req.method === "POST") {
-    const {
-      name,
-      email,
-      languageKeys,
-      languageLevels,
-      countryFrom,
-      username,
-      password,
-    } = req.body;
-    const pass = await hash(password, 12);
+    const { name, email, languageKeys, languageLevels, username, password } =
+      req.body;
+    console.log(req.body);
+
+    const userCredential = await fire
+      .auth()
+      .createUserWithEmailAndPassword(email, password);
+
+    if (!userCredential) {
+      res.status(500);
+      return;
+    }
+
     const user = await prisma.user.create({
       data: {
+        id: userCredential.user.uid,
         name: name,
         email: email,
-        languageKeys: [1, 3],
-        languageLevels: [7, 1],
-        countryFrom: countryFrom,
+        languageKeys: languageKeys,
+        languageLevels: languageLevels,
         username: username,
+        tokens: 10,
       },
     });
 

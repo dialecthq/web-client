@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { Button } from "antd";
 import strings from "../../../utils/data/strings";
+import { useRouter } from "next/router";
 
 // import SignIn from "../common/SignIn";
 // import SignUp from "../common/SignUp";
@@ -77,8 +78,7 @@ const Mobile = styled.p`
 `;
 
 const Hero = () => {
-  const [signInVisible, setSignInVisible] = useState(false);
-  const [signUpVisible, setSignUpVisible] = useState(false);
+  const router = useRouter();
   const arr = strings.theBest.split("HDHKA");
   return (
     <>
@@ -93,7 +93,7 @@ const Hero = () => {
           <Button
             type="primary"
             style={{ marginTop: 30, height: 50, width: 120 }}
-            onClick={() => setSignUpVisible(true)}
+            onClick={() => router.push("/register")}
           >
             {strings.getStarted}
           </Button>

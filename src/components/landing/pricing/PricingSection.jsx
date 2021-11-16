@@ -9,6 +9,7 @@ import Image from "next/image";
 import { loadStripe } from "@stripe/stripe-js";
 
 import axios from "axios";
+import { useRouter } from "next/router";
 
 const stripePromise = loadStripe(
   process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
@@ -195,9 +196,8 @@ const BulletText = styled.p`
   font-weight: 400;
 `;
 const PricingSection = () => {
+  const router = useRouter();
   const [yearly, setYearly] = useState(false);
-  const [signInVisible, setSignInVisible] = useState(false);
-  const [signUpVisible, setSignUpVisible] = useState(false);
 
   const price = yearly ? Math.ceil(8 * 12 * 0.8) : 8;
   return (
@@ -251,7 +251,7 @@ const PricingSection = () => {
                   block
                   type="primary"
                   style={{ height: 40 }}
-                  onClick={() => setSignUpVisible(true)}
+                  onClick={() => router.push("/register")}
                 >
                   Get Started
                 </Button>
@@ -304,16 +304,6 @@ const PricingSection = () => {
           </PriceContainer>
         </Wrapper>
       </Container>
-      {/* <SignUp
-        visible={signUpVisible}
-        setVisible={setSignUpVisible}
-        setSignInVisible={setSignInVisible}
-      />
-      <SignIn
-        visible={signInVisible}
-        setVisible={setSignInVisible}
-        setSignUpVisible={setSignUpVisible}
-      /> */}
     </>
   );
 };

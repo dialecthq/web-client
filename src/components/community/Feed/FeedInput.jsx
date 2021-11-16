@@ -4,7 +4,7 @@ import { Input } from "antd";
 import Avatar from "../../common/Avatar";
 import PostButton from "./PostButton";
 import axios from "axios";
-import { useUser } from "@auth0/nextjs-auth0";
+import UserContainer from "../../../utils/state/userContainer";
 
 const FeedInputContainer = styled.div`
   display: flex;
@@ -34,7 +34,7 @@ const FeedInput = ({
   setLast,
   modal,
 }) => {
-  const { user, isLoading, error } = useUser();
+  const { user } = UserContainer.useContainer();
   const [content, setContent] = useState("");
   return (
     <FeedInputContainer style={style}>

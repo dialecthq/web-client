@@ -1,7 +1,7 @@
 import { useState } from "react";
 import styled from "styled-components";
 import { Input, Tooltip } from "antd";
-import { useUser } from "@auth0/nextjs-auth0";
+import UserContainer from "../../../utils/state/userContainer";
 import Avatar from "../../common/Avatar";
 import PostButton from "../Feed/PostButton";
 import axios from "axios";
@@ -85,7 +85,7 @@ const RowGroup = styled.div`
 `;
 
 const FeedInput = ({ post, posts, setPosts }) => {
-  const { user, isLoading, error } = useUser();
+  const { user } = UserContainer.useContainer();
   const [content, setContent] = useState(post.body);
   const [type, setType] = useState("reply");
   return (

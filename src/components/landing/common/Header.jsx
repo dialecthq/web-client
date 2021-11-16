@@ -24,8 +24,9 @@ const Container = styled.div`
   background: ${(p) => (p.scrollState ? "#fff" : "transparent")};
   position: fixed;
   z-index: 5;
-  transition: 0.15s all ease-out;
-  border-bottom: ${(p) => (p.scrollState ? "1px solid #d4d4d4" : "none")};
+  transition: 0.2s border ease-out;
+  border-bottom: ${(p) =>
+    p.scrollState ? "1px solid #ededed" : "1px solid #fff"};
 `;
 
 const Wrapper = styled.div`
@@ -105,14 +106,11 @@ const MenuButton = styled.div`
 `;
 
 const Header = () => {
-  const { stateUser } = UserContainer.useContainer();
-  console.log("header user", stateUser);
+  const { user } = UserContainer.useContainer();
   const { language, setLanguage } = LanguageContainer.useContainer();
   const router = useRouter();
-
-  const [signUpVisible, setSignUpVisible] = useState(false);
-  const [menuVisible, setMenuVisible] = useState(false);
   const [scrollState, setScrollState] = useState(false);
+  const [menuVisible, setMenuVisible] = useState(false);
 
   useEffect(() => {
     const listener = document.addEventListener("scroll", (e) => {
@@ -141,7 +139,7 @@ const Header = () => {
             </Link>
           </HeaderSection>
           <HeaderSection desktop>
-            {!stateUser ? (
+            {!user ? (
               <>
                 <Button
                   style={{
@@ -151,7 +149,7 @@ const Header = () => {
                     fontWeight: "600",
                   }}
                   onClick={() => {
-                    router.push("/api/auth/login");
+                    router.push("/login");
                   }}
                   type="text"
                 >
@@ -164,7 +162,7 @@ const Header = () => {
                   }}
                   type="primary"
                   onClick={() => {
-                    setSignUpVisible(true);
+                    router.push("/register");
                   }}
                 >
                   {strings.getStarted.capitalize()}
@@ -179,7 +177,7 @@ const Header = () => {
                     marginRight: 10,
                   }}
                   onClick={async () => {
-                    router.push("/api/auth/logout");
+                    router.push("/logout");
                   }}
                   type="text"
                 >
@@ -227,7 +225,7 @@ const Header = () => {
         >
           <ButtonText>{strings.pricing.capitalize()}</ButtonText>
         </MenuButton> */}
-        {!stateUser ? (
+        {!user ? (
           <>
             <Button
               block
@@ -239,7 +237,7 @@ const Header = () => {
               }}
               onClick={() => {
                 setMenuVisible(false);
-                router.push("/api/auth/login");
+                router.push("/login");
               }}
             >
               <ButtonText>{strings.logIn.capitalize()}</ButtonText>
@@ -254,7 +252,7 @@ const Header = () => {
               type="primary"
               onClick={() => {
                 setMenuVisible(false);
-                setSignUpVisible(true);
+                router.push("/register");
               }}
             >
               <ButtonText>{strings.getStarted.capitalize()}</ButtonText>
@@ -272,8 +270,7 @@ const Header = () => {
               }}
               onClick={() => {
                 setMenuVisible(false);
-                signOut();
-                // router.push("/logout");
+                router.push("/logout");
               }}
             >
               <ButtonText>{strings.signOut.capitalize()}</ButtonText>

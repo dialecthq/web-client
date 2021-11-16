@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { Helmet } from "react-helmet";
 import { Skeleton } from "antd";
 import rooms from "../utils/data/rooms";
-import { UserContext, useUser } from "@auth0/nextjs-auth0";
+import UserContainer from "../utils/state/userContainer";
 import LanguageContainer from "../utils/state/languageContainer";
 import strings from "../utils/data/strings";
 import Loading from "../components/common/Loading";
@@ -34,28 +34,18 @@ const Wrapper = styled.div`
 `;
 
 const Home = () => {
-  const { user, isLoading, error } = useUser();
+  const { user } = UserContainer.useContainer();
   const { language } = LanguageContainer.useContainer();
   const router = useRouter();
 
-  useEffect(() => {
-    if (!user && !isLoading) {
-      router.push("/");
-    }
-  }, [user]);
-
-  if (user && !isLoading) {
-    return (
-      <Container>
-        <Wrapper>
-          <Nav />
-          <Feed />
-        </Wrapper>
-      </Container>
-    );
-  } else {
-    return <Loading />;
-  }
+  return (
+    <Container>
+      <Wrapper>
+        <Nav />
+        <Feed />
+      </Wrapper>
+    </Container>
+  );
 };
 
 export default Home;

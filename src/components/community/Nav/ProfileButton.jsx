@@ -1,11 +1,10 @@
 import styled from "styled-components";
-import { useUser } from "@auth0/nextjs-auth0";
+import UserContainer from "../../../utils/state/userContainer";
 import Avatar from "../../common/Avatar";
 import { HiDotsHorizontal, HiOutlineDotsHorizontal } from "react-icons/hi";
 import { Popover } from "antd";
 import { useRouter } from "next/router";
 import axios from "axios";
-import { signOut } from "next-auth/react";
 
 const NavButtonContainer = styled.div`
   display: flex;
@@ -81,7 +80,7 @@ const LogoutButton = styled.div`
 `;
 
 const ProfileButton = () => {
-  const { user, isLoading, error } = useUser();
+  const { user } = UserContainer.useContainer();
   const router = useRouter();
   return (
     <Popover
@@ -89,7 +88,7 @@ const ProfileButton = () => {
       content={
         <LogoutButton
           onClick={async () => {
-            signOut({ redirect: "http://localhost:3000/" });
+            router.push("/logout");
           }}
         >
           <p>Logout @{user.app_metadata.username}</p>

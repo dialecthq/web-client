@@ -47,7 +47,7 @@ const page2 = ({ setPage, info, setInfo }) => {
           style={{ width: "100%" }}
           onFinish={() => {
             let tempInfo = { ...info };
-            tempInfo.username = password;
+            tempInfo.password = password;
             tempInfo.email = email;
             setInfo(tempInfo);
             setPage(2);

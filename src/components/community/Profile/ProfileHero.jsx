@@ -14,7 +14,7 @@ import {
 } from "react-icons/hi";
 import * as languages from "../../../utils/data/languages.json";
 import * as countries from "../../../utils/data/countries.json";
-import { useUser } from "@auth0/nextjs-auth0";
+import UserContainer from "../../../utils/state/userContainer";
 import { useState } from "react";
 import EditModal from "./EditModal";
 import { FaTimesCircle } from "react-icons/fa";
@@ -119,7 +119,7 @@ const levels = {
 };
 
 const ProfileHero = ({ profile }) => {
-  const { user, isLoading, error } = useUser();
+  const { user } = UserContainer.useContainer();
   const isMyAccount = profile.id === user.app_metadata.id;
   const [isFollowing, setIsFollowing] = useState(
     profile.followers

@@ -6,7 +6,7 @@ import FeedPost from "./FeedPost";
 import FeedLoading from "./FeedLoading";
 import GetMorePosts from "./GetMorePosts";
 import axios from "axios";
-import { useUser } from "@auth0/nextjs-auth0";
+import UserContainer from "../../../utils/state/userContainer";
 
 const FeedContainer = styled.div`
   display: flex;
@@ -65,7 +65,7 @@ const post = {
 };
 
 const Feed = () => {
-  const { user, isLoading, error } = useUser();
+  const { user } = UserContainer.useContainer();
   const nativeIndex = user.app_metadata.languageLevels.indexOf(7);
   const [posts, setPosts] = useState([]);
   const [last, setLast] = useState(0);

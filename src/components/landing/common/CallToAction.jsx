@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { Button } from "antd";
 import strings from "../../../utils/data/strings";
+import { useRouter } from "next/router";
 // import SignUp from "./SignUp"
 // import SignIn from "./SignIn"
 
@@ -55,8 +56,7 @@ const Emphasized = styled.span`
 `;
 
 const CallToAction = () => {
-  const [signInVisible, setSignInVisible] = useState(false);
-  const [signUpVisible, setSignUpVisible] = useState(false);
+  const router = useRouter();
 
   return (
     <>
@@ -68,23 +68,13 @@ const CallToAction = () => {
             type="primary"
             style={{ marginTop: 30, height: 50, width: 120 }}
             onClick={() => {
-              setSignUpVisible(true);
+              router.push("/register");
             }}
           >
             {strings.getStarted.capitalize()}
           </Button>
         </Wrapper>
       </Container>
-      {/* <SignIn
-        visible={signInVisible}
-        setVisible={setSignInVisible}
-        setSignUpVisible={setSignUpVisible}
-      />
-      <SignUp
-        visible={signUpVisible}
-        setVisible={setSignUpVisible}
-        setSignInVisible={setSignInVisible}
-      /> */}
     </>
   );
 };
